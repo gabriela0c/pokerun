@@ -34,7 +34,9 @@ void GerenciadorEvento::destruir()
 
 void GerenciadorEvento::setJogador(Pokerun::Entidades::Personagens::Jogador* jog) 
 {
-    pJogador = jog;
+    if(jog){
+        pJogador = jog;
+    }
 }
 
 void GerenciadorEvento::executar() {
@@ -43,6 +45,9 @@ void GerenciadorEvento::executar() {
     {
         if (event->getIf<sf::Event::Closed>()) 
         {
+            pGrafico->getWindow()->close();
+        }
+        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
             pGrafico->getWindow()->close();
         }
     }

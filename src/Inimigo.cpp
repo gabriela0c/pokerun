@@ -1,9 +1,13 @@
 #include "Inimigo.h"
 
 Pokerun::Entidades::Personagens::Inimigo::Inimigo():
-Personagem(sf::RectangleShape({TAM_INIM_X, TAM_INIM_Y}), {VEL_INIM_X, VEL_INIM_Y}), jogador(nullptr), relogio(), moveAleatorio(rand()%4), tempoMovimento(0.0f)
+Personagem(sf::RectangleShape({TAM_INIM_X, TAM_INIM_Y}), {VEL_INIM_X, VEL_INIM_Y}), jogador(nullptr), moveAleatorio(rand()%4), tempoMovimento(0.0f)
 {
-    corpo.setPosition({POS0_INIM_X, POS0_INIM_Y});
+    float pos_x = (float)(rand() % (int)(801 - TAM_INIM_X));//randomizacao das pos iniciais dos inimigos a subtracao
+    float pos_y = (float)(rand() % (int)(601 - TAM_INIM_Y));//foi feita para garantir que ele nao nasca fora da tela
+                                                            
+    corpo.setPosition({pos_x, pos_y});
+
     corpo.setFillColor(sf::Color::Red);
 }
 

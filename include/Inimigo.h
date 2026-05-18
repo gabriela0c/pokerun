@@ -12,9 +12,6 @@
 #define TAM_INIM_X 40.0f
 #define TAM_INIM_Y 40.0f
 
-#define POS0_INIM_X 300.0f
-#define POS0_INIM_Y 300.0f
-
 #define RAIO_X 200.0f
 #define RAIO_Y 200.0f
 
@@ -27,9 +24,9 @@ namespace Pokerun{
             class Inimigo : public Personagem{
             protected:
                 const Jogador* jogador;
-                sf::Clock relogio;
                 short int moveAleatorio;
                 float tempoMovimento;
+                //outro clock aqui era redundante ja que personagem ja tem um relogio
 
             public:
                 Inimigo();

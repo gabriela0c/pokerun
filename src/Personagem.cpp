@@ -1,9 +1,9 @@
 #include "Personagem.h"
 
 Pokerun::Entidades::Personagens::Personagem::Personagem(const sf::RectangleShape crp, const sf::Vector2f v):
-corpo(crp), vel(v), relogio(), dt(0.0f)
+corpo(crp), vel(v), direcao({0.0f, 0.0f}), relogio(), dt(0.0f)
 {
-    direcao = {0.0f, 0.0f};
+    
 }
 
 Pokerun::Entidades::Personagens::Personagem::~Personagem()
