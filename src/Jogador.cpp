@@ -14,8 +14,6 @@ Pokerun::Entidades::Personagens::Jogador::~Jogador()
 
 void Pokerun::Entidades::Personagens::Jogador::atualizar()
 {
-    if(podeAndar){
-        atualizarPosicao();
-    }
+    atualizarPosicao();
     relogio.restart();
 }

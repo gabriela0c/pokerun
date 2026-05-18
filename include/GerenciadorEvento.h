@@ -1,32 +1,29 @@
 #pragma once
 
-#include "GerenciadorGrafico.h"
+#include <SFML/Graphics.hpp>
 #include "Jogador.h"
+#include "GerenciadorGrafico.h"
 
-namespace Pokerun{
-    
-    namespace Gerenciadores{
+namespace Pokerun {
 
-        class GerenciadorEvento{
+    namespace Gerenciadores {
+
+        class GerenciadorEvento {
         private:
+            static GerenciadorEvento* pEvento; 
             GerenciadorGrafico* pGrafico;
             Entidades::Personagens::Jogador* pJogador;
 
-            static GerenciadorEvento* pEvento;
-
-        private:
-            GerenciadorEvento();
-
+            GerenciadorEvento(); //construtor privado para evitar que outra classe crie um novo
         public:
             ~GerenciadorEvento();
-            static void destruir();
 
             static GerenciadorEvento* getGerenciadorEvento();
+            static void destruir();
 
-            void setJogador(Entidades::Personagens::Jogador* pjog);
-            void verificaTeclaPressionada(sf::Keyboard::Key tecla);
-            void verificaTeclaSolta(sf::Keyboard::Key tecla);
+            void setJogador(Entidades::Personagens::Jogador* jog);
             void executar();
         };
+
     }
 }

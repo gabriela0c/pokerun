@@ -1,9 +1,9 @@
 #include "Inimigo.h"
 
 Pokerun::Entidades::Personagens::Inimigo::Inimigo():
-Personagem(sf::RectangleShape({TAM_INIM_X, TAM_INIM_Y}), {VEL_INIM_X, VEL_INIM_Y}), jogador(nullptr), relogio(), moveAleatorio(rand()%4)
+Personagem(sf::RectangleShape({TAM_INIM_X, TAM_INIM_Y}), {VEL_INIM_X, VEL_INIM_Y}), jogador(nullptr), relogio(), moveAleatorio(rand()%4), tempoMovimento(0.0f)
 {
-    corpo.setPosition({POS0_INIM_X, POS0_INIM_X});
+    corpo.setPosition({POS0_INIM_X, POS0_INIM_Y});
     corpo.setFillColor(sf::Color::Red);
 }
 
@@ -31,6 +31,8 @@ void Pokerun::Entidades::Personagens::Inimigo::atualizar()
         return;
     }
 
+    dt = relogio.restart().asSeconds(); //evita que eles se movam muito rápido
+
     sf::Vector2f posJogador = jogador->getCorpo().getPosition();
     sf::Vector2f posInimigo = corpo.getPosition();
 
@@ -45,39 +47,38 @@ void Pokerun::Entidades::Personagens::Inimigo::atualizar()
 void Pokerun::Entidades::Personagens::Inimigo::movimentoAleatorio()
 {
     if(moveAleatorio == 0){
-        corpo.move({vel.x, 0.0f});
+        corpo.move({vel.x * dt, 0.0f});
     }
     else if(moveAleatorio == 1){
-        corpo.move({-vel.x, 0.0f});
+        corpo.move({-vel.x * dt, 0.0f});
     }
     else if(moveAleatorio == 2){
-        corpo.move({0.0f, vel.y});
+        corpo.move({0.0f, vel.y * dt});
     }
     else{
-        corpo.move({0.0f, -vel.y});
+        corpo.move({0.0f, -vel.y * dt});
     }
+    tempoMovimento += dt;
 
-    float dt = relogio.getElapsedTime().asSeconds();
-
-    if(dt >= 0.5){
+    if(tempoMovimento >= 0.5f){
         moveAleatorio = rand()%4;
-        relogio.restart();
+        tempoMovimento = 0.0f;
     }
 }
 
 void Pokerun::Entidades::Personagens::Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo)
 {
     if(posJogador.x - posInimigo.x > 0.0f){
-        corpo.move({vel.x, 0.0f});
+        corpo.move({vel.x * dt, 0.0f});
     }
     else{
-        corpo.move({-vel.x, 0.0f});
+        corpo.move({-vel.x * dt, 0.0f});
     }
 
     if(posJogador.y - posInimigo.y > 0.0f){
-        corpo.move({0.0f, vel.y}); 
+        corpo.move({0.0f, vel.y * dt}); 
     }
     else{
-        corpo.move({0.0f, -vel.y});
+        corpo.move({0.0f, -vel.y * dt});
     }
 }

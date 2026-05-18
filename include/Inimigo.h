@@ -6,8 +6,8 @@
 
 #include "Jogador.h"
 
-#define VEL_INIM_X 0.05f
-#define VEL_INIM_Y 0.05f
+#define VEL_INIM_X 150.0f
+#define VEL_INIM_Y 150.0f
 
 #define TAM_INIM_X 40.0f
 #define TAM_INIM_Y 40.0f
@@ -29,6 +29,7 @@ namespace Pokerun{
                 const Jogador* jogador;
                 sf::Clock relogio;
                 short int moveAleatorio;
+                float tempoMovimento;
 
             public:
                 Inimigo();

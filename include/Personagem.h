@@ -15,8 +15,7 @@ namespace Pokerun{
             protected:
                 sf::RectangleShape corpo;
                 const sf::Vector2f vel;
-                bool podeAndar;
-                bool paraEsquerda;
+                sf::Vector2f direcao;
                 sf::Clock relogio;
                 float dt;
 
@@ -26,8 +25,7 @@ namespace Pokerun{
 
                 const sf::RectangleShape& getCorpo() const;
 
-                void andar(const bool pEsquerda);
-                void parar();
+                void setDirecao(sf::Vector2f dir);
                 void atualizarPosicao();
 
                 virtual void atualizar() = 0;
