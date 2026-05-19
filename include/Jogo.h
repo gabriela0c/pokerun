@@ -1,6 +1,8 @@
 
 #pragma once
 
+#include <vector>
+
 #include "Inimigo.h"
 #include "GerenciadorEvento.h"
 

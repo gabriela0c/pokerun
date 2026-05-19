@@ -1,5 +1,6 @@
 #pragma once
-
+//REMOVER O COMENTARIO DPS{Implementar aquele algoritimo do personagem que so eh utilizado para jogador aqui, 
+//criar um metodo mover para tal. Executar nao faria nada por enquanto imagino}
 #include "Personagem.h"
 
 #define VEL_JOG_X 200.0f
@@ -24,7 +25,7 @@ namespace Pokerun{
                 Jogador();
                 ~Jogador();
 
-                void atualizar();
+                void executar();
             };
         }
     }

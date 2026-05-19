@@ -1,9 +1,11 @@
 #pragma once
+//velocidade esta aqui pois eh comum a todos os personagens
+//REMOVER ESSE COMENTARIO DPS {seria mais interessante implementar o movimento do inimigo de maneira que ele
+//tambem aproveite essa funcao atualizar posicao, senao faria mais sentido criar um metodo generico
+//mover e implementar esse algoritimo na mover do jogador, e a mover do inimigo faz o que ja faz}
+#include "Entidade.h"
 
 #include <iostream>
-#include <vector>
-
-#include <SFML/Graphics.hpp>
 
 namespace Pokerun{
 
@@ -11,24 +13,21 @@ namespace Pokerun{
 
         namespace Personagens{
 
-            class Personagem{
+            class Personagem : public Entidade{
             protected:
-                sf::RectangleShape corpo;
                 const sf::Vector2f vel;
                 sf::Vector2f direcao;
                 sf::Clock relogio;
                 float dt;
 
             public:
-                Personagem(const sf::RectangleShape crp = sf::RectangleShape(), const sf::Vector2f v = {});
+                Personagem(const sf::Vector2f tam = {}, const sf::Vector2f v = {});
                 virtual ~Personagem();
-
-                const sf::RectangleShape& getCorpo() const;
 
                 void setDirecao(sf::Vector2f dir);
                 void atualizarPosicao();
 
-                virtual void atualizar() = 0;
+                virtual void executar() = 0;
             };
         }
     }

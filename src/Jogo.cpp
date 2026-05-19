@@ -49,7 +49,7 @@ void Pokerun::Jogo::executar()
         
         for(int i = 0; i < (int)Lpersonagens.size(); i++){
             if(Lpersonagens[i]){
-                Lpersonagens[i]->atualizar();
+                Lpersonagens[i]->executar();
                 pGrafico->getWindow()->draw(Lpersonagens[i]->getCorpo());
             }
         }
