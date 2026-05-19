@@ -1,23 +1,22 @@
 #include "jogo.h"
 
 Pokerun::Jogo::Jogo():
-pGrafico(Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico()), pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()), Lpersonagens()
+pGrafico(Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico()), pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()), Lentidades()
 {
-    Lpersonagens.clear();
     criarPersonagens();
     executar();
 }
 
 Pokerun::Jogo::~Jogo()
 {
-    for (int i = 0 ; i < (int)Lpersonagens.size(); i++){
-        if(Lpersonagens[i]){
-            delete Lpersonagens[i];
-            Lpersonagens[i] = nullptr;
-        }
-    }
+    auto* pAux = Lentidades.getPrimeiro();
 
-    Lpersonagens.clear();
+    while(pAux != nullptr){
+        if(pAux->getInfo()){
+            delete pAux->getInfo();
+        }
+        pAux = pAux->getProx();
+    }
 
     Gerenciadores::GerenciadorGrafico::destruir();
     Gerenciadores::GerenciadorEvento::destruir();
@@ -35,9 +34,9 @@ void Pokerun::Jogo::criarPersonagens()
     inimigo2->setJogador(jogador);
     
 
-    Lpersonagens.push_back(static_cast<Entidades::Personagens::Personagem*>(inimigo1));
-    Lpersonagens.push_back(static_cast<Entidades::Personagens::Personagem*>(inimigo2));
-    Lpersonagens.push_back(static_cast<Entidades::Personagens::Personagem*>(jogador));
+    Lentidades.incluir(static_cast<Entidades::Entidade*>(inimigo1));
+    Lentidades.incluir(static_cast<Entidades::Entidade*>(inimigo2));
+    Lentidades.incluir(static_cast<Entidades::Entidade*>(jogador));
 }
 
 void Pokerun::Jogo::executar()
@@ -46,12 +45,14 @@ void Pokerun::Jogo::executar()
         pGrafico->limpaJanela();
 
         pEvento->executar();
-        
-        for(int i = 0; i < (int)Lpersonagens.size(); i++){
-            if(Lpersonagens[i]){
-                Lpersonagens[i]->executar();
-                pGrafico->getWindow()->draw(Lpersonagens[i]->getCorpo());
+        Lentidades.percorrer();
+
+        auto* pAux = Lentidades.getPrimeiro();
+        while(pAux!=nullptr){
+            if(pAux->getInfo()){
+                pGrafico->desenhaElementos((pAux->getInfo())->getCorpo());
             }
+            pAux = pAux->getProx();
         }
 
         pGrafico->mostraElementos();

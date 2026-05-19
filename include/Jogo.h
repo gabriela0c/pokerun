@@ -1,8 +1,7 @@
 
 #pragma once
 
-#include <vector>
-
+#include "ListaEntidades.h"
 #include "Inimigo.h"
 #include "GerenciadorEvento.h"
 
@@ -12,7 +11,7 @@ namespace Pokerun{
     private:
         Gerenciadores::GerenciadorGrafico* pGrafico; 
         Gerenciadores::GerenciadorEvento* pEvento;
-        std::vector<Entidades::Personagens::Personagem*> Lpersonagens;
+        Listas::ListaEntidades Lentidades;
     public:
         Jogo();
         ~Jogo();

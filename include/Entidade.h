@@ -15,10 +15,11 @@ namespace Pokerun{
         public:
             Entidade(const sf::Vector2f tam = {0.0f, 0.0f});
             virtual ~Entidade();
-
-            const sf::RectangleShape& getCorpo()const;
-
-            virtual void executar() = 0; //nome alterado de atualizar para executar por requisito do diagrama
+           //sobrecarga de metodo necessaria porque draw da sfml 3 nao aceita referencias nao const
+            sf::RectangleShape& getCorpo(); 
+            const sf::RectangleShape& getCorpo()const; //essa eh necessaria porque pJogador em inimigo eh const 
+            
+            virtual void executar() = 0; 
         };
     }
 }

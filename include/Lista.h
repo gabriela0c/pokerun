@@ -48,6 +48,7 @@ namespace Pokerun{
                 void incluir(TL* p);
                 void remover(TL* p);
                 void limpar();
+                int getTam()const;
 
                 Elemento<TL>* getPrimeiro()const;
         };
@@ -130,6 +131,22 @@ namespace Pokerun{
             }
 
             pUltimo = nullptr;
+        }
+
+        template<class TL>
+        int Lista<TL>::getTam()const
+        {
+            Elemento<TL>* pAux = nullptr;
+            pAux = pPrimeiro;
+
+            int tam = 0;
+    
+            while(pAux != nullptr){
+                tam++;
+                pAux = pAux->getProx();
+            }
+
+            return tam;
         }
 
         template<class TL>

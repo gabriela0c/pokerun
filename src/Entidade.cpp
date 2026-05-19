@@ -11,8 +11,12 @@ Pokerun::Entidades::Entidade::~Entidade()
 
 }
 
-const sf::RectangleShape& Pokerun::Entidades::Entidade::getCorpo()const
+sf::RectangleShape& Pokerun::Entidades::Entidade::getCorpo()
 {
     return corpo;
 }
 
+const sf::RectangleShape& Pokerun::Entidades::Entidade::getCorpo()const
+{
+    return corpo;
+}

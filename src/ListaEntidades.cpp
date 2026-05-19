@@ -8,7 +8,7 @@ LEs()
 
 Pokerun::Listas::ListaEntidades::~ListaEntidades()
 {
-
+    
 }
 
 void Pokerun::Listas::ListaEntidades::incluir(Entidades::Entidade* pE)
@@ -18,9 +18,19 @@ void Pokerun::Listas::ListaEntidades::incluir(Entidades::Entidade* pE)
     }
 }
 
+Pokerun::Listas::Elem* Pokerun::Listas::ListaEntidades::getPrimeiro()const
+{
+    return LEs.getPrimeiro();
+}
+
+int Pokerun::Listas::ListaEntidades::getTam()const
+{
+    return LEs.getTam();
+}
+
 void Pokerun::Listas::ListaEntidades::percorrer()
 {
-    Lista<Entidades::Entidade>::Elemento<Entidades::Entidade>* pAux = LEs.getPrimeiro();
+    Elem* pAux = LEs.getPrimeiro();
 
     while(pAux != nullptr){
         
