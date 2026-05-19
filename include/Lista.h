@@ -97,7 +97,7 @@ namespace Pokerun{
                     pUltimo = nullptr;
                 }
                 delete pAux;
-                pAux = NULL;
+                pAux = nullptr;
                 return;
             }
             
@@ -109,7 +109,7 @@ namespace Pokerun{
                     }
                     pAux->setProx((pAux->getProx())->getProx());
                     delete pDel;
-                    pDel = NULL;
+                    pDel = nullptr;
                     return;
                 }
                 pAux = pAux->getProx();
@@ -126,7 +126,7 @@ namespace Pokerun{
                 pAux = pPrimeiro;
                 pPrimeiro = pPrimeiro->getProx();
                 delete pAux;
-                pAux = NULL;
+                pAux = nullptr;
             }
 
             pUltimo = nullptr;
