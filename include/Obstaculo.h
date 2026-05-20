@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Entidade.h"
-
-class Jogador;
+#include "Jogador.h"
 
 namespace Pokerun{
 
@@ -19,7 +18,7 @@ namespace Pokerun{
                 virtual ~Obstaculo();
 
                 virtual void executar() = 0;
-                virtual void obstaculizar(Jogador* pJog) = 0;
+                virtual void obstaculizar(Personagens::Jogador* pJog) = 0;
             };
         }
     }

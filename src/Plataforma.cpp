@@ -16,7 +16,7 @@ void Pokerun::Entidades::Obstaculos::Plataforma::executar()
 
 }
 
-void Pokerun::Entidades::Obstaculos::Plataforma::obstaculizar(Jogador* pJog)
+void Pokerun::Entidades::Obstaculos::Plataforma::obstaculizar(Personagens::Jogador* pJog)
 {
 
 }

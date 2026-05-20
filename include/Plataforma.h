@@ -20,7 +20,7 @@ namespace Pokerun{
                 ~Plataforma();
             
                 void executar();
-                void obstaculizar(Jogador* pJog);
+                void obstaculizar(Personagens::Jogador* pJog);
             };
         }
     }
