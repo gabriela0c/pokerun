@@ -25,6 +25,11 @@ const Pokerun::Entidades::Personagens::Jogador* Pokerun::Entidades::Personagens:
 
 void Pokerun::Entidades::Personagens::Inimigo::executar()
 {
+    mover();
+}
+
+void Pokerun::Entidades::Personagens::Inimigo::mover()
+{
     if(!pJogador) {
         std::cerr<<"Jogador Nulo"<<std::endl;
         return;

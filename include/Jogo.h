@@ -3,6 +3,8 @@
 
 #include "ListaEntidades.h"
 #include "Inimigo.h"
+#include "Obstaculo.h"
+#include "plataforma.h"
 #include "GerenciadorEvento.h"
 
 namespace Pokerun{

@@ -25,17 +25,23 @@ Pokerun::Jogo::~Jogo()
 void Pokerun::Jogo::criarPersonagens()
 {
     Entidades::Personagens::Jogador* jogador = new Entidades::Personagens::Jogador();
-    Entidades::Personagens::Inimigo* inimigo1 = new Entidades::Personagens::Inimigo();
-    Entidades::Personagens::Inimigo* inimigo2 = new Entidades::Personagens::Inimigo();
+
+    Entidades::Obstaculos::Plataforma* pPlat = nullptr;
+    for(int i = 0; i < 3; i++){
+        pPlat = new Entidades::Obstaculos::Plataforma();
+        Lentidades.incluir(static_cast<Entidades::Entidade*>(pPlat));
+        pPlat = nullptr;
+    }
+
+    Entidades::Personagens::Inimigo* pInim = nullptr;
+    for(int i = 0; i < 3; i++){
+        pInim = new Entidades::Personagens::Inimigo();
+        pInim->setJogador(jogador);
+        Lentidades.incluir(static_cast<Entidades::Entidade*>(pInim));
+        pInim = nullptr;
+    }
     
     pEvento->setJogador(jogador);
-    
-    inimigo1->setJogador(jogador);
-    inimigo2->setJogador(jogador);
-    
-
-    Lentidades.incluir(static_cast<Entidades::Entidade*>(inimigo1));
-    Lentidades.incluir(static_cast<Entidades::Entidade*>(inimigo2));
     Lentidades.incluir(static_cast<Entidades::Entidade*>(jogador));
 }
 

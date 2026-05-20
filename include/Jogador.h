@@ -1,6 +1,5 @@
 #pragma once
-//REMOVER O COMENTARIO DPS{Implementar aquele algoritimo do personagem que so eh utilizado para jogador aqui, 
-//criar um metodo mover para tal. Executar nao faria nada por enquanto imagino}
+
 #include "Personagem.h"
 
 #define VEL_JOG_X 200.0f
@@ -20,10 +19,15 @@ namespace Pokerun{
 
             class Jogador : public Personagem{
             protected:
+            sf::Vector2f direcao;
 
             public:
                 Jogador();
                 ~Jogador();
+
+                void mover();
+                void setDirecao(sf::Vector2f dir);
+                void atualizarPosicao();
 
                 void executar();
             };
