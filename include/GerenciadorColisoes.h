@@ -4,7 +4,7 @@
 #include <list>
 
 #include "Entidade.h"
-#include "Inimigo.h"
+#include "Inimigo.h" //inimigo inclui cmath
 #include "Obstaculo.h"
 #include "Plataforma.h"
 
@@ -24,6 +24,8 @@ namespace Pokerun{
 
             const bool verificarColisao(Entidades::Entidade* pe1, Entidades::Entidade* pe2)const;
             void tratarColisoesJogsObstacs();
+            void tratarColisoesJogsInims();
+            void tratarColisoesInimsObstacs();
 
             void setJogador(Entidades::Personagens::Jogador* pJ);
             void incluirInimigo(Entidades::Personagens::Inimigo* pI);

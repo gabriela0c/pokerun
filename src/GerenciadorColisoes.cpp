@@ -37,9 +37,33 @@ namespace Pokerun{
                 }
             }
 
-            const bool GerenciadorColisoes::verificarColisao(Entidades::Entidade* pe1, Entidades::Entidade* pe2)const
+            void GerenciadorColisoes::tratarColisoesJogsInims()
             {
 
+            }
+
+            void GerenciadorColisoes::tratarColisoesInimsObstacs()
+            {
+
+            }
+
+            const bool GerenciadorColisoes::verificarColisao(Entidades::Entidade* pe1, Entidades::Entidade* pe2)const
+            {
+                if(!pe1 || !pe2){return false;}
+                
+                sf::Vector2f pos1 = ((pe1->getCorpo()).getPosition());
+                sf::Vector2f pos2 = ((pe2->getCorpo()).getPosition());
+
+                sf::Vector2f tam1 = (pe1->getCorpo()).getSize();
+                sf::Vector2f tam2 = (pe2->getCorpo()).getSize();
+                //getCorpo retorna a posicao do canto superior esquerdo, nao do centro
+                sf::Vector2f centro1 = {pos1.x + (tam1.x/2), pos1.y + (tam1.y/2)};
+                sf::Vector2f centro2 = {pos2.x + (tam2.x/2), pos2.y + (tam2.y/2)};
+                
+                sf::Vector2f mediaTam = {(tam1.x + tam2.x)/2 , (tam1.y + tam2.y)/2};
+                sf::Vector2f distCentros = {std::abs(centro1.x - centro2.x), std::abs(centro1.y - centro2.y)};
+                //std::abs equivalente a fabs, so que sobrecarregado para retornar float, fabs retorna um double
+                return (distCentros.x < mediaTam.x && distCentros.y < mediaTam.y);
             }
 
             void GerenciadorColisoes::setJogador(Entidades::Personagens::Jogador* pJ)
