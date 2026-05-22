@@ -6,6 +6,7 @@
 #include "Obstaculo.h"
 #include "plataforma.h"
 #include "GerenciadorEvento.h"
+#include "GerenciadorColisoes.h"
 
 namespace Pokerun{
 
@@ -13,6 +14,7 @@ namespace Pokerun{
     private:
         Gerenciadores::GerenciadorGrafico* pGrafico; 
         Gerenciadores::GerenciadorEvento* pEvento;
+        Gerenciadores::GerenciadorColisoes gColisoes;
         Listas::ListaEntidades Lentidades;
     public:
         Jogo();

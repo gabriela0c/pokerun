@@ -18,6 +18,8 @@ namespace Pokerun{
            //sobrecarga de metodo necessaria porque draw da sfml 3 nao aceita referencias nao const
             sf::RectangleShape& getCorpo(); 
             const sf::RectangleShape& getCorpo()const; //essa eh necessaria porque pJogador em inimigo eh const 
+
+            void colidir(Entidade* pOutra);
             
             virtual void executar() = 0; 
         };

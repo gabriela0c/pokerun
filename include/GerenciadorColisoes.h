@@ -30,6 +30,8 @@ namespace Pokerun{
             void setJogador(Entidades::Personagens::Jogador* pJ);
             void incluirInimigo(Entidades::Personagens::Inimigo* pI);
             void incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO);
+
+            void executar();
         };
     }
 }

@@ -13,10 +13,14 @@ Pokerun::Entidades::Obstaculos::Plataforma::~Plataforma()
 
 void Pokerun::Entidades::Obstaculos::Plataforma::executar()
 {
-
+    
 }
 
-void Pokerun::Entidades::Obstaculos::Plataforma::obstaculizar(Personagens::Jogador* pJog)
+void Pokerun::Entidades::Obstaculos::Plataforma::obstaculizar(Entidades::Personagens::Jogador* pJog)
 {
-
+  if(pJog){
+    pJog->colidir(this);
+  }
+     
 }
+
