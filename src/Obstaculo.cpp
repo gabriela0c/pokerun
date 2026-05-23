@@ -1,12 +1,21 @@
 #include "Obstaculo.h"
 
-Pokerun::Entidades::Obstaculos::Obstaculo::Obstaculo(const sf::Vector2f tam, bool d):
-Entidade(tam), danoso(d)
-{
+namespace Pokerun{
 
-}
+    namespace Entidades{
 
-Pokerun::Entidades::Obstaculos::Obstaculo::~Obstaculo()
-{
+        namespace Obstaculos{
 
+           Obstaculo::Obstaculo(const sf::Vector2f tam, bool d):
+            Entidade(tam), danoso(d)
+            {
+
+            }
+
+            Obstaculo::~Obstaculo()
+            {
+
+            }
+        }
+    }
 }

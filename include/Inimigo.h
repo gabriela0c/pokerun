@@ -7,7 +7,6 @@
 #include "Jogador.h"
 
 #define VEL_INIM_X 150.0f
-#define VEL_INIM_Y 150.0f
 
 #define TAM_INIM_X 40.0f
 #define TAM_INIM_Y 40.0f
@@ -24,7 +23,7 @@ namespace Pokerun{
             class Inimigo : public Personagem{
             protected:
                 const Jogador* pJogador;
-                short int moveAleatorio;
+                int direcao;
                 float tempoMovimento;
 
             public:

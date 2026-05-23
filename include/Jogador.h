@@ -2,8 +2,7 @@
 
 #include "Personagem.h"
 
-#define VEL_JOG_X 200.0f
-#define VEL_JOG_Y 200.0f
+#define VEL_JOG_X 0.15f
 
 #define TAM_JOG_X 50.0f
 #define TAM_JOG_Y 50.0f
@@ -19,15 +18,17 @@ namespace Pokerun{
 
             class Jogador : public Personagem{
             protected:
-            sf::Vector2f direcao;
+            
 
             public:
                 Jogador();
                 ~Jogador();
 
                 void mover();
-                void setDirecao(sf::Vector2f dir);
-                void atualizarPosicao();
+                void pular();
+
+                void setVel(sf::Vector2f v);
+                bool colisao_posso_pular(Entidade* pOutra);
 
                 void executar();
             };

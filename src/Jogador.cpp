@@ -1,42 +1,59 @@
 #include "Jogador.h"
 
-Pokerun::Entidades::Personagens::Jogador::Jogador():
-Personagem({TAM_JOG_X, TAM_JOG_Y}, {VEL_JOG_X, VEL_JOG_Y}), direcao({0.0f, 0.0f})
-{
-   corpo.setPosition({POS0_JOG_X, POS0_JOG_Y});
-   corpo.setFillColor(sf::Color::Yellow);
-}
+namespace Pokerun{
 
-Pokerun::Entidades::Personagens::Jogador::~Jogador()
-{
+    namespace Entidades{
 
-}
+        namespace Personagens{
 
-void Pokerun::Entidades::Personagens::Jogador::mover()
-{
-    atualizarPosicao();
-    relogio.restart();
-}
+            Jogador::Jogador():
+            Personagem({TAM_JOG_X, TAM_JOG_Y}, {VEL_JOG_X, 0.0f})
+            {
+            corpo.setPosition({POS0_JOG_X, POS0_JOG_Y});
+            corpo.setFillColor(sf::Color::Yellow);
+            }
 
-void Pokerun::Entidades::Personagens::Jogador::executar()
-{
-    mover();
-}
+            Jogador::~Jogador()
+            {
 
-void Pokerun::Entidades::Personagens::Jogador::setDirecao(sf::Vector2f dir)
-{
-    direcao = dir;
-}
+            }
 
-void Pokerun::Entidades::Personagens::Jogador::atualizarPosicao()
-{
-    dt = relogio.getElapsedTime().asSeconds();
-    
-    //1 é p direita, -1 p esquerda e 0 parado
-    float dx = direcao.x * vel.x * dt;
-    float dy = direcao.y * vel.y * dt;
+            void Jogador::mover()
+            {
+                aplicarGravidade();
+            }
 
-    corpo.move({dx, dy});
+            bool Jogador::colisao_posso_pular(Entidade* pOutra)
+            {
+                bool deCima = Entidade::colidir(pOutra);
+                if(deCima){
+                    noChao = true;
+                    vel.y = 0.0f;
+                    return true;
+                }
+                return false;
+            }
+
+            void Jogador::pular()
+            {
+                if(noChao){
+                    vel.y = -400.0f;
+                    noChao = false;
+                } 
+            }
+
+            void Jogador::executar()
+            {
+                mover();
+                noChao = false;
+            }
+
+            void Jogador::setVel(sf::Vector2f v)
+            {
+                vel = v;
+            }
+        }
+    }
 }
 
 

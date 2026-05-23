@@ -1,74 +1,72 @@
 #include "GerenciadorEvento.h"
 
-using namespace Pokerun::Gerenciadores;
+namespace Pokerun{
 
-GerenciadorEvento* GerenciadorEvento::pEvento = nullptr;
+    namespace Gerenciadores{
 
-GerenciadorEvento::GerenciadorEvento(): pGrafico(GerenciadorGrafico::getGerenciadorGrafico()), pJogador(nullptr)
-{
+        GerenciadorEvento* GerenciadorEvento::pEvento = nullptr;
 
-}
-
-GerenciadorEvento::~GerenciadorEvento()
-{
-
-}
-
-GerenciadorEvento* GerenciadorEvento::getGerenciadorEvento() 
-{
-    if (pEvento == nullptr) 
-    {
-        pEvento = new GerenciadorEvento();
-    }
-    return pEvento;
-}
-
-void GerenciadorEvento::destruir() 
-{
-    if (pEvento) 
-    {
-        delete pEvento;
-        pEvento = nullptr;
-    }
-}
-
-void GerenciadorEvento::setJogador(Pokerun::Entidades::Personagens::Jogador* jog) 
-{
-    if(jog){
-        pJogador = jog;
-    }
-}
-
-void GerenciadorEvento::executar() {
-    
-    while (const auto event = pGrafico->getWindow()->pollEvent()) 
-    {
-        if (event->getIf<sf::Event::Closed>()) 
+        GerenciadorEvento::GerenciadorEvento(): pGrafico(GerenciadorGrafico::getGerenciadorGrafico()), pJogador(nullptr)
         {
-            pGrafico->getWindow()->close();
+
         }
-        else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
-            pGrafico->getWindow()->close();
+
+        GerenciadorEvento::~GerenciadorEvento()
+        {
+
         }
-    }
+
+        GerenciadorEvento* GerenciadorEvento::getGerenciadorEvento() 
+        {
+            if(pEvento == nullptr) 
+            {
+                pEvento = new GerenciadorEvento();
+            }
+            return pEvento;
+        }
+
+        void GerenciadorEvento::destruir() 
+        {
+            if(pEvento) 
+            {
+                delete pEvento;
+                pEvento = nullptr;
+            }
+        }
+
+        void GerenciadorEvento::setJogador(Pokerun::Entidades::Personagens::Jogador* jog) 
+        {
+            if(jog){
+                pJogador = jog;
+            }
+        }
+
+        void GerenciadorEvento::executar() 
+        {
+            while (const auto event = pGrafico->getWindow()->pollEvent()) {
+                if (event->getIf<sf::Event::Closed>()) 
+                {
+                    pGrafico->getWindow()->close();
+                }
+                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
+                    pGrafico->getWindow()->close();
+                }
+            }
     
-    if (pJogador) 
-    {
-        sf::Vector2f novaDirecao(0.0f, 0.0f);
+            if (pJogador) 
+            {
+                sf::Vector2f v = pJogador->getVel();
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-            novaDirecao.x -= 1.0f;
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+                    pJogador->getCorpo().move({-v.x, 0.0f});
+                }
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+                    pJogador->getCorpo().move({v.x, 0.0f});
+                }
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
+                    pJogador->pular();
+                }
+            }       
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-            novaDirecao.x += 1.0f;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-            novaDirecao.y -= 1.0f;
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-            novaDirecao.y += 1.0f;
-        }
-
-        pJogador->setDirecao(novaDirecao);
     }
 }

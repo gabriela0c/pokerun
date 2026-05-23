@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+#define GRAVIDADE 600.0f
+
 namespace Pokerun{
 
     namespace Entidades{
@@ -12,13 +14,18 @@ namespace Pokerun{
 
             class Personagem : public Entidade{
             protected:
-                const sf::Vector2f vel;
+                sf::Vector2f vel;
+                bool noChao;
+                const float gravidade;
                 sf::Clock relogio;
                 float dt;
 
             public:
                 Personagem(const sf::Vector2f tam = {}, const sf::Vector2f v = {});
                 virtual ~Personagem();
+
+                void aplicarGravidade();
+                sf::Vector2f getVel()const;
 
                 virtual void mover() = 0;
                 virtual void executar() = 0;

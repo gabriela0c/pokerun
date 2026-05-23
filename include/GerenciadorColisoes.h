@@ -26,6 +26,7 @@ namespace Pokerun{
             void tratarColisoesJogsObstacs();
             void tratarColisoesJogsInims();
             void tratarColisoesInimsObstacs();
+            //void tratarColisoesInimsInims();
 
             void setJogador(Entidades::Personagens::Jogador* pJ);
             void incluirInimigo(Entidades::Personagens::Inimigo* pI);

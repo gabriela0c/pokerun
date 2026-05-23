@@ -23,6 +23,7 @@ namespace Pokerun{
                 tratarColisoesJogsObstacs();
                 tratarColisoesJogsInims();
                 tratarColisoesInimsObstacs();
+               
             }
             
             void GerenciadorColisoes::tratarColisoesJogsObstacs()
@@ -44,6 +45,7 @@ namespace Pokerun{
                 }
             }
 
+
             void GerenciadorColisoes::tratarColisoesJogsInims()
             {
                 if(!pJogador || Linimigos.empty()){return;}
@@ -52,11 +54,12 @@ namespace Pokerun{
                     if(Linimigos[i]){
                         bool colisao = verificarColisao(pJogador, Linimigos[i]);
                         if(colisao){
-                            Linimigos[i]->colidir(pJogador); //por enquanto so pra garantir que um nao entra no outro
-                        }//jogador esta so empurrando o inimigo
+                            Linimigos[i]->colidir(pJogador);
+                            pJogador->colisao_posso_pular(Linimigos[i]);
+                            
+                        }
                     }
                 }
-
             }
 
             void GerenciadorColisoes::tratarColisoesInimsObstacs()

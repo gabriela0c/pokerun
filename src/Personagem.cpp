@@ -1,13 +1,35 @@
 #include "Personagem.h"
+namespace Pokerun{
 
-Pokerun::Entidades::Personagens::Personagem::Personagem(const sf::Vector2f tam, const sf::Vector2f v):
-Entidade(tam), vel(v), relogio(), dt(0.0f)
-{
-    
+    namespace Entidades{
+
+        namespace Personagens{
+
+            Personagem::Personagem(const sf::Vector2f tam, const sf::Vector2f v):
+            Entidade(tam), vel(v), noChao(false),gravidade(GRAVIDADE), relogio(), dt(0.0f)
+            {
+                
+            }
+
+            Personagem::~Personagem()
+            {
+
+            }
+
+            void Personagem::aplicarGravidade()
+            {
+                dt = relogio.restart().asSeconds();
+                
+                vel.y += gravidade*dt;
+
+                corpo.move({0.0f, vel.y*dt});
+            }
+
+            sf::Vector2f Personagem::getVel()const{
+                return vel;
+            }
+        }
+    }
 }
 
-Pokerun::Entidades::Personagens::Personagem::~Personagem()
-{
-
-}
 

@@ -8,6 +8,9 @@
 #include "GerenciadorEvento.h"
 #include "GerenciadorColisoes.h"
 
+#define WIN_SIZE_X 800.0f
+#define WIN_SIZE_Y 600.0f
+
 namespace Pokerun{
 
     class Jogo{
@@ -20,7 +23,7 @@ namespace Pokerun{
         Jogo();
         ~Jogo();
 
-        void criarPersonagens();
+        void criarEntidades();
         
         void executar();
     };

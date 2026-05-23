@@ -25,10 +25,10 @@ namespace Pokerun{
             return corpo;
         }
 
-        void Entidade::colidir(Entidade* pOutra)
+        bool Entidade::colidir(Entidade* pOutra)
         {
             
-            if(!pOutra) return;
+            if(!pOutra) {return false;}
 
             sf::FloatRect mBounds = corpo.getGlobalBounds(); //myBounds
             sf::FloatRect oBounds = pOutra->getCorpo().getGlobalBounds(); //otherBounds
@@ -42,16 +42,24 @@ namespace Pokerun{
             sf::Vector2f overlap = {menor_lado_direito - maior_lado_esquerdo, menor_lado_inferior - maior_lado_superior};
 
             if(std::abs(overlap.x) < std::abs(overlap.y)){ //empurra pelo eixo de menor sobreposicao
-                if(mBounds.position.x < oBounds.position.x)
-                    corpo.move({-overlap.x, 0.0f}); 
-                else
-                    corpo.move({ overlap.x, 0.0f}); 
+                if(mBounds.position.x < oBounds.position.x){
+                    corpo.move({-overlap.x, 0.0f}); //colisao nao veio de cima
+                    return false;
+                }
+                else{
+                    corpo.move({ overlap.x, 0.0f}); //tambem nao veio de cima
+                    return false;
+                }
             }
             else{
-                if(mBounds.position.y < oBounds.position.y)
-                    corpo.move({0.0f, -overlap.y});  //menos eh para cima porque o sistema de coordenadas eh crescente p/baixo no sfml
-                else
-                    corpo.move({0.0f,  overlap.y}); 
+                if(mBounds.position.y < oBounds.position.y){//menos eh para cima porque o sistema de coordenadas eh crescente p/baixo no sfml
+                    corpo.move({0.0f, -overlap.y}); 
+                    return true;//veio de cima
+                } 
+                else{
+                    corpo.move({0.0f,  overlap.y}); //nao veio de cima
+                    return false;
+                }
             }
         }
     }

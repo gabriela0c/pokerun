@@ -19,7 +19,7 @@ namespace Pokerun{
             sf::RectangleShape& getCorpo(); 
             const sf::RectangleShape& getCorpo()const; //essa eh necessaria porque pJogador em inimigo eh const 
 
-            void colidir(Entidade* pOutra);
+            bool colidir(Entidade* pOutra);
             
             virtual void executar() = 0; 
         };
