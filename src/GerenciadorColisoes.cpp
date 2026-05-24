@@ -23,6 +23,7 @@ namespace Pokerun{
                 tratarColisoesJogsObstacs();
                 tratarColisoesJogsInims();
                 tratarColisoesInimsObstacs();
+                tratarColisoesInimsInims();
                
             }
             
@@ -75,14 +76,69 @@ namespace Pokerun{
                             if(*it){
                                 bool colisao = verificarColisao(*it, Linimigos[i]);
                                 if(colisao){
+                                    sf::Vector2f posAntes = Linimigos[i]->getCorpo().getPosition();
+                                    //salva a posição
+
                                     Linimigos[i]->colidir(*it); 
-                                }//a unica interacao nessecaria entre inimigo e obstaculo eh um n entrar dentro do outro
+
+                                    sf::Vector2f posDepois = Linimigos[i]->getCorpo().getPosition();
+
+                                    if(posAntes.x != posDepois.x)
+                                        Linimigos[i]->inverterDirecao();
+                                }//adicionei a logica de inverter a direção aqui tambem
                             }
                             it++;  
                         }
                         it = Lobstaculos.begin();
                     }
                 } 
+            }
+
+            void GerenciadorColisoes::tratarColisoesInimsInims()
+            {
+                if (Linimigos.size() < 2) {return;}
+                //para garantir que ele não vai testar a colisão com si mesmo ou testar a colisão entre dois inimigos
+                //mais de uma vez, a lógica faz com que o loop interno comece uma posição a frente do externo
+                for (int i = 0; i < (int)Linimigos.size() - 1; i++) 
+                //vai do primeiro ao penúltimo inimigo
+                {
+                    if (Linimigos[i]) 
+                    {
+                        for (int j = i + 1; j < (int)Linimigos.size(); j++)
+                        //começa um a frente
+                        {
+                            if (Linimigos[j]) 
+                            {
+                                bool colisao = verificarColisao(Linimigos[i], Linimigos[j]);
+                                if (colisao) 
+                                {
+                                    Linimigos[i]->colidir(Linimigos[j]);
+    
+                                    sf::Vector2f posI = Linimigos[i]->getCorpo().getPosition();
+                                    sf::Vector2f posJ = Linimigos[j]->getCorpo().getPosition();
+
+                                    //verifica se a colisão é mais horizontal ou vertical, 
+                                    //para decidir a direção que cada inimigo deve seguir
+                                    if (std::abs(posI.x - posJ.x) > std::abs(posI.y - posJ.y)) 
+                                    {
+        
+
+                                        if (posI.x < posJ.x) 
+                                        {
+                                            Linimigos[i]->setDirecao(-1);
+                                            Linimigos[j]->setDirecao(1);
+                                        } 
+                                        else 
+                                        {
+                                            Linimigos[i]->setDirecao(1);
+                                            Linimigos[j]->setDirecao(-1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }    
             }
     
             const bool GerenciadorColisoes::verificarColisao(Entidades::Entidade* pe1, Entidades::Entidade* pe2)const

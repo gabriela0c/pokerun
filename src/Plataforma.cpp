@@ -15,7 +15,7 @@ namespace Pokerun{
             Plataforma::Plataforma(sf::Vector2f pos,sf::Vector2f dim):
             Obstaculo(dim, false)
             {
-                corpo.setFillColor(sf::Color::Green);
+                corpo.setFillColor(sf::Color::Blue);
                 corpo.setPosition(pos);
             }
 

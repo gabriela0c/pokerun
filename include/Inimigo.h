@@ -37,6 +37,8 @@ namespace Pokerun{
                 void mover();
                 void movimentoAleatorio();
                 void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
+                void setDirecao(int dir);
+                void inverterDirecao();
             };
         }
     }

@@ -19,10 +19,14 @@ namespace Pokerun{
             void Personagem::aplicarGravidade()
             {
                 dt = relogio.restart().asSeconds();
-                
-                vel.y += gravidade*dt;
+    
+                if (dt > 0.1f) 
+                    dt = 0.1f;
+                    //quetão de segurança em relação a travamentos 
+    
+                vel.y += gravidade * dt;
 
-                corpo.move({0.0f, vel.y*dt});
+                corpo.move({0.0f, vel.y * dt});
             }
 
             sf::Vector2f Personagem::getVel()const{

@@ -35,9 +35,21 @@ void Pokerun::Jogo::criarEntidades()
         pPlat = nullptr;
     }
 
-    pPlat = new Entidades::Obstaculos::Plataforma({0.0f, WIN_SIZE_Y},{WIN_SIZE_X, 30.0f}); //chao
+    pPlat = new Entidades::Obstaculos::Plataforma({0.0f, WIN_SIZE_Y - 30.0f}, {WIN_SIZE_X, 30.0f}); 
+    //alteração do chão para que ele apareça na tela: antes eu não estava vendo, ai mudei a forma com que ele é criado e a cor
     Lentidades.incluir(pPlat);
     gColisoes.incluirObstaculo(pPlat);
+
+    //parede invisível na esquerda
+    Entidades::Obstaculos::Plataforma* pParedeEsq = new Entidades::Obstaculos::Plataforma({-50.0f, 0.0f}, {50.0f, WIN_SIZE_Y});
+    Lentidades.incluir(pParedeEsq);
+    gColisoes.incluirObstaculo(pParedeEsq);
+
+    //parede invisível na direita
+    Entidades::Obstaculos::Plataforma* pParedeDir = new Entidades::Obstaculos::Plataforma({WIN_SIZE_X, 0.0f}, {50.0f, WIN_SIZE_Y});
+    Lentidades.incluir(pParedeDir);
+    gColisoes.incluirObstaculo(pParedeDir);
+    //criei as pareces pq toda hora o jogador caia/sumia da tela
     
     Entidades::Personagens::Inimigo* pInim = nullptr;
     for(int i = 0; i < 3; i++){

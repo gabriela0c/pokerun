@@ -74,6 +74,16 @@ namespace Pokerun{
                     corpo.move({-vel.x * dt, 0.0f});
                 }
             }
+
+            void Inimigo::setDirecao(int dir)
+            {
+                direcao = dir;
+            }
+
+            void Inimigo::inverterDirecao()
+            {
+                direcao *= -1;
+            }
         }
     }
 }
