@@ -76,8 +76,8 @@ namespace Pokerun{
                             if(*it){
                                 bool colisao = verificarColisao(*it, Linimigos[i]);
                                 if(colisao){
-                                    sf::Vector2f posAntes = Linimigos[i]->getCorpo().getPosition();
-                                    //salva a posição
+                                    sf::Vector2f posAntes = Linimigos[i]->getCorpo().getPosition();//isso podia ser um metodo da classe personagem talvez
+                                    //salva a posição                                               //dai agnt so chama esse metodo antes e dps da colisao e salva em posantes e posdepois
 
                                     Linimigos[i]->colidir(*it); 
 
@@ -95,9 +95,9 @@ namespace Pokerun{
             }
 
             void GerenciadorColisoes::tratarColisoesInimsInims()
-            {
+            {//aqui que deve ta dando o erro dos inimigos entrarem um no outro
                 if (Linimigos.size() < 2) {return;}
-                //para garantir que ele não vai testar a colisão com si mesmo ou testar a colisão entre dois inimigos
+                //para garantir que ele não vai testar a colisão com si mesmo ou testar a colisão entre dois inimigos 
                 //mais de uma vez, a lógica faz com que o loop interno comece uma posição a frente do externo
                 for (int i = 0; i < (int)Linimigos.size() - 1; i++) 
                 //vai do primeiro ao penúltimo inimigo
@@ -114,8 +114,8 @@ namespace Pokerun{
                                 {
                                     Linimigos[i]->colidir(Linimigos[j]);
     
-                                    sf::Vector2f posI = Linimigos[i]->getCorpo().getPosition();
-                                    sf::Vector2f posJ = Linimigos[j]->getCorpo().getPosition();
+                                    sf::Vector2f posI = Linimigos[i]->getCorpo().getPosition(); //criar esse metodo talvez pra ficar mais encapsulado
+                                    sf::Vector2f posJ = Linimigos[j]->getCorpo().getPosition(); //que nem eu falei ali em cima
 
                                     //verifica se a colisão é mais horizontal ou vertical, 
                                     //para decidir a direção que cada inimigo deve seguir

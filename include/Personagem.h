@@ -5,6 +5,7 @@
 #include <iostream>
 
 #define GRAVIDADE 600.0f
+#define VEL_TERM 240.0f
 
 namespace Pokerun{
 
@@ -26,6 +27,7 @@ namespace Pokerun{
 
                 void aplicarGravidade();
                 sf::Vector2f getVel()const;
+                void setVel(sf::Vector2f v);
 
                 virtual void mover() = 0;
                 virtual void executar() = 0;

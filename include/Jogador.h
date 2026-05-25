@@ -27,7 +27,6 @@ namespace Pokerun{
                 void mover();
                 void pular();
 
-                void setVel(sf::Vector2f v);
                 bool colisao_posso_pular(Entidade* pOutra);
 
                 void executar();

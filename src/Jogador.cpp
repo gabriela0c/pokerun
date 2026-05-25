@@ -20,7 +20,7 @@ namespace Pokerun{
 
             void Jogador::mover()
             {
-                aplicarGravidade();
+                if(!noChao){aplicarGravidade();}
             }
 
             bool Jogador::colisao_posso_pular(Entidade* pOutra)
@@ -28,7 +28,7 @@ namespace Pokerun{
                 bool deCima = Entidade::colidir(pOutra);
                 if(deCima){
                     noChao = true;
-                    vel.y = 0.0f;
+                    vel.y = 0.0f; 
                     return true;
                 }
                 return false;
@@ -46,11 +46,6 @@ namespace Pokerun{
             {
                 mover();
                 noChao = false;
-            }
-
-            void Jogador::setVel(sf::Vector2f v)
-            {
-                vel = v;
             }
         }
     }
