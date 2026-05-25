@@ -1,4 +1,5 @@
 #include "Inimigo.h"
+#include <iostream>
 
 namespace Pokerun{
 
@@ -9,7 +10,12 @@ namespace Pokerun{
             Inimigo::Inimigo():
             Personagem({TAM_INIM_X, TAM_INIM_Y}, {VEL_INIM_X, 0.0f}), pJogador(nullptr), direcao(-1), tempoMovimento(0.0f)
             {
-                corpo.setFillColor(sf::Color::Red);
+                if(!texturaInimigo.loadFromFile("assets/sprites/bulbasaur.png"))
+                    std::cout << "ERRO: Nao foi possivel carregar a textura do inimigo!" << std::endl;
+                
+                corpo.setTexture(&texturaInimigo);
+                corpo.setFillColor(sf::Color::White);
+                corpo.setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
             }
 
             Inimigo::~Inimigo()
@@ -57,6 +63,12 @@ namespace Pokerun{
             {
                 corpo.move({-vel.x * direcao * dt, 0.0f});
                 
+                if (direcao == -1) //move p direita
+                    corpo.setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+                
+                else //move p esquerda
+                    corpo.setTextureRect(sf::IntRect({(int)TAM_INIM_X, 0}, {-(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+
                 tempoMovimento += dt;
 
                 if(tempoMovimento >= 0.5f){
@@ -68,10 +80,14 @@ namespace Pokerun{
             void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo)
             {
                 if(posJogador.x - posInimigo.x > 0.0f){
+                    //indo p direita
                     corpo.move({vel.x * dt, 0.0f});
+                    corpo.setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
                 }
                 else{
+                    //indo p esquerda
                     corpo.move({-vel.x * dt, 0.0f});
+                    corpo.setTextureRect(sf::IntRect({(int)TAM_INIM_X, 0}, {-(int)TAM_INIM_X, (int)TAM_INIM_Y}));
                 }
             }
 

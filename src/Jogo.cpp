@@ -22,7 +22,7 @@ Pokerun::Jogo::~Jogo()
     Gerenciadores::GerenciadorGrafico::destruir();
     Gerenciadores::GerenciadorEvento::destruir();
 }
-
+ 
 void Pokerun::Jogo::criarEntidades()
 {
     Entidades::Personagens::Jogador* jogador = new Entidades::Personagens::Jogador();
@@ -78,7 +78,7 @@ void Pokerun::Jogo::executar()
         while(pAux!=nullptr){
             if(pAux->getInfo()){
                 pGrafico->desenhaElementos((pAux->getInfo())->getCorpo());
-            }
+            } 
             pAux = pAux->getProx();
         }
 

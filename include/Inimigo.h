@@ -5,11 +5,12 @@
 #include <cmath>
 
 #include "Jogador.h"
+#include <SFML/Graphics.hpp>
 
 #define VEL_INIM_X 150.0f
 
-#define TAM_INIM_X 40.0f
-#define TAM_INIM_Y 40.0f
+#define TAM_INIM_X 70.0f
+#define TAM_INIM_Y 70.0f
 
 #define RAIO_X 200.0f
 #define RAIO_Y 200.0f
@@ -25,6 +26,8 @@ namespace Pokerun{
                 const Jogador* pJogador;
                 int direcao;
                 float tempoMovimento;
+            private:
+                sf::Texture texturaInimigo;
 
             public:
                 Inimigo();

@@ -1,4 +1,5 @@
 #include "Jogador.h"
+#include <iostream>
 
 namespace Pokerun{
 
@@ -9,8 +10,13 @@ namespace Pokerun{
             Jogador::Jogador():
             Personagem({TAM_JOG_X, TAM_JOG_Y}, {VEL_JOG_X, 0.0f})
             {
-            corpo.setPosition({POS0_JOG_X, POS0_JOG_Y});
-            corpo.setFillColor(sf::Color::Yellow);
+                corpo.setPosition({POS0_JOG_X, POS0_JOG_Y});
+                if(!texturaJogador.loadFromFile("assets/sprites/pikachu.png"))
+                    std::cout << "ERRO: Nao foi possivel carregar a textura do jogador!" << std::endl;
+
+                corpo.setTexture(&texturaJogador);
+                corpo.setFillColor(sf::Color::White); 
+                corpo.setTextureRect(sf::IntRect({0, 0}, {(int)TAM_JOG_X, (int)TAM_JOG_Y}));
             }
 
             Jogador::~Jogador()

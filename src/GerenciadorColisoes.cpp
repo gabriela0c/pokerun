@@ -55,7 +55,7 @@ namespace Pokerun{
                     if(Linimigos[i]){
                         bool colisao = verificarColisao(pJogador, Linimigos[i]);
                         if(colisao){
-                            Linimigos[i]->colidir(pJogador);
+                            pJogador->colidir(Linimigos[i]);
                             pJogador->colisao_posso_pular(Linimigos[i]);
                             
                         }
