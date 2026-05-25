@@ -1,12 +1,13 @@
 #pragma once
 //posicao e corpo sao elementos comuns a todas entidades, obstaculos tambem as terao, portanto a necessidade da classe
+#include "Ente.h"
 #include <SFML/Graphics.hpp>
 
 namespace Pokerun{
 
     namespace Entidades{
 
-        class Entidade{
+        class Entidade : public Ente {
         protected:
             float x;
             float y;
@@ -21,6 +22,7 @@ namespace Pokerun{
 
             bool colidir(Entidade* pOutra);
             
+            void desenhar();
             virtual void executar() = 0; 
         };
     }

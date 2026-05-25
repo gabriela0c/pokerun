@@ -11,6 +11,7 @@ namespace Pokerun{
             Personagem({TAM_INIM_X, TAM_INIM_Y}, {VEL_INIM_X, 0.0f}), pJogador(nullptr), direcao(-1), tempoMovimento(0.0f)
             {
                 if(!texturaInimigo.loadFromFile("assets/sprites/bulbasaur.png"))
+                //sprite retirada do site oficial da franquia Pokemon
                     std::cout << "ERRO: Nao foi possivel carregar a textura do inimigo!" << std::endl;
                 
                 corpo.setTexture(&texturaInimigo);

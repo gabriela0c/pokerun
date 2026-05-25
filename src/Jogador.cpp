@@ -12,6 +12,7 @@ namespace Pokerun{
             {
                 corpo.setPosition({POS0_JOG_X, POS0_JOG_Y});
                 if(!texturaJogador.loadFromFile("assets/sprites/pikachu.png"))
+                //sprite retirada do site oficial da franquia Pokemon
                     std::cout << "ERRO: Nao foi possivel carregar a textura do jogador!" << std::endl;
 
                 corpo.setTexture(&texturaJogador);

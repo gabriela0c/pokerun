@@ -41,12 +41,12 @@ void Pokerun::Jogo::criarEntidades()
     gColisoes.incluirObstaculo(pPlat);
 
     //parede invisível na esquerda
-    Entidades::Obstaculos::Plataforma* pParedeEsq = new Entidades::Obstaculos::Plataforma({-50.0f, 0.0f}, {50.0f, WIN_SIZE_Y});
+    Entidades::Obstaculos::Plataforma* pParedeEsq = new Entidades::Obstaculos::Plataforma({-100.0f, 0.0f}, {100.0f, WIN_SIZE_Y});
     Lentidades.incluir(pParedeEsq);
     gColisoes.incluirObstaculo(pParedeEsq);
 
     //parede invisível na direita
-    Entidades::Obstaculos::Plataforma* pParedeDir = new Entidades::Obstaculos::Plataforma({WIN_SIZE_X, 0.0f}, {50.0f, WIN_SIZE_Y});
+    Entidades::Obstaculos::Plataforma* pParedeDir = new Entidades::Obstaculos::Plataforma({WIN_SIZE_X, 0.0f}, {100.0f, WIN_SIZE_Y});
     Lentidades.incluir(pParedeDir);
     gColisoes.incluirObstaculo(pParedeDir);
     //criei as pareces pq toda hora o jogador caia/sumia da tela
@@ -77,7 +77,7 @@ void Pokerun::Jogo::executar()
         auto* pAux = Lentidades.getPrimeiro();
         while(pAux!=nullptr){
             if(pAux->getInfo()){
-                pGrafico->desenhaElementos((pAux->getInfo())->getCorpo());
+                pAux->getInfo()->desenhar();
             } 
             pAux = pAux->getProx();
         }

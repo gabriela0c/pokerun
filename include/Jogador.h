@@ -5,8 +5,8 @@
 
 #define VEL_JOG_X 0.10f
 
-#define TAM_JOG_X 90.0f
-#define TAM_JOG_Y 90.0f
+#define TAM_JOG_X 40.0f
+#define TAM_JOG_Y 40.0f
 
 #define POS0_JOG_X 50.0f
 #define POS0_JOG_Y 300.0f

@@ -9,8 +9,8 @@
 
 #define VEL_INIM_X 150.0f
 
-#define TAM_INIM_X 70.0f
-#define TAM_INIM_Y 70.0f
+#define TAM_INIM_X 40.0f
+#define TAM_INIM_Y 40.0f
 
 #define RAIO_X 200.0f
 #define RAIO_Y 200.0f

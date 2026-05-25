@@ -4,7 +4,7 @@ namespace Pokerun{
 
     namespace Entidades{
         
-        Entidade::Entidade(const sf::Vector2f tam):
+        Entidade::Entidade(const sf::Vector2f tam): Ente(),
         x((float)(rand() % (int)(801 - tam.x))), y((float)(rand() % (int)(601 - tam.y))), corpo(sf::RectangleShape(tam))
         {
             corpo.setPosition({x, y});
@@ -81,6 +81,13 @@ namespace Pokerun{
                     //empurra para baixo
                     return false;
                 }
+            }
+        }
+
+        void Entidade::desenhar()
+        {
+            if (pGG) {
+                pGG->desenhaElementos(corpo);
             }
         }
     }
