@@ -5,23 +5,21 @@ namespace Pokerun {
 
     class Ente {
     protected:
+        int id;
+        bool ativo;    
         static Gerenciadores::GerenciadorGrafico* pGG;
-        bool ativo;
-
+        
     public:
-        Ente();
+        Ente(const int id = 0);
         virtual ~Ente();
 
         virtual void executar() = 0;
         virtual void desenhar() = 0;
 
-        void setAtivo(bool a) 
-        { 
-            ativo = a; 
-        }
-        bool getAtivo() const 
-        { 
-            return ativo; 
-        }
+        static void setGG(Gerenciadores::GerenciadorGrafico* pG);
+
+        const int getId() const;
+        const bool getAtivo() const;
+        void setAtivo(const bool a);
     };
 }
