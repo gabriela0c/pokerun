@@ -4,13 +4,20 @@ namespace Pokerun {
 
     Gerenciadores::GerenciadorGrafico* Ente::pGG = Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico();
 
-    Ente::Ente(const int id) : 
-        id(id), ativo(true) 
+    Ente::Ente() : ativo(true), pFig(nullptr)
     {
     }
 
     Ente::~Ente() 
     {
+        if (pFig)
+            delete pFig;
+    }
+    
+    void Ente::desenhar() {
+        if (pGG && pFig) {
+            pGG->desenhaElementos(*pFig);
+        }
     }
 
     void Ente::setGG(Gerenciadores::GerenciadorGrafico* pG)
@@ -18,10 +25,10 @@ namespace Pokerun {
         pGG = pG;
     }
 
-    const int Ente::getId() const
-    {
-        return id;
-    }
+    //const int Ente::getId() const
+    //{
+    //    return id;
+    //}
 
     const bool Ente::getAtivo() const
     {
@@ -32,4 +39,5 @@ namespace Pokerun {
     {
         ativo = a;
     }
+    
 }

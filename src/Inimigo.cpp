@@ -14,9 +14,9 @@ namespace Pokerun{
                 //sprite retirada do site oficial da franquia Pokemon
                     std::cout << "ERRO: Nao foi possivel carregar a textura do inimigo!" << std::endl;
                 
-                corpo.setTexture(&texturaInimigo);
-                corpo.setFillColor(sf::Color::White);
-                corpo.setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+                pFig->setTexture(&texturaInimigo);
+                pFig->setFillColor(sf::Color::White);
+                pFig->setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
             }
 
             Inimigo::~Inimigo()
@@ -50,7 +50,7 @@ namespace Pokerun{
                 }
 
                 sf::Vector2f posJogador = pJogador->getCorpo().getPosition();
-                sf::Vector2f posInimigo = corpo.getPosition();
+                sf::Vector2f posInimigo = pFig->getPosition();
 
                 if(fabs(posInimigo.x - posJogador.x) <= RAIO_X && fabs(posInimigo.y - posJogador.y) <= RAIO_Y){
                     persegueJogador(posJogador, posInimigo);
@@ -62,13 +62,13 @@ namespace Pokerun{
 
             void Inimigo::movimentoAleatorio()
             {
-                corpo.move({-vel.x * direcao * dt, 0.0f});
+                pFig->move({-vel.x * direcao * dt, 0.0f});
                 
                 if (direcao == -1) //move p direita
-                    corpo.setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+                    pFig->setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
                 
                 else //move p esquerda
-                    corpo.setTextureRect(sf::IntRect({(int)TAM_INIM_X, 0}, {-(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+                    pFig->setTextureRect(sf::IntRect({(int)TAM_INIM_X, 0}, {-(int)TAM_INIM_X, (int)TAM_INIM_Y}));
 
                 tempoMovimento += dt;
 
@@ -82,13 +82,13 @@ namespace Pokerun{
             {
                 if(posJogador.x - posInimigo.x > 0.0f){
                     //indo p direita
-                    corpo.move({vel.x * dt, 0.0f});
-                    corpo.setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+                    pFig->move({vel.x * dt, 0.0f});
+                    pFig->setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
                 }
                 else{
                     //indo p esquerda
-                    corpo.move({-vel.x * dt, 0.0f});
-                    corpo.setTextureRect(sf::IntRect({(int)TAM_INIM_X, 0}, {-(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+                    pFig->move({-vel.x * dt, 0.0f});
+                    pFig->setTextureRect(sf::IntRect({(int)TAM_INIM_X, 0}, {-(int)TAM_INIM_X, (int)TAM_INIM_Y}));
                 }
             }
 

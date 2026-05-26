@@ -11,7 +11,6 @@ namespace Pokerun{
         protected:
             float x;
             float y;
-            sf::RectangleShape corpo;
         
         public:
             Entidade(const sf::Vector2f tam = {0.0f, 0.0f});
@@ -22,7 +21,6 @@ namespace Pokerun{
 
             bool colidir(Entidade* pOutra);
             
-            void desenhar();
             virtual void executar() = 0; 
         };
     }
