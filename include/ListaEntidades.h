@@ -7,7 +7,7 @@ namespace Pokerun{
 
     namespace Listas{
 
-        using Elem = Lista<Entidades::Entidade>::Elemento<Entidades::Entidade>;
+        using Elem = Lista<Entidades::Entidade>::Elemento<Entidades::Entidade>; //esse tipo era muito complexo e o compilador nao pegava
 
         class ListaEntidades{
         private:
@@ -17,6 +17,9 @@ namespace Pokerun{
             ~ListaEntidades();
 
             void incluir(Entidades::Entidade* pE);
+            void remover(Entidades::Entidade* pE);
+            void limpar();
+            
             Elem* getPrimeiro()const;
             int getTam()const;
 

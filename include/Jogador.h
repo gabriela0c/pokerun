@@ -22,7 +22,7 @@ namespace Pokerun{
                 sf::Texture texturaJogador;
 
             public:
-                Jogador();
+                Jogador();    
                 ~Jogador();
 
                 void mover();

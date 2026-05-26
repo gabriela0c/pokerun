@@ -22,6 +22,18 @@ namespace Pokerun{
             }
         }
 
+        void ListaEntidades::remover(Entidades::Entidade* pE)
+        {
+            if(pE){
+                LEs.remover(pE);
+            }
+        }
+
+        void ListaEntidades::limpar()
+        {
+            LEs.limpar();
+        }
+
         Elem* ListaEntidades::getPrimeiro()const
         {
             return LEs.getPrimeiro();

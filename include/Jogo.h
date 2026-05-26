@@ -1,15 +1,8 @@
 
 #pragma once
 
-#include "ListaEntidades.h"
-#include "Inimigo.h"
-#include "Obstaculo.h"
-#include "plataforma.h"
+#include "FasePrimeira.h"
 #include "GerenciadorEvento.h"
-#include "GerenciadorColisoes.h"
-
-#define WIN_SIZE_X 800.0f
-#define WIN_SIZE_Y 600.0f
 
 namespace Pokerun{
 
@@ -17,13 +10,12 @@ namespace Pokerun{
     private:
         Gerenciadores::GerenciadorGrafico* pGrafico; 
         Gerenciadores::GerenciadorEvento* pEvento;
-        Gerenciadores::GerenciadorColisoes gColisoes;
-        Listas::ListaEntidades Lentidades;
+        Entidades::Personagens::Jogador* pJogador;
+        Fases::FasePrimeira Fase1;
+        //Entidades::Personagens::Jogador* pJogador2;
     public:
         Jogo();
         ~Jogo();
-
-        void criarEntidades();
         
         void executar();
     };
