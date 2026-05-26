@@ -11,22 +11,28 @@ namespace Pokerun{
 
     namespace Fases{
 
-        class Fase : public Ente {
-            protected:
-                Lista::ListaEntidade ListaPersonagens;
-                Lista::ListaEntidade ListaObstaculos;
-                Gerenciador::GerenciadorColisoes* pGC;
+        class Fase : public Ente{
+        protected:
+            Listas::ListaEntidades lista_ents;
+            Gerenciadores::GerenciadorColisoes GC;
+            Entidades::Personagens::Jogador* pJogador;
 
         public:
             Fase(Entidades::Personagens::Jogador* pJog = nullptr);
             ~Fase();
 
-                void executar();
-                void desenhar();
+            virtual void criarInimigos() = 0;
+            virtual void criarObstaculos() = 0;
+            void desenhar();
+            
+            void criarInimFaceis();
+            
+            void criarPlataformas();
 
-            protected:
-                virtual void criarInimigos()
+            //void criarCenario();
 
-        }
+            virtual void executar(); //executa todos da lista, gerenciador de colisoes verifica se colisao, redesenha window com gerenciador grafico
+            //talvez gerenciador evento em algum lugar?
+        };
     }
 }
