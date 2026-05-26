@@ -28,7 +28,9 @@ void Pokerun::Jogo::criarEntidades()
     Entidades::Personagens::Jogador* jogador = new Entidades::Personagens::Jogador();
 
     Entidades::Obstaculos::Plataforma* pPlat = nullptr;
-    for(int i = 0; i < 3; i++){
+    int n = rand()%4 + 3;
+    //numero aleatório entre 3 e 6 plataformas
+    for(int i = 0; i < n; i++){
         pPlat = new Entidades::Obstaculos::Plataforma();
         Lentidades.incluir(static_cast<Entidades::Entidade*>(pPlat));
         gColisoes.incluirObstaculo(pPlat); //upcasting automatico e seguro por poliformismo, o mesmo vale para outros derivados de entidade
@@ -52,7 +54,8 @@ void Pokerun::Jogo::criarEntidades()
     //criei as pareces pq toda hora o jogador caia/sumia da tela
     
     Entidades::Personagens::Inimigo* pInim = nullptr;
-    for(int i = 0; i < 3; i++){
+    int nInimigos = rand()%4 + 3; //numero aleatório entre 3 e 6 inimigos
+    for(int i = 0; i < nInimigos; i++){
         pInim = new Entidades::Personagens::Inimigo();
         pInim->setJogador(jogador);
         Lentidades.incluir(pInim);
