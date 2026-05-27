@@ -15,8 +15,6 @@ namespace Pokerun{
         public:
             Entidade(const sf::Vector2f tam = {0.0f, 0.0f}, const ID i = ID::INDEFINIDO);
             virtual ~Entidade();
-
-            void desenhar();
             
             bool colidir(Entidade* pOutra);
             

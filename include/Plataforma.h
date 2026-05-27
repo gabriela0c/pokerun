@@ -2,8 +2,11 @@
 
 #include "Obstaculo.h"
 
-#define TAM_PLAT_X 427.0f
-#define TAM_PLAT_Y 100.0f
+#define TAM_PLAT_X 300.0f
+#define TAM_PLAT_Y 70.0f
+
+#define LARGURA_PLATAFORMA 427
+#define ALTURA_PLATAFORMA 106
 
 namespace Pokerun{
 
@@ -13,7 +16,7 @@ namespace Pokerun{
 
             class Plataforma : public Obstaculo{
             private:
-                sf::Texture texturaPlataforma;
+                static sf::Texture texturaPlataforma;
             public:
                 Plataforma();
                 Plataforma(sf::Vector2f pos, sf::Vector2f dim); //para construir o chao

@@ -71,12 +71,5 @@ namespace Pokerun{
                 }
             }
         }
-
-        void Entidade::desenhar()
-        {
-            if (pGG) {
-                pGG->desenhaElementos(getFig()); //desnhaElementos espera referencia, por isso usar getFig
-            }
-        }
     }
 }

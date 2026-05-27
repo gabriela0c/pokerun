@@ -59,11 +59,11 @@ namespace Pokerun{
 
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
                     pJogador->getFig().move({-v.x, 0.0f});
-                    pJogador->getFig().setTextureRect(sf::IntRect({(int)TAM_JOG_X, 0}, {-(int)TAM_JOG_X, (int)TAM_JOG_Y}));
+                    pJogador->getFig().setTextureRect(sf::IntRect({LARGURA_PIKACHU, 0}, {-LARGURA_PIKACHU, ALTURA_PIKACHU}));
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
                     pJogador->getFig().move({v.x, 0.0f});
-                    pJogador->getFig().setTextureRect(sf::IntRect({0, 0}, {(int)TAM_JOG_X, (int)TAM_JOG_Y}));
+                    pJogador->getFig().setTextureRect(sf::IntRect({0, 0}, {LARGURA_PIKACHU, ALTURA_PIKACHU}));
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
                     pJogador->pular();

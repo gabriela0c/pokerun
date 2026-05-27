@@ -7,6 +7,8 @@ namespace Pokerun{
 
         namespace Personagens{
 
+            sf::Texture Jogador::texturaJogador;
+
             Jogador::Jogador():
             Personagem({TAM_JOG_X, TAM_JOG_Y}, {VEL_JOG_X, 0.0f}, ID::JOGADOR)
             {
@@ -17,7 +19,7 @@ namespace Pokerun{
 
                 pFigura->setTexture(&texturaJogador);
                 pFigura->setFillColor(sf::Color::White); 
-                pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)TAM_JOG_X, (int)TAM_JOG_Y}));
+                pFigura->setTextureRect(sf::IntRect({0, 0}, {LARGURA_PIKACHU, ALTURA_PIKACHU}));
             }
 
             Jogador::~Jogador()

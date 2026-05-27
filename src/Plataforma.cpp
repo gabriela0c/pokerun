@@ -7,10 +7,12 @@ namespace Pokerun{
 
         namespace Obstaculos{
 
+            sf::Texture Plataforma::texturaPlataforma;
+            
             Plataforma::Plataforma():
             Obstaculo({TAM_PLAT_X, TAM_PLAT_Y}, false, ID::PLATAFORMA)
             {
-                if(!texturaPlataforma.loadFromFile("assets/sprites/plataforma.png")){
+                if(!texturaPlataforma.loadFromFile("assets/sprites/obstaculos/plataformas/plataforma.png")){
                 //sprite gerada por IA
                     std::cout << "ERRO: Nao foi possivel carregar a textura da plataforma!" << std::endl;
                 }

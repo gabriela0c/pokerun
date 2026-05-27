@@ -5,11 +5,14 @@
 
 #define VEL_JOG_X 0.10f
 
-#define TAM_JOG_X 40.0f
-#define TAM_JOG_Y 40.0f
+#define TAM_JOG_X 60.0f
+#define TAM_JOG_Y 60.0f
 
 #define POS0_JOG_X 50.0f
 #define POS0_JOG_Y 300.0f
+
+#define LARGURA_PIKACHU 40
+#define ALTURA_PIKACHU 38
 
 namespace Pokerun{   
 
@@ -19,7 +22,7 @@ namespace Pokerun{
 
             class Jogador : public Personagem{
             private:
-                sf::Texture texturaJogador;
+                static sf::Texture texturaJogador;
 
             public:
                 Jogador();    

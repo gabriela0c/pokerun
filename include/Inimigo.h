@@ -9,11 +9,15 @@
 
 #define VEL_INIM_X 60.0f
 
-#define TAM_INIM_X 40.0f
-#define TAM_INIM_Y 40.0f
+#define TAM_INIM_X 60.0f
+#define TAM_INIM_Y 60.0f
 
 #define RAIO_X 200.0f
 #define RAIO_Y 200.0f
+
+#define LARGURA_BULBASAUR 38
+#define ALTURA_BULBASAUR 36
+
 
 namespace Pokerun{
 
@@ -27,7 +31,7 @@ namespace Pokerun{
                 int direcao;
                 float tempoMovimento;
             private:
-                sf::Texture texturaInimigo;
+                static sf::Texture texturaInimigo;
 
             public:
                 Inimigo();

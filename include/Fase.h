@@ -4,10 +4,10 @@
 #include "ListaEntidades.h"
 #include "GerenciadorColisoes.h"
 
-#define WIN_SIZE_X 800.0f
+#define WIN_SIZE_X 1000.0f
 #define WIN_SIZE_Y 600.0f
 
-#define DIM_CHAO_X 800.0f
+#define DIM_CHAO_X 1000.0f
 #define DIM_CHAO_Y 50.0f
 
 namespace Pokerun{
@@ -15,6 +15,8 @@ namespace Pokerun{
     namespace Fases{
 
         class Fase : public Ente{
+        private:
+            sf::Texture texturaFundo;
         protected:
             Listas::ListaEntidades lista_ents;
             Gerenciadores::GerenciadorColisoes GC;

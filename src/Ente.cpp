@@ -46,4 +46,11 @@ namespace Pokerun {
     {
         return *pFigura;
     }
+    
+    void Ente::desenhar()
+    {
+        if (pGG) {
+            pGG->desenhaElementos(getFig());
+        }
+    }
 }
