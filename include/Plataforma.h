@@ -2,8 +2,8 @@
 
 #include "Obstaculo.h"
 
-#define TAM_PLAT_X 300.0f
-#define TAM_PLAT_Y 35.0f
+#define TAM_PLAT_X 427.0f
+#define TAM_PLAT_Y 100.0f
 
 namespace Pokerun{
 

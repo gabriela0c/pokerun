@@ -11,8 +11,10 @@ namespace Pokerun {
 
     Ente::~Ente() 
     {
-        delete pFigura;
+        if(pFigura){
+            delete pFigura;
         pFigura = nullptr;
+        }
     }
 
     void Ente::setGG(Gerenciadores::GerenciadorGrafico* pG)

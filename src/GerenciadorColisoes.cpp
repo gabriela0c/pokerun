@@ -46,7 +46,8 @@ namespace Pokerun{
                 }
             }
 
-
+            //TRANSFORMAR TUDO AQUI EM METODOS ADEQUADOS NAS CLASSES PROVAVELMENTE
+            //EX: colidir_por_cima, colidir_de_baixo, colidir_horizontal
             void GerenciadorColisoes::tratarColisoesJogsInims()
             {
                 if(!pJogador || Linimigos.empty()){return;}
@@ -55,15 +56,35 @@ namespace Pokerun{
                     if(Linimigos[i]){
                         bool colisao = verificarColisao(pJogador, Linimigos[i]);
                         if(colisao){
-                            //pJogador->colidir(Linimigos[i]);
-                            Linimigos[i]->colidir(pJogador);
-                            pJogador->colisao_posso_pular(Linimigos[i]);
-                            //Linimigos[i]->colidir(pJogador);
-                            
+                            sf::FloatRect jog = pJogador->getFig().getGlobalBounds();
+                            sf::FloatRect inim = Linimigos[i]->getFig().getGlobalBounds();
+
+                            float overlap_x = std::min(jog.position.x + jog.size.x, inim.position.x + inim.size.x) // menor lado direito
+                                - std::max(jog.position.x, inim.position.x); //maior lado esquerdo
+                            float overlap_y = std::min(jog.position.y + jog.size.y, inim.position.y + inim.size.y) // parte de baixo mais acima (geografico nao numericamente)
+                                - std::max(jog.position.y, inim.position.y); // parte de cima mais abaixo (geografico nao numericamente)
+
+                            if(std::abs(overlap_x) < std::abs(overlap_y)){//se o overlap for menor em x (colisao horizontal), a colisao eh simetrica
+                                float dir = (jog.position.x < inim.position.x) ? -1.0f : 1.0f;
+                                pJogador->getFig().move({dir * overlap_x / 2.0f, 0.0f}); // cada um mexe metade do overlap
+                                Linimigos[i]->getFig().move({-dir * overlap_x / 2.0f, 0.0f});
+                            }
+                            else{
+                                sf::Vector2f jogCentro = {jog.position.x + jog.size.x/2.f, jog.position.y + jog.size.y/2.f};
+                                sf::Vector2f inimCentro = {inim.position.x + inim.size.x/2.f, inim.position.y + inim.size.y/2.f};
+
+                                if(jogCentro.y < inimCentro.y){ //jogador estava acima do inimigo, colide com ele e permite pulo
+                                pJogador->colisao_posso_pular(Linimigos[i]);
+                            } 
+                            else{//se o inimigo estava acima ele nao empurra o jogador para baixo, ele que se move para cima, senao o jogador eh empurrado para fora do mapa
+                                Linimigos[i]->getFig().move({0.0f, -overlap_y});
+                                Linimigos[i]->pousar();
+                            }
                         }
                     }
                 }
             }
+        }
 
             void GerenciadorColisoes::tratarColisoesInimsObstacs()
             {
@@ -98,7 +119,7 @@ namespace Pokerun{
             }
 
             void GerenciadorColisoes::tratarColisoesInimsInims()
-            {//aqui que deve ta dando o erro dos inimigos entrarem um no outro
+            {
                 if (Linimigos.size() < 2) {return;}
                 //para garantir que ele não vai testar a colisão com si mesmo ou testar a colisão entre dois inimigos 
                 //mais de uma vez, a lógica faz com que o loop interno comece uma posição a frente do externo

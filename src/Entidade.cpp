@@ -16,13 +16,10 @@ namespace Pokerun{
 
         }
 
-        bool Entidade::colidir(Entidade* pOutra)
-        {
-            
-            if(!pOutra) {return false;}
+        bool Entidade::colidir(Entidade* pOutra){
 
-            sf::FloatRect mBounds = pFigura->getGlobalBounds(); //myBounds
-            sf::FloatRect oBounds = pOutra->getFig().getGlobalBounds(); //otherBounds
+            sf::FloatRect mBounds = getFig().getGlobalBounds();
+            sf::FloatRect oBounds = pOutra->getFig().getGlobalBounds();
 
             float menor_lado_direito  = std::min(mBounds.position.x + mBounds.size.x, oBounds.position.x + oBounds.size.x);
             float maior_lado_esquerdo = std::max(mBounds.position.x, oBounds.position.x);

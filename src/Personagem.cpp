@@ -8,12 +8,10 @@ namespace Pokerun{
             Personagem::Personagem(const sf::Vector2f tam, const sf::Vector2f v, const ID i):
             Entidade(tam, i), vel(v), noChao(false),gravidade(GRAVIDADE), relogio(), dt(0.0f)
             {
-                
             }
 
             Personagem::~Personagem()
             {
-
             }
 
             void Personagem::aplicarGravidade()
