@@ -5,7 +5,7 @@ namespace Pokerun{
     namespace Fases{
 
         FasePrimeira::FasePrimeira(Entidades::Personagens::Jogador* pJog):
-        Fase(pJog)
+        Fase(pJog, ID::FASE_PRIMEIRA)
         {
             criarInimigos();
             criarObstaculos();

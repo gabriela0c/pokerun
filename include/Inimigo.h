@@ -7,7 +7,7 @@
 #include "Jogador.h"
 #include <SFML/Graphics.hpp>
 
-#define VEL_INIM_X 150.0f
+#define VEL_INIM_X 60.0f
 
 #define TAM_INIM_X 40.0f
 #define TAM_INIM_Y 40.0f
@@ -39,6 +39,7 @@ namespace Pokerun{
                 void executar();
                 void mover();
                 void movimentoAleatorio();
+                void pousar();
                 void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                 void setDirecao(int dir);
                 void inverterDirecao();

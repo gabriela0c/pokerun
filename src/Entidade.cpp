@@ -4,10 +4,11 @@ namespace Pokerun{
 
     namespace Entidades{
         
-        Entidade::Entidade(const sf::Vector2f tam): Ente(),
-        x((float)(rand() % (int)(801 - tam.x))), y((float)(rand() % (int)(601 - tam.y))), corpo(sf::RectangleShape(tam))
+        Entidade::Entidade(const sf::Vector2f tam, const ID i): 
+        Ente(tam, i),
+        x((float)(rand() % (int)(801 - tam.x))), y((float)(rand() % (int)(601 - tam.y)))
         {
-            corpo.setPosition({x, y});
+            pFigura->setPosition({x, y});
         }
 
         Entidade::~Entidade()
@@ -15,23 +16,13 @@ namespace Pokerun{
 
         }
 
-        sf::RectangleShape& Entidade::getCorpo()
-        {
-            return corpo;
-        }
-
-        const sf::RectangleShape& Entidade::getCorpo()const
-        {
-            return corpo;
-        }
-
         bool Entidade::colidir(Entidade* pOutra)
         {
             
             if(!pOutra) {return false;}
 
-            sf::FloatRect mBounds = corpo.getGlobalBounds(); //myBounds
-            sf::FloatRect oBounds = pOutra->getCorpo().getGlobalBounds(); //otherBounds
+            sf::FloatRect mBounds = pFigura->getGlobalBounds(); //myBounds
+            sf::FloatRect oBounds = pOutra->getFig().getGlobalBounds(); //otherBounds
 
             float menor_lado_direito  = std::min(mBounds.position.x + mBounds.size.x, oBounds.position.x + oBounds.size.x);
             float maior_lado_esquerdo = std::max(mBounds.position.x, oBounds.position.x);
@@ -52,14 +43,14 @@ namespace Pokerun{
             //compara os centros no eixo X
                 if(mCentro.x < oCentro.x)
                 {
-                    corpo.move({-overlap.x, 0.0f}); 
+                    pFigura->move({-overlap.x, 0.0f}); 
                     //empurra para a esquerda
                     return false;
                 }
                 
                 else
                 {
-                    corpo.move({ overlap.x, 0.0f}); 
+                    pFigura->move({ overlap.x, 0.0f}); 
                     //empurra para a direita
                   return false;
                 }
@@ -70,14 +61,14 @@ namespace Pokerun{
                 //compara os centros no eixo Y
                 if(mCentro.y < oCentro.y)
                 {
-                    corpo.move({0.0f, -overlap.y}); 
+                    pFigura->move({0.0f, -overlap.y}); 
                     //empurra para cima
                     return true;
                 } 
 
                 else
                 {
-                    corpo.move({0.0f,  overlap.y}); 
+                    pFigura->move({0.0f,  overlap.y}); 
                     //empurra para baixo
                     return false;
                 }
@@ -87,7 +78,7 @@ namespace Pokerun{
         void Entidade::desenhar()
         {
             if (pGG) {
-                pGG->desenhaElementos(corpo);
+                pGG->desenhaElementos(getFig()); //desnhaElementos espera referencia, por isso usar getFig
             }
         }
     }

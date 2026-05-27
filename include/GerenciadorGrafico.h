@@ -18,9 +18,6 @@ namespace Pokerun{
 
         public:
             ~GerenciadorGrafico();
-            
-            GerenciadorGrafico(const GerenciadorGrafico&) = delete; //para evitar copias
-            GerenciadorGrafico& operator=(const GerenciadorGrafico&) = delete;
 
             static void destruir();
 

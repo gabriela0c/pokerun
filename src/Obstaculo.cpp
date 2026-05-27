@@ -6,8 +6,8 @@ namespace Pokerun{
 
         namespace Obstaculos{
 
-           Obstaculo::Obstaculo(const sf::Vector2f tam, bool d):
-            Entidade(tam), danoso(d)
+           Obstaculo::Obstaculo(const sf::Vector2f tam, bool d, const ID i):
+            Entidade(tam, i), danoso(d)
             {
 
             }

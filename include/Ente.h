@@ -1,16 +1,18 @@
 #pragma once
 #include "GerenciadorGrafico.h"
+#include "ID.h"
 
 namespace Pokerun {
 
     class Ente {
     protected:
-        int id;
         bool ativo;    
         static Gerenciadores::GerenciadorGrafico* pGG;
+        const ID id;
+        sf::RectangleShape* pFigura;
         
     public:
-        Ente(const int id = 0);
+        Ente(const sf::Vector2f tam = {0.0f, 0.0f}, const ID i = ID::INDEFINIDO);
         virtual ~Ente();
 
         virtual void executar() = 0;
@@ -18,8 +20,12 @@ namespace Pokerun {
 
         static void setGG(Gerenciadores::GerenciadorGrafico* pG);
 
-        const int getId() const;
-        const bool getAtivo() const;
+        ID getID()const;
+
+        sf::RectangleShape& getFig();
+        const sf::RectangleShape& getFig()const; //sobrecarga de metodo necessaria pois getFig necessita referencia const 
+
+        bool getAtivo()const;
         void setAtivo(const bool a);
     };
 }

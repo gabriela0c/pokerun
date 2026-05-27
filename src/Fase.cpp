@@ -4,9 +4,10 @@ namespace Pokerun{
 
     namespace Fases{
 
-        Fase::Fase(Entidades::Personagens::Jogador* pJog):
-        Ente(), lista_ents(), GC(), pJogador(pJog)
+        Fase::Fase(Entidades::Personagens::Jogador* pJog, const ID i):
+        Ente({DIM_CHAO_X, DIM_CHAO_Y}, i), lista_ents(), GC(), pJogador(pJog)
         {
+            pFigura->setPosition({0.0f, WIN_SIZE_Y - DIM_CHAO_Y});
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pJog));
             GC.setJogador(pJog);
         }

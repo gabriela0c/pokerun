@@ -48,7 +48,7 @@ namespace Pokerun{
             }
         }
 
-        void GerenciadorGrafico::desenhaElementos(sf::RectangleShape& corpo)
+        void GerenciadorGrafico::desenhaElementos(sf::RectangleShape& corpo)//mudar aq tlvz pra n precisar usar *p em getFig 
         {
             if(window){
                 window->draw(corpo);

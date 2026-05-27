@@ -14,7 +14,7 @@ namespace Pokerun{
                 bool danoso;
                 
             public:
-                Obstaculo(const sf::Vector2f tam = {0.0f, 0.0f}, bool d = false);
+                Obstaculo(const sf::Vector2f tam = {0.0f, 0.0f}, bool d = false, const ID i = ID::INDEFINIDO);
                 virtual ~Obstaculo();
 
                 virtual void executar() = 0;

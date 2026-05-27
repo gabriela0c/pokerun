@@ -7,6 +7,9 @@
 #define WIN_SIZE_X 800.0f
 #define WIN_SIZE_Y 600.0f
 
+#define DIM_CHAO_X 800.0f
+#define DIM_CHAO_Y 50.0f
+
 namespace Pokerun{
 
     namespace Fases{
@@ -18,7 +21,7 @@ namespace Pokerun{
             Entidades::Personagens::Jogador* pJogador;
 
         public:
-            Fase(Entidades::Personagens::Jogador* pJog = nullptr);
+            Fase(Entidades::Personagens::Jogador* pJog = nullptr, const ID i = ID::INDEFINIDO);
             ~Fase();
 
             virtual void criarInimigos() = 0;

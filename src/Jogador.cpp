@@ -8,16 +8,16 @@ namespace Pokerun{
         namespace Personagens{
 
             Jogador::Jogador():
-            Personagem({TAM_JOG_X, TAM_JOG_Y}, {VEL_JOG_X, 0.0f})
+            Personagem({TAM_JOG_X, TAM_JOG_Y}, {VEL_JOG_X, 0.0f}, ID::JOGADOR)
             {
-                corpo.setPosition({POS0_JOG_X, POS0_JOG_Y});
+                pFigura->setPosition({POS0_JOG_X, POS0_JOG_Y});
                 if(!texturaJogador.loadFromFile("assets/sprites/pikachu.png"))
                 //sprite retirada do site oficial da franquia Pokemon
                     std::cout << "ERRO: Nao foi possivel carregar a textura do jogador!" << std::endl;
 
-                corpo.setTexture(&texturaJogador);
-                corpo.setFillColor(sf::Color::White); 
-                corpo.setTextureRect(sf::IntRect({0, 0}, {(int)TAM_JOG_X, (int)TAM_JOG_Y}));
+                pFigura->setTexture(&texturaJogador);
+                pFigura->setFillColor(sf::Color::White); 
+                pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)TAM_JOG_X, (int)TAM_JOG_Y}));
             }
 
             Jogador::~Jogador()

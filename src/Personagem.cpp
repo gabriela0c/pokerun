@@ -5,8 +5,8 @@ namespace Pokerun{
 
         namespace Personagens{
 
-            Personagem::Personagem(const sf::Vector2f tam, const sf::Vector2f v):
-            Entidade(tam), vel(v), noChao(false),gravidade(GRAVIDADE), relogio(), dt(0.0f)
+            Personagem::Personagem(const sf::Vector2f tam, const sf::Vector2f v, const ID i):
+            Entidade(tam, i), vel(v), noChao(false),gravidade(GRAVIDADE), relogio(), dt(0.0f)
             {
                 
             }
@@ -26,7 +26,7 @@ namespace Pokerun{
                 vel.y += gravidade * dt;
                 if(vel.y > VEL_TERM){vel.y = VEL_TERM;}
 
-                corpo.move({0.0f, vel.y * dt});
+                pFigura->move({0.0f, vel.y * dt});
             }
 
             sf::Vector2f Personagem::getVel()const{

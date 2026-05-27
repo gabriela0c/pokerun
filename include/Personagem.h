@@ -22,7 +22,7 @@ namespace Pokerun{
                 float dt;
 
             public:
-                Personagem(const sf::Vector2f tam = {}, const sf::Vector2f v = {});
+                Personagem(const sf::Vector2f tam = {}, const sf::Vector2f v = {}, const ID i = ID::INDEFINIDO);
                 virtual ~Personagem();
 
                 void aplicarGravidade();

@@ -8,15 +8,16 @@ namespace Pokerun{
         namespace Personagens{
 
             Inimigo::Inimigo():
-            Personagem({TAM_INIM_X, TAM_INIM_Y}, {VEL_INIM_X, 0.0f}), pJogador(nullptr), direcao(-1), tempoMovimento(0.0f)
+            Personagem({TAM_INIM_X, TAM_INIM_Y}, {VEL_INIM_X, 0.0f}, ID::INIMIGO), pJogador(nullptr), 
+            direcao(-1), tempoMovimento(0.0f)
             {
                 if(!texturaInimigo.loadFromFile("assets/sprites/bulbasaur.png"))
                 //sprite retirada do site oficial da franquia Pokemon
                     std::cout << "ERRO: Nao foi possivel carregar a textura do inimigo!" << std::endl;
                 
-                corpo.setTexture(&texturaInimigo);
-                corpo.setFillColor(sf::Color::White);
-                corpo.setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+                pFigura->setTexture(&texturaInimigo);
+                pFigura->setFillColor(sf::Color::White);
+                pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
             }
 
             Inimigo::~Inimigo()
@@ -38,8 +39,9 @@ namespace Pokerun{
 
             void Inimigo::executar()
             {
-                aplicarGravidade();
+                if(!noChao){aplicarGravidade();}
                 mover();
+                noChao = false;
             }
 
             void Inimigo::mover()
@@ -49,8 +51,8 @@ namespace Pokerun{
                     return;
                 }
 
-                sf::Vector2f posJogador = pJogador->getCorpo().getPosition();
-                sf::Vector2f posInimigo = corpo.getPosition();
+                sf::Vector2f posJogador = pJogador->getFig().getPosition();//pode ser metodo do Personagem/entidade
+                sf::Vector2f posInimigo = pFigura->getPosition();
 
                 if(fabs(posInimigo.x - posJogador.x) <= RAIO_X && fabs(posInimigo.y - posJogador.y) <= RAIO_Y){
                     persegueJogador(posJogador, posInimigo);
@@ -62,13 +64,13 @@ namespace Pokerun{
 
             void Inimigo::movimentoAleatorio()
             {
-                corpo.move({-vel.x * direcao * dt, 0.0f});
+                pFigura->move({-vel.x * direcao * dt, 0.0f});
                 
                 if (direcao == -1) //move p direita
-                    corpo.setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+                    pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
                 
                 else //move p esquerda
-                    corpo.setTextureRect(sf::IntRect({(int)TAM_INIM_X, 0}, {-(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+                    pFigura->setTextureRect(sf::IntRect({(int)TAM_INIM_X, 0}, {-(int)TAM_INIM_X, (int)TAM_INIM_Y}));
 
                 tempoMovimento += dt;
 
@@ -78,17 +80,23 @@ namespace Pokerun{
                 }
             }
 
+            void Inimigo::pousar()
+            {
+                noChao = true;
+                vel.y = 0.0f;
+            }
+
             void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo)
             {
                 if(posJogador.x - posInimigo.x > 0.0f){
                     //indo p direita
-                    corpo.move({vel.x * dt, 0.0f});
-                    corpo.setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+                    pFigura->move({vel.x * dt, 0.0f});
+                    pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)TAM_INIM_X, (int)TAM_INIM_Y}));
                 }
                 else{
                     //indo p esquerda
-                    corpo.move({-vel.x * dt, 0.0f});
-                    corpo.setTextureRect(sf::IntRect({(int)TAM_INIM_X, 0}, {-(int)TAM_INIM_X, (int)TAM_INIM_Y}));
+                    pFigura->move({-vel.x * dt, 0.0f});
+                    pFigura->setTextureRect(sf::IntRect({(int)TAM_INIM_X, 0}, {-(int)TAM_INIM_X, (int)TAM_INIM_Y}));
                 }
             }
 
