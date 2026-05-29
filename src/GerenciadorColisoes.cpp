@@ -46,8 +46,6 @@ namespace Pokerun{
                 }
             }
 
-            //TRANSFORMAR TUDO AQUI EM METODOS ADEQUADOS NAS CLASSES PROVAVELMENTE
-            //EX: colidir_por_cima, colidir_de_baixo, colidir_horizontal
             void GerenciadorColisoes::tratarColisoesJogsInims()
             {
                 if(!pJogador || Linimigos.empty()){return;}
@@ -56,35 +54,13 @@ namespace Pokerun{
                     if(Linimigos[i]){
                         bool colisao = verificarColisao(pJogador, Linimigos[i]);
                         if(colisao){
-                            sf::FloatRect jog = pJogador->getFig().getGlobalBounds();
-                            sf::FloatRect inim = Linimigos[i]->getFig().getGlobalBounds();
-
-                            float overlap_x = std::min(jog.position.x + jog.size.x, inim.position.x + inim.size.x) // menor lado direito
-                                - std::max(jog.position.x, inim.position.x); //maior lado esquerdo
-                            float overlap_y = std::min(jog.position.y + jog.size.y, inim.position.y + inim.size.y) // parte de baixo mais acima (geografico nao numericamente)
-                                - std::max(jog.position.y, inim.position.y); // parte de cima mais abaixo (geografico nao numericamente)
-
-                            if(std::abs(overlap_x) < std::abs(overlap_y)){//se o overlap for menor em x (colisao horizontal), a colisao eh simetrica
-                                float dir = (jog.position.x < inim.position.x) ? -1.0f : 1.0f;
-                                pJogador->getFig().move({dir * overlap_x / 2.0f, 0.0f}); // cada um mexe metade do overlap
-                                Linimigos[i]->getFig().move({-dir * overlap_x / 2.0f, 0.0f});
-                            }
-                            else{
-                                sf::Vector2f jogCentro = {jog.position.x + jog.size.x/2.f, jog.position.y + jog.size.y/2.f};
-                                sf::Vector2f inimCentro = {inim.position.x + inim.size.x/2.f, inim.position.y + inim.size.y/2.f};
-
-                                if(jogCentro.y < inimCentro.y){ //jogador estava acima do inimigo, colide com ele e permite pulo
-                                pJogador->colisao_posso_pular(Linimigos[i]);
-                            } 
-                            else{//se o inimigo estava acima ele nao empurra o jogador para baixo, ele que se move para cima, senao o jogador eh empurrado para fora do mapa
-                                Linimigos[i]->getFig().move({0.0f, -overlap_y});
-                                Linimigos[i]->pousar();
-                            }
+                            Entidades::Personagens::Personagem::colisaoPersonagem(pJogador, Linimigos[i]);
                         }
                     }
                 }
             }
-        }
+            
+        
 
             void GerenciadorColisoes::tratarColisoesInimsObstacs()
             {
@@ -117,6 +93,7 @@ namespace Pokerun{
                     }
                 } 
             }
+        
 
             void GerenciadorColisoes::tratarColisoesInimsInims()
             {
@@ -136,34 +113,15 @@ namespace Pokerun{
                                 bool colisao = verificarColisao(Linimigos[i], Linimigos[j]);
                                 if (colisao) 
                                 {
-                                    Linimigos[i]->colidir(Linimigos[j]);
-    
-                                    sf::Vector2f posI = Linimigos[i]->getFig().getPosition(); //criar esse metodo talvez pra ficar mais encapsulado
-                                    sf::Vector2f posJ = Linimigos[j]->getFig().getPosition(); //que nem eu falei ali em cima
-
-                                    //verifica se a colisão é mais horizontal ou vertical, 
-                                    //para decidir a direção que cada inimigo deve seguir
-                                    if (std::abs(posI.x - posJ.x) > std::abs(posI.y - posJ.y)) 
-                                    {
-        
-
-                                        if (posI.x < posJ.x) 
-                                        {
-                                            Linimigos[i]->setDirecao(-1);
-                                            Linimigos[j]->setDirecao(1);
-                                        } 
-                                        else 
-                                        {
-                                            Linimigos[i]->setDirecao(1);
-                                            Linimigos[j]->setDirecao(-1);
-                                        }
-                                    }
+                                    Entidades::Personagens::Personagem::colisaoPersonagem(Linimigos[i], Linimigos[j]);
                                 }
                             }
                         }
                     }
                 }    
             }
+        
+        
     
             const bool GerenciadorColisoes::verificarColisao(Entidades::Entidade* pe1, Entidades::Entidade* pe2)const
             {

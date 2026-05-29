@@ -4,6 +4,7 @@
 #include <list>
 
 #include "Entidade.h"
+#include "Personagem.h"
 #include "Inimigo.h" //inimigo inclui cmath
 #include "Obstaculo.h"
 #include "Plataforma.h"

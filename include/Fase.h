@@ -10,7 +10,7 @@
 #define WIN_SIZE_X 800.0f
 #define WIN_SIZE_Y 600.0f
 
-#define DIM_CHAO_X 1000.0f
+//dim chao x eh sempre o tamanho da janela
 #define DIM_CHAO_Y 50.0f
 
 namespace Pokerun{

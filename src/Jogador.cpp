@@ -29,11 +29,14 @@ namespace Pokerun{
 
             void Jogador::mover()
             {
-                if(!noChao){aplicarGravidade();}
+                if(!noChao)
+                    aplicarGravidade();
+                else 
+                    relogio.restart();//relogio sempre fresco quando no chao, garante que o pulo nao pareca teleporte
             }
 
             bool Jogador::colisao_posso_pular(Entidade* pOutra)
-            {
+            { 
                 bool deCima = Entidade::colidir(pOutra);
                 if(deCima){
                     noChao = true;

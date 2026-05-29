@@ -17,7 +17,6 @@ namespace Pokerun{
         }
 
         bool Entidade::colidir(Entidade* pOutra){
-
             sf::FloatRect mBounds = getFig().getGlobalBounds();
             sf::FloatRect oBounds = pOutra->getFig().getGlobalBounds();
 

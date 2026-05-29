@@ -26,8 +26,13 @@ namespace Pokerun{
                 virtual ~Personagem();
 
                 void aplicarGravidade();
+                void pousar();
+
                 sf::Vector2f getVel()const;
                 void setVel(sf::Vector2f v);
+
+                static void colisaoPersonagem(Personagem* p1, Personagem* p2);
+                
 
                 virtual void mover() = 0;
                 virtual void executar() = 0;

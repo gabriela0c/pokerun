@@ -6,15 +6,12 @@ namespace Pokerun{
     namespace Fases{
 
         Fase::Fase(Entidades::Personagens::Jogador* pJog, const ID i):
-        Ente({DIM_CHAO_X, DIM_CHAO_Y}, i), lista_ents(), GC(), pJogador(pJog)
+        Ente({WIN_SIZE_X, WIN_SIZE_Y}, i), lista_ents(), GC(), pJogador(pJog)
         {
-            pFigura->setPosition({0.0f, WIN_SIZE_Y - DIM_CHAO_Y});
-            pFigura = new sf::RectangleShape();
-
             if (!texturaFundo.loadFromFile("assets/sprites/fundos/fase1.png"))
                 std::cout << "ERRO: Nao foi possivel carregar a imagem de fundo!" << std::endl;
-            
-            pFigura->setSize(sf::Vector2f(WIN_SIZE_X, WIN_SIZE_Y));
+            //era so passar o tam pra construtora, pFig ja recebe new em ente
+            pFigura->setPosition({0.0f, 0.0f});//nem precisa disso pq o default ja eh nascer em (0,0) mas deixa ai
             pFigura->setTexture(&texturaFundo);
 
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pJog));
@@ -66,9 +63,11 @@ namespace Pokerun{
                     sf::FloatRect novaArea = pPlat->getFig().getGlobalBounds();
                     bool sobrepoe = false;
 
-                    for (const auto& area : posicoesPlataformas) 
+                    std::vector<sf::FloatRect>::iterator it;
+                    //range based for e auto nao sao c++ 2003
+                    for (it = posicoesPlataformas.begin(); it != posicoesPlataformas.end(); it++) 
                     {
-                        if (novaArea.findIntersection(area)) 
+                        if (novaArea.findIntersection(*it)) 
                         {
                             sobrepoe = true;
                             break; 
@@ -76,11 +75,15 @@ namespace Pokerun{
                     }
                     if (sobrepoe) 
                     {
-                        int limiteX = 801 - (int)pPlat->getFig().getSize().x;
-                        int limiteY = 601 - (int)pPlat->getFig().getSize().y;
-                                
-                        if (limiteX <= 0) limiteX = 1;
-                        if (limiteY <= 0) limiteY = 1;
+                        int limiteX = WIN_SIZE_X + 1 - (int)pPlat->getFig().getSize().x;
+                        int limiteY = WIN_SIZE_Y + 1 - (int)pPlat->getFig().getSize().y;
+                        
+                        if (limiteX <= 0){ 
+                            limiteX = 1;
+                        }
+                        if (limiteY <= 0) {
+                            limiteY = 1;
+                        }
 
                         float novoX = (float)(rand() % limiteX);
                         float novoY = (float)(rand() % limiteY);

@@ -82,12 +82,6 @@ namespace Pokerun{
                 }
             }
 
-            void Inimigo::pousar()
-            {
-                noChao = true;
-                vel.y = 0.0f;
-            }
-
             void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo)
             {
                 if(posJogador.x - posInimigo.x > 0.0f){
