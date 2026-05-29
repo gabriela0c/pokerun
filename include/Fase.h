@@ -18,8 +18,6 @@ namespace Pokerun{
     namespace Fases{
 
         class Fase : public Ente{
-        private:
-            sf::Texture texturaFundo;
         protected:
             Listas::ListaEntidades lista_ents;
             Gerenciadores::GerenciadorColisoes GC;

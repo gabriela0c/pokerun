@@ -12,8 +12,6 @@ namespace Pokerun{
         namespace Obstaculos{
 
             class Plataforma : public Obstaculo{
-            private:
-                static sf::Texture texturaPlataforma;
             public:
                 Plataforma();
                 Plataforma(sf::Vector2f pos, sf::Vector2f dim); //para construir o chao

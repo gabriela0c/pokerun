@@ -8,11 +8,7 @@ namespace Pokerun{
         Fase::Fase(Entidades::Personagens::Jogador* pJog, const ID i):
         Ente({WIN_SIZE_X, WIN_SIZE_Y}, i), lista_ents(), GC(), pJogador(pJog)
         {
-            if (!texturaFundo.loadFromFile("assets/sprites/fundos/fase1.png"))
-                std::cout << "ERRO: Nao foi possivel carregar a imagem de fundo!" << std::endl;
-            //era so passar o tam pra construtora, pFig ja recebe new em ente
-            pFigura->setPosition({0.0f, 0.0f});//nem precisa disso pq o default ja eh nascer em (0,0) mas deixa ai
-            pFigura->setTexture(&texturaFundo);
+            pFigura->setPosition({0.0f, 0.0f});
 
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pJog));
             GC.setJogador(pJog);

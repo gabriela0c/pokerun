@@ -10,6 +10,7 @@ namespace Pokerun {
         static Gerenciadores::GerenciadorGrafico* pGG;
         const ID id;
         sf::RectangleShape* pFigura;
+        sf::Texture textura;
         
     public:
         Ente(const sf::Vector2f tam = {0.0f, 0.0f}, const ID i = ID::INDEFINIDO);

@@ -7,6 +7,10 @@ namespace Pokerun{
         FasePrimeira::FasePrimeira(Entidades::Personagens::Jogador* pJog):
         Fase(pJog, ID::FASE_PRIMEIRA), maxInimigosMedios(5), maxInimigosFaceis(5), maxObstaculosMedios(5)
         {
+            if (!textura.loadFromFile("assets/sprites/fundos/fase1.png"))
+                std::cout << "ERRO: Nao foi possivel carregar a imagem de fundo!" << std::endl;
+            pFigura->setTexture(&textura);
+            
             criarInimigos();
             criarObstaculos();
         }

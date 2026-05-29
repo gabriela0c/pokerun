@@ -30,8 +30,6 @@ namespace Pokerun{
                 const Jogador* pJogador;
                 int direcao;
                 float tempoMovimento;
-            private:
-                static sf::Texture texturaInimigo;
 
             public:
                 Inimigo();

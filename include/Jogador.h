@@ -21,9 +21,6 @@ namespace Pokerun{
         namespace Personagens{
 
             class Jogador : public Personagem{
-            private:
-                static sf::Texture texturaJogador;
-
             public:
                 Jogador();    
                 ~Jogador();

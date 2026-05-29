@@ -5,7 +5,7 @@ namespace Pokerun {
     Gerenciadores::GerenciadorGrafico* Ente::pGG = Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico();
 
     Ente::Ente(const sf::Vector2f tam, const ID i) : 
-    ativo(true), id(i), pFigura(new sf::RectangleShape(tam))
+    ativo(true), id(i), pFigura(new sf::RectangleShape(tam)), textura()
     {
     }
 

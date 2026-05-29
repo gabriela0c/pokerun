@@ -15,8 +15,6 @@ namespace Pokerun{
         namespace Obstaculos{
             
             class ObstMedio : public Obstaculo{
-                private:
-                    static sf::Texture texturaObstMedio;
                 public:
                     ObstMedio();
                     ~ObstMedio();

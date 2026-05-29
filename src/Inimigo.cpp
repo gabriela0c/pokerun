@@ -6,18 +6,16 @@ namespace Pokerun{
     namespace Entidades{
 
         namespace Personagens{
-
-            sf::Texture Inimigo::texturaInimigo;
             
             Inimigo::Inimigo():
             Personagem({TAM_INIM_X, TAM_INIM_Y}, {VEL_INIM_X, 0.0f}, ID::INIMIGO), pJogador(nullptr), 
             direcao(-1), tempoMovimento(0.0f)
             {
-                if(!texturaInimigo.loadFromFile("assets/sprites/bulbasaur.png"))
+                if(!textura.loadFromFile("assets/sprites/bulbasaur.png"))
                 //sprite retirada do site oficial da franquia Pokemon
                     std::cout << "ERRO: Nao foi possivel carregar a textura do inimigo!" << std::endl;
                 
-                pFigura->setTexture(&texturaInimigo);
+                pFigura->setTexture(&textura);
                 pFigura->setFillColor(sf::Color::White);
                 pFigura->setTextureRect(sf::IntRect({0, 0}, {LARGURA_BULBASAUR, ALTURA_BULBASAUR}));
             }
