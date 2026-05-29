@@ -171,6 +171,7 @@ namespace Pokerun{
                 
                 sf::FloatRect bounds1 = (pe1->getFig()).getGlobalBounds();
                 sf::FloatRect bounds2 = (pe2->getFig()).getGlobalBounds();
+                
                 //getGlobalBound retorna as coordenadas do canto superior esquerdo, nao do centro(tambem retorna o tam do corpo)
                 sf::Vector2f centro1 = {bounds1.position.x + (bounds1.size.x/2), bounds1.position.y + (bounds1.size.y/2)};
                 sf::Vector2f centro2 = {bounds2.position.x + (bounds2.size.x/2), bounds2.position.y + (bounds2.size.y/2)};

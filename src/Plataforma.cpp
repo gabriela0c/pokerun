@@ -12,7 +12,7 @@ namespace Pokerun{
             Plataforma::Plataforma():
             Obstaculo({TAM_PLAT_X, TAM_PLAT_Y}, false, ID::PLATAFORMA)
             {
-                if(!texturaPlataforma.loadFromFile("assets/sprites/obstaculos/plataformas/plataforma.png")){
+                if(!texturaPlataforma.loadFromFile("assets/sprites/obstaculos/plataforma.png")){
                 //sprite gerada por IA
                     std::cout << "ERRO: Nao foi possivel carregar a textura da plataforma!" << std::endl;
                 }
@@ -41,9 +41,8 @@ namespace Pokerun{
 
             void Plataforma::obstaculizar(Personagens::Jogador* pJog)
             {
-                if(pJog){
+                if(pJog)
                     pJog->colisao_posso_pular(this);
-                }
                 
             }
         }

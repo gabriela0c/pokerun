@@ -8,17 +8,22 @@ namespace Pokerun{
 
         class FasePrimeira : public Fase{
         private:
+            const int maxInimigosMedios;
+            const int maxInimigosFaceis;
+            const int maxObstaculosMedios;
 
         public:
-        FasePrimeira(Entidades::Personagens::Jogador* pJog = nullptr);
+       FasePrimeira(Entidades::Personagens::Jogador* pJog = nullptr);
         ~FasePrimeira();
         
-        void executar();
-
+        void criarInimMedios();
+        void criarObstaculosMedios();
+        
         void criarInimigos();
         void criarObstaculos();
-        //void criarInimMedios();
-        //void criarObstaculosMedios();
+
+        void executar();
+        
         };
     }
 }

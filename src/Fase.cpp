@@ -26,6 +26,15 @@ namespace Pokerun{
             pJogador = nullptr;
             lista_ents.limpar();
         }
+        
+        void Fase::criarChao()
+        {
+            Entidades::Obstaculos::Chao* pChao = new Entidades::Obstaculos::Chao({0.0f, WIN_SIZE_Y - 40.0f}, {WIN_SIZE_X, 40.0f}); 
+            lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
+            GC.incluirObstaculo(static_cast<Entidades::Obstaculos::Obstaculo*>(pChao));
+
+            posicoesPlataformas.push_back(pChao->getFig().getGlobalBounds());
+        }
 
         void Fase::criarInimFaceis()
         {
@@ -42,12 +51,11 @@ namespace Pokerun{
 
         void Fase::criarPlataformas()
         {
-            //lista p guardar as áreas já ocupadas
-            std::vector<sf::FloatRect> areasOcupadas;
-            
+
             Entidades::Obstaculos::Plataforma* pPlat = nullptr;
-            
-            for(int i = 0; i < 3; i++){
+    
+            for(int i = 0; i < 3; i++)
+            {
                 pPlat = new Entidades::Obstaculos::Plataforma();
                 
                 bool posicaoValida = false;
@@ -58,7 +66,7 @@ namespace Pokerun{
                     sf::FloatRect novaArea = pPlat->getFig().getGlobalBounds();
                     bool sobrepoe = false;
 
-                    for (const auto& area : areasOcupadas) 
+                    for (const auto& area : posicoesPlataformas) 
                     {
                         if (novaArea.findIntersection(area)) 
                         {
@@ -66,37 +74,31 @@ namespace Pokerun{
                             break; 
                         }
                     }
-
                     if (sobrepoe) 
                     {
                         int limiteX = 801 - (int)pPlat->getFig().getSize().x;
                         int limiteY = 601 - (int)pPlat->getFig().getSize().y;
-                        
+                                
                         if (limiteX <= 0) limiteX = 1;
                         if (limiteY <= 0) limiteY = 1;
 
                         float novoX = (float)(rand() % limiteX);
                         float novoY = (float)(rand() % limiteY);
-                        
+                                
                         pPlat->getFig().setPosition({novoX, novoY});
 
                         tentativas++;
-                    } 
-                    else
-                        posicaoValida = true;
+                        } 
+                        else
+                            posicaoValida = true;
                 }
 
-                areasOcupadas.push_back(pPlat->getFig().getGlobalBounds());
+                posicoesPlataformas.push_back(pPlat->getFig().getGlobalBounds());
                 
                 lista_ents.incluir(static_cast<Entidades::Entidade*>(pPlat));
                 GC.incluirObstaculo(pPlat); 
                 pPlat = nullptr;
             }
-            
-            // chão
-            pPlat = new Entidades::Obstaculos::Plataforma({0.0f, WIN_SIZE_Y - 30.0f}, {WIN_SIZE_X, 30.0f}); 
-            lista_ents.incluir(pPlat);
-            GC.incluirObstaculo(pPlat);
 
             // parede invisível na esquerda
             Entidades::Obstaculos::Plataforma* pParedeEsq = new Entidades::Obstaculos::Plataforma({-100.0f, 0.0f}, {100.0f, WIN_SIZE_Y});

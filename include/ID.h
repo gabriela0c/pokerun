@@ -6,7 +6,9 @@ namespace Pokerun{
         JOGADOR,
         INIMIGO,
         PLATAFORMA,
+        CHAO,
         FASE_PRIMEIRA,
+        OBST_MEDIO,
         INDEFINIDO
     };
 }

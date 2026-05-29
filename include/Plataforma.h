@@ -3,10 +3,7 @@
 #include "Obstaculo.h"
 
 #define TAM_PLAT_X 300.0f
-#define TAM_PLAT_Y 70.0f
-
-#define LARGURA_PLATAFORMA 427
-#define ALTURA_PLATAFORMA 106
+#define TAM_PLAT_Y 58.0f
 
 namespace Pokerun{
 
