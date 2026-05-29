@@ -21,11 +21,12 @@ namespace Pokerun{
         protected:
             Listas::ListaEntidades lista_ents;
             Gerenciadores::GerenciadorColisoes GC;
-            Entidades::Personagens::Jogador* pJogador;
+            Entidades::Personagens::Jogador* pJogador1;
+            Entidades::Personagens::Jogador* pJogador2;
             std::vector<sf::FloatRect> posicoesPlataformas;
 
         public:
-            Fase(Entidades::Personagens::Jogador* pJog = nullptr, const ID i = ID::INDEFINIDO);
+            Fase(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr, const ID i = ID::INDEFINIDO);
             ~Fase();
 
             virtual void criarInimigos() = 0;

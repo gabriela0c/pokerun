@@ -4,6 +4,12 @@
 #include "Jogador.h"
 #include "GerenciadorGrafico.h"
 
+#define LARGURA_PIKACHU 40
+#define ALTURA_PIKACHU 38
+
+#define LARGURA_RAICHU 48
+#define ALTURA_RAICHU 46
+
 namespace Pokerun {
 
     namespace Gerenciadores {
@@ -12,7 +18,8 @@ namespace Pokerun {
         private:
             static GerenciadorEvento* pEvento; 
             GerenciadorGrafico* pGrafico;
-            Entidades::Personagens::Jogador* pJogador;
+            Entidades::Personagens::Jogador* pJogador1;
+            Entidades::Personagens::Jogador* pJogador2;
 
             GerenciadorEvento(); //construtor privado para evitar que outra classe crie um novo
         public:
@@ -21,7 +28,8 @@ namespace Pokerun {
             static GerenciadorEvento* getGerenciadorEvento();
             static void destruir();
 
-            void setJogador(Entidades::Personagens::Jogador* jog);
+            void setJogador1(Entidades::Personagens::Jogador* jog1);
+            void setJogador2(Entidades::Personagens::Jogador* jog2);
             void executar();
         };
 

@@ -15,7 +15,8 @@ namespace Pokerun{
     {
         class GerenciadorColisoes{
         private:
-            Entidades::Personagens::Jogador* pJogador;
+            Entidades::Personagens::Jogador* pJogador1;
+            Entidades::Personagens::Jogador* pJogador2;
             std::vector<Entidades::Personagens::Inimigo*> Linimigos;
             std::list<Entidades::Obstaculos::Obstaculo*> Lobstaculos;
 
@@ -28,8 +29,10 @@ namespace Pokerun{
             void tratarColisoesJogsInims();
             void tratarColisoesInimsObstacs();
             void tratarColisoesInimsInims();
+            void tratarColisoesJogsJogs();
 
-            void setJogador(Entidades::Personagens::Jogador* pJ);
+            void setJogador1(Entidades::Personagens::Jogador* pJog1);
+            void setJogador2(Entidades::Personagens::Jogador* pJog2);
             void incluirInimigo(Entidades::Personagens::Inimigo* pI);
             void incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO);
 

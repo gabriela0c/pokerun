@@ -11,9 +11,6 @@
 #define POS0_JOG_X 50.0f
 #define POS0_JOG_Y 300.0f
 
-#define LARGURA_PIKACHU 40
-#define ALTURA_PIKACHU 38
-
 namespace Pokerun{   
 
     namespace Entidades{
@@ -29,7 +26,8 @@ namespace Pokerun{
                 void pular();
 
                 bool colisao_posso_pular(Entidade* pOutra);
-
+                void setTextura(std::string caminho, sf::IntRect bounds);
+                //essa funcao so eh util para o jogador msm os objetos das outras classes vao todos ter a mesma textura
                 void executar();
             };
         }

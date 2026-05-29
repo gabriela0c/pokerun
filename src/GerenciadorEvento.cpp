@@ -6,7 +6,7 @@ namespace Pokerun{
 
         GerenciadorEvento* GerenciadorEvento::pEvento = nullptr;
 
-        GerenciadorEvento::GerenciadorEvento(): pGrafico(GerenciadorGrafico::getGerenciadorGrafico()), pJogador(nullptr)
+        GerenciadorEvento::GerenciadorEvento(): pGrafico(GerenciadorGrafico::getGerenciadorGrafico()), pJogador1(nullptr), pJogador2(nullptr)
         {
 
         }
@@ -34,10 +34,17 @@ namespace Pokerun{
             }
         }
 
-        void GerenciadorEvento::setJogador(Pokerun::Entidades::Personagens::Jogador* jog) 
+        void GerenciadorEvento::setJogador1(Pokerun::Entidades::Personagens::Jogador* jog1) 
         {
-            if(jog){
-                pJogador = jog;
+            if(jog1){
+                pJogador1 = jog1;
+            }
+        }
+
+        void GerenciadorEvento::setJogador2(Pokerun::Entidades::Personagens::Jogador* jog2) 
+        {
+            if(jog2){
+                pJogador2 = jog2;
             }
         }
 
@@ -53,20 +60,37 @@ namespace Pokerun{
                 }
             }
     
-            if (pJogador) 
+            if (pJogador1) 
             {
-                sf::Vector2f v = pJogador->getVel();
+                sf::Vector2f v = pJogador1->getVel();
 
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-                    pJogador->getFig().move({-v.x, 0.0f});
-                    pJogador->getFig().setTextureRect(sf::IntRect({LARGURA_PIKACHU, 0}, {-LARGURA_PIKACHU, ALTURA_PIKACHU}));
+                    pJogador1->getFig().move({-v.x, 0.0f});
+                    pJogador1->getFig().setTextureRect(sf::IntRect({LARGURA_PIKACHU, 0}, {-LARGURA_PIKACHU, ALTURA_PIKACHU}));
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-                    pJogador->getFig().move({v.x, 0.0f});
-                    pJogador->getFig().setTextureRect(sf::IntRect({0, 0}, {LARGURA_PIKACHU, ALTURA_PIKACHU}));
+                    pJogador1->getFig().move({v.x, 0.0f});
+                    pJogador1->getFig().setTextureRect(sf::IntRect({0, 0}, {LARGURA_PIKACHU, ALTURA_PIKACHU}));
                 }
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Space)) {
-                    pJogador->pular();
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+                    pJogador1->pular();
+                }
+            }  
+            
+            if (pJogador2) 
+            {
+                sf::Vector2f v = pJogador2->getVel();
+
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
+                    pJogador2->getFig().move({-v.x, 0.0f});
+                    pJogador2->getFig().setTextureRect(sf::IntRect({LARGURA_RAICHU, 0}, {-LARGURA_RAICHU, ALTURA_RAICHU}));
+                }
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+                    pJogador2->getFig().move({v.x, 0.0f});
+                    pJogador2->getFig().setTextureRect(sf::IntRect({0, 0}, {LARGURA_RAICHU, ALTURA_RAICHU}));
+                }
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+                    pJogador2->pular();
                 }
             }       
         }

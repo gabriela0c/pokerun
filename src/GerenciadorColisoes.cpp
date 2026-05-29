@@ -5,7 +5,7 @@ namespace Pokerun{
         namespace Gerenciadores{
 
             GerenciadorColisoes::GerenciadorColisoes():
-            pJogador(nullptr), Linimigos(), Lobstaculos()
+            pJogador1(nullptr), pJogador2(nullptr), Linimigos(), Lobstaculos()
             {
                 Linimigos.clear();
                 Lobstaculos.clear();
@@ -15,7 +15,8 @@ namespace Pokerun{
             {
                 Linimigos.clear();
                 Lobstaculos.clear();
-                pJogador = nullptr;
+                pJogador1 = nullptr;
+                pJogador2 = nullptr;
             }
 
             void GerenciadorColisoes::executar()
@@ -24,12 +25,13 @@ namespace Pokerun{
                 tratarColisoesJogsInims();
                 tratarColisoesInimsObstacs();
                 tratarColisoesInimsInims();
+                tratarColisoesJogsJogs();
                
             }
             
             void GerenciadorColisoes::tratarColisoesJogsObstacs()
             {
-                if(!pJogador || Lobstaculos.empty()){return;}
+                if(!pJogador1 || !pJogador2 || Lobstaculos.empty()){return;}
 
                 std::list<Entidades::Obstaculos::Obstaculo*>::iterator it;
                 it = Lobstaculos.begin();
@@ -37,32 +39,21 @@ namespace Pokerun{
                 while(it != Lobstaculos.end()){
                     if(*it){
                         //cast desnecessario pois ambas herdam de entidade e o upcasting eh feito automaticamente
-                        bool colisao = verificarColisao(pJogador,*it);
-                        if (colisao){
-                            (*it)->obstaculizar(pJogador);
+                        bool colisao1 = verificarColisao(pJogador1,*it);
+                        if (colisao1){
+                            (*it)->obstaculizar(pJogador1);
+                        }
+                        
+                        bool colisao2 = verificarColisao(pJogador2,*it);
+                        if (colisao2){
+                            (*it)->obstaculizar(pJogador2);
                         }
                     }
                     it++;
                 }
             }
 
-            void GerenciadorColisoes::tratarColisoesJogsInims()
-            {
-                if(!pJogador || Linimigos.empty()){return;}
-
-                for(int i = 0; i < (int)Linimigos.size(); i++){
-                    if(Linimigos[i]){
-                        bool colisao = verificarColisao(pJogador, Linimigos[i]);
-                        if(colisao){
-                            Entidades::Personagens::Personagem::colisaoPersonagem(pJogador, Linimigos[i]);
-                        }
-                    }
-                }
-            }
-            
-        
-
-            void GerenciadorColisoes::tratarColisoesInimsObstacs()
+             void GerenciadorColisoes::tratarColisoesInimsObstacs()
             {
                 if(Lobstaculos.empty() || Linimigos.empty()){return;}
 
@@ -95,6 +86,25 @@ namespace Pokerun{
             }
         
 
+            void GerenciadorColisoes::tratarColisoesJogsInims()
+            {
+                if(!pJogador1 || !pJogador2 || Linimigos.empty()){return;}
+
+                for(int i = 0; i < (int)Linimigos.size(); i++){
+                    if(Linimigos[i]){
+                        bool colisao1 = verificarColisao(pJogador1, Linimigos[i]);
+                        if(colisao1){
+                            Entidades::Personagens::Personagem::colisaoPersonagem(pJogador1, Linimigos[i]);
+                        }
+
+                        bool colisao2 = verificarColisao(pJogador2, Linimigos[i]);
+                        if(colisao2){
+                            Entidades::Personagens::Personagem::colisaoPersonagem(pJogador2, Linimigos[i]);
+                        }
+                    }
+                }
+            }        
+
             void GerenciadorColisoes::tratarColisoesInimsInims()
             {
                 if (Linimigos.size() < 2) {return;}
@@ -120,6 +130,17 @@ namespace Pokerun{
                     }
                 }    
             }
+
+            void GerenciadorColisoes::tratarColisoesJogsJogs()
+            {
+                if (!pJogador1 || !pJogador2) {return;}
+
+                bool colisao = verificarColisao(pJogador1, pJogador2);
+                
+                if(colisao){
+                Entidades::Personagens::Personagem::colisaoPersonagem(pJogador1, pJogador2);
+                }
+            }
         
         
     
@@ -140,10 +161,17 @@ namespace Pokerun{
                 return (distCentros.x < mediaTam.x && distCentros.y < mediaTam.y);
             }
             
-            void GerenciadorColisoes::setJogador(Entidades::Personagens::Jogador* pJ)
+            void GerenciadorColisoes::setJogador1(Entidades::Personagens::Jogador* pJog1)
             {
-                if(pJ){
-                    pJogador = pJ;
+                if(pJog1){
+                    pJogador1 = pJog1;
+                }
+            }
+
+            void GerenciadorColisoes::setJogador2(Entidades::Personagens::Jogador* pJog2)
+            {
+                if(pJog2){
+                    pJogador2 = pJog2;
                 }
             }
 

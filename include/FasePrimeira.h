@@ -13,7 +13,7 @@ namespace Pokerun{
             const int maxObstaculosMedios;
 
         public:
-       FasePrimeira(Entidades::Personagens::Jogador* pJog = nullptr);
+       FasePrimeira(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
         ~FasePrimeira();
         
         void criarInimMedios();

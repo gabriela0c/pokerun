@@ -4,8 +4,8 @@ namespace Pokerun{
 
     namespace Fases{
 
-        FasePrimeira::FasePrimeira(Entidades::Personagens::Jogador* pJog):
-        Fase(pJog, ID::FASE_PRIMEIRA), maxInimigosMedios(5), maxInimigosFaceis(5), maxObstaculosMedios(5)
+        FasePrimeira::FasePrimeira(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
+        Fase(pJog1, pJog2, ID::FASE_PRIMEIRA), maxInimigosMedios(5), maxInimigosFaceis(5), maxObstaculosMedios(5)
         {
             if (!textura.loadFromFile("assets/sprites/fundos/fase1.png"))
                 std::cout << "ERRO: Nao foi possivel carregar a imagem de fundo!" << std::endl;

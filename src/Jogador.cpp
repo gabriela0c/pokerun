@@ -10,14 +10,13 @@ namespace Pokerun{
             Jogador::Jogador():
             Personagem({TAM_JOG_X, TAM_JOG_Y}, {VEL_JOG_X, 0.0f}, ID::JOGADOR)
             {
-                pFigura->setPosition({POS0_JOG_X, POS0_JOG_Y});
-                if(!textura.loadFromFile("assets/sprites/pikachu.png"))
+                /*if(!textura.loadFromFile("assets/sprites/pikachu.png"))
                 //sprite retirada do site oficial da franquia Pokemon
                     std::cout << "ERRO: Nao foi possivel carregar a textura do jogador!" << std::endl;
 
                 pFigura->setTexture(&textura);
                 pFigura->setFillColor(sf::Color::White); 
-                pFigura->setTextureRect(sf::IntRect({0, 0}, {LARGURA_PIKACHU, ALTURA_PIKACHU}));
+                pFigura->setTextureRect(sf::IntRect({0, 0}, {LARGURA_PIKACHU, ALTURA_PIKACHU}));*/
             }
 
             Jogador::~Jogador()
@@ -42,6 +41,17 @@ namespace Pokerun{
                     return true;
                 }
                 return false;
+            }
+
+            void Jogador::setTextura(std::string caminho, sf::IntRect bounds)
+            {
+               if(!textura.loadFromFile(caminho)){ //sprites retiradas do site oficial da franquia Pokemon
+                  std::cout << "Nao foi possivel carregar a textura do jogador" << std::endl;
+               }
+                
+                pFigura->setTexture(&textura);
+                pFigura->setFillColor(sf::Color::White); 
+                pFigura->setTextureRect(bounds);
             }
 
             void Jogador::pular()

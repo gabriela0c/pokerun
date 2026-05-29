@@ -10,9 +10,10 @@ namespace Pokerun{
     private:
         Gerenciadores::GerenciadorGrafico* pGrafico; 
         Gerenciadores::GerenciadorEvento* pEvento;
-        Entidades::Personagens::Jogador* pJogador;
+        Entidades::Personagens::Jogador* pJogador1;
+        Entidades::Personagens::Jogador* pJogador2;
         Fases::FasePrimeira Fase1;
-        //Entidades::Personagens::Jogador* pJogador;
+
     public:
         Jogo();
         ~Jogo();

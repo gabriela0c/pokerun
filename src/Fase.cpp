@@ -4,19 +4,22 @@
 namespace Pokerun{
 
     namespace Fases{
-
-        Fase::Fase(Entidades::Personagens::Jogador* pJog, const ID i):
-        Ente({WIN_SIZE_X, WIN_SIZE_Y}, i), lista_ents(), GC(), pJogador(pJog)
+ 
+        Fase::Fase(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2, const ID i):
+        Ente({WIN_SIZE_X, WIN_SIZE_Y}, i), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2)
         {
             pFigura->setPosition({0.0f, 0.0f});
 
-            lista_ents.incluir(static_cast<Entidades::Entidade*>(pJog));
-            GC.setJogador(pJog);
+            lista_ents.incluir(static_cast<Entidades::Entidade*>(pJog1));
+            lista_ents.incluir(static_cast<Entidades::Entidade*>(pJog2));
+            GC.setJogador1(pJog1);
+            GC.setJogador2(pJog2);
         }
 
         Fase::~Fase()
         {
-            pJogador = nullptr;
+            pJogador1 = nullptr;
+            pJogador2 = nullptr;
             lista_ents.limpar();
         }
         
@@ -35,7 +38,7 @@ namespace Pokerun{
             int n = rand() % 3 + 3; //cria de 3 a 5 inimigos - tabela 1 N5
             for(int i = 0; i < n; i++){
                 pInim = new Entidades::Personagens::Inimigo();
-                pInim->setJogador(pJogador);
+                pInim->setJogador(pJogador1);
                 lista_ents.incluir(static_cast<Entidades::Entidade*>(pInim));
                 GC.incluirInimigo(pInim);
                 pInim = nullptr;
