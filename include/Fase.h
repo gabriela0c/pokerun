@@ -4,7 +4,7 @@
 #include "ListaEntidades.h"
 #include "GerenciadorColisoes.h"
 #include "Chao.h"
-#include "ObstMedio.h"
+#include "ObstFacil.h"
 #include <vector>
 
 #define WIN_SIZE_X 800.0f

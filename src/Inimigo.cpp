@@ -11,7 +11,7 @@ namespace Pokerun{
             Personagem({TAM_INIM_X, TAM_INIM_Y}, {VEL_INIM_X, 0.0f}, ID::INIMIGO), pJogador(nullptr), 
             direcao(-1), tempoMovimento(0.0f)
             {
-                if(!textura.loadFromFile("assets/sprites/bulbasaur.png"))
+                if(!textura.loadFromFile("assets/sprites/personagens/inimigo/bulbasaur.png"))
                 //sprite retirada do site oficial da franquia Pokemon
                     std::cout << "ERRO: Nao foi possivel carregar a textura do inimigo!" << std::endl;
                 

@@ -12,11 +12,11 @@ namespace Pokerun{
             pFigura->setTexture(&textura);
             
             if (pJog1 != nullptr) {
-                pJog1->carregarTextura("assets/sprites/pikachu.png");
+                pJog1->carregarTextura("assets/sprites/personagens/jogador/pikachu.png");
             }
             
             if (pJog2 != nullptr) {
-                pJog2->carregarTextura("assets/sprites/raichu.png"); 
+                pJog2->carregarTextura("assets/sprites/personagens/jogador/raichu.png"); 
             }
             
             criarInimigos();
