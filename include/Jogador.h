@@ -22,6 +22,8 @@ namespace Pokerun{
                 Jogador();    
                 ~Jogador();
 
+                void carregarTextura(const std::string& caminhoArquivo);
+
                 void mover();
                 void pular();
 

@@ -11,6 +11,14 @@ namespace Pokerun{
                 std::cout << "ERRO: Nao foi possivel carregar a imagem de fundo!" << std::endl;
             pFigura->setTexture(&textura);
             
+            if (pJog1 != nullptr) {
+                pJog1->carregarTextura("assets/sprites/pikachu.png");
+            }
+            
+            if (pJog2 != nullptr) {
+                pJog2->carregarTextura("assets/sprites/raichu.png"); 
+            }
+            
             criarInimigos();
             criarObstaculos();
         }

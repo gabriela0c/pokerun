@@ -10,18 +10,23 @@ namespace Pokerun{
             Jogador::Jogador():
             Personagem({TAM_JOG_X, TAM_JOG_Y}, {VEL_JOG_X, 0.0f}, ID::JOGADOR)
             {
-                /*if(!textura.loadFromFile("assets/sprites/pikachu.png"))
-                //sprite retirada do site oficial da franquia Pokemon
-                    std::cout << "ERRO: Nao foi possivel carregar a textura do jogador!" << std::endl;
-
-                pFigura->setTexture(&textura);
                 pFigura->setFillColor(sf::Color::White); 
-                pFigura->setTextureRect(sf::IntRect({0, 0}, {LARGURA_PIKACHU, ALTURA_PIKACHU}));*/
             }
 
             Jogador::~Jogador()
             {
 
+            }
+
+            void Jogador::carregarTextura(const std::string& caminhoArquivo)
+            {
+                if(!textura.loadFromFile(caminhoArquivo)) {
+                    std::cout << "ERRO: Nao foi possivel carregar a textura: " << caminhoArquivo << std::endl;
+                }
+                pFigura->setTexture(&textura);
+                
+                sf::Vector2u tamanhoImagem = textura.getSize();
+                pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)tamanhoImagem.x, (int)tamanhoImagem.y}));
             }
 
             void Jogador::mover()
