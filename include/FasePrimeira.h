@@ -11,13 +11,12 @@ namespace Pokerun{
             const int maxInimigosMedios;
             const int maxInimigosFaceis;
             const int maxObstaculosMedios;
-
         public:
        FasePrimeira(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
         ~FasePrimeira();
         
         void criarInimMedios();
-        void criarObstaculosMedios();
+        void criarObstaculosFaceis();
         
         void criarInimigos();
         void criarObstaculos();

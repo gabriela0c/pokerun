@@ -32,10 +32,10 @@ namespace Pokerun{
 
         }
         
-        void FasePrimeira::criarObstaculosMedios()
+        void FasePrimeira::criarObstaculosFaceis()
         {
             //mínimo 3 e máximo 5 
-            int n = rand() % (maxObstaculosMedios - 3 + 1) + 3;
+            int n = rand() % (maxObstaculosMedios - 2) + 3;
 
             for(int i = 0; i < n; i++)
             {
@@ -74,7 +74,7 @@ namespace Pokerun{
         {
             criarChao();
             criarPlataformas();
-            criarObstaculosMedios();
+            criarObstaculosFaceis();
         }
         
         void FasePrimeira::executar()
