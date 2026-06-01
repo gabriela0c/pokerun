@@ -2,8 +2,8 @@
 
 #include "Inimigo.h"
 
-#define LARGURA_SQUIRTLE 50
-#define ALTURA_SQUIRTLE 50
+#define LARGURA_WARTORTLE 46.0f
+#define ALTURA_WARTORTLE 43.0f
 
 namespace Pokerun{
 

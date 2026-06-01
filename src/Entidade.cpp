@@ -6,7 +6,7 @@ namespace Pokerun{
         
         Entidade::Entidade(const sf::Vector2f tam, const ID i): 
         Ente(tam, i),
-        x((float)(rand() % (int)(801 - tam.x))), y((float)(rand() % (int)(601 - tam.y)))
+        x((float)(rand() % (int)(801 - tam.x))), y((float)(rand() % (int)(601 - tam.y))), noTeto(false)
         {
             pFigura->setPosition({x, y});
         }
@@ -66,6 +66,7 @@ namespace Pokerun{
                 {
                     pFigura->move({0.0f,  overlap.y}); 
                     //empurra para baixo
+                    noTeto = true;
                     return false;
                 }
             }

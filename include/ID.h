@@ -9,7 +9,6 @@ namespace Pokerun{
         PLATAFORMA,
         CHAO,
         FASE_PRIMEIRA,
-        OBST_FACIL,
         OBST_MEDIO,
         OBST_DIFICIL,
         INDEFINIDO

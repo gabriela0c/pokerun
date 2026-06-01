@@ -1,11 +1,12 @@
 #include "GerenciadorColisoes.h"
+#include "FasePrimeira.h"
 
 namespace Pokerun{
 
         namespace Gerenciadores{
 
             GerenciadorColisoes::GerenciadorColisoes():
-            pJogador1(nullptr), pJogador2(nullptr), Linimigos(), Lobstaculos()
+            pJogador1(nullptr), pJogador2(nullptr), Linimigos(), Lobstaculos(), pFase1(nullptr)
             {
                 Linimigos.clear();
                 Lobstaculos.clear();
@@ -17,6 +18,7 @@ namespace Pokerun{
                 Lobstaculos.clear();
                 pJogador1 = nullptr;
                 pJogador2 = nullptr;
+                pFase1 = nullptr;
             }
 
             void GerenciadorColisoes::executar()
@@ -26,12 +28,12 @@ namespace Pokerun{
                 tratarColisoesInimsObstacs();
                 tratarColisoesInimsInims();
                 tratarColisoesJogsJogs();
-               
+                tratarColisoesPersChao();
             }
             
             void GerenciadorColisoes::tratarColisoesJogsObstacs()
             {
-                if(!pJogador1 || !pJogador2 || Lobstaculos.empty()){return;}
+                if(!pJogador1 || Lobstaculos.empty()){return;}
 
                 std::list<Entidades::Obstaculos::Obstaculo*>::iterator it;
                 it = Lobstaculos.begin();
@@ -40,13 +42,15 @@ namespace Pokerun{
                     if(*it){
                         //cast desnecessario pois ambas herdam de entidade e o upcasting eh feito automaticamente
                         bool colisao1 = verificarColisao(pJogador1,*it);
-                        if (colisao1){
+                        if(colisao1){
                             (*it)->obstaculizar(pJogador1);
                         }
                         
-                        bool colisao2 = verificarColisao(pJogador2,*it);
-                        if (colisao2){
-                            (*it)->obstaculizar(pJogador2);
+                        if(pJogador2){
+                            bool colisao2 = verificarColisao(pJogador2,*it);
+                            if(colisao2){
+                                (*it)->obstaculizar(pJogador2);
+                            }
                         }
                     }
                     it++;
@@ -66,17 +70,9 @@ namespace Pokerun{
                             if(*it){
                                 bool colisao = verificarColisao(*it, Linimigos[i]);
                                 if(colisao){
-                                    sf::Vector2f posAntes = Linimigos[i]->getFig().getPosition();//isso podia ser um metodo da classe personagem talvez
-                                    //salva a posição                                               //dai agnt so chama esse metodo antes e dps da colisao e salva em posantes e posdepois
-
                                     bool deCima = Linimigos[i]->colidir(*it); 
                                     if(deCima){Linimigos[i]->pousar();}
-
-                                    sf::Vector2f posDepois = Linimigos[i]->getFig().getPosition();
-
-                                    if(posAntes.x != posDepois.x)
-                                        Linimigos[i]->inverterDirecao();
-                                }//inverter posicao para evitar que o inimigo fique colidindo muito com a parede
+                                }
                             }
                             it++;  
                         }
@@ -88,7 +84,7 @@ namespace Pokerun{
 
             void GerenciadorColisoes::tratarColisoesJogsInims()
             {
-                if(!pJogador1 || !pJogador2 || Linimigos.empty()){return;}
+                if(!pJogador1 || Linimigos.empty()){return;}
 
                 for(int i = 0; i < (int)Linimigos.size(); i++){
                     if(Linimigos[i]){
@@ -97,9 +93,11 @@ namespace Pokerun{
                             Linimigos[i]->danificar(pJogador1);
                         }
 
-                        bool colisao2 = verificarColisao(pJogador2, Linimigos[i]);
-                        if(colisao2){
-                            Linimigos[i]->danificar(pJogador2);
+                        if(pJogador2){//existe sim a possibilidade do jogo nao ter jogador 2
+                            bool colisao2 = verificarColisao(pJogador2, Linimigos[i]);
+                            if(colisao2){
+                                Linimigos[i]->danificar(pJogador2);
+                            }
                         }
                     }
                 }
@@ -141,7 +139,31 @@ namespace Pokerun{
                 Entidades::Personagens::Personagem::colisaoPersonagem(pJogador1, pJogador2);
                 }
             }
-        
+
+            void GerenciadorColisoes::tratarColisoesPersChao()
+            {
+                Entidades::Chao* pChao = pFase1->getChao();
+
+                if(!pChao || !pJogador1){return;}
+                //colisoes com o chao sempre vem de cima, entao devo chamar pousar sempre
+                for(int i = 0; i < (int)Linimigos.size(); i++){
+                    if(Linimigos[i]){
+                        if(verificarColisao(pChao, Linimigos[i])){
+                            Linimigos[i]->colidir(pChao);
+                            Linimigos[i]->pousar();
+                        }
+                    }
+                }
+
+                if(verificarColisao(pChao, pJogador1)){
+                    pJogador1->colidir(pChao);
+                    pJogador1->pousar();
+                }
+                if(verificarColisao(pChao, pJogador2)){
+                    pJogador2->colidir(pChao);
+                    pJogador2->pousar();
+                }
+            }
         
     
             const bool GerenciadorColisoes::verificarColisao(Entidades::Entidade* pe1, Entidades::Entidade* pe2)const
@@ -172,6 +194,13 @@ namespace Pokerun{
             {
                 if(pJog2){
                     pJogador2 = pJog2;
+                }
+            }
+
+            void GerenciadorColisoes::setFase1(Fases::FasePrimeira* pF1)
+            {
+                if(pF1){
+                    pFase1 = pF1;
                 }
             }
 

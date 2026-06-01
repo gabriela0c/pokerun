@@ -7,13 +7,13 @@
 #include "Jogador.h"
 #include <SFML/Graphics.hpp>
 
-#define VEL_INIM_X 60.0f
+#define VEL_INIM_X 40.0f
 
 #define TAM_INIM_X 60.0f
 #define TAM_INIM_Y 60.0f
 
-#define RAIO_X 200.0f
-#define RAIO_Y 200.0f
+#define RAIO_X 100.0f
+#define RAIO_Y 100.0f
 
 
 namespace Pokerun{
@@ -41,9 +41,7 @@ namespace Pokerun{
                 void mover();
                 void movimentoAleatorio();
              
-                void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
-                void setDirecao(int dir);
-                void inverterDirecao();
+                void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);;
 
                 virtual void danificar(Jogador* p) = 0;
             };

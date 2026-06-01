@@ -1,38 +1,24 @@
 #include "Chao.h"
 
-namespace Pokerun {
+namespace Pokerun{
 
-    namespace Entidades {
+    namespace Entidades{
 
-        namespace Obstaculos {
+        Chao::Chao():
+        Entidade({WIN_SIZE_X, TAM_CHAO_Y}, ID::CHAO)
+        {
+            pFigura->setPosition({0.0f, WIN_SIZE_Y - TAM_CHAO_Y});
+            setTextura("assets/sprites/obstaculos/chao.png", sf::IntRect({0, 0}, {LARGURA_CHAO, ALTURA_CHAO}));
+        }
 
-            Chao::Chao(const sf::Vector2f pos, const sf::Vector2f tam) : 
-            Obstaculo({TAM_CHAO_X, TAM_CHAO_Y}, false, ID::CHAO)
-            {
-                if(!texturaChao.loadFromFile("assets/sprites/obstaculos/chao.png")){
-                //sprite gerada por IA
-                    std::cout << "ERRO: Nao foi possivel carregar a textura da plataforma!" << std::endl;
-                }
+        Chao::~Chao()
+        {
 
-                pFigura->setTexture(&texturaChao);
-                pFigura->setFillColor(sf::Color::White); 
-                pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)LARGURA_CHAO, (int)ALTURA_CHAO}));
+        }
 
-                pFigura->setPosition(pos);
-            }
+        void Chao::executar()
+        {
 
-            Chao::~Chao() {
-            }
-
-            void Chao::executar() 
-            {
-            }
-
-            void Chao::obstaculizar(Personagens::Jogador* pJog)
-            {
-                if(pJog)
-                    pJog->colisao_posso_pular(this);
-            }
         }
     }
 }

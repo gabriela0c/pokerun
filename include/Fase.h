@@ -1,9 +1,9 @@
 #pragma once
 
 #include "Ente.h"
+#include "Chao.h"
 #include "ListaEntidades.h"
 #include "GerenciadorColisoes.h"
-#include "Chao.h"
 #include "ObstMedio.h"
 #include "InimFacil.h"
 #include <vector>
@@ -25,6 +25,7 @@ namespace Pokerun{
             Entidades::Personagens::Jogador* pJogador1;
             Entidades::Personagens::Jogador* pJogador2;
             std::vector<sf::FloatRect> posicoesPlataformas;
+            Entidades::Chao* pChao;
 
         public:
             Fase(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr, const ID i = ID::INDEFINIDO);
@@ -33,15 +34,14 @@ namespace Pokerun{
             virtual void criarInimigos() = 0;
             virtual void criarObstaculos() = 0;
 
-            
-            void criarChao();
             void desenhar();
             
             void criarInimFaceis();
             void criarPlataformas();
 
-            virtual void executar(); //executa todos da lista, gerenciador de colisoes verifica se colisao, redesenha window com gerenciador grafico
-            //talvez gerenciador evento em algum lugar?
+            Entidades::Chao* getChao()const;
+
+            virtual void executar(); 
         };
     }
 }

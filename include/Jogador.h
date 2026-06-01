@@ -23,19 +23,20 @@ namespace Pokerun{
             class Jogador : public Personagem{
             private:
                 const bool ehJogador1;
+                float modificador_velocidade;
             
             public:
                 Jogador(const bool ehJog1 = false);    
                 ~Jogador();
 
-                void carregarTextura(const std::string& caminhoArquivo);
-
                 void mover();
                 void pular();
 
+                void diminui_vel(float porcentagem);
+                float getModVel()const;
+
                 bool colisao_posso_pular(Entidade* pOutra);
-                void setTextura(std::string caminho, sf::IntRect bounds);
-                //essa funcao so eh util para o jogador msm os objetos das outras classes vao todos ter a mesma textura
+
                 void executar();
             };
         }

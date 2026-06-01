@@ -46,6 +46,17 @@ namespace Pokerun {
     {
         return *pFigura;
     }
+
+    void Ente::setTextura(std::string caminho, sf::IntRect bounds)
+    {
+        if(!textura.loadFromFile(caminho)){ 
+            std::cout << "Nao foi possivel carregar a textura do jogador" << std::endl;
+        }
+                
+        pFigura->setTexture(&textura);
+        pFigura->setFillColor(sf::Color::White); 
+        pFigura->setTextureRect(bounds);
+        }
     
     void Ente::desenhar()
     {

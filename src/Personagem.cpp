@@ -37,7 +37,7 @@ namespace Pokerun{
                 vel = v;
             }
 
-            void Personagem::colisaoPersonagem (Personagem* p1, Personagem* p2)
+            void Personagem::colisaoPersonagem(Personagem* p1, Personagem* p2)
             {
                 sf::FloatRect personagem1 = p1->getFig().getGlobalBounds();
                 sf::FloatRect personagem2 = p2->getFig().getGlobalBounds();
@@ -55,13 +55,17 @@ namespace Pokerun{
                     sf::Vector2f centro1 = {personagem1.position.x + (personagem1.size.x / 2), personagem1.position.y + (personagem1.size.y / 2)};
                     sf::Vector2f centro2 = {personagem2.position.x + (personagem2.size.x / 2), personagem2.position.y + (personagem2.size.y / 2)};
                                         
-                    if(centro1.y < centro2.y){  //se 1 estava acima de 2
+                    if(centro1.y < centro2.y){ //se 1 estava acima de 2
                         p1->getFig().move({0.0f, -overlap_y});
-                        p1->pousar();
+                        if(p2->getID() != ID::JOGADOR){//verificacao para garantir que um jogador nao consiga
+                            p1->pousar();              //pular quando esta em cima do outro para evitar pulo duplo
+                        }                                              
                     }
                     else{
                         p2->getFig().move({0.0f, -overlap_y});
-                        p2->pousar();
+                        if(p1->getID() != ID::JOGADOR){
+                            p2->pousar();
+                        }
                     }
                 }
             }

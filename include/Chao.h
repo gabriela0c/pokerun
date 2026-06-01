@@ -1,30 +1,26 @@
 #pragma once
+#include "Entidade.h"
 
-#include "Obstaculo.h"
+#define WIN_SIZE_X 800.0f
+#define WIN_SIZE_Y 600.0f
+#define TAM_CHAO_Y 50.0f
 
-#define TAM_CHAO_X 800.0f
-#define TAM_CHAO_Y 30.0f
+#define LARGURA_CHAO 4145
+#define ALTURA_CHAO 137
 
-#define LARGURA_CHAO 4145.0f
-#define ALTURA_CHAO 137.0f
+namespace Pokerun{
 
-namespace Pokerun {
+    namespace Entidades{
 
-    namespace Entidades {
-
-        namespace Obstaculos {
+        class Chao : public Entidade{
+        private:
             
-            class Chao : public Obstaculo {
-            private:
-                sf::Texture texturaChao;
-            public:
-                Chao(const sf::Vector2f pos = {0.0f, 0.0f}, const sf::Vector2f tam = {0.0f, 0.0f});
-                ~Chao();
-                
-                void executar();
-                void obstaculizar(Personagens::Jogador* pJog);
-            };
 
-        }
+        public:
+            Chao();
+            ~Chao();
+
+            void executar();
+        };
     }
 }

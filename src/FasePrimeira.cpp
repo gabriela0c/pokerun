@@ -7,22 +7,20 @@ namespace Pokerun{
         FasePrimeira::FasePrimeira(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
         Fase(pJog1, pJog2, ID::FASE_PRIMEIRA), maxInimigosMedios(5), maxInimigosFaceis(5), maxObstaculosMedios(5)
         {
-            if (!textura.loadFromFile("assets/sprites/fundos/fase1.png"))
-                std::cout << "ERRO: Nao foi possivel carregar a imagem de fundo!" << std::endl;
-            pFigura->setTexture(&textura);
+            GC.setFase1(this);
             
-            //sf::Vector2f tam1 = pJog1->getFig().getSize();
-            //sf::Vector2f tam2 = pJog2->getFig().getSize();
+            setTextura("assets/sprites/fundos/fase1.png", sf::IntRect({0, 0}, {(int)WIN_SIZE_X, (int)WIN_SIZE_Y}));
+            
+            sf::Vector2f tam1 = pJog1->getFig().getSize();
+            sf::Vector2f tam2 = pJog2->getFig().getSize();
             //o problema aqui ta sendo carregar fora da fase, mas se nao carrega fora da fase nao funciona tambem??
             
             if (pJog1 != nullptr) {
-                //pJog1->setTextura("assets/sprites/personagens/jogador/pikachu.png", sf::IntRect({0, 0}, {tam1.x, tam1.y}));
-                pJog1->carregarTextura("assets/sprites/personagens/jogador/pikachu.png"); 
+                pJog1->setTextura("assets/sprites/personagens/jogador/pikachu.png", sf::IntRect({0, 0}, {(int)tam1.x, (int)tam1.y}));
             }
             
             if (pJog2 != nullptr) {
-                pJog2->carregarTextura("assets/sprites/personagens/jogador/raichu.png"); 
-                //pJog2->setTextura("assets/sprites/personagens/jogador/raichu.png", sf::IntRect({0, 0}, {tam2.x, tam2.y}));
+                pJog2->setTextura("assets/sprites/personagens/jogador/raichu.png", sf::IntRect({0, 0}, {(int)tam2.x, (int)tam2.y}));
             }
             
             criarInimigos();
@@ -35,7 +33,16 @@ namespace Pokerun{
 
         void FasePrimeira::criarInimMedios()
         {
-
+            Entidades::Personagens::Inimigo* pInim = nullptr;
+            int n = rand() % 3 + 3; //cria de 3 a 5 inimigos - tabela 1 N5
+            for(int i = 0; i < n; i++){
+                pInim = new Entidades::Personagens::InimMedio();
+                pInim->setJogador1(pJogador1);
+                pInim->setJogador2(pJogador2);
+                lista_ents.incluir(static_cast<Entidades::Entidade*>(pInim));
+                GC.incluirInimigo(pInim);
+                pInim = nullptr;
+            }
         }
         
         void FasePrimeira::criarObstaculosFaceis()
@@ -78,7 +85,6 @@ namespace Pokerun{
 
         void FasePrimeira::criarObstaculos()
         {
-            criarChao();
             criarPlataformas();
             criarObstaculosFaceis();
         }

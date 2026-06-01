@@ -119,17 +119,6 @@ namespace Pokerun{
                     }
                 } 
             }
-            
-
-            void Inimigo::setDirecao(int dir)
-            {
-                direcao = dir;
-            }
-
-            void Inimigo::inverterDirecao()
-            {
-                direcao *= -1;
-            }
         }
     }
 }

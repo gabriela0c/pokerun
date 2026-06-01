@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Fase.h"
+#include "InimMedio.h"
 
 namespace Pokerun{
 

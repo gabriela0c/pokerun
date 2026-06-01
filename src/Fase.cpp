@@ -6,9 +6,11 @@ namespace Pokerun{
     namespace Fases{
  
         Fase::Fase(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2, const ID i):
-        Ente({WIN_SIZE_X, WIN_SIZE_Y}, i), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2)
+        Ente({WIN_SIZE_X, WIN_SIZE_Y}, i), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2), pChao(new Entidades::Chao())
         {
-            pFigura->setPosition({0.0f, 0.0f});
+            lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
+            pFigura->setPosition({0.0f, 0.0f});//poderia tirar essa linha ja que default é 0,0
+            posicoesPlataformas.push_back(pChao->getFig().getGlobalBounds());//garante que plataformas nao vao ficar em cima do chao
 
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pJog1));
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pJog2));
@@ -21,15 +23,6 @@ namespace Pokerun{
             pJogador1 = nullptr;
             pJogador2 = nullptr;
             lista_ents.limpar();
-        }
-        
-        void Fase::criarChao()
-        {
-            Entidades::Obstaculos::Chao* pChao = new Entidades::Obstaculos::Chao({0.0f, WIN_SIZE_Y - 40.0f}, {WIN_SIZE_X, 40.0f}); 
-            lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
-            GC.incluirObstaculo(static_cast<Entidades::Obstaculos::Obstaculo*>(pChao));
-
-            posicoesPlataformas.push_back(pChao->getFig().getGlobalBounds());
         }
 
         void Fase::criarInimFaceis()
@@ -112,6 +105,11 @@ namespace Pokerun{
             Entidades::Obstaculos::Plataforma* pParedeDir = new Entidades::Obstaculos::Plataforma({WIN_SIZE_X, 0.0f}, {100.0f, WIN_SIZE_Y});
             lista_ents.incluir(pParedeDir);
             GC.incluirObstaculo(pParedeDir);
+        }
+
+        Entidades::Chao* Fase::getChao()const
+        {
+            return pChao;
         }
 
         void Fase::desenhar()

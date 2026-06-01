@@ -23,6 +23,8 @@ namespace Pokerun {
 
         ID getID()const;
 
+        void setTextura(std::string caminho, sf::IntRect bounds);
+
         sf::RectangleShape& getFig();
         const sf::RectangleShape& getFig()const; //sobrecarga de metodo necessaria pois getFig necessita referencia const 
 

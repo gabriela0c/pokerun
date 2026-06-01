@@ -2,8 +2,8 @@
 
 #include "Inimigo.h"
 
-#define LARGURA_BULBASAUR 38
-#define ALTURA_BULBASAUR 36
+#define LARGURA_BULBASAUR 38.0f
+#define ALTURA_BULBASAUR 36.0f
 
 namespace Pokerun{
 
