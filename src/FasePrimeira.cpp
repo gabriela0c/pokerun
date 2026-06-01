@@ -11,12 +11,18 @@ namespace Pokerun{
                 std::cout << "ERRO: Nao foi possivel carregar a imagem de fundo!" << std::endl;
             pFigura->setTexture(&textura);
             
+            //sf::Vector2f tam1 = pJog1->getFig().getSize();
+            //sf::Vector2f tam2 = pJog2->getFig().getSize();
+            //o problema aqui ta sendo carregar fora da fase, mas se nao carrega fora da fase nao funciona tambem??
+            
             if (pJog1 != nullptr) {
-                pJog1->carregarTextura("assets/sprites/personagens/jogador/pikachu.png");
+                //pJog1->setTextura("assets/sprites/personagens/jogador/pikachu.png", sf::IntRect({0, 0}, {tam1.x, tam1.y}));
+                pJog1->carregarTextura("assets/sprites/personagens/jogador/pikachu.png"); 
             }
             
             if (pJog2 != nullptr) {
                 pJog2->carregarTextura("assets/sprites/personagens/jogador/raichu.png"); 
+                //pJog2->setTextura("assets/sprites/personagens/jogador/raichu.png", sf::IntRect({0, 0}, {tam2.x, tam2.y}));
             }
             
             criarInimigos();

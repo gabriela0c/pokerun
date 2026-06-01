@@ -38,7 +38,8 @@ namespace Pokerun{
             int n = rand() % 3 + 3; //cria de 3 a 5 inimigos - tabela 1 N5
             for(int i = 0; i < n; i++){
                 pInim = new Entidades::Personagens::InimFacil();
-                pInim->setJogador(pJogador1);
+                pInim->setJogador1(pJogador1);
+                pInim->setJogador2(pJogador2);
                 lista_ents.incluir(static_cast<Entidades::Entidade*>(pInim));
                 GC.incluirInimigo(pInim);
                 pInim = nullptr;

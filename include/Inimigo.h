@@ -24,7 +24,9 @@ namespace Pokerun{
 
             class Inimigo : public Personagem{
             protected:
-                const Jogador* pJogador;
+                const Jogador* pJogador1;
+                const Jogador* pJogador2;
+
                 int direcao;
                 float tempoMovimento;
 
@@ -32,8 +34,8 @@ namespace Pokerun{
                 Inimigo(const sf::Vector2f tam = {}, const ID i = ID::INDEFINIDO);
                 ~Inimigo();
 
-                void setJogador(const Jogador* jog);
-                const Jogador* getJogador()const; 
+                void setJogador1(const Jogador* jog1);
+                void setJogador2(const Jogador* jog2);
 
                 void executar();
                 void mover();

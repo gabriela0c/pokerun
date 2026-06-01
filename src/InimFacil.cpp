@@ -15,7 +15,6 @@ namespace Pokerun{
                     std::cout << "ERRO: Nao foi possivel carregar a textura do inimigo!" << std::endl;
                 
                 pFigura->setTexture(&textura);
-                pFigura->setFillColor(sf::Color::White);
                 pFigura->setTextureRect(sf::IntRect({0, 0}, {LARGURA_BULBASAUR, ALTURA_BULBASAUR}));
             }
 

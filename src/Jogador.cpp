@@ -56,7 +56,7 @@ namespace Pokerun{
                 return false;
             }
 
-            void Jogador::setTextura(std::string caminho, sf::IntRect bounds)
+           void Jogador::setTextura(std::string caminho, sf::IntRect bounds)
             {
                if(!textura.loadFromFile(caminho)){ //sprites retiradas do site oficial da franquia Pokemon
                   std::cout << "Nao foi possivel carregar a textura do jogador" << std::endl;

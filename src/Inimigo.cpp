@@ -8,7 +8,7 @@ namespace Pokerun{
         namespace Personagens{
             
             Inimigo::Inimigo(const sf::Vector2f tam ,const ID i):
-            Personagem(tam, {VEL_INIM_X, 0.0f}, i), pJogador(nullptr), 
+            Personagem(tam, {VEL_INIM_X, 0.0f}, i), pJogador1(nullptr), pJogador2(nullptr),
             direcao(-1), tempoMovimento(0.0f)
             {
 
@@ -19,16 +19,18 @@ namespace Pokerun{
 
             }
 
-            void Inimigo::setJogador(const Jogador* jog)
+            void Inimigo::setJogador1(const Jogador* jog1)
             {
-                if(jog){
-                    pJogador = jog;
+                if(jog1){
+                    pJogador1 = jog1;
                 }
             }
 
-            const Jogador* Inimigo::getJogador() const
+            void Inimigo::setJogador2(const Jogador* jog2)
             {
-                return pJogador;
+                if(jog2){
+                    pJogador2 = jog2;
+                }
             }
 
             void Inimigo::executar()
@@ -40,18 +42,39 @@ namespace Pokerun{
 
             void Inimigo::mover()
             {
-                if(!pJogador) {
-                    std::cerr<<"Jogador Nulo"<<std::endl;
+                if (!pJogador1) { //jogador 1 sempre deve estar no jogo
+                    std::cerr << "Jogador 1 Nulo" << std::endl;
                     return;
                 }
 
-                sf::Vector2f posJogador = pJogador->getFig().getPosition();//pode ser metodo do Personagem/entidade
                 sf::Vector2f posInimigo = pFigura->getPosition();
+                sf::Vector2f posJogador1 = pJogador1->getFig().getPosition();
 
-                if(fabs(posInimigo.x - posJogador.x) <= RAIO_X && fabs(posInimigo.y - posJogador.y) <= RAIO_Y){
-                    persegueJogador(posJogador, posInimigo);
+                // flags para saber quem está dentro do raio de visão do inimigo
+                bool j1NoRaio = (std::abs(posInimigo.x - posJogador1.x) <= RAIO_X && std::abs(posInimigo.y - posJogador1.y) <= RAIO_Y);
+                bool j2NoRaio = false;
+                sf::Vector2f posJogador2;
+
+                // so calcula o Jogador 2 se ele realmente existir no jogo
+                if (pJogador2) {
+                    posJogador2 = pJogador2->getFig().getPosition();
+                    j2NoRaio = (std::abs(posInimigo.x - posJogador2.x) <= RAIO_X && std::abs(posInimigo.y - posJogador2.y) <= RAIO_Y);
                 }
-                else{
+
+                // se ambos estao no raio inimigo persegue o mais proximo em x
+                if (j1NoRaio && j2NoRaio) {
+                    if (std::abs(posInimigo.x - posJogador1.x) < std::abs(posInimigo.x - posJogador2.x)) 
+                        persegueJogador(posJogador1, posInimigo);
+                    else
+                        persegueJogador(posJogador2, posInimigo);
+                } 
+                else if (j1NoRaio) {
+                    persegueJogador(posJogador1, posInimigo);
+                } 
+                else if (j2NoRaio) {
+                    persegueJogador(posJogador2, posInimigo);
+                } 
+                else {
                     movimentoAleatorio();
                 }
             }
