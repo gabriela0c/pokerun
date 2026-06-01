@@ -7,17 +7,11 @@ namespace Pokerun{
 
         namespace Personagens{
             
-            Inimigo::Inimigo():
-            Personagem({TAM_INIM_X, TAM_INIM_Y}, {VEL_INIM_X, 0.0f}, ID::INIMIGO), pJogador(nullptr), 
+            Inimigo::Inimigo(const sf::Vector2f tam ,const ID i):
+            Personagem(tam, {VEL_INIM_X, 0.0f}, i), pJogador(nullptr), 
             direcao(-1), tempoMovimento(0.0f)
             {
-                if(!textura.loadFromFile("assets/sprites/personagens/inimigo/bulbasaur.png"))
-                //sprite retirada do site oficial da franquia Pokemon
-                    std::cout << "ERRO: Nao foi possivel carregar a textura do inimigo!" << std::endl;
-                
-                pFigura->setTexture(&textura);
-                pFigura->setFillColor(sf::Color::White);
-                pFigura->setTextureRect(sf::IntRect({0, 0}, {LARGURA_BULBASAUR, ALTURA_BULBASAUR}));
+
             }
 
             Inimigo::~Inimigo()
@@ -64,13 +58,15 @@ namespace Pokerun{
 
             void Inimigo::movimentoAleatorio()
             {
+                sf::Vector2f tam = getFig().getSize(); //talvez criar atributo tam
+
                 pFigura->move({-vel.x * direcao * dt, 0.0f});
                 
                 if (direcao == -1) //move p direita
-                    pFigura->setTextureRect(sf::IntRect({0, 0}, {LARGURA_BULBASAUR, ALTURA_BULBASAUR}));
+                    pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
                 
                 else //move p esquerda
-                    pFigura->setTextureRect(sf::IntRect({LARGURA_BULBASAUR, 0}, {-LARGURA_BULBASAUR, ALTURA_BULBASAUR}));
+                    pFigura->setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
 
                 tempoMovimento += dt;
 
@@ -82,17 +78,25 @@ namespace Pokerun{
 
             void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo)
             {
-                if(posJogador.x - posInimigo.x > 0.0f){
-                    //indo p direita
-                    pFigura->move({vel.x * dt, 0.0f});
-                    pFigura->setTextureRect(sf::IntRect({0, 0}, {LARGURA_BULBASAUR, ALTURA_BULBASAUR}));
-                }
-                else{
-                    //indo p esquerda
-                    pFigura->move({-vel.x * dt, 0.0f});
-                    pFigura->setTextureRect(sf::IntRect({LARGURA_BULBASAUR, 0}, {-LARGURA_BULBASAUR, ALTURA_BULBASAUR}));
-                }
+                float distanciaX = posJogador.x - posInimigo.x;
+                float tolerancia = 2.0f; //para evitar o inimigo ficar oscilando qdo o jogador esta em cima dele
+                
+                if(std::abs(distanciaX) > tolerancia){
+                    sf::Vector2f tam = getFig().getSize();
+                
+                    if(distanciaX > 0.0f){
+                        //indo p direita
+                        pFigura->move({vel.x * dt, 0.0f});
+                        pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
+                    }
+                    else{
+                        //indo p esquerda
+                        pFigura->move({-vel.x * dt, 0.0f});
+                        pFigura->setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
+                    }
+                } 
             }
+            
 
             void Inimigo::setDirecao(int dir)
             {

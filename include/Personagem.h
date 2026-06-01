@@ -20,6 +20,7 @@ namespace Pokerun{
                 const float gravidade;
                 sf::Clock relogio;
                 float dt;
+                int num_vidas;
 
             public:
                 Personagem(const sf::Vector2f tam = {}, const sf::Vector2f v = {}, const ID i = ID::INDEFINIDO);
@@ -32,8 +33,9 @@ namespace Pokerun{
                 void setVel(sf::Vector2f v);
 
                 static void colisaoPersonagem(Personagem* p1, Personagem* p2);
+                void operator--();
+                int getNumvidas()const;
                 
-
                 virtual void mover() = 0;
                 virtual void executar() = 0;
             };

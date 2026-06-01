@@ -63,14 +63,15 @@ namespace Pokerun{
             if (pJogador1) 
             {
                 sf::Vector2f v = pJogador1->getVel();
+                sf::Vector2f tam = pJogador1->getFig().getSize();
 
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
                     pJogador1->getFig().move({-v.x, 0.0f});
-                    pJogador1->getFig().setTextureRect(sf::IntRect({LARGURA_PIKACHU, 0}, {-LARGURA_PIKACHU, ALTURA_PIKACHU}));
+                    pJogador1->getFig().setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
                     pJogador1->getFig().move({v.x, 0.0f});
-                    pJogador1->getFig().setTextureRect(sf::IntRect({0, 0}, {LARGURA_PIKACHU, ALTURA_PIKACHU}));
+                    pJogador1->getFig().setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
                     pJogador1->pular();
@@ -80,14 +81,15 @@ namespace Pokerun{
             if (pJogador2) 
             {
                 sf::Vector2f v = pJogador2->getVel();
+                sf::Vector2f tam = pJogador2->getFig().getSize();
 
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
                     pJogador2->getFig().move({-v.x, 0.0f});
-                    pJogador2->getFig().setTextureRect(sf::IntRect({LARGURA_RAICHU, 0}, {-LARGURA_RAICHU, ALTURA_RAICHU}));
+                    pJogador2->getFig().setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
                     pJogador2->getFig().move({v.x, 0.0f});
-                    pJogador2->getFig().setTextureRect(sf::IntRect({0, 0}, {LARGURA_RAICHU, ALTURA_RAICHU}));
+                    pJogador2->getFig().setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
                     pJogador2->pular();

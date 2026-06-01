@@ -5,11 +5,14 @@
 
 #define VEL_JOG_X 0.10f
 
-#define TAM_JOG_X 60.0f
-#define TAM_JOG_Y 60.0f
-
 #define POS0_JOG_X 50.0f
 #define POS0_JOG_Y 300.0f
+
+#define LARGURA_PIKACHU 40
+#define ALTURA_PIKACHU 38
+
+#define LARGURA_RAICHU 48
+#define ALTURA_RAICHU 46
 
 namespace Pokerun{   
 
@@ -18,8 +21,11 @@ namespace Pokerun{
         namespace Personagens{
 
             class Jogador : public Personagem{
+            private:
+                const bool ehJogador1;
+            
             public:
-                Jogador();    
+                Jogador(const bool ehJog1 = false);    
                 ~Jogador();
 
                 void carregarTextura(const std::string& caminhoArquivo);

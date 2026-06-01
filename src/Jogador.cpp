@@ -7,10 +7,17 @@ namespace Pokerun{
 
         namespace Personagens{
 
-            Jogador::Jogador():
-            Personagem({TAM_JOG_X, TAM_JOG_Y}, {VEL_JOG_X, 0.0f}, ID::JOGADOR)
+            Jogador::Jogador(const bool ehJog1):
+            Personagem((ehJog1 ? sf::Vector2f(LARGURA_PIKACHU, ALTURA_PIKACHU) : sf::Vector2f(LARGURA_RAICHU, ALTURA_RAICHU)), {VEL_JOG_X, 0.0f}, ID::JOGADOR),
+            ehJogador1(ehJog1) 
             {
-                pFigura->setFillColor(sf::Color::White); 
+                num_vidas = 1000;
+                if(ehJog1){
+                    setTextura("assets/sprites/pikachu.png", sf::IntRect({0, 0},{LARGURA_PIKACHU, ALTURA_PIKACHU}));
+                }
+                else{
+                    setTextura("assets/sprites/raichu.png", sf::IntRect({0, 0},{LARGURA_RAICHU, ALTURA_RAICHU}));
+                } 
             }
 
             Jogador::~Jogador()
@@ -20,13 +27,14 @@ namespace Pokerun{
 
             void Jogador::carregarTextura(const std::string& caminhoArquivo)
             {
+                sf::Vector2f tam = getFig().getSize();//fazer um metodo getTam acho
+                
                 if(!textura.loadFromFile(caminhoArquivo)) {
                     std::cout << "ERRO: Nao foi possivel carregar a textura: " << caminhoArquivo << std::endl;
                 }
                 pFigura->setTexture(&textura);
                 
-                sf::Vector2u tamanhoImagem = textura.getSize();
-                pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)tamanhoImagem.x, (int)tamanhoImagem.y}));
+                pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
             }
 
             void Jogador::mover()

@@ -4,7 +4,7 @@ namespace Pokerun{
 
     enum class ID{
         JOGADOR,
-        INIMIGO,
+        INIMIGO_FACIL,
         PLATAFORMA,
         CHAO,
         FASE_PRIMEIRA,

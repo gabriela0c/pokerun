@@ -94,12 +94,12 @@ namespace Pokerun{
                     if(Linimigos[i]){
                         bool colisao1 = verificarColisao(pJogador1, Linimigos[i]);
                         if(colisao1){
-                            Entidades::Personagens::Personagem::colisaoPersonagem(pJogador1, Linimigos[i]);
+                            Linimigos[i]->danificar(pJogador1);
                         }
 
                         bool colisao2 = verificarColisao(pJogador2, Linimigos[i]);
                         if(colisao2){
-                            Entidades::Personagens::Personagem::colisaoPersonagem(pJogador2, Linimigos[i]);
+                            Linimigos[i]->danificar(pJogador2);
                         }
                     }
                 }

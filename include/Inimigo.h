@@ -15,9 +15,6 @@
 #define RAIO_X 200.0f
 #define RAIO_Y 200.0f
 
-#define LARGURA_BULBASAUR 38
-#define ALTURA_BULBASAUR 36
-
 
 namespace Pokerun{
 
@@ -32,7 +29,7 @@ namespace Pokerun{
                 float tempoMovimento;
 
             public:
-                Inimigo();
+                Inimigo(const sf::Vector2f tam = {}, const ID i = ID::INDEFINIDO);
                 ~Inimigo();
 
                 void setJogador(const Jogador* jog);
@@ -45,6 +42,8 @@ namespace Pokerun{
                 void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                 void setDirecao(int dir);
                 void inverterDirecao();
+
+                virtual void danificar(Jogador* p) = 0;
             };
         }
     }

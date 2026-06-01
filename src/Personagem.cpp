@@ -6,12 +6,14 @@ namespace Pokerun{
         namespace Personagens{
 
             Personagem::Personagem(const sf::Vector2f tam, const sf::Vector2f v, const ID i):
-            Entidade(tam, i), vel(v), noChao(false),gravidade(GRAVIDADE), relogio(), dt(0.0f)
+            Entidade(tam, i), vel(v), noChao(false), gravidade(GRAVIDADE), relogio(), dt(0.0f), num_vidas(-1)
             {
+
             }
 
             Personagem::~Personagem()
             {
+
             }
 
             void Personagem::aplicarGravidade()
@@ -68,6 +70,16 @@ namespace Pokerun{
             {
                 noChao = true;
                 vel.y = 0.0f;
+            }
+
+             void Personagem::operator--()
+             {
+                if(num_vidas > 0){num_vidas--;}
+            }
+
+            int Personagem::getNumvidas()const
+            {
+                return num_vidas;
             }
         }
     }
