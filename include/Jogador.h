@@ -14,6 +14,8 @@
 #define LARGURA_RAICHU 48
 #define ALTURA_RAICHU 46
 
+#define N_VDS_JOG 1000
+
 namespace Pokerun{   
 
     namespace Entidades{

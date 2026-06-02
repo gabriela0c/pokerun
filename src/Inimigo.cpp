@@ -1,5 +1,4 @@
 #include "Inimigo.h"
-#include <iostream>
 
 namespace Pokerun{
 
@@ -7,26 +6,27 @@ namespace Pokerun{
 
         namespace Personagens{
             
-            Inimigo::Inimigo(const sf::Vector2f tam ,const ID i):
-            Personagem(tam, {VEL_INIM_X, 0.0f}, i), pJogador1(nullptr), pJogador2(nullptr),
-            direcao(-1), tempoMovimento(0.0f)
+            Inimigo::Inimigo(int nivMal, const sf::Vector2f tam ,const ID i,  int n_vds):
+            Personagem(tam, {VEL_INIM_X, 0.0f}, i, n_vds), pJogador1(nullptr), pJogador2(nullptr),
+            nivel_maldade(nivMal), direcao(-1), tempoMovimento(0.0f)
             {
 
             }
 
             Inimigo::~Inimigo()
             {
-
+                pJogador1 = nullptr;
+                pJogador2 = nullptr;
             }
 
-            void Inimigo::setJogador1(const Jogador* jog1)
+            void Inimigo::setJogador1(Jogador* jog1)
             {
                 if(jog1){
                     pJogador1 = jog1;
                 }
             }
 
-            void Inimigo::setJogador2(const Jogador* jog2)
+            void Inimigo::setJogador2(Jogador* jog2)
             {
                 if(jog2){
                     pJogador2 = jog2;

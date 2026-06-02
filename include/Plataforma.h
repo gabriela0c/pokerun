@@ -14,7 +14,7 @@ namespace Pokerun{
             class Plataforma : public Obstaculo{
             public:
                 Plataforma();
-                Plataforma(sf::Vector2f pos, sf::Vector2f dim); //para construir o chao
+                Plataforma(sf::Vector2f pos, sf::Vector2f dim); //para construir as paredes laterais
                 ~Plataforma();
             
                 void executar();

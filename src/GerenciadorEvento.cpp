@@ -13,7 +13,9 @@ namespace Pokerun{
 
         GerenciadorEvento::~GerenciadorEvento()
         {
-
+            pGrafico = nullptr;
+            pJogador1 = nullptr;
+            pJogador2 = nullptr;
         }
 
         GerenciadorEvento* GerenciadorEvento::getGerenciadorEvento() 

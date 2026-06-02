@@ -6,9 +6,8 @@ namespace Pokerun{
 
         namespace Personagens{
 
-            InimFacil::InimFacil() : Inimigo({LARGURA_BULBASAUR, ALTURA_BULBASAUR},ID::INIMIGO_FACIL), raio(-1)
+            InimFacil::InimFacil() : Inimigo(NIVEL_MALD_FACIL, {LARGURA_BULBASAUR, ALTURA_BULBASAUR},ID::INIMIGO_FACIL, N_VDS_FACIL), raio(-1)
             {
-                num_vidas = 1;
                 setTextura("assets/sprites/personagens/inimigo/bulbasaur.png", sf::IntRect({0,0}, {(int)LARGURA_BULBASAUR, (int)ALTURA_BULBASAUR}));
             }
 

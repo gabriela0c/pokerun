@@ -5,10 +5,10 @@ namespace Pokerun{
 
         namespace Personagens{
 
-            Personagem::Personagem(const sf::Vector2f tam, const sf::Vector2f v, const ID i):
-            Entidade(tam, i), vel(v), noChao(false), gravidade(GRAVIDADE), relogio(), dt(0.0f), num_vidas(-1)
+            Personagem::Personagem(const sf::Vector2f tam, const sf::Vector2f v, const ID i, int n_vds):
+            Entidade(tam, i), vel(v), noChao(false), gravidade(GRAVIDADE), relogio(), dt(0.0f), num_vidas(n_vds)
             {
-
+        
             }
 
             Personagem::~Personagem()

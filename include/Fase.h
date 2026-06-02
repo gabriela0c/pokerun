@@ -29,7 +29,7 @@ namespace Pokerun{
 
         public:
             Fase(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr, const ID i = ID::INDEFINIDO);
-            ~Fase();
+            virtual ~Fase();
 
             virtual void criarInimigos() = 0;
             virtual void criarObstaculos() = 0;

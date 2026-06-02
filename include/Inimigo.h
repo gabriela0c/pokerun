@@ -24,18 +24,19 @@ namespace Pokerun{
 
             class Inimigo : public Personagem{
             protected:
-                const Jogador* pJogador1;
-                const Jogador* pJogador2;
+                Jogador* pJogador1;
+                Jogador* pJogador2;
 
+                int nivel_maldade;
                 int direcao;
                 float tempoMovimento;
 
             public:
-                Inimigo(const sf::Vector2f tam = {}, const ID i = ID::INDEFINIDO);
-                ~Inimigo();
+                Inimigo(int nivMal = -1,const sf::Vector2f tam = {}, const ID i = ID::INDEFINIDO, int n_vds = -1);
+                virtual ~Inimigo();
 
-                void setJogador1(const Jogador* jog1);
-                void setJogador2(const Jogador* jog2);
+                void setJogador1(Jogador* jog1);
+                void setJogador2(Jogador* jog2);
 
                 void executar();
                 void mover();

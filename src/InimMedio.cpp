@@ -7,10 +7,9 @@ namespace Pokerun{
         namespace Personagens{
 
             InimMedio::InimMedio():
-            Inimigo({LARGURA_WARTORTLE, ALTURA_WARTORTLE},ID::INIMIGO_MEDIO)
+            Inimigo(NIV_MAL_MEDIO, {LARGURA_WARTORTLE, ALTURA_WARTORTLE},ID::INIMIGO_MEDIO, N_VDS_MEDIO)
             {
                 setTextura("assets/sprites/personagens/inimigo/wartortle.png", sf::IntRect({0, 0}, {(int)LARGURA_WARTORTLE, (int)ALTURA_WARTORTLE}));
-                num_vidas = 2;
             }
 
             InimMedio::~InimMedio()

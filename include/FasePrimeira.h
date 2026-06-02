@@ -17,7 +17,7 @@ namespace Pokerun{
         ~FasePrimeira();
         
         void criarInimMedios();
-        void criarObstaculosFaceis();
+        void criarObstaculosMedios();
         
         void criarInimigos();
         void criarObstaculos();

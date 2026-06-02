@@ -8,10 +8,9 @@ namespace Pokerun{
         namespace Personagens{
 
             Jogador::Jogador(const bool ehJog1):
-            Personagem((ehJog1 ? sf::Vector2f(LARGURA_PIKACHU, ALTURA_PIKACHU) : sf::Vector2f(LARGURA_RAICHU, ALTURA_RAICHU)), {VEL_JOG_X, 0.0f}, ID::JOGADOR),
+            Personagem((ehJog1 ? sf::Vector2f(LARGURA_PIKACHU, ALTURA_PIKACHU) : sf::Vector2f(LARGURA_RAICHU, ALTURA_RAICHU)), {VEL_JOG_X, 0.0f}, ID::JOGADOR, N_VDS_JOG),
             ehJogador1(ehJog1), modificador_velocidade(1.0f)
             {
-                num_vidas = 10000;
                 /*if(ehJog1){
                     setTextura("assets/sprites/pikachu.png", sf::IntRect({0, 0},{LARGURA_PIKACHU, ALTURA_PIKACHU}));
                 }
