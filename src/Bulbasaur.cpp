@@ -1,4 +1,4 @@
-#include "InimFacil.h"
+#include "Bulbasaur.h"
 
 namespace Pokerun{
 
@@ -6,22 +6,22 @@ namespace Pokerun{
 
         namespace Personagens{
 
-            InimFacil::InimFacil() : Inimigo(NIVEL_MALD_FACIL, {LARGURA_BULBASAUR, ALTURA_BULBASAUR},ID::INIMIGO_FACIL, N_VDS_FACIL), raio(-1)
+            Bulbasaur::Bulbasaur() : Inimigo(NIVEL_MALD_FACIL, {LARGURA_BULBASAUR, ALTURA_BULBASAUR},ID::INIMIGO_FACIL, N_VDS_FACIL), raio(-1)
             {
                 setTextura("assets/sprites/personagens/inimigo/bulbasaur.png", sf::IntRect({0,0}, {(int)LARGURA_BULBASAUR, (int)ALTURA_BULBASAUR}));
             }
 
-            InimFacil::~InimFacil()
+            Bulbasaur::~Bulbasaur()
             {
 
             }
 
-            void InimFacil::executar()
+            void Bulbasaur::executar()
             {
                 Inimigo::executar();
             }
 
-            void InimFacil::danificar(Jogador* p)
+            void Bulbasaur::danificar(Jogador* p)
             {
                 std::cout<<"danifiquei"<<std::endl;
                 colisaoPersonagem(this, p);

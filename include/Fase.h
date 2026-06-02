@@ -4,8 +4,8 @@
 #include "Chao.h"
 #include "ListaEntidades.h"
 #include "GerenciadorColisoes.h"
-#include "ObstMedio.h"
-#include "InimFacil.h"
+#include "Poca.h"
+#include "Bulbasaur.h"
 #include <vector>
 
 #define WIN_SIZE_X 800.0f
@@ -36,7 +36,7 @@ namespace Pokerun{
 
             void desenhar();
             
-            void criarInimFaceis();
+            void criarBulbasaurs();
             void criarPlataformas();
 
             Entidades::Chao* getChao()const;

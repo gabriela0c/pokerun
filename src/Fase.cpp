@@ -25,12 +25,12 @@ namespace Pokerun{
             lista_ents.limpar();
         }
 
-        void Fase::criarInimFaceis()
+        void Fase::criarBulbasaurs()
         {
             Entidades::Personagens::Inimigo* pInim = nullptr;
             int n = rand() % 3 + 3; //cria de 3 a 5 inimigos - tabela 1 N5
             for(int i = 0; i < n; i++){
-                pInim = new Entidades::Personagens::InimFacil();
+                pInim = new Entidades::Personagens::Bulbasaur();
                 pInim->setJogador1(pJogador1);
                 pInim->setJogador2(pJogador2);
                 lista_ents.incluir(static_cast<Entidades::Entidade*>(pInim));

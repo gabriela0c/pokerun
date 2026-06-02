@@ -14,13 +14,13 @@ namespace Pokerun{
 
         namespace Obstaculos{
             
-            class ObstMedio : public Obstaculo{
+            class Poca : public Obstaculo{ //Obst Medio
                 private:
                 float profundidade;
                 
                 public:
-                    ObstMedio();
-                    ~ObstMedio();
+                    Poca();
+                    ~Poca();
                 
                     void executar();
                     void obstaculizar(Personagens::Jogador* pJog);

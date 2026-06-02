@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Fase.h"
-#include "InimMedio.h"
+#include "Wartortle.h"
 
 namespace Pokerun{
 
@@ -9,15 +9,15 @@ namespace Pokerun{
 
         class FasePrimeira : public Fase{
         private:
-            const int maxInimigosMedios;
-            const int maxInimigosFaceis;
-            const int maxObstaculosMedios;
+            const int maxWartortles;
+            const int maxBulbasaurs;
+            const int maxPocas;
         public:
        FasePrimeira(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
         ~FasePrimeira();
         
-        void criarInimMedios();
-        void criarObstaculosMedios();
+        void criarWartortles();
+        void criarPocas();
         
         void criarInimigos();
         void criarObstaculos();

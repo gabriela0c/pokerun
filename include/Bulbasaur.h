@@ -12,15 +12,15 @@ namespace Pokerun{
 
     namespace Entidades{
 
-        namespace Personagens{
+        namespace Personagens{ //inimigo fácil
 
-            class InimFacil : public Inimigo{
+            class Bulbasaur : public Inimigo{
             private:
                 float raio;
 
             public:
-                InimFacil();
-                ~InimFacil();
+                Bulbasaur();
+                ~Bulbasaur();
 
                 void executar();
                 void danificar(Jogador* p);

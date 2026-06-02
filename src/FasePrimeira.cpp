@@ -5,7 +5,7 @@ namespace Pokerun{
     namespace Fases{
 
         FasePrimeira::FasePrimeira(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
-        Fase(pJog1, pJog2, ID::FASE_PRIMEIRA), maxInimigosMedios(5), maxInimigosFaceis(5), maxObstaculosMedios(5)
+        Fase(pJog1, pJog2, ID::FASE_PRIMEIRA), maxWartortles(5), maxBulbasaurs(5), maxPocas(5)
         {
             GC.setFase1(this);
             
@@ -31,12 +31,12 @@ namespace Pokerun{
         {
         }
 
-        void FasePrimeira::criarInimMedios()
+        void FasePrimeira::criarWartortles()
         {
             Entidades::Personagens::Inimigo* pInim = nullptr;
             int n = rand() % 3 + 3; //cria de 3 a 5 inimigos - tabela 1 N5
             for(int i = 0; i < n; i++){
-                pInim = new Entidades::Personagens::InimMedio();
+                pInim = new Entidades::Personagens::Wartortle();
                 pInim->setJogador1(pJogador1);
                 pInim->setJogador2(pJogador2);
                 lista_ents.incluir(static_cast<Entidades::Entidade*>(pInim));
@@ -45,14 +45,14 @@ namespace Pokerun{
             }
         }
         
-        void FasePrimeira::criarObstaculosMedios()
+        void FasePrimeira::criarPocas()
         {
             //mínimo 3 e máximo 5 
-            int n = rand() % (maxObstaculosMedios - 2) + 3;
+            int n = rand() % (maxPocas - 2) + 3;
 
             for(int i = 0; i < n; i++)
             {
-                Entidades::Obstaculos::ObstMedio* pObs = new Entidades::Obstaculos::ObstMedio();
+                Entidades::Obstaculos::Poca* pObs = new Entidades::Obstaculos::Poca();
                 
                 int indicePlataforma = rand() % posicoesPlataformas.size();
                 sf::FloatRect base = posicoesPlataformas[indicePlataforma];
@@ -79,14 +79,14 @@ namespace Pokerun{
 
         void FasePrimeira::criarInimigos()
         {
-            criarInimFaceis();
-            criarInimMedios();
+            criarBulbasaurs();
+            criarWartortles();
         }
 
         void FasePrimeira::criarObstaculos()
         {
             criarPlataformas();
-            criarObstaculosMedios();
+            criarPocas();
         }
         
         void FasePrimeira::executar()

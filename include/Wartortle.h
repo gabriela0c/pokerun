@@ -14,13 +14,13 @@ namespace Pokerun{
 
         namespace Personagens{
 
-            class InimMedio : public Inimigo{
+            class Wartortle : public Inimigo{ //Inim Medio
             private:
                 int tamanho;
 
             public:
-                InimMedio();
-                ~InimMedio();
+                Wartortle();
+                ~Wartortle();
 
                 void danificar(Jogador* p);
                 void executar();

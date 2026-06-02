@@ -1,4 +1,4 @@
-#include "InimMedio.h"
+#include "Wartortle.h"
 
 namespace Pokerun{
 
@@ -6,18 +6,18 @@ namespace Pokerun{
 
         namespace Personagens{
 
-            InimMedio::InimMedio():
+            Wartortle::Wartortle():
             Inimigo(NIV_MAL_MEDIO, {LARGURA_WARTORTLE, ALTURA_WARTORTLE},ID::INIMIGO_MEDIO, N_VDS_MEDIO)
             {
                 setTextura("assets/sprites/personagens/inimigo/wartortle.png", sf::IntRect({0, 0}, {(int)LARGURA_WARTORTLE, (int)ALTURA_WARTORTLE}));
             }
 
-            InimMedio::~InimMedio()
+            Wartortle::~Wartortle()
             {
 
             }
 
-            void InimMedio::danificar(Jogador* p)
+            void Wartortle::danificar(Jogador* p)
             {
                 std::cout<<"fazer algo aqui"<<std::endl;
                 colisaoPersonagem(this, p);
@@ -25,7 +25,7 @@ namespace Pokerun{
                 std::cout<<p->getNumvidas()<<std::endl;
             }
 
-            void InimMedio::executar()
+            void Wartortle::executar()
             {
                 Inimigo::executar();
             }
