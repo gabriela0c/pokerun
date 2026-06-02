@@ -41,59 +41,33 @@ namespace Pokerun{
 
         void Fase::criarPlataformas()
         {
-
             Entidades::Obstaculos::Plataforma* pPlat = nullptr;
-            
-            int n = rand() % 3 + 3; //cria de 3 a 5 plataformas
-            for(int i = 0; i < n; i++)
+
+            //5 posições pré-definidas
+            std::vector<sf::Vector2f> posicoesPossiveis;
+            posicoesPossiveis.push_back(sf::Vector2f(100.f, 150.f));
+            posicoesPossiveis.push_back(sf::Vector2f(300.f, 350.f));
+            posicoesPossiveis.push_back(sf::Vector2f(500.f, 200.f));
+            posicoesPossiveis.push_back(sf::Vector2f(150.f, 450.f));
+            posicoesPossiveis.push_back(sf::Vector2f(400.f, 500.f));
+
+            for (int i = 4; i > 0; i--)
+            {
+                int j = rand() % (i + 1);
+                sf::Vector2f temp = posicoesPossiveis[i];
+                posicoesPossiveis[i] = posicoesPossiveis[j];
+                posicoesPossiveis[j] = temp;
+            }
+
+            int n = rand() % 3 + 3; // 3 a 5 plataformas
+            for (int i = 0; i < n; i++)
             {
                 pPlat = new Entidades::Obstaculos::Plataforma();
-                
-                bool posicaoValida = false;
-                int tentativas = 0;
-
-                while (!posicaoValida && tentativas < 100) 
-                {
-                    sf::FloatRect novaArea = pPlat->getFig().getGlobalBounds();
-                    bool sobrepoe = false;
-
-                    std::vector<sf::FloatRect>::iterator it;
-                    //range based for e auto nao sao c++ 2003
-                    for (it = posicoesPlataformas.begin(); it != posicoesPlataformas.end(); it++) 
-                    {
-                        if (novaArea.findIntersection(*it)) 
-                        {
-                            sobrepoe = true;
-                            break; 
-                        }
-                    }
-                    if (sobrepoe) 
-                    {
-                        int limiteX = WIN_SIZE_X + 1 - (int)pPlat->getFig().getSize().x;
-                        int limiteY = WIN_SIZE_Y + 1 - (int)pPlat->getFig().getSize().y;
-                        
-                        if (limiteX <= 0){ 
-                            limiteX = 1;
-                        }
-                        if (limiteY <= 0) {
-                            limiteY = 1;
-                        }
-
-                        float novoX = (float)(rand() % limiteX);
-                        float novoY = (float)(rand() % limiteY);
-                                
-                        pPlat->getFig().setPosition({novoX, novoY});
-
-                        tentativas++;
-                        } 
-                        else
-                            posicaoValida = true;
-                }
+                pPlat->getFig().setPosition(posicoesPossiveis[i]); //cada i pega uma posição única
 
                 posicoesPlataformas.push_back(pPlat->getFig().getGlobalBounds());
-                
                 lista_ents.incluir(static_cast<Entidades::Entidade*>(pPlat));
-                GC.incluirObstaculo(pPlat); 
+                GC.incluirObstaculo(pPlat);
                 pPlat = nullptr;
             }
 
