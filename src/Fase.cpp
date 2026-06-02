@@ -43,8 +43,9 @@ namespace Pokerun{
         {
 
             Entidades::Obstaculos::Plataforma* pPlat = nullptr;
-    
-            for(int i = 0; i < 3; i++)
+            
+            int n = rand() % 3 + 3; //cria de 3 a 5 plataformas
+            for(int i = 0; i < n; i++)
             {
                 pPlat = new Entidades::Obstaculos::Plataforma();
                 

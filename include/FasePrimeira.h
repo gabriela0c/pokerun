@@ -13,7 +13,7 @@ namespace Pokerun{
             const int maxBulbasaurs;
             const int maxPocas;
         public:
-       FasePrimeira(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
+        FasePrimeira(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
         ~FasePrimeira();
         
         void criarWartortles();
