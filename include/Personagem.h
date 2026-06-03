@@ -17,22 +17,24 @@ namespace Pokerun{
             protected:
                 sf::Vector2f vel;
                 bool noChao;
+                bool noTeto;
                 const float gravidade;
                 sf::Clock relogio;
                 float dt;
                 int num_vidas;
 
             public:
-                Personagem(const sf::Vector2f tam = {}, const sf::Vector2f v = {}, const ID i = ID::INDEFINIDO, int n_vds = -1);
+                Personagem(const sf::Vector2f tam = {}, const sf::Vector2f v = {}, int n_vds = -1);
                 virtual ~Personagem();
 
                 void aplicarGravidade();
                 void pousar();
+                void setNoTeto(const bool nT);
+                void setNoChao(const bool nC);
 
                 sf::Vector2f getVel()const;
                 void setVel(sf::Vector2f v);
 
-                static void colisaoPersonagem(Personagem* p1, Personagem* p2);
                 void operator--();
                 int getNumvidas()const;
                 

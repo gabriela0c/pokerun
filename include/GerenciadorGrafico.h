@@ -1,8 +1,11 @@
 #pragma once 
 
 #include <iostream>
-
 #include <SFML/Graphics.hpp>
+
+namespace Pokerun{
+    class Ente;
+}
 
 namespace Pokerun{
 
@@ -25,7 +28,7 @@ namespace Pokerun{
             sf::RenderWindow* getWindow();
 
             void limpaJanela();
-            void desenhaElementos(sf::RectangleShape& corpo);
+            void desenhaElementos(Ente* pE);
             void mostraElementos();
             void fecharJanela();
             const bool verificaJanelaAberta();

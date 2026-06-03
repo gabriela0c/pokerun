@@ -1,4 +1,6 @@
 #include "GerenciadorGrafico.h"
+#include "Ente.h"
+
 namespace Pokerun{
 
     namespace Gerenciadores{
@@ -48,10 +50,10 @@ namespace Pokerun{
             }
         }
 
-        void GerenciadorGrafico::desenhaElementos(sf::RectangleShape& corpo)//mudar aq tlvz pra n precisar usar *p em getFig 
+        void GerenciadorGrafico::desenhaElementos(Ente* pE)
         {
             if(window){
-                window->draw(corpo);
+                window->draw(pE->getFig());
             }
         }
 
@@ -74,7 +76,7 @@ namespace Pokerun{
             if(window){
                 return (window->isOpen());
             }
-            std::cout<<"janela nula"<<std::endl;
+            std::cout << "Janela nula" <<std::endl;
             return false;
         }
     }

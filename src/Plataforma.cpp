@@ -8,15 +8,16 @@ namespace Pokerun{
         namespace Obstaculos{            
 
             Plataforma::Plataforma():
-            Obstaculo({TAM_PLAT_X, TAM_PLAT_Y}, false, ID::PLATAFORMA)
+            Obstaculo({TAM_PLAT_X, TAM_PLAT_Y}, false, true), dimensoes({(int)TAM_PLAT_X, (int)TAM_PLAT_Y})
             {
-                setTextura("assets/sprites/obstaculos/plataforma.png", sf::IntRect({0, 0}, {(int)TAM_PLAT_X, (int)TAM_PLAT_Y}));
+                setTextura("assets/sprites/obstaculos/plataforma.png", sf::IntRect({0, 0}, dimensoes));
             }
 
             Plataforma::Plataforma(sf::Vector2f pos,sf::Vector2f dim):
-            Obstaculo(dim, false)
+            Obstaculo(dim, false, true), dimensoes(dim)
             {
                 pFigura->setFillColor(sf::Color::Blue);
+                setTextura("assets/sprites/obstaculos/plataforma.png", sf::IntRect({0, 0}, dimensoes));
                 pFigura->setPosition(pos);
             }
 
@@ -32,8 +33,6 @@ namespace Pokerun{
 
             void Plataforma::obstaculizar(Personagens::Jogador* pJog)
             {
-                if(pJog)
-                    pJog->colisao_posso_pular(this);
                 
             }
         }

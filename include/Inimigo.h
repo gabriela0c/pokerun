@@ -32,7 +32,7 @@ namespace Pokerun{
                 float tempoMovimento;
 
             public:
-                Inimigo(int nivMal = -1,const sf::Vector2f tam = {}, const ID i = ID::INDEFINIDO, int n_vds = -1);
+                Inimigo(int nivMal = -1,const sf::Vector2f tam = {}, int n_vds = -1);
                 virtual ~Inimigo();
 
                 void setJogador1(Jogador* jog1);
@@ -41,10 +41,12 @@ namespace Pokerun{
                 void executar();
                 void mover();
                 void movimentoAleatorio();
-             
+
+                //void cooldown();
                 void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);;
 
                 virtual void danificar(Jogador* p) = 0;
+                
             };
         }
     }

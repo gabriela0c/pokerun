@@ -1,6 +1,5 @@
 #pragma once
 #include "GerenciadorGrafico.h"
-#include "ID.h"
 
 namespace Pokerun {
 
@@ -8,20 +7,21 @@ namespace Pokerun {
     protected:
         bool ativo;    
         static Gerenciadores::GerenciadorGrafico* pGG;
-        const ID id;
         sf::RectangleShape* pFigura;
         sf::Texture textura;
+        const int id;
+        static int cont_id;
         
     public:
-        Ente(const sf::Vector2f tam = {0.0f, 0.0f}, const ID i = ID::INDEFINIDO);
+        Ente(const sf::Vector2f tam = {0.0f, 0.0f});
         virtual ~Ente();
 
         virtual void executar() = 0;
         virtual void desenhar();
 
-        static void setGG(Gerenciadores::GerenciadorGrafico* pG);
+        const int getID()const;
 
-        ID getID()const;
+        static void setGG(Gerenciadores::GerenciadorGrafico* pG);
 
         void setTextura(std::string caminho, sf::IntRect bounds);
 

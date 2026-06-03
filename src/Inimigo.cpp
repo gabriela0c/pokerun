@@ -6,8 +6,8 @@ namespace Pokerun{
 
         namespace Personagens{
             
-            Inimigo::Inimigo(int nivMal, const sf::Vector2f tam ,const ID i,  int n_vds):
-            Personagem(tam, {VEL_INIM_X, 0.0f}, i, n_vds), pJogador1(nullptr), pJogador2(nullptr),
+            Inimigo::Inimigo(int nivMal, const sf::Vector2f tam , int n_vds):
+            Personagem(tam, {VEL_INIM_X, 0.0f}, n_vds), pJogador1(nullptr), pJogador2(nullptr),
             nivel_maldade(nivMal), direcao(-1), tempoMovimento(0.0f)
             {
 
@@ -35,7 +35,7 @@ namespace Pokerun{
 
             void Inimigo::executar()
             {
-                if(!noChao){aplicarGravidade();}
+                aplicarGravidade();
                 mover();
                 noChao = false;
             }

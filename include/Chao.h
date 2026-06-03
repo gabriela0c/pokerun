@@ -14,7 +14,7 @@ namespace Pokerun{
 
         class Chao : public Entidade{
         private:
-            
+            float posY;
 
         public:
             Chao();

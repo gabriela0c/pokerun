@@ -43,12 +43,18 @@ namespace Pokerun{
                         //cast desnecessario pois ambas herdam de entidade e o upcasting eh feito automaticamente
                         bool colisao1 = verificarColisao(pJogador1,*it);
                         if(colisao1){
-                            (*it)->obstaculizar(pJogador1);
+                            if((*it)->isSolido()){
+                                colisaoPersonagemEntidade(pJogador1, (*it));
+                            }
+                            (*it)->obstaculizar(pJogador1);        
                         }
                         
                         if(pJogador2){
                             bool colisao2 = verificarColisao(pJogador2,*it);
                             if(colisao2){
+                                if((*it)->isSolido()){
+                                    colisaoPersonagemEntidade(pJogador2, (*it));
+                                }
                                 (*it)->obstaculizar(pJogador2);
                             }
                         }
@@ -70,8 +76,7 @@ namespace Pokerun{
                             if(*it){
                                 bool colisao = verificarColisao(*it, Linimigos[i]);
                                 if(colisao){
-                                    bool deCima = Linimigos[i]->colidir(*it); 
-                                    if(deCima){Linimigos[i]->pousar();}
+                                    colisaoPersonagemEntidade(Linimigos[i], (*it));
                                 }
                             }
                             it++;  
@@ -90,12 +95,14 @@ namespace Pokerun{
                     if(Linimigos[i]){
                         bool colisao1 = verificarColisao(pJogador1, Linimigos[i]);
                         if(colisao1){
+                            colisaoPersonagens(pJogador1, Linimigos[i]);
                             Linimigos[i]->danificar(pJogador1);
                         }
 
                         if(pJogador2){//existe sim a possibilidade do jogo nao ter jogador 2
                             bool colisao2 = verificarColisao(pJogador2, Linimigos[i]);
                             if(colisao2){
+                                colisaoPersonagens(pJogador2, Linimigos[i]);
                                 Linimigos[i]->danificar(pJogador2);
                             }
                         }
@@ -121,7 +128,7 @@ namespace Pokerun{
                                 bool colisao = verificarColisao(Linimigos[i], Linimigos[j]);
                                 if (colisao) 
                                 {
-                                    Entidades::Personagens::Personagem::colisaoPersonagem(Linimigos[i], Linimigos[j]);
+                                    colisaoPersonagens(Linimigos[i], Linimigos[j]);
                                 }
                             }
                         }
@@ -136,7 +143,7 @@ namespace Pokerun{
                 bool colisao = verificarColisao(pJogador1, pJogador2);
                 
                 if(colisao){
-                Entidades::Personagens::Personagem::colisaoPersonagem(pJogador1, pJogador2);
+                    colisaoPersonagens(pJogador1, pJogador2);
                 }
             }
 
@@ -149,19 +156,16 @@ namespace Pokerun{
                 for(int i = 0; i < (int)Linimigos.size(); i++){
                     if(Linimigos[i]){
                         if(verificarColisao(pChao, Linimigos[i])){
-                            Linimigos[i]->colidir(pChao);
-                            Linimigos[i]->pousar();
+                            colisaoPersonagemEntidade(Linimigos[i], pChao);
                         }
                     }
                 }
 
                 if(verificarColisao(pChao, pJogador1)){
-                    pJogador1->colidir(pChao);
-                    pJogador1->pousar();
+                    colisaoPersonagemEntidade(pJogador1, pChao);
                 }
                 if(verificarColisao(pChao, pJogador2)){
-                    pJogador2->colidir(pChao);
-                    pJogador2->pousar();
+                    colisaoPersonagemEntidade(pJogador2, pChao);
                 }
             }
         
@@ -181,6 +185,87 @@ namespace Pokerun{
                 sf::Vector2f distCentros = {std::abs(centro1.x - centro2.x), std::abs(centro1.y - centro2.y)};
                 //std::abs equivalente a fabs, so que sobrecarregado para retornar float, fabs retorna um double
                 return (distCentros.x < mediaTam.x && distCentros.y < mediaTam.y);
+            }
+
+            void GerenciadorColisoes::colisaoPersonagens(Entidades::Personagens::Personagem* p1, Entidades::Personagens::Personagem* p2)
+            {
+                sf::FloatRect personagem1 = p1->getFig().getGlobalBounds();
+                sf::FloatRect personagem2 = p2->getFig().getGlobalBounds();
+
+                float overlap_x = std::min(personagem1.position.x + personagem1.size.x, personagem2.position.x + personagem2.size.x) - std::max(personagem1.position.x, personagem2.position.x);
+                float overlap_y = std::min(personagem1.position.y + personagem1.size.y, personagem2.position.y + personagem2.size.y) - std::max(personagem1.position.y, personagem2.position.y);
+
+                if(std::abs(overlap_x) < std::abs(overlap_y)){//colisao horizontal
+                    float dir = (personagem1.position.x < personagem2.position.x) ? -1.0f : 1.0f;
+                    //tenho que saber quem esta mais a esquerda
+                    p1->getFig().move({(dir * overlap_x) / 2, 0.0f});
+                    p2->getFig().move({(-dir * overlap_x) / 2, 0.0f});
+                }
+                else{
+                    sf::Vector2f centro1 = {personagem1.position.x + (personagem1.size.x / 2), personagem1.position.y + (personagem1.size.y / 2)};
+                    sf::Vector2f centro2 = {personagem2.position.x + (personagem2.size.x / 2), personagem2.position.y + (personagem2.size.y / 2)};
+                                        
+                    if(centro1.y < centro2.y){ //se 1 estava acima de 2
+                        p1->getFig().move({0.0f, -overlap_y});
+                        p1->pousar();              //pular quando esta em cima do outro para evitar pulo duplo                                         
+                    }
+                    else{
+                        p2->getFig().move({0.0f, -overlap_y});
+                        p2->pousar();
+                    }
+                }
+            }
+            //Pensei em fazer colidirComObstaculos, mas como chao nao eh obstaculo dai teria que haver uma funcao com essa mesma logica so que para chao
+            void GerenciadorColisoes::colisaoPersonagemEntidade(Entidades::Personagens::Personagem* pP, Entidades::Entidade* pE)
+            {
+                sf::FloatRect pBounds = pP->getFig().getGlobalBounds(); //personagem bounds
+                sf::FloatRect eBounds = pE->getFig().getGlobalBounds(); //entidade bounds
+
+                float menor_lado_direito  = std::min(pBounds.position.x + pBounds.size.x, eBounds.position.x + eBounds.size.x);
+                float maior_lado_esquerdo = std::max(pBounds.position.x, eBounds.position.x);
+                //em y, maior/menor se refere a valor numerico(o eixo cresce p baixo) e superior/inferior a posicao fisica na tela
+
+                float menor_lado_inferior = std::min(pBounds.position.y + pBounds.size.y, eBounds.position.y + eBounds.size.y);
+                float maior_lado_superior = std::max(pBounds.position.y, eBounds.position.y);
+                // tem que subtrair o que esta fisicamente a baixo pelo que esta fisicamente acima pois o sistema de coordenadas eh invertido
+
+                sf::Vector2f pCentro = {pBounds.position.x + pBounds.size.x / 2.0f, pBounds.position.y + pBounds.size.y / 2.0f};
+                sf::Vector2f eCentro = {eBounds.position.x + eBounds.size.x / 2.0f, eBounds.position.y + eBounds.size.y / 2.0f};
+                //calculo dos centros para verificar a direcao da colisao
+
+                sf::Vector2f overlap = {menor_lado_direito - maior_lado_esquerdo, menor_lado_inferior - maior_lado_superior};
+
+                if(std::abs(overlap.x) < std::abs(overlap.y))
+                { 
+                //compara os centros no eixo X
+                    if(pCentro.x < eCentro.x)
+                    {
+                        pP->getFig().move({-overlap.x, 0.0f}); 
+                        //empurra para a esquerda
+                    }
+                
+                    else
+                    {
+                        pP->getFig().move({ overlap.x, 0.0f}); 
+                        //empurra para a direita
+                    }
+                }
+
+                else
+                {
+                    //compara os centros no eixo Y
+                    if(pCentro.y < eCentro.y)
+                    {
+                        pP->getFig().move({0.0f, -overlap.y}); //empurra para cima
+                        pP->pousar();
+                    } 
+
+                    else
+                    {   //empurra para baixo
+                        pP->getFig().move({0.0f,  overlap.y}); 
+                        pP->setNoTeto(true);
+                    }
+                }
             }
             
             void GerenciadorColisoes::setJogador1(Entidades::Personagens::Jogador* pJog1)

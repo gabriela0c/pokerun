@@ -34,7 +34,7 @@ namespace Pokerun{
                 void mover();
                 void pular();
 
-                void diminui_vel(float porcentagem);
+                void diminui_vel(float taxa);
                 float getModVel()const;
 
                 bool colisao_posso_pular(Entidade* pOutra);

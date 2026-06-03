@@ -28,7 +28,7 @@ namespace Pokerun{
             Entidades::Chao* pChao;
 
         public:
-            Fase(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr, const ID i = ID::INDEFINIDO);
+            Fase(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
             virtual ~Fase();
 
             virtual void criarInimigos() = 0;

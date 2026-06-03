@@ -5,7 +5,7 @@ namespace Pokerun{
     namespace Fases{
 
         FasePrimeira::FasePrimeira(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
-        Fase(pJog1, pJog2, ID::FASE_PRIMEIRA), maxWartortles(5), maxBulbasaurs(5), maxPocas(5)
+        Fase(pJog1, pJog2), maxWartortles(5), maxBulbasaurs(5), maxPocas(5)
         {
             GC.setFase1(this);
             

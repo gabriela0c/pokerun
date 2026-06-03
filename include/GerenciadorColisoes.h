@@ -41,6 +41,9 @@ namespace Pokerun{
             void tratarColisoesJogsJogs();
             void tratarColisoesPersChao();
 
+            void colisaoPersonagens(Entidades::Personagens::Personagem* p1, Entidades::Personagens::Personagem* p2);
+            void colisaoPersonagemEntidade(Entidades::Personagens::Personagem* pP, Entidades::Entidade* pE);
+
             void setJogador1(Entidades::Personagens::Jogador* pJog1);
             void setJogador2(Entidades::Personagens::Jogador* pJog2);
             void setFase1(Fases::FasePrimeira* pF1);

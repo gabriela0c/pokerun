@@ -8,7 +8,7 @@ namespace Pokerun{
         namespace Personagens{
 
             Jogador::Jogador(const bool ehJog1):
-            Personagem((ehJog1 ? sf::Vector2f(LARGURA_PIKACHU, ALTURA_PIKACHU) : sf::Vector2f(LARGURA_RAICHU, ALTURA_RAICHU)), {VEL_JOG_X, 0.0f}, ID::JOGADOR, N_VDS_JOG),
+            Personagem((ehJog1 ? sf::Vector2f(LARGURA_PIKACHU, ALTURA_PIKACHU) : sf::Vector2f(LARGURA_RAICHU, ALTURA_RAICHU)), {VEL_JOG_X, 0.0f}, N_VDS_JOG),
             ehJogador1(ehJog1), modificador_velocidade(1.0f)
             {
                 /*if(ehJog1){
@@ -26,29 +26,18 @@ namespace Pokerun{
 
             void Jogador::mover()
             {
-                if(!noChao)
-                    aplicarGravidade();
-                else 
-                    relogio.restart();//relogio sempre fresco quando no chao, garante que o pulo nao pareca teleporte
+                aplicarGravidade();
+                if(noChao) {
+                    relogio.restart();
+                }//relogio sempre fresco quando no chao, garante que o pulo nao pareca teleporte
 
-                if(noTeto){vel.y = 0;} //senao o inimigo grudava no teto antes de cair
+                if(noTeto){vel.y = 0;} //senao o jogador grudava no teto antes de cair
             }
 
-            bool Jogador::colisao_posso_pular(Entidade* pOutra)
-            { 
-                bool deCima = Entidade::colidir(pOutra);
-                if(deCima){
-                    noChao = true;
-                    vel.y = 0.0f; 
-                    return true;
-                }
-                return false;
-            }
-
-            void Jogador::diminui_vel(float porcentagem)
+            void Jogador::diminui_vel(float taxa)
             {
-                if(porcentagem < modificador_velocidade){
-                    modificador_velocidade = porcentagem;
+                if(taxa < modificador_velocidade){
+                    modificador_velocidade = taxa;
                 }
             }
 

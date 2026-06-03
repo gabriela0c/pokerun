@@ -11,13 +11,10 @@ namespace Pokerun{
         protected:
             float x;
             float y;
-            bool noTeto;
         
         public:
-            Entidade(const sf::Vector2f tam = {0.0f, 0.0f}, const ID i = ID::INDEFINIDO);
+            Entidade(const sf::Vector2f tam = {0.0f, 0.0f});
             virtual ~Entidade();
-            
-            bool colidir(Entidade* pOutra);
             
             virtual void executar() = 0; 
         };

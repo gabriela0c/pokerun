@@ -6,7 +6,7 @@ namespace Pokerun{
 
         namespace Personagens{
 
-            Bulbasaur::Bulbasaur() : Inimigo(NIVEL_MALD_FACIL, {LARGURA_BULBASAUR, ALTURA_BULBASAUR},ID::INIMIGO_FACIL, N_VDS_FACIL), raio(-1)
+            Bulbasaur::Bulbasaur() : Inimigo(NIVEL_MALD_FACIL, {LARGURA_BULBASAUR, ALTURA_BULBASAUR}, N_VDS_FACIL), raio(-1)
             {
                 setTextura("assets/sprites/personagens/inimigo/bulbasaur.png", sf::IntRect({0,0}, {(int)LARGURA_BULBASAUR, (int)ALTURA_BULBASAUR}));
             }
@@ -23,10 +23,9 @@ namespace Pokerun{
 
             void Bulbasaur::danificar(Jogador* p)
             {
-                std::cout<<"danifiquei"<<std::endl;
-                colisaoPersonagem(this, p);
+                //std::cout<<"danifiquei"<<std::endl;
                 p->operator--();
-                std::cout<<p->getNumvidas()<<std::endl;
+                //std::cout<<p->getNumvidas()<<std::endl;
             }
         }
     }
