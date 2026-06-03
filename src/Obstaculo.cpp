@@ -7,7 +7,7 @@ namespace Pokerun{
         namespace Obstaculos{
 
            Obstaculo::Obstaculo(const sf::Vector2f tam, bool d, bool s):
-            Entidade(tam), danoso(d), solido(s)
+            Entidade(tam), danoso(d), solido(s) //nao precisa passar vel_y porque é 0 por default, logo ja esta certo
             {
 
             }

@@ -3,6 +3,9 @@
 #include "Ente.h"
 #include <SFML/Graphics.hpp>
 
+#define GRAVIDADE 600.0f
+#define VEL_TERM 240.0f
+
 namespace Pokerun{
 
     namespace Entidades{
@@ -11,10 +14,17 @@ namespace Pokerun{
         protected:
             float x;
             float y;
+            float vel_y;
+            const float gravidade;
+            sf::Clock relogio;
+            float dt;
         
         public:
-            Entidade(const sf::Vector2f tam = {0.0f, 0.0f});
+            Entidade(const sf::Vector2f tam = {0.0f, 0.0f}, float vY = 0.0f);
             virtual ~Entidade();
+
+            void aplicarGravidade();   
+            void antiGravidade();
             
             virtual void executar() = 0; 
         };

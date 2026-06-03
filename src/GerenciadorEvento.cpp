@@ -64,16 +64,16 @@ namespace Pokerun{
     
             if (pJogador1) 
             {
-                sf::Vector2f v = pJogador1->getVel();
+                float vX = pJogador1->getVelX();
                 sf::Vector2f tam = pJogador1->getFig().getSize();
                 float modificador = pJogador1->getModVel();
 
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-                    pJogador1->getFig().move({-v.x * modificador, 0.0f});
+                    pJogador1->getFig().move({-vX * modificador, 0.0f});
                     pJogador1->getFig().setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-                    pJogador1->getFig().move({v.x * modificador, 0.0f});
+                    pJogador1->getFig().move({vX * modificador, 0.0f});
                     pJogador1->getFig().setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
@@ -83,16 +83,16 @@ namespace Pokerun{
             
             if (pJogador2) 
             {
-                sf::Vector2f v = pJogador2->getVel();
+                float vX = pJogador2->getVelX();
                 sf::Vector2f tam = pJogador2->getFig().getSize();
                 float modificador = pJogador2->getModVel();
 
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-                    pJogador2->getFig().move({-v.x * modificador, 0.0f});
+                    pJogador2->getFig().move({-vX * modificador, 0.0f});
                     pJogador2->getFig().setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-                    pJogador2->getFig().move({v.x * modificador, 0.0f});
+                    pJogador2->getFig().move({vX * modificador, 0.0f});
                     pJogador2->getFig().setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {

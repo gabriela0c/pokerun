@@ -83,7 +83,7 @@ namespace Pokerun{
             {
                 sf::Vector2f tam = getFig().getSize(); //talvez criar atributo tam
 
-                pFigura->move({-vel.x * direcao * dt, 0.0f});
+                pFigura->move({-vel_x * direcao * dt, 0.0f});
                 
                 if (direcao == -1) //move p direita
                     pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
@@ -109,12 +109,12 @@ namespace Pokerun{
                 
                     if(distanciaX > 0.0f){
                         //indo p direita
-                        pFigura->move({vel.x * dt, 0.0f});
+                        pFigura->move({vel_x * dt, 0.0f});
                         pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
                     }
                     else{
                         //indo p esquerda
-                        pFigura->move({-vel.x * dt, 0.0f});
+                        pFigura->move({-vel_x * dt, 0.0f});
                         pFigura->setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
                     }
                 } 

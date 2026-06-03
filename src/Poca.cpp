@@ -19,7 +19,8 @@ namespace Pokerun{
 
             void Poca::executar()
             {
-
+                aplicarGravidade();
+                antiGravidade();
             }
 
             void Poca::obstaculizar(Personagens::Jogador* pJog)

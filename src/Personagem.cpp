@@ -6,7 +6,7 @@ namespace Pokerun{
         namespace Personagens{
 
             Personagem::Personagem(const sf::Vector2f tam, const sf::Vector2f v, int n_vds):
-            Entidade(tam), vel(v), noChao(false), noTeto(false), gravidade(GRAVIDADE), relogio(), dt(0.0f), num_vidas(n_vds)
+            Entidade(tam, v.y), vel_x(v.x), noChao(false), noTeto(false), num_vidas(n_vds)
             {
 
             }
@@ -16,31 +16,18 @@ namespace Pokerun{
 
             }
 
-            void Personagem::aplicarGravidade()
-            {
-                dt = relogio.restart().asSeconds();
-    
-                if (dt > 0.1f) 
-                    dt = 0.1f;
-                
-                vel.y += gravidade * dt;
-                if(vel.y > VEL_TERM){vel.y = VEL_TERM;}
-
-                pFigura->move({0.0f, vel.y*dt});
+            float Personagem::getVelX()const{
+                return vel_x;
             }
 
-            sf::Vector2f Personagem::getVel()const{
-                return vel;
-            }
-
-            void Personagem::setVel(sf::Vector2f v){
-                vel = v;
+            void Personagem::setVelX(float vX){
+                vel_x = vX;
             }
 
             void Personagem::pousar()
             {
                 noChao = true;
-                vel.y = 0.0f;
+                vel_y = 0.0f;
             }
 
             void Personagem::setNoTeto(const bool nT)

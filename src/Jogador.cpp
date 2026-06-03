@@ -31,7 +31,7 @@ namespace Pokerun{
                     relogio.restart();
                 }//relogio sempre fresco quando no chao, garante que o pulo nao pareca teleporte
 
-                if(noTeto){vel.y = 0;} //senao o jogador grudava no teto antes de cair
+                if(noTeto){vel_y = 0;} //senao o jogador grudava no teto antes de cair
             }
 
             void Jogador::diminui_vel(float taxa)
@@ -48,7 +48,7 @@ namespace Pokerun{
             void Jogador::pular()
             {
                 if(noChao){
-                    vel.y = -400.0f;
+                    vel_y = -400.0f;
                     noChao = false;
                 } 
             }

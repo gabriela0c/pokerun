@@ -28,7 +28,8 @@ namespace Pokerun{
 
             void Plataforma::executar()
             {
-                
+                aplicarGravidade();
+                antiGravidade();
             }
 
             void Plataforma::obstaculizar(Personagens::Jogador* pJog)
