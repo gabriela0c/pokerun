@@ -46,6 +46,9 @@ namespace Pokerun{
                 void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);;
 
                 virtual void danificar(Jogador* p) = 0;
+
+            protected:
+                void aplicarKnockback(Jogador* p, float forca);
                 
             };
         }
