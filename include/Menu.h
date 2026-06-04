@@ -27,19 +27,18 @@ namespace Pokerun{
         int opcaoSelecionada;
         int numJogadores;
         int faseEscolhida;
+        sf::Font fonte;
 
     public:
         Menu();
         ~Menu();
 
-        void menuInicio();
-        void menuPausa();
-        void menuConfig();
-        void ranking();
+        void setJogo(Jogo* pJog);
 
         void desenhar();
         void desenharOpcoes(std::vector<std::string>& opcoes);
         void desenharRanking();
+        void irParaPausa();
 
         const int getFaseEScolhida()const;
         const int getNumJogadores()const;
@@ -47,3 +46,5 @@ namespace Pokerun{
         void executar();
     };
 }
+
+

@@ -62,7 +62,7 @@ namespace Pokerun {
     
     void Ente::desenhar()
     {
-        if (pGG) {
+        if (pGG){
             pGG->desenhaElementos(this);
         }
     }

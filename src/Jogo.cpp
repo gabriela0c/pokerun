@@ -5,9 +5,10 @@ namespace Pokerun{
     Jogo::Jogo():
     estado(EstadoJogo::MENU), pGrafico(Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico()), pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()),
     pJogador1(new Entidades::Personagens::Jogador(true)), pJogador2(new Entidades::Personagens::Jogador(false)), Fase1(pJogador1, pJogador2)
-    {
+    {   
         pEvento->setJogador1(pJogador1);
-        pEvento->setJogador2(pJogador2);
+        
+        menu.setJogo(this);
         executar();
     }
 
@@ -25,13 +26,25 @@ namespace Pokerun{
 
     void Jogo::setEstado(EstadoJogo est)
     {
+        if(est == EstadoJogo::JOGANDO){
+            if(menu.getNumJogadores() == 2){
+                pEvento->setJogador2(pJogador2);  // só ativa se escolheu 2 jogadores
+                Fase1.ativaJog2();
+            }
+            else{
+                pEvento->removeJogador2();
+                Fase1.desativaJog2();
+            }
+        }   
+
         estado = est;
     }
 
     EstadoJogo Jogo::getEstado()const
     {
-        return estado;
+       return estado;
     }
+   
 
     void Jogo::executar()
     {
@@ -39,30 +52,36 @@ namespace Pokerun{
             pGrafico->limpaJanela();
 
             pEvento->executar();
-            /*
+
             switch (estado) {
-                case EstadoJogo::MENU:
-                    pMenu->executar();  
+                case EstadoJogo::MENU:{
+                    menu.executar();  
                 break;
-                case EstadoJogo::JOGANDO:
-                    if (pEvento->pausaPressionado()) 
-                        estado = EstadoJogo::PAUSADO;
+                }
+
+                case EstadoJogo::JOGANDO:{
+                    if (pEvento->pausaPressionado()) {
+                        setEstado(EstadoJogo::MENU);
+                        menu.irParaPausa(); //seta o estado da tela do menu para pausa
+                    }
                     else    
                         Fase1.executar();
                         //if(pMenu->getFaseEscolhida() == 2)
                         //Fase2.executar;
                 break;
-                case EstadoJogo::PAUSADO:
-                    pMenu->desenharPausa();
+                }
+
+                case EstadoJogo::RANKING:{
+                    //menu.desenharRanking(pPontuacao->getRanking());
+                    std::cout << "ainda nao implementado" << std::endl;
                 break;
-                case EstadoJogo::RANKING:
-                    pMenu->desenharRanking(pPontuacao->getRanking());
-                break;
-                case EstadoJogo::SAINDO:
+                }
+
+                case EstadoJogo::SAINDO:{
                     pGrafico->fecharJanela();
                 break;
-            }*/            
-            Fase1.executar();
+                }
+            }
 
             pGrafico->mostraElementos();
         }

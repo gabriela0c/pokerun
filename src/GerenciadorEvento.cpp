@@ -6,7 +6,8 @@ namespace Pokerun{
 
         GerenciadorEvento* GerenciadorEvento::pEvento = nullptr;
 
-        GerenciadorEvento::GerenciadorEvento(): pGrafico(GerenciadorGrafico::getGerenciadorGrafico()), pJogador1(nullptr), pJogador2(nullptr)
+        GerenciadorEvento::GerenciadorEvento(): pGrafico(GerenciadorGrafico::getGerenciadorGrafico()), pJogador1(nullptr), pJogador2(nullptr),
+        flagPausa(false), flagCima(false), flagBaixo(false), flagEnter(false)
         {
 
         }
@@ -38,46 +39,22 @@ namespace Pokerun{
 
         const bool GerenciadorEvento::pausaPressionado()
         {
-            while (const auto event = pGrafico->getWindow()->pollEvent()){
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
-                    return true;
-                else 
-                    return false;
-            }
-            return false;
+            return flagPausa;
         }
 
         const bool GerenciadorEvento::cimaPressionado()
         {
-            while (const auto event = pGrafico->getWindow()->pollEvent()){
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
-                    return true;
-                else 
-                    return false;
-            }
-            return false;
+            return flagCima;
         }
 
         const bool GerenciadorEvento::baixoPressionado()
         {
-            while (const auto event = pGrafico->getWindow()->pollEvent()){
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
-                    return true;
-                else 
-                    return false;
-            }
-            return false;
+            return flagBaixo;
         }
 
         const bool GerenciadorEvento::enterPressionado()
         {
-            while (const auto event = pGrafico->getWindow()->pollEvent()){
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
-                    return true;
-                else 
-                    return false;
-            }
-            return false;
+            return flagEnter;
         }
 
         void GerenciadorEvento::setJogador1(Pokerun::Entidades::Personagens::Jogador* jog1) 
@@ -94,11 +71,26 @@ namespace Pokerun{
             }
         }
 
+        void GerenciadorEvento::removeJogador2(){
+            pJogador2 = nullptr;
+        }
+
         void GerenciadorEvento::executar() 
         {
+            flagCima  = false;
+            flagBaixo = false;
+            flagEnter = false;
+            flagPausa = false;
+            
             while (const auto event = pGrafico->getWindow()->pollEvent()) {
                 if (event->getIf<sf::Event::Closed>()) 
                     pGrafico->getWindow()->close();
+                else if(const auto* key = event->getIf<sf::Event::KeyPressed>()){
+                    if(key->code == sf::Keyboard::Key::Up){flagCima = true;}
+                    if(key->code == sf::Keyboard::Key::Down){flagBaixo = true;}
+                    if(key->code == sf::Keyboard::Key::Enter){flagEnter = true;}
+                    if(key->code == sf::Keyboard::Key::Escape){flagPausa = true;}
+                }
             }
     
             if (pJogador1) 

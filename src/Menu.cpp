@@ -4,35 +4,18 @@
 namespace Pokerun{
 
     Menu::Menu():
-    Ente({WIN_SIZE_X, WIN_SIZE_Y}), telaAtual(TelaMenu::INICIO), pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()), 
-    opcaoSelecionada(0), numJogadores(1), faseEscolhida(1)
+    Ente({WIN_SIZE_X, WIN_SIZE_Y}), telaAtual(TelaMenu::INICIO), pJogo(nullptr), pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()), 
+    opcaoSelecionada(0), numJogadores(1), faseEscolhida(1), fonte()
     {
+        setTextura("assets/sprites/fundos/fundo_menu.jpg", {{},{(int)WIN_SIZE_X, (int)WIN_SIZE_Y - 100}});
         
+        if(!fonte.openFromFile("assets/fonts/ARIAL.TTF"))
+            std::cerr << "fonte nao carregada!" << std::endl;
     }
 
     Menu::~Menu()
     {
         pJogo = nullptr;
-    }
-
-    void Menu::menuInicio()
-    {
-
-    }
-
-    void Menu::menuConfig()
-    {
-
-    }
-
-    void Menu::menuPausa()
-    {
-
-    }
-
-    void Menu::ranking()
-    {
-
     }
 
     const int Menu::getFaseEScolhida()const
@@ -43,6 +26,11 @@ namespace Pokerun{
     const int Menu::getNumJogadores()const
     {
         return numJogadores;
+    }
+
+    void Menu::irParaPausa()
+    {
+        telaAtual = TelaMenu::PAUSA;
     }
 
     void Menu::desenhar()
@@ -82,11 +70,42 @@ namespace Pokerun{
 
     void Menu::desenharOpcoes(std::vector<std::string>& opcoes)
     {
-        //usa sf::text e sf::font aqui
+        sf::Text texto(fonte);
+        texto.setCharacterSize(30);
+
+        float posY = 200.0f;
+
+        for(int i = 0; i < (int)opcoes.size(); i++){
+            texto.setString(opcoes[i]);//atribui a string na posicao i do vetor ao texto
+
+            if(i == opcaoSelecionada){
+                texto.setFillColor(sf::Color::Yellow);//se esta selecionado amarelo
+            }
+            else {
+                texto.setFillColor(sf::Color::Black);//senao preto
+            }
+
+            sf::FloatRect bounds = texto.getLocalBounds();//pega as posicoes e tamanho do texto
+
+            texto.setPosition({(WIN_SIZE_X/2) - (bounds.size.x/2), posY});//centraliza a posicao
+            
+            pGG->desenhaElementos(texto);
+
+            posY += 60.0f;//incrementa a posicao em y para os textos ficarem espacados
+        }
+    }
+
+    void Menu::setJogo(Jogo* pJog)
+    {
+        if(pJog){
+            pJogo = pJog;
+        }
     }
 
     void Menu::executar()
     {
+        Ente::desenhar();//desenha o fundo do menu
+        
         switch(telaAtual)
         {
             case TelaMenu::INICIO:{
@@ -98,11 +117,11 @@ namespace Pokerun{
                         telaAtual = TelaMenu::SELECIONAR_JOGADORES;//vai para a tela de selecao no num de jogadores
                         opcaoSelecionada = 0;
                     }
-                    if(opcaoSelecionada == 1){
+                    else if(opcaoSelecionada == 1){
                         telaAtual = TelaMenu::RANKING;//vai para a tela dos rankings
                         opcaoSelecionada = 0;
                     }
-                    if(opcaoSelecionada == 2){
+                    else if(opcaoSelecionada == 2){
                         pJogo->setEstado(EstadoJogo::SAINDO);//sai do jogo
                     }
                 }
@@ -135,7 +154,7 @@ namespace Pokerun{
 
             case TelaMenu::PAUSA:{
                 if(pEvento->cimaPressionado() &&  opcaoSelecionada > 0) {opcaoSelecionada--;}
-                if(pEvento->baixoPressionado() &&  opcaoSelecionada < 1){opcaoSelecionada--;}
+                if(pEvento->baixoPressionado() &&  opcaoSelecionada < 1){opcaoSelecionada++;}
 
                 if(pEvento->enterPressionado()){
                     if(opcaoSelecionada == 0){pJogo->setEstado(EstadoJogo::JOGANDO);}//despausa

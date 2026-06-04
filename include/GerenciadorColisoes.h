@@ -46,6 +46,7 @@ namespace Pokerun{
 
             void setJogador1(Entidades::Personagens::Jogador* pJog1);
             void setJogador2(Entidades::Personagens::Jogador* pJog2);
+            void removeJog2();
             void setFase1(Fases::FasePrimeira* pF1);
 
             void incluirInimigo(Entidades::Personagens::Inimigo* pI);

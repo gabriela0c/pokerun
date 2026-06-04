@@ -302,5 +302,9 @@ namespace Pokerun{
                     Lobstaculos.push_back(pO);
                 }
             }
+
+            void GerenciadorColisoes::removeJog2(){
+                pJogador2 = nullptr;
+            }
     }
 }

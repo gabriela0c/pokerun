@@ -39,6 +39,9 @@ namespace Pokerun{
             void criarBulbasaurs();
             void criarPlataformas();
 
+            void desativaJog2();
+            void ativaJog2();
+
             Entidades::Chao* getChao()const;
 
             virtual void executar(); 

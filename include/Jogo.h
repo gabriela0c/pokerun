@@ -16,6 +16,7 @@ namespace Pokerun{
         Entidades::Personagens::Jogador* pJogador1;
         Entidades::Personagens::Jogador* pJogador2;
         Fases::FasePrimeira Fase1;
+        Menu menu;
 
     public:
         Jogo();

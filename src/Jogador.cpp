@@ -12,10 +12,10 @@ namespace Pokerun{
             ehJogador1(ehJog1), modificador_velocidade(1.0f), vel_knockback_x(0.0f), invencivel(false)
             {
                 /*if(ehJog1){
-                    setTextura("assets/sprites/pikachu.png", sf::IntRect({0, 0},{LARGURA_PIKACHU, ALTURA_PIKACHU}));
+                    setTextura("assets/sprites/personagens/jogador/pikachu.png", sf::IntRect({0, 0},{LARGURA_PIKACHU, ALTURA_PIKACHU}));
                 }
                 else{
-                    setTextura("assets/sprites/raichu.png", sf::IntRect({0, 0},{LARGURA_RAICHU, ALTURA_RAICHU}));
+                    setTextura(""assets/sprites/personagens/jogador/raichu.png"", sf::IntRect({0, 0},{LARGURA_RAICHU, ALTURA_RAICHU}));
                 } */
             }
 

@@ -12,10 +12,12 @@ namespace Pokerun{
             pFigura->setPosition({0.0f, 0.0f});//poderia tirar essa linha ja que default é 0,0
             posicoesPlataformas.push_back(pChao->getFig().getGlobalBounds());//garante que plataformas nao vao ficar em cima do chao
 
-            lista_ents.incluir(static_cast<Entidades::Entidade*>(pJog1));
-            lista_ents.incluir(static_cast<Entidades::Entidade*>(pJog2));
+            lista_ents.incluir(static_cast<Entidades::Entidade*>(pJogador1));
+            lista_ents.incluir(static_cast<Entidades::Entidade*>(pJogador2));
+            
             GC.setJogador1(pJog1);
             GC.setJogador2(pJog2);
+
         }
 
         Fase::~Fase()
@@ -85,6 +87,16 @@ namespace Pokerun{
         Entidades::Chao* Fase::getChao()const
         {
             return pChao;
+        }
+
+        void Fase::desativaJog2(){
+            lista_ents.remover(pJogador2);
+            GC.removeJog2();
+        }
+
+        void Fase::ativaJog2(){
+            lista_ents.incluir(pJogador2);
+            GC.setJogador2(pJogador2);
         }
 
         void Fase::desenhar()

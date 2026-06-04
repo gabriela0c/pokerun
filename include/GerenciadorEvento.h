@@ -20,6 +20,10 @@ namespace Pokerun {
             GerenciadorGrafico* pGrafico;
             Entidades::Personagens::Jogador* pJogador1;
             Entidades::Personagens::Jogador* pJogador2;
+            bool flagPausa;
+            bool flagCima;
+            bool flagBaixo;
+            bool flagEnter;
 
             GerenciadorEvento(); //construtor privado para evitar que outra classe crie um novo
         public:
@@ -28,10 +32,12 @@ namespace Pokerun {
             static GerenciadorEvento* getGerenciadorEvento();
             static void destruir();
 
-            const bool pausaPressionado();
             const bool cimaPressionado();
             const bool baixoPressionado();
             const bool enterPressionado();
+            const bool pausaPressionado();
+
+            void removeJogador2();
 
             void setJogador1(Entidades::Personagens::Jogador* jog1);
             void setJogador2(Entidades::Personagens::Jogador* jog2);
