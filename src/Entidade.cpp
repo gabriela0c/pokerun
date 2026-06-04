@@ -4,7 +4,7 @@ namespace Pokerun{
 
     namespace Entidades{
         
-        Entidade::Entidade(const sf::Vector2f tam, float vY): 
+        Entidade::Entidade(const sf::Vector2f tam, const float vY): 
         Ente(tam),
         x((float)(rand() % (int)(801 - tam.x))), y((float)(rand() % (int)(601 - tam.y))), vel_y(vY), gravidade(GRAVIDADE), relogio(), dt(0.0f)
         {

@@ -57,6 +57,13 @@ namespace Pokerun{
             }
         }
 
+        void GerenciadorGrafico::desenhaElementos(sf::Text& texto)
+        {
+            if(window){
+                window->draw(texto);
+            }
+        }
+
         void GerenciadorGrafico::mostraElementos()
         {
             if(window){

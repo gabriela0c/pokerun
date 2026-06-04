@@ -20,7 +20,7 @@ namespace Pokerun{
             float dt;
         
         public:
-            Entidade(const sf::Vector2f tam = {0.0f, 0.0f}, float vY = 0.0f);
+            Entidade(const sf::Vector2f tam = {0.0f, 0.0f}, const float vY = 0.0f);
             virtual ~Entidade();
 
             void aplicarGravidade();   

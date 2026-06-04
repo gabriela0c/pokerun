@@ -29,7 +29,7 @@ namespace Pokerun{
                 void setNoChao(const bool nC);
 
                 float getVelX()const;
-                void setVelX(float vX);
+                void setVelX(const float vX);
 
                 void operator--();
                 int getNumvidas()const;

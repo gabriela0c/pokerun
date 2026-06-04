@@ -36,6 +36,50 @@ namespace Pokerun{
             }
         }
 
+        const bool GerenciadorEvento::pausaPressionado()
+        {
+            while (const auto event = pGrafico->getWindow()->pollEvent()){
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape))
+                    return true;
+                else 
+                    return false;
+            }
+            return false;
+        }
+
+        const bool GerenciadorEvento::cimaPressionado()
+        {
+            while (const auto event = pGrafico->getWindow()->pollEvent()){
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up))
+                    return true;
+                else 
+                    return false;
+            }
+            return false;
+        }
+
+        const bool GerenciadorEvento::baixoPressionado()
+        {
+            while (const auto event = pGrafico->getWindow()->pollEvent()){
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down))
+                    return true;
+                else 
+                    return false;
+            }
+            return false;
+        }
+
+        const bool GerenciadorEvento::enterPressionado()
+        {
+            while (const auto event = pGrafico->getWindow()->pollEvent()){
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Enter))
+                    return true;
+                else 
+                    return false;
+            }
+            return false;
+        }
+
         void GerenciadorEvento::setJogador1(Pokerun::Entidades::Personagens::Jogador* jog1) 
         {
             if(jog1){
@@ -54,12 +98,7 @@ namespace Pokerun{
         {
             while (const auto event = pGrafico->getWindow()->pollEvent()) {
                 if (event->getIf<sf::Event::Closed>()) 
-                {
                     pGrafico->getWindow()->close();
-                }
-                else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Escape)){
-                    pGrafico->getWindow()->close();
-                }
             }
     
             if (pJogador1) 

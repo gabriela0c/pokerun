@@ -28,6 +28,11 @@ namespace Pokerun {
             static GerenciadorEvento* getGerenciadorEvento();
             static void destruir();
 
+            const bool pausaPressionado();
+            const bool cimaPressionado();
+            const bool baixoPressionado();
+            const bool enterPressionado();
+
             void setJogador1(Entidades::Personagens::Jogador* jog1);
             void setJogador2(Entidades::Personagens::Jogador* jog2);
             void executar();

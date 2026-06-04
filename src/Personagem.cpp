@@ -20,7 +20,7 @@ namespace Pokerun{
                 return vel_x;
             }
 
-            void Personagem::setVelX(float vX){
+            void Personagem::setVelX(const float vX){
                 vel_x = vX;
             }
 

@@ -37,8 +37,6 @@ namespace Pokerun{
                 void diminui_vel(float taxa);
                 float getModVel()const;
 
-                bool colisao_posso_pular(Entidade* pOutra);
-
                 void executar();
             };
         }
