@@ -7,16 +7,25 @@ namespace Pokerun{
 
         namespace Personagens{
 
+            float Jogador::temp_invenc(1.0f);
+
             Jogador::Jogador(const bool ehJog1):
             Personagem((ehJog1 ? sf::Vector2f(LARGURA_PIKACHU, ALTURA_PIKACHU) : sf::Vector2f(LARGURA_RAICHU, ALTURA_RAICHU)), {VEL_JOG_X, 0.0f}, N_VDS_JOG),
             ehJogador1(ehJog1), modificador_velocidade(1.0f), vel_knockback_x(0.0f), invencivel(false)
             {
-                /*if(ehJog1){
+                if(ehJog1){
                     setTextura("assets/sprites/personagens/jogador/pikachu.png", sf::IntRect({0, 0},{LARGURA_PIKACHU, ALTURA_PIKACHU}));
                 }
                 else{
-                    setTextura(""assets/sprites/personagens/jogador/raichu.png"", sf::IntRect({0, 0},{LARGURA_RAICHU, ALTURA_RAICHU}));
-                } */
+                    setTextura("assets/sprites/personagens/jogador/raichu.png", sf::IntRect({0, 0},{LARGURA_RAICHU, ALTURA_RAICHU}));
+                } 
+
+                if(ehJog1){
+                    pFigura->setPosition({150.0f, 120.0f}); //desaleatoriezar o spawn dos jogadores porque as vezes um nasica fora do mapa
+                }
+                else{
+                    pFigura->setPosition({500.0f, 310.0f});
+                }
             }
 
             Jogador::~Jogador()
@@ -85,7 +94,7 @@ namespace Pokerun{
                 noChao = false;
                 noTeto = false;
 
-                if (invencivel && relogio_invencibilidade.getElapsedTime().asSeconds() >= t_invenc)
+                if (invencivel && relogio_invencibilidade.getElapsedTime().asSeconds() >= temp_invenc)
                     invencivel = false;
             }
         }

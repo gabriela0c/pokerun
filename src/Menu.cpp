@@ -7,7 +7,7 @@ namespace Pokerun{
     Ente({WIN_SIZE_X, WIN_SIZE_Y}), telaAtual(TelaMenu::INICIO), pJogo(nullptr), pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()), 
     opcaoSelecionada(0), numJogadores(1), faseEscolhida(1), fonte()
     {
-        setTextura("assets/sprites/fundos/fundo_menu.jpg", {{},{(int)WIN_SIZE_X, (int)WIN_SIZE_Y - 100}});
+        setTextura("assets/sprites/fundos/fundo_menu.jpg", {{},{1024, 765}});
         
         if(!fonte.openFromFile("assets/fonts/ARIAL.TTF"))
             std::cerr << "fonte nao carregada!" << std::endl;

@@ -11,16 +11,6 @@ namespace Pokerun{
             
             setTextura("assets/sprites/fundos/fase1.png", sf::IntRect({0, 0}, {(int)WIN_SIZE_X, (int)WIN_SIZE_Y}));
             
-            if(pJog2){
-                sf::Vector2f tam2 = pJog2->getFig().getSize();
-                pJog2->setTextura("assets/sprites/personagens/jogador/raichu.png", sf::IntRect({0, 0}, {(int)tam2.x, (int)tam2.y}));
-            }
-            
-            if (pJog1 != nullptr) {
-                sf::Vector2f tam1 = pJog1->getFig().getSize();
-                pJog1->setTextura("assets/sprites/personagens/jogador/pikachu.png", sf::IntRect({0, 0}, {(int)tam1.x, (int)tam1.y}));
-            }
-            
             criarInimigos();
             criarObstaculos();
         }
