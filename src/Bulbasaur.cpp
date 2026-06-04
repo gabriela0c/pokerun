@@ -23,9 +23,11 @@ namespace Pokerun{
 
             void Bulbasaur::danificar(Jogador* p)
             {
-                //std::cout<<"danifiquei"<<std::endl;
+                if (p->getInvencivel()) { return; }
                 p->operator--();
-                //std::cout<<p->getNumvidas()<<std::endl;
+                aplicarKnockback(p, 200.0f);
+                p->ativarInvencibilidade();
+                std::cout << "Bulbasaur danificou! Vidas: " << p->getNumvidas() << std::endl;
             }
         }
     }

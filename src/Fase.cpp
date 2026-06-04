@@ -46,7 +46,7 @@ namespace Pokerun{
             //5 posições pré-definidas
             std::vector<sf::Vector2f> posicoesPossiveis;
             posicoesPossiveis.push_back(sf::Vector2f(100.f, 150.f));
-            posicoesPossiveis.push_back(sf::Vector2f(300.f, 350.f));
+            posicoesPossiveis.push_back(sf::Vector2f(300.f, 320.f));
             posicoesPossiveis.push_back(sf::Vector2f(500.f, 200.f));
             posicoesPossiveis.push_back(sf::Vector2f(150.f, 450.f));
             posicoesPossiveis.push_back(sf::Vector2f(400.f, 500.f));
@@ -60,7 +60,7 @@ namespace Pokerun{
             }
 
             int n = rand() % 3 + 3; // 3 a 5 plataformas
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < 5; i++)
             {
                 pPlat = new Entidades::Obstaculos::Plataforma();
                 pPlat->getFig().setPosition(posicoesPossiveis[i]); //cada i pega uma posição única

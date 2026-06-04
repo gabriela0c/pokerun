@@ -19,9 +19,12 @@ namespace Pokerun{
 
             void Wartortle::danificar(Jogador* p)
             {
-                //std::cout<<"fazer algo aqui"<<std::endl;
+                if (p->getInvencivel()) { return; }
                 p->operator--();
-                //std::cout<<p->getNumvidas()<<std::endl;
+                p->operator--();
+                aplicarKnockback(p, 450.0f);
+                p->ativarInvencibilidade();
+                std::cout << "Wartortle danificou! Vidas: " << p->getNumvidas() << std::endl;
             }
 
             void Wartortle::executar()

@@ -14,7 +14,7 @@
 #define LARGURA_RAICHU 48
 #define ALTURA_RAICHU 46
 
-#define N_VDS_JOG 1000
+#define N_VDS_JOG 10
 
 namespace Pokerun{   
 
@@ -26,6 +26,10 @@ namespace Pokerun{
             private:
                 const bool ehJogador1;
                 float modificador_velocidade;
+                float vel_knockback_x;
+                bool invencivel;
+                sf::Clock relogio_invencibilidade;
+                static constexpr float t_invenc = 1.0f;
             
             public:
                 Jogador(const bool ehJog1 = false);    
@@ -36,6 +40,10 @@ namespace Pokerun{
 
                 void diminui_vel(float taxa);
                 float getModVel()const;
+                void receberKnockback(float impulso);
+
+                bool getInvencivel() const;
+                void ativarInvencibilidade();
 
                 void executar();
             };
