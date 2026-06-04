@@ -60,7 +60,7 @@ namespace Pokerun{
             }
 
             int n = rand() % 3 + 3; // 3 a 5 plataformas
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < n; i++)
             {
                 pPlat = new Entidades::Obstaculos::Plataforma();
                 pPlat->getFig().setPosition(posicoesPossiveis[i]); //cada i pega uma posição única

@@ -74,7 +74,7 @@ namespace Pokerun{
             }
 
             case TelaMenu::RANKING:{
-                desenharRanking();
+                //desenharRanking();
             break;
             }
         }

@@ -26,7 +26,7 @@ namespace Pokerun{
             void Poca::obstaculizar(Personagens::Jogador* pJog)
             {
                 if(pJog){   
-                    pJog->setNoChao(false);//faz com que o jogador nao possa pular quando esta na poca
+                    //pJog->setNoChao(false);//faz com que o jogador nao possa pular quando esta na poca
                     float taxa = 1 - (profundidade/100); //para fazer a vel do jogador diminuir algo entre 50 e 80%
                     pJog->diminui_vel(taxa);
                }
