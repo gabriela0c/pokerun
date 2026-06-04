@@ -122,9 +122,7 @@ namespace Pokerun{
 
             void Inimigo::aplicarKnockback(Jogador* p, float forca)
             {
-                //direção: empurra o jogador para longe do inimigo
-                float dirX = p->getFig().getPosition().x - pFigura->getPosition().x;
-                float sinal = (dirX >= 0.0f) ? 1.0f : -1.0f;
+                float sinal = calcularDirecaoKnockback(p->getFig().getPosition(), pFigura->getPosition());
                 p->receberKnockback(sinal * forca);
             }
         }

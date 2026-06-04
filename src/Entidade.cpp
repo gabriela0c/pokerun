@@ -35,5 +35,11 @@ namespace Pokerun{
         
             vel_y = 0; //zera velocidade para ela nao acumular
          }
+
+         float Entidade::calcularDirecaoKnockback(sf::Vector2f posAlvo, sf::Vector2f posFonte)
+         {
+            float dirX = posAlvo.x - posFonte.x;
+            return (dirX >= 0.0f) ? 1.0f : -1.0f;
+         }
     }
 }

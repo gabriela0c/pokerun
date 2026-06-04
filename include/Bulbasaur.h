@@ -16,7 +16,7 @@ namespace Pokerun{
 
             class Bulbasaur : public Inimigo{
             private:
-                float raio;
+                float chance_veneno;
 
             public:
                 Bulbasaur();
