@@ -29,11 +29,11 @@ namespace Pokerun{
         if(est == EstadoJogo::JOGANDO){
             if(menu.getNumJogadores() == 2){
                 pEvento->setJogador2(pJogador2);  // só ativa se escolheu 2 jogadores
-                Fase1.ativaJog2();
+                Fase1.ativaJogador(pJogador2);
             }
             else{
                 pEvento->removeJogador2();
-                Fase1.desativaJog2();
+                Fase1.desativaJogador(pJogador2);
             }
         }   
 
@@ -49,6 +49,8 @@ namespace Pokerun{
     void Jogo::executar()
     {
         while(pGrafico->verificaJanelaAberta()){
+            if(!pJogador1->getAtivo() && !pJogador2->getAtivo()){pGrafico->fecharJanela();}//fecha a janela quando ambos morrem por enquanto
+            
             pGrafico->limpaJanela();
 
             pEvento->executar();

@@ -30,7 +30,10 @@ namespace Pokerun{
                 bool invencivel;
                 sf::Clock relogio_invencibilidade;
                 static float temp_invenc;
-            
+                bool envenenado;
+                sf::Clock relogio_veneno;
+                static float temp_veneno;
+                    
             public:
                 Jogador(const bool ehJog1 = false);    
                 ~Jogador();
@@ -41,6 +44,9 @@ namespace Pokerun{
                 void diminui_vel(float taxa);
                 float getModVel()const;
                 void receberKnockback(float impulso);
+                void envenenar();
+
+                bool getEhJogador1() const;
 
                 bool getInvencivel()const;
                 void ativarInvencibilidade();

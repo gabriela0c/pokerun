@@ -8,6 +8,8 @@ namespace Pokerun{
         namespace Personagens{
 
             float Jogador::temp_invenc(1.0f);
+            float Jogador::temp_veneno(3.0f);
+
 
             Jogador::Jogador(const bool ehJog1):
             Personagem((ehJog1 ? sf::Vector2f(LARGURA_PIKACHU, ALTURA_PIKACHU) : sf::Vector2f(LARGURA_RAICHU, ALTURA_RAICHU)), {VEL_JOG_X, 0.0f}, N_VDS_JOG),
@@ -52,6 +54,14 @@ namespace Pokerun{
                 if(noTeto){vel_y = 0;} //senao o jogador grudava no teto antes de cair
             }
 
+            void Jogador::pular()
+            {
+                if(noChao){
+                    vel_y = -400.0f;
+                    noChao = false;
+                } 
+            }
+
             void Jogador::diminui_vel(float taxa)
             {
                 if(taxa < modificador_velocidade){
@@ -68,6 +78,18 @@ namespace Pokerun{
                 vel_knockback_x = impulso;
             }
 
+            void Jogador::envenenar()
+            {
+                envenenado = true;
+                relogio_veneno.restart();
+                std::cout << (ehJogador1 ? "Jogador 1 (Pikachu)" : "Jogador 2 (Raichu)") << " foi envenenado!" << std::endl;
+            }
+
+            bool Jogador::getEhJogador1() const
+            {
+                return ehJogador1;
+            }
+
             bool Jogador::getInvencivel() const
             {
                 return invencivel;
@@ -79,23 +101,38 @@ namespace Pokerun{
                 relogio_invencibilidade.restart();
             }
 
-            void Jogador::pular()
-            {
-                if(noChao){
-                    vel_y = -400.0f;
-                    noChao = false;
-                } 
-            }
-
             void Jogador::executar()
             {
                 mover();
+ 
+                //veneno: reduz velocidade
+                if (envenenado)
+                {
+                    if (relogio_veneno.getElapsedTime().asSeconds() >= temp_veneno)
+                    {
+                        envenenado = false;
+                        std::cout << (ehJogador1 ? "Jogador 1 (Pikachu)" : "Jogador 2 (Raichu)") << " se curou do veneno!" << std::endl;
+                    }
+                    else
+                        diminui_vel(0.4f); //40% da velocidade normal enquanto envenenado
+                }
+ 
                 modificador_velocidade = 1.0f; //modificador reseta a cada frame p/garantir que vel volte ao normal quando para de colidir com poca
                 noChao = false;
                 noTeto = false;
-
+ 
+                //expira invencibilidade apos 1 segundo
                 if (invencivel && relogio_invencibilidade.getElapsedTime().asSeconds() >= temp_invenc)
+                {
                     invencivel = false;
+                }
+ 
+                //verifica morte
+                if (num_vidas <= 0)
+                {
+                    setAtivo(false);
+                    std::cout << (ehJogador1 ? "Jogador 1 (Pikachu) morto!" : "Jogador 2 (Raichu) morto!") << std::endl;
+                }
             }
         }
     }

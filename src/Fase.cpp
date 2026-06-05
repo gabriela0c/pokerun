@@ -6,18 +6,17 @@ namespace Pokerun{
     namespace Fases{
  
         Fase::Fase(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
-        Ente({WIN_SIZE_X, WIN_SIZE_Y}), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2), pChao(new Entidades::Chao())
+        Ente({WIN_SIZE_X, WIN_SIZE_Y}), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2), pChao(new Entidades::Chao()),
+        jog1Ativo(true), jog2Ativo(true)
         {
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
             pFigura->setPosition({0.0f, 0.0f});//poderia tirar essa linha ja que default é 0,0
             posicoesPlataformas.push_back(pChao->getFig().getGlobalBounds());//garante que plataformas nao vao ficar em cima do chao
 
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pJogador1));
-            lista_ents.incluir(static_cast<Entidades::Entidade*>(pJogador2));
-            
-            GC.setJogador1(pJog1);
-            GC.setJogador2(pJog2);
-
+            GC.setJogador(pJog1);
+            //jogador 2 so eh incluido na lista e em GC se forem selecionados 2 jogadores no menu, senao ele eh incluido 2 vezes na lista
+            //e o sprite continua aparecendo apos ele morrer. Pro gerenciador de colisoes nao ocorre nenhum bug, so nao eh necessario
         }
 
         Fase::~Fase()
@@ -89,14 +88,25 @@ namespace Pokerun{
             return pChao;
         }
 
-        void Fase::desativaJog2(){
-            lista_ents.remover(pJogador2);
-            GC.removeJog2();
+        void Fase::desativaJogador(Entidades::Personagens::Jogador* pJog){
+            lista_ents.remover(pJog);
+            GC.removeJogador(pJog);
+            
+            if(pJog->getEhJogador1()) 
+                jog1Ativo = false;
+            else 
+                jog2Ativo = false;
         }
 
-        void Fase::ativaJog2(){
-            lista_ents.incluir(pJogador2);
-            GC.setJogador2(pJogador2);
+        void Fase::ativaJogador(Entidades::Personagens::Jogador* pJog){
+            lista_ents.incluir(pJog);
+            GC.setJogador(pJog);
+            pJog->setAtivo(true);
+            
+            if(pJog->getEhJogador1()) 
+                jog1Ativo = true;
+            else 
+                jog2Ativo = true;
         }
 
         void Fase::desenhar()
@@ -113,7 +123,13 @@ namespace Pokerun{
         }
 
         void Fase::executar()
-        {
+        {   
+            if(jog2Ativo && !pJogador2->getAtivo()){
+                desativaJogador(pJogador2);
+            }
+            if(jog1Ativo && !pJogador1->getAtivo()){
+                desativaJogador(pJogador1);
+            }
             lista_ents.percorrer();
             GC.executar();
             desenhar();

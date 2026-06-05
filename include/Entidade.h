@@ -25,6 +25,8 @@ namespace Pokerun{
 
             void aplicarGravidade();   
             void antiGravidade();
+            float calcularDirecaoKnockback(sf::Vector2f posAlvo, sf::Vector2f posFonte);
+
             
             virtual void executar() = 0; 
         };

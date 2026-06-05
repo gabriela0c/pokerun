@@ -33,7 +33,7 @@ namespace Pokerun{
             
             void GerenciadorColisoes::tratarColisoesJogsObstacs()
             {
-                if(!pJogador1 || Lobstaculos.empty()){return;}
+                if(Lobstaculos.empty()){return;}
 
                 std::list<Entidades::Obstaculos::Obstaculo*>::iterator it;
                 it = Lobstaculos.begin();
@@ -41,12 +41,14 @@ namespace Pokerun{
                 while(it != Lobstaculos.end()){
                     if(*it){
                         //cast desnecessario pois ambas herdam de entidade e o upcasting eh feito automaticamente
-                        bool colisao1 = verificarColisao(pJogador1,*it);
-                        if(colisao1){
-                            if((*it)->isSolido()){
-                                colisaoPersonagemEntidade(pJogador1, (*it));
+                        if(pJogador1){
+                            bool colisao1 = verificarColisao(pJogador1,*it);
+                            if(colisao1){
+                                if((*it)->isSolido()){
+                                    colisaoPersonagemEntidade(pJogador1, (*it));
+                                }
+                                (*it)->obstaculizar(pJogador1);        
                             }
-                            (*it)->obstaculizar(pJogador1);        
                         }
                         
                         if(pJogador2){
@@ -89,14 +91,16 @@ namespace Pokerun{
 
             void GerenciadorColisoes::tratarColisoesJogsInims()
             {
-                if(!pJogador1 || Linimigos.empty()){return;}
+                if(Linimigos.empty()){return;}
 
                 for(int i = 0; i < (int)Linimigos.size(); i++){
                     if(Linimigos[i]){
-                        bool colisao1 = verificarColisao(pJogador1, Linimigos[i]);
-                        if(colisao1){
-                            colisaoPersonagens(pJogador1, Linimigos[i]);
-                            Linimigos[i]->danificar(pJogador1);
+                        if(pJogador1){
+                            bool colisao1 = verificarColisao(pJogador1, Linimigos[i]);
+                            if(colisao1){
+                                colisaoPersonagens(pJogador1, Linimigos[i]);
+                                Linimigos[i]->danificar(pJogador1);
+                            }
                         }
 
                         if(pJogador2){//existe sim a possibilidade do jogo nao ter jogador 2
@@ -151,7 +155,8 @@ namespace Pokerun{
             {
                 Entidades::Chao* pChao = pFase1->getChao();
 
-                if(!pChao || !pJogador1){return;}
+                if(!pChao){return;}//nao pode checar jogadores aqui porque tem como um morrer e dai a funcao nao roda e inimigos nao colidem com o chao
+
                 //colisoes com o chao sempre vem de cima, entao devo chamar pousar sempre
                 for(int i = 0; i < (int)Linimigos.size(); i++){
                     if(Linimigos[i]){
@@ -161,11 +166,15 @@ namespace Pokerun{
                     }
                 }
 
-                if(verificarColisao(pChao, pJogador1)){
-                    colisaoPersonagemEntidade(pJogador1, pChao);
+                if(pJogador1){
+                    if(verificarColisao(pChao, pJogador1)){
+                        colisaoPersonagemEntidade(pJogador1, pChao);
+                    }
                 }
-                if(verificarColisao(pChao, pJogador2)){
-                    colisaoPersonagemEntidade(pJogador2, pChao);
+                if(pJogador2){
+                    if(verificarColisao(pChao, pJogador2)){
+                        colisaoPersonagemEntidade(pJogador2, pChao);
+                    }
                 }
             }
         
@@ -268,17 +277,11 @@ namespace Pokerun{
                 }
             }
             
-            void GerenciadorColisoes::setJogador1(Entidades::Personagens::Jogador* pJog1)
+            void GerenciadorColisoes::setJogador(Entidades::Personagens::Jogador* pJog)
             {
-                if(pJog1){
-                    pJogador1 = pJog1;
-                }
-            }
-
-            void GerenciadorColisoes::setJogador2(Entidades::Personagens::Jogador* pJog2)
-            {
-                if(pJog2){
-                    pJogador2 = pJog2;
+                if(pJog){
+                    if(pJog->getEhJogador1()){pJogador1 = pJog;}
+                    else{pJogador2 = pJog;}
                 }
             }
 
@@ -303,8 +306,11 @@ namespace Pokerun{
                 }
             }
 
-            void GerenciadorColisoes::removeJog2(){
-                pJogador2 = nullptr;
+            void GerenciadorColisoes::removeJogador(Entidades::Personagens::Jogador* pJog){
+                if(pJog){
+                    if(pJog->getEhJogador1()){pJogador1 = nullptr;}
+                    else{pJogador2 = nullptr;}
+                }
             }
     }
 }

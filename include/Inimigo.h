@@ -48,8 +48,7 @@ namespace Pokerun{
                 virtual void danificar(Jogador* p) = 0;
 
             protected:
-                void aplicarKnockback(Jogador* p, float forca);//forca pode ser definida a partir dos atributos tamanho e raio de cada inimigo
-                                                               //nao precisa chamar o atributo de tamanho e raio, pode ser outro nome, mas tem que usar eles
+                void aplicarKnockback(Jogador* p, float forca);
             };
         }
     }

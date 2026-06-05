@@ -26,6 +26,8 @@ namespace Pokerun{
             Entidades::Personagens::Jogador* pJogador2;
             std::vector<sf::FloatRect> posicoesPlataformas;
             Entidades::Chao* pChao;
+            bool jog1Ativo;//talvez esses booleanos sejam inuteis
+            bool jog2Ativo;
 
         public:
             Fase(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
@@ -39,8 +41,8 @@ namespace Pokerun{
             void criarBulbasaurs();
             void criarPlataformas();
 
-            void desativaJog2();
-            void ativaJog2();
+            void ativaJogador(Entidades::Personagens::Jogador* pJog);
+            void desativaJogador(Entidades::Personagens::Jogador* pJog);
 
             Entidades::Chao* getChao()const;
 
