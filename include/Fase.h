@@ -26,6 +26,7 @@ namespace Pokerun{
             Entidades::Personagens::Jogador* pJogador2;
             std::vector<sf::FloatRect> posicoesPlataformas;
             Entidades::Chao* pChao;
+            const int maxBulbasaurs;//ja que ele esta em ambas as fases
             bool jog1Ativo;//talvez esses booleanos sejam inuteis
             bool jog2Ativo;
 
@@ -40,6 +41,7 @@ namespace Pokerun{
             
             void criarBulbasaurs();
             void criarPlataformas();
+            //void criarCenario();
 
             void ativaJogador(Entidades::Personagens::Jogador* pJog);
             void desativaJogador(Entidades::Personagens::Jogador* pJog);

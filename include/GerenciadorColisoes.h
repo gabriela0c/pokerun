@@ -8,13 +8,7 @@
 #include "Inimigo.h" //inimigo inclui cmath
 #include "Obstaculo.h"
 #include "Plataforma.h"
-
-namespace Pokerun{
-    namespace Fases{
-        class FasePrimeira;
-    }
-}
-
+#include "Chao.h"
 
 namespace Pokerun{
 
@@ -27,7 +21,7 @@ namespace Pokerun{
             Entidades::Personagens::Jogador* pJogador2;
             std::vector<Entidades::Personagens::Inimigo*> Linimigos;
             std::list<Entidades::Obstaculos::Obstaculo*> Lobstaculos;
-            Fases::FasePrimeira* pFase1;
+            Entidades::Chao* pChao;
 
         public:
             GerenciadorColisoes();
@@ -46,7 +40,7 @@ namespace Pokerun{
 
             void setJogador(Entidades::Personagens::Jogador* pJog);
             void removeJogador(Entidades::Personagens::Jogador* pJog);
-            void setFase1(Fases::FasePrimeira* pF1);
+            void setChao(Entidades::Chao* pCh);
 
             void incluirInimigo(Entidades::Personagens::Inimigo* pI);
             void incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO);

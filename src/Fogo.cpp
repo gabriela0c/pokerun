@@ -8,7 +8,7 @@ namespace Pokerun{
  
             Fogo::Fogo():
             Obstaculo({TAM_FOGO_X, TAM_FOGO_Y}, true, true),
-            intensidade(rand() % 3)
+            intensidade((int)(rand() % 3) + 1)//valor de 1 a 3
             {
                 setTextura("assets/sprites/obstaculos/fogo.png", sf::IntRect({0, 0}, {LARGURA_FOGO, ALTURA_FOGO}));
             }
@@ -29,17 +29,14 @@ namespace Pokerun{
                 //intensidade 1: só knockback
                 //intensidade 2: 1 de dano + knockback
                 //intensidade 3: 2 de dano + knockback
-                if (intensidade > 0){
-                    for(int i = 0; i < intensidade; i++)
-                        pJog->operator--();
-                }
+                for(int i = 1; i < intensidade; i++)
+                    pJog->operator--();
                 
                 float sinal = calcularDirecaoKnockback(pJog->getFig().getPosition(), pFigura->getPosition());
                 pJog->receberKnockback(sinal * 200.0f);
                 pJog->ativarInvencibilidade();
  
-                std::cout << "Fogo queimou " << (pJog->getEhJogador1() ? "Pikachu" : "Raichu")
-                          << "! (intensidade=" << intensidade << ") Vidas: " << pJog->getNumvidas() << std::endl;
+                std::cout << "Fogo queimou " << (pJog->getEhJogador1() ? "Pikachu" : "Raichu") << "! (intensidade =" << intensidade << ") Vidas: " << pJog->getNumvidas() << std::endl;
             }
  
             void Fogo::obstaculizar(Personagens::Jogador* pJog)

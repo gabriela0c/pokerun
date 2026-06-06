@@ -4,7 +4,7 @@ namespace Pokerun{
 
     Jogo::Jogo():
     estado(EstadoJogo::MENU), pGrafico(Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico()), pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()),
-    pJogador1(new Entidades::Personagens::Jogador(true)), pJogador2(new Entidades::Personagens::Jogador(false)), Fase1(pJogador1, pJogador2)
+    pJogador1(new Entidades::Personagens::Jogador(true)), pJogador2(new Entidades::Personagens::Jogador(false)), Fase1(pJogador1, pJogador2), Fase2(pJogador1, pJogador2)
     {   
         pEvento->setJogador1(pJogador1);
         
@@ -28,12 +28,19 @@ namespace Pokerun{
     {
         if(est == EstadoJogo::JOGANDO){
             if(menu.getNumJogadores() == 2){
-                pEvento->setJogador2(pJogador2);  // só ativa se escolheu 2 jogadores
-                Fase1.ativaJogador(pJogador2);
+                pEvento->setJogador2(pJogador2);// só ativa se escolheu 2 jogadores
+                  
+                if(menu.getFaseEscolhida() == 1)
+                    Fase1.ativaJogador(pJogador2);
+                else
+                    Fase2.ativaJogador(pJogador2);
             }
             else{
                 pEvento->removeJogador2();
-                Fase1.desativaJogador(pJogador2);
+                if(menu.getFaseEscolhida() == 1)
+                    Fase1.desativaJogador(pJogador2);
+                else   
+                    Fase2.desativaJogador(pJogador2);
             }
         }   
 
@@ -50,6 +57,8 @@ namespace Pokerun{
     {
         while(pGrafico->verificaJanelaAberta()){
             if(!pJogador1->getAtivo() && !pJogador2->getAtivo()){pGrafico->fecharJanela();}//fecha a janela quando ambos morrem por enquanto
+
+            if(!pJogador1->getAtivo() && menu.getNumJogadores() == 1){pGrafico->fecharJanela();}//fecha janela quando jog1 morreu e so tem ele
             
             pGrafico->limpaJanela();
 
@@ -66,10 +75,13 @@ namespace Pokerun{
                         setEstado(EstadoJogo::MENU);
                         menu.irParaPausa(); //seta o estado da tela do menu para pausa
                     }
-                    else    
-                        Fase1.executar();
-                        //if(pMenu->getFaseEscolhida() == 2)
-                        //Fase2.executar;
+                    else{  
+                        //Fase1.executar();
+                        if(menu.getFaseEscolhida() == 1)
+                            Fase1.executar();
+                        else    
+                            Fase2.executar();
+                    }
                 break;
                 }
 

@@ -1,12 +1,11 @@
 #include "GerenciadorColisoes.h"
-#include "FasePrimeira.h"
 
 namespace Pokerun{
 
         namespace Gerenciadores{
 
             GerenciadorColisoes::GerenciadorColisoes():
-            pJogador1(nullptr), pJogador2(nullptr), Linimigos(), Lobstaculos(), pFase1(nullptr)
+            pJogador1(nullptr), pJogador2(nullptr), Linimigos(), Lobstaculos(), pChao(nullptr)
             {
                 Linimigos.clear();
                 Lobstaculos.clear();
@@ -18,7 +17,7 @@ namespace Pokerun{
                 Lobstaculos.clear();
                 pJogador1 = nullptr;
                 pJogador2 = nullptr;
-                pFase1 = nullptr;
+                pChao = nullptr;
             }
 
             void GerenciadorColisoes::executar()
@@ -153,8 +152,6 @@ namespace Pokerun{
 
             void GerenciadorColisoes::tratarColisoesPersChao()
             {
-                Entidades::Chao* pChao = pFase1->getChao();
-
                 if(!pChao){return;}//nao pode checar jogadores aqui porque tem como um morrer e dai a funcao nao roda e inimigos nao colidem com o chao
 
                 //colisoes com o chao sempre vem de cima, entao devo chamar pousar sempre
@@ -285,10 +282,10 @@ namespace Pokerun{
                 }
             }
 
-            void GerenciadorColisoes::setFase1(Fases::FasePrimeira* pF1)
+            void GerenciadorColisoes::setChao(Entidades::Chao* pCh)
             {
-                if(pF1){
-                    pFase1 = pF1;
+                if(pCh){
+                    pChao = pCh;
                 }
             }
 

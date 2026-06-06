@@ -7,7 +7,7 @@ namespace Pokerun{
  
         Fase::Fase(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
         Ente({WIN_SIZE_X, WIN_SIZE_Y}), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2), pChao(new Entidades::Chao()),
-        jog1Ativo(true), jog2Ativo(true)
+        maxBulbasaurs(5), jog1Ativo(true), jog2Ativo(true)
         {
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
             pFigura->setPosition({0.0f, 0.0f});//poderia tirar essa linha ja que default é 0,0
