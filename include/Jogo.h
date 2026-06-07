@@ -16,7 +16,8 @@ namespace Pokerun{
         Gerenciadores::GerenciadorEvento* pEvento;
         Entidades::Personagens::Jogador* pJogador1;
         Entidades::Personagens::Jogador* pJogador2;
-        Fases::Fase* pFase;
+        Fases::FasePrimeira Fase1;
+        Fases::FaseSegunda Fase2;
         Menu menu;
         bool pausado;
 

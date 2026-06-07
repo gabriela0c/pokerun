@@ -18,7 +18,7 @@ namespace Pokerun{
         pJogo = nullptr;
     }
 
-    const int Menu::getFaseEScolhida()const
+    const int Menu::getFaseEscolhida()const
     {
         return faseEscolhida;
     }

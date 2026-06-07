@@ -10,7 +10,6 @@ namespace Pokerun{
         class FasePrimeira : public Fase{
         private:
             const int maxWartortles;
-            const int maxBulbasaurs;
             const int maxPocas;
         public:
         FasePrimeira(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);

@@ -5,14 +5,11 @@ namespace Pokerun{
     namespace Fases{
 
         FaseSegunda::FaseSegunda(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
-        Fase(pJog1, pJog2), maxCharizards(5), maxBulbasaurs(5), maxFogos(5)
+        Fase(pJog1, pJog2), maxCharizards(5), maxFogos(5)
         {
-            GC.setFase(this);
-
-            pJogador1->setPFase(this);
-            if(pJogador2){ pJogador2->setPFase(this); }
+            GC.setChao(pChao);
             
-            setTextura("assets/sprites/fundos/fase2.png", sf::IntRect({0, 0}, {(int)WIN_SIZE_X, (int)WIN_SIZE_Y}));
+            setTextura("assets/sprites/fundos/fase2.png", sf::IntRect({0, 0}, {TAM_CAVERNA_X, TAM_CAVERNA_Y}));
             
             criarInimigos();
             criarObstaculos();
@@ -20,6 +17,7 @@ namespace Pokerun{
 
         FaseSegunda::~FaseSegunda()
         {
+
         }
 
         void FaseSegunda::criarCharizards()

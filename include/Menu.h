@@ -40,7 +40,7 @@ namespace Pokerun{
         void desenharRanking();
         void irParaPausa();
 
-        const int getFaseEScolhida()const;
+        const int getFaseEscolhida()const;
         const int getNumJogadores()const;
 
         void executar();

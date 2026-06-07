@@ -3,6 +3,9 @@
 #include "Fase.h"
 #include "Charizard.h"
 
+#define TAM_CAVERNA_X 1406 //esse é o tamanho dos sprites nao o que ele tem na tela
+#define TAM_CAVERNA_Y 913
+
 namespace Pokerun{
 
     namespace Fases{
@@ -10,7 +13,6 @@ namespace Pokerun{
         class FaseSegunda : public Fase{
         private:
             const int maxCharizards;
-            const int maxBulbasaurs;
             const int maxFogos;
         public:
         FaseSegunda(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
