@@ -1,4 +1,6 @@
 #include "Jogador.h"
+//#include "Projetil.h"
+#include "Fase.h"
 #include <iostream>
 
 namespace Pokerun{
@@ -13,7 +15,7 @@ namespace Pokerun{
 
             Jogador::Jogador(const bool ehJog1):
             Personagem((ehJog1 ? sf::Vector2f(LARGURA_PIKACHU, ALTURA_PIKACHU) : sf::Vector2f(LARGURA_RAICHU, ALTURA_RAICHU)), {VEL_JOG_X, 0.0f}, N_VDS_JOG),
-            ehJogador1(ehJog1), modificador_velocidade(1.0f), vel_knockback_x(0.0f), invencivel(false)
+            ehJogador1(ehJog1), modificador_velocidade(1.0f), vel_knockback_x(0.0f), invencivel(false), pFase(nullptr)
             {
                 if(ehJog1){
                     setTextura("assets/sprites/personagens/jogador/pikachu.png", sf::IntRect({0, 0},{LARGURA_PIKACHU, ALTURA_PIKACHU}));
@@ -23,7 +25,7 @@ namespace Pokerun{
                 } 
 
                 if(ehJog1){
-                    pFigura->setPosition({150.0f, 120.0f}); //desaleatoriezar o spawn dos jogadores porque as vezes um nasica fora do mapa
+                    pFigura->setPosition({150.0f, 120.0f}); //desaleatoriezar o spawn dos jogadores porque as vezes um nascia fora do mapa
                 }
                 else{
                     pFigura->setPosition({500.0f, 310.0f});
@@ -78,6 +80,14 @@ namespace Pokerun{
                 vel_knockback_x = impulso;
             }
 
+            void Jogador::receberDano(int quantidade)
+            {
+                if (invencivel) { return; }
+                for (int i = 0; i < quantidade; i++)
+                    --(*this);
+                ativarInvencibilidade();
+            }
+
             void Jogador::envenenar()
             {
                 envenenado = true;
@@ -88,6 +98,21 @@ namespace Pokerun{
             bool Jogador::getEhJogador1() const
             {
                 return ehJogador1;
+            }
+
+            void Jogador::resetar()
+            {
+                num_vidas = N_VDS_JOG;
+                invencivel = false;
+                envenenado = false;
+                vel_knockback_x = 0.0f;
+                modificador_velocidade = 1.0f;
+                setAtivo(true);
+
+                if(ehJogador1)
+                    pFigura->setPosition({150.0f, 120.0f});
+                else
+                    pFigura->setPosition({500.0f, 310.0f});
             }
 
             bool Jogador::getInvencivel() const
@@ -101,11 +126,17 @@ namespace Pokerun{
                 relogio_invencibilidade.restart();
             }
 
+            void Jogador::setPFase(Fases::Fase* f)
+            {
+                if(f){ pFase = f; }
+            }
+
             void Jogador::executar()
             {
-                mover();
- 
-                //veneno: reduz velocidade
+                modificador_velocidade = 1.0f;
+                noChao = false;
+                noTeto = false;
+
                 if (envenenado)
                 {
                     if (relogio_veneno.getElapsedTime().asSeconds() >= temp_veneno)
@@ -114,20 +145,22 @@ namespace Pokerun{
                         std::cout << (ehJogador1 ? "Jogador 1 (Pikachu)" : "Jogador 2 (Raichu)") << " se curou do veneno!" << std::endl;
                     }
                     else
-                        diminui_vel(0.4f); //40% da velocidade normal enquanto envenenado
+                        diminui_vel(0.4f);
                 }
- 
-                modificador_velocidade = 1.0f; //modificador reseta a cada frame p/garantir que vel volte ao normal quando para de colidir com poca
-                noChao = false;
-                noTeto = false;
- 
-                //expira invencibilidade apos 1 segundo
+
+                mover();
+
+                /*if (tempoCooldownTiro > 0.0f)
+                {
+                    tempoCooldownTiro -= dt;
+                    if (tempoCooldownTiro < 0.0f){ tempoCooldownTiro = 0.0f; }
+                }*/
+
                 if (invencivel && relogio_invencibilidade.getElapsedTime().asSeconds() >= temp_invenc)
                 {
                     invencivel = false;
                 }
- 
-                //verifica morte
+
                 if (num_vidas <= 0)
                 {
                     setAtivo(false);

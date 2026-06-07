@@ -110,6 +110,14 @@ namespace Pokerun{
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
                     pJogador1->pular();
                 }
+
+                //projeteis
+                /*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)){
+                            pJogador1->dispararProjetil(1.0f);
+                }
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)){
+                            pJogador1->dispararProjetil(-1.0f);
+                }*/
             }  
             
             if (pJogador2) 
@@ -129,6 +137,14 @@ namespace Pokerun{
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
                     pJogador2->pular();
                 }
+
+                //projeteis
+                /*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad0)){
+                            pJogador2->dispararProjetil(1.0f);
+                }
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad1)){
+                            pJogador2->dispararProjetil(-1.0f);
+                }*/
             }       
         }
     }

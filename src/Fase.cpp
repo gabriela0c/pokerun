@@ -7,7 +7,7 @@ namespace Pokerun{
  
         Fase::Fase(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
         Ente({WIN_SIZE_X, WIN_SIZE_Y}), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2), pChao(new Entidades::Chao()),
-        jog1Ativo(true), jog2Ativo(true)
+        jog1Ativo(true), jog2Ativo(pJog2 != nullptr)
         {
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
             pFigura->setPosition({0.0f, 0.0f});//poderia tirar essa linha ja que default é 0,0
@@ -83,6 +83,12 @@ namespace Pokerun{
             GC.incluirObstaculo(pParedeDir);
         }
 
+        /*void Fase::adicionarProjetil(Entidades::Projetil* pProj)
+        {
+            lista_ents.incluir(static_cast<Entidades::Entidade*>(pProj));
+            GC.incluirProjetil(pProj);
+        }*/
+
         Entidades::Chao* Fase::getChao()const
         {
             return pChao;
@@ -124,10 +130,10 @@ namespace Pokerun{
 
         void Fase::executar()
         {   
-            if(jog2Ativo && !pJogador2->getAtivo()){
+            if(jog2Ativo && pJogador2 && !pJogador2->getAtivo()){
                 desativaJogador(pJogador2);
             }
-            if(jog1Ativo && !pJogador1->getAtivo()){
+            if(jog1Ativo && pJogador1 && !pJogador1->getAtivo()){
                 desativaJogador(pJogador1);
             }
             lista_ents.percorrer();

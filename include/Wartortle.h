@@ -6,7 +6,7 @@
 #define ALTURA_WARTORTLE 43.0f
 
 #define NIVEL_MALD_MEDIO 2
-#define N_VDS_MEDIO 2
+#define N_VDS_MEDIO 3
 
 namespace Pokerun{
 

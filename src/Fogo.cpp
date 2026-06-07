@@ -7,7 +7,7 @@ namespace Pokerun{
         namespace Obstaculos{
  
             Fogo::Fogo():
-            Obstaculo({TAM_FOGO_X, TAM_FOGO_Y}, true, true),
+            Obstaculo({TAM_FOGO_X, TAM_FOGO_Y}, true, false),
             intensidade(rand() % 3)
             {
                 setTextura("assets/sprites/obstaculos/fogo.png", sf::IntRect({0, 0}, {LARGURA_FOGO, ALTURA_FOGO}));

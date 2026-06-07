@@ -4,7 +4,7 @@ namespace Pokerun{
 
     Jogo::Jogo():
     estado(EstadoJogo::MENU), pGrafico(Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico()), pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()),
-    pJogador1(new Entidades::Personagens::Jogador(true)), pJogador2(new Entidades::Personagens::Jogador(false)), Fase1(pJogador1, pJogador2)
+    pJogador1(new Entidades::Personagens::Jogador(true)), pJogador2(new Entidades::Personagens::Jogador(false)), pFase(nullptr), pausado(false)
     {   
         pEvento->setJogador1(pJogador1);
         
@@ -14,6 +14,9 @@ namespace Pokerun{
 
     Jogo::~Jogo()
     {
+        delete pFase;
+        pFase = nullptr;
+        
         delete pJogador1;
         pJogador1 = nullptr;
 
@@ -26,16 +29,40 @@ namespace Pokerun{
 
     void Jogo::setEstado(EstadoJogo est)
     {
-        if(est == EstadoJogo::JOGANDO){
-            if(menu.getNumJogadores() == 2){
-                pEvento->setJogador2(pJogador2);  // só ativa se escolheu 2 jogadores
-                Fase1.ativaJogador(pJogador2);
+        if(est == EstadoJogo::JOGANDO)
+        {
+            if(!pausado)
+            {
+                pJogador1->resetar();
+                delete pFase;
+                pFase = nullptr;
+                
+                if(menu.getNumJogadores() == 2){
+                    if(menu.getFaseEScolhida() == 2)
+                        pFase = new Fases::FaseSegunda(pJogador1, pJogador2);
+                    else
+                        pFase = new Fases::FasePrimeira(pJogador1, pJogador2);
+                    
+                    pEvento->setJogador2(pJogador2);
+                    pJogador2->resetar();
+                    pFase->ativaJogador(pJogador2);
+                }
+                else{
+                    if(menu.getFaseEScolhida() == 2)
+                        pFase = new Fases::FaseSegunda(pJogador1, nullptr); // passa nullptr
+                    else
+                        pFase = new Fases::FasePrimeira(pJogador1, nullptr); // passa nullptr
+                    
+                    pEvento->removeJogador2();
+                }
             }
-            else{
-                pEvento->removeJogador2();
-                Fase1.desativaJogador(pJogador2);
-            }
-        }   
+            pausado = false;
+        }
+
+        if(est == EstadoJogo::MENU && estado == EstadoJogo::JOGANDO)
+        {
+            pausado = true;
+        }
 
         estado = est;
     }
@@ -45,7 +72,6 @@ namespace Pokerun{
        return estado;
     }
    
-
     void Jogo::executar()
     {
         while(pGrafico->verificaJanelaAberta()){
@@ -66,10 +92,9 @@ namespace Pokerun{
                         setEstado(EstadoJogo::MENU);
                         menu.irParaPausa(); //seta o estado da tela do menu para pausa
                     }
-                    else    
-                        Fase1.executar();
-                        //if(pMenu->getFaseEscolhida() == 2)
-                        //Fase2.executar;
+                    else if(pFase != nullptr){
+                        pFase->executar();  // executa só a fase criada
+                    }
                 break;
                 }
 

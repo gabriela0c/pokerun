@@ -5,6 +5,7 @@
 #include "ListaEntidades.h"
 #include "GerenciadorColisoes.h"
 #include "Poca.h"
+#include "Fogo.h"
 #include "Bulbasaur.h"
 #include <vector>
 
@@ -40,6 +41,8 @@ namespace Pokerun{
             
             void criarBulbasaurs();
             void criarPlataformas();
+
+            //void adicionarProjetil(Entidades::Projetil* pProj);
 
             void ativaJogador(Entidades::Personagens::Jogador* pJog);
             void desativaJogador(Entidades::Personagens::Jogador* pJog);

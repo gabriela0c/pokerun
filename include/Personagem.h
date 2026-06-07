@@ -33,7 +33,8 @@ namespace Pokerun{
 
                 void operator--();
                 int getNumvidas()const;
-                
+
+                virtual void receberDano(int quantidade) = 0;
                 virtual void mover() = 0;
                 virtual void executar() = 0;
             };

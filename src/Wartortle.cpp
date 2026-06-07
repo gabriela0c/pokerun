@@ -22,7 +22,7 @@ namespace Pokerun{
                 if (p->getInvencivel()) { return; }
  
                 //knockback proporcional à massa
-                float forcaH = massa * 2.0f;
+                float forcaH = massa * 3.0f;
  
                 for(int i = 0; i < nivel_maldade; i++){
                     p->operator--();

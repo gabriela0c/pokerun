@@ -3,6 +3,7 @@
 
 #include "EstadoJogo.h"
 #include "FasePrimeira.h"
+#include "FaseSegunda.h"
 #include "GerenciadorEvento.h"
 #include "Menu.h"
 
@@ -15,8 +16,9 @@ namespace Pokerun{
         Gerenciadores::GerenciadorEvento* pEvento;
         Entidades::Personagens::Jogador* pJogador1;
         Entidades::Personagens::Jogador* pJogador2;
-        Fases::FasePrimeira Fase1;
+        Fases::Fase* pFase;
         Menu menu;
+        bool pausado;
 
     public:
         Jogo();

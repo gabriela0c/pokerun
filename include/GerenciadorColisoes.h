@@ -8,10 +8,11 @@
 #include "Inimigo.h" //inimigo inclui cmath
 #include "Obstaculo.h"
 #include "Plataforma.h"
+//#include "Projetil.h"
 
 namespace Pokerun{
     namespace Fases{
-        class FasePrimeira;
+        class Fase;
     }
 }
 
@@ -27,7 +28,8 @@ namespace Pokerun{
             Entidades::Personagens::Jogador* pJogador2;
             std::vector<Entidades::Personagens::Inimigo*> Linimigos;
             std::list<Entidades::Obstaculos::Obstaculo*> Lobstaculos;
-            Fases::FasePrimeira* pFase1;
+            //std::vector<Entidades::Projetil*> Lprojeteis;
+            Fases::Fase* pFaseAtual;
 
         public:
             GerenciadorColisoes();
@@ -40,16 +42,18 @@ namespace Pokerun{
             void tratarColisoesInimsInims();
             void tratarColisoesJogsJogs();
             void tratarColisoesPersChao();
+            void tratarColisoesProjeteis();
 
             void colisaoPersonagens(Entidades::Personagens::Personagem* p1, Entidades::Personagens::Personagem* p2);
             void colisaoPersonagemEntidade(Entidades::Personagens::Personagem* pP, Entidades::Entidade* pE);
 
             void setJogador(Entidades::Personagens::Jogador* pJog);
             void removeJogador(Entidades::Personagens::Jogador* pJog);
-            void setFase1(Fases::FasePrimeira* pF1);
+            void setFase(Fases::Fase* pF);
 
             void incluirInimigo(Entidades::Personagens::Inimigo* pI);
             void incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO);
+            //void incluirProjetil(Entidades::Projetil* pProj);
 
             void executar();
         };

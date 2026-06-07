@@ -1,33 +1,33 @@
-#include "FasePrimeira.h"
+#include "FaseSegunda.h"
 
 namespace Pokerun{
 
     namespace Fases{
 
-        FasePrimeira::FasePrimeira(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
-        Fase(pJog1, pJog2), maxWartortles(5), maxBulbasaurs(5), maxPocas(5)
+        FaseSegunda::FaseSegunda(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
+        Fase(pJog1, pJog2), maxCharizards(5), maxBulbasaurs(5), maxFogos(5)
         {
             GC.setFase(this);
 
             pJogador1->setPFase(this);
             if(pJogador2){ pJogador2->setPFase(this); }
             
-            setTextura("assets/sprites/fundos/fase1.png", sf::IntRect({0, 0}, {(int)WIN_SIZE_X, (int)WIN_SIZE_Y}));
+            setTextura("assets/sprites/fundos/fase2.png", sf::IntRect({0, 0}, {(int)WIN_SIZE_X, (int)WIN_SIZE_Y}));
             
             criarInimigos();
             criarObstaculos();
         }
 
-        FasePrimeira::~FasePrimeira()
+        FaseSegunda::~FaseSegunda()
         {
         }
 
-        void FasePrimeira::criarWartortles()
+        void FaseSegunda::criarCharizards()
         {
             Entidades::Personagens::Inimigo* pInim = nullptr;
             int n = rand() % 3 + 3; //cria de 3 a 5 inimigos - tabela 1 N5
             for(int i = 0; i < n; i++){
-                pInim = new Entidades::Personagens::Wartortle();
+                pInim = new Entidades::Personagens::Charizard();
                 pInim->setJogador1(pJogador1);
                 pInim->setJogador2(pJogador2);
                 lista_ents.incluir(static_cast<Entidades::Entidade*>(pInim));
@@ -36,14 +36,14 @@ namespace Pokerun{
             }
         }
         
-        void FasePrimeira::criarPocas()
+        void FaseSegunda::criarFogos()
         {
             //mínimo 3 e máximo 5 
-            int n = rand() % (maxPocas - 2) + 3;
+            int n = rand() % (maxFogos - 2) + 3;
 
             for(int i = 0; i < n; i++)
             {
-                Entidades::Obstaculos::Poca* pObs = new Entidades::Obstaculos::Poca();
+                Entidades::Obstaculos::Fogo* pObs = new Entidades::Obstaculos::Fogo();
                 
                 int indicePlataforma = rand() % posicoesPlataformas.size();
                 sf::FloatRect base = posicoesPlataformas[indicePlataforma];
@@ -68,19 +68,19 @@ namespace Pokerun{
             }
         }
 
-        void FasePrimeira::criarInimigos()
+        void FaseSegunda::criarInimigos()
         {
             criarBulbasaurs();
-            criarWartortles();
+            criarCharizards();
         }
 
-        void FasePrimeira::criarObstaculos()
+        void FaseSegunda::criarObstaculos()
         {
             criarPlataformas();
-            criarPocas();
+            criarFogos();
         }
         
-        void FasePrimeira::executar()
+        void FaseSegunda::executar()
         {
             Fase::executar();
         }

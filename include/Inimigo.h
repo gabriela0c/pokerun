@@ -43,7 +43,8 @@ namespace Pokerun{
                 void movimentoAleatorio();
 
                 //void cooldown();
-                void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);;
+                void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
+                void receberDano(int quantidade);
 
                 virtual void danificar(Jogador* p) = 0;
 

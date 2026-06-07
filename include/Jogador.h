@@ -16,7 +16,19 @@
 
 #define N_VDS_JOG 10
 
-namespace Pokerun{   
+#define DANO_PROJETIL_JOG 1
+#define COOLDOWN_TIRO_JOG 0.5f
+
+#define LARGURA_RAIO 148
+#define ALTURA_RAIO 169
+#define TAMANHO_RAIO_X 15.0f
+#define TAMANHO_RAIO_Y 15.0f
+
+namespace Pokerun{
+    
+    namespace Fases{
+                class Fase;
+            };
 
     namespace Entidades{
 
@@ -33,6 +45,8 @@ namespace Pokerun{
                 bool envenenado;
                 sf::Clock relogio_veneno;
                 static float temp_veneno;
+                Fases::Fase* pFase;
+                //float tempoCooldownTiro;
                     
             public:
                 Jogador(const bool ehJog1 = false);    
@@ -44,12 +58,17 @@ namespace Pokerun{
                 void diminui_vel(float taxa);
                 float getModVel()const;
                 void receberKnockback(float impulso);
+                void receberDano(int quantidade);
                 void envenenar();
 
                 bool getEhJogador1() const;
+                void resetar();
 
                 bool getInvencivel()const;
                 void ativarInvencibilidade();
+
+                void setPFase(Fases::Fase* f);
+                //void dispararProjetil(float direcao);
 
                 void executar();
             };

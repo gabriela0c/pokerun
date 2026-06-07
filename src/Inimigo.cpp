@@ -120,6 +120,12 @@ namespace Pokerun{
                 } 
             }
 
+            void Inimigo::receberDano(int quantidade)
+            {
+                for (int i = 0; i < quantidade; i++)
+                    --(*this);
+            }
+
             void Inimigo::aplicarKnockback(Jogador* p, float forca)
             {
                 float sinal = calcularDirecaoKnockback(p->getFig().getPosition(), pFigura->getPosition());

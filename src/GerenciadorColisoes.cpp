@@ -1,12 +1,12 @@
 #include "GerenciadorColisoes.h"
-#include "FasePrimeira.h"
+#include "Fase.h"
 
 namespace Pokerun{
 
         namespace Gerenciadores{
 
             GerenciadorColisoes::GerenciadorColisoes():
-            pJogador1(nullptr), pJogador2(nullptr), Linimigos(), Lobstaculos(), pFase1(nullptr)
+            pJogador1(nullptr), pJogador2(nullptr), Linimigos(), Lobstaculos(), pFaseAtual(nullptr)
             {
                 Linimigos.clear();
                 Lobstaculos.clear();
@@ -18,7 +18,7 @@ namespace Pokerun{
                 Lobstaculos.clear();
                 pJogador1 = nullptr;
                 pJogador2 = nullptr;
-                pFase1 = nullptr;
+                pFaseAtual = nullptr;
             }
 
             void GerenciadorColisoes::executar()
@@ -29,6 +29,7 @@ namespace Pokerun{
                 tratarColisoesInimsInims();
                 tratarColisoesJogsJogs();
                 tratarColisoesPersChao();
+                //tratarColisoesProjeteis();
             }
             
             void GerenciadorColisoes::tratarColisoesJogsObstacs()
@@ -153,7 +154,8 @@ namespace Pokerun{
 
             void GerenciadorColisoes::tratarColisoesPersChao()
             {
-                Entidades::Chao* pChao = pFase1->getChao();
+                if(!pFaseAtual){return;}
+                Entidades::Chao* pChao = pFaseAtual->getChao();
 
                 if(!pChao){return;}//nao pode checar jogadores aqui porque tem como um morrer e dai a funcao nao roda e inimigos nao colidem com o chao
 
@@ -177,7 +179,6 @@ namespace Pokerun{
                     }
                 }
             }
-        
     
             const bool GerenciadorColisoes::verificarColisao(Entidades::Entidade* pe1, Entidades::Entidade* pe2)const
             {
@@ -285,10 +286,10 @@ namespace Pokerun{
                 }
             }
 
-            void GerenciadorColisoes::setFase1(Fases::FasePrimeira* pF1)
+            void GerenciadorColisoes::setFase(Fases::Fase* pF)
             {
-                if(pF1){
-                    pFase1 = pF1;
+                if(pF){
+                    pFaseAtual = pF;
                 }
             }
 
@@ -305,6 +306,13 @@ namespace Pokerun{
                     Lobstaculos.push_back(pO);
                 }
             }
+
+           /*void GerenciadorColisoes::incluirProjetil(Entidades::Projetil* pProj)
+            {
+                if(pProj){
+                    Lprojeteis.push_back(pProj);
+                }
+            }*/
 
             void GerenciadorColisoes::removeJogador(Entidades::Personagens::Jogador* pJog){
                 if(pJog){
