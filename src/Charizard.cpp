@@ -1,6 +1,5 @@
 #include "Charizard.h"
 //#include "Projetil.h"
-#include "Fase.h"
 
 namespace Pokerun{
 
@@ -9,7 +8,7 @@ namespace Pokerun{
         namespace Personagens{
 
             Charizard::Charizard():
-            Inimigo(NIVEL_MALD_CHEFAO, {LARGURA_CHARIZARD, ALTURA_CHARIZARD}, N_VDS_CHEFAO), raio_ataque((int)(rand() % 21 + 30)), pFase(nullptr), tempoCooldownTiro(0.0f)
+            Inimigo(NIVEL_MALD_CHEFAO, {LARGURA_CHARIZARD, ALTURA_CHARIZARD}, N_VDS_CHEFAO), raio_ataque((int)(rand() % 21 + 30)), tempoCooldownTiro(0.0f)
             {
                 setTextura("assets/sprites/personagens/inimigo/charizard.png", sf::IntRect({0, 0}, {(int)LARGURA_CHARIZARD, (int)ALTURA_CHARIZARD}));
             }
@@ -34,11 +33,6 @@ namespace Pokerun{
                 p->ativarInvencibilidade();
  
                 std::cout << "Charizard danificou " << (p->getEhJogador1() ? "Pikachu" : "Raichu") << "! raio_ataque=" << raio_ataque << ", Vidas: " << p->getNumvidas() << std::endl;
-            }
-
-            void Charizard::setPFase(Fases::Fase* f)
-            {
-                if(f){ pFase = f; }
             }
 
             /*void Charizard::dispararProjetil(float direcao)

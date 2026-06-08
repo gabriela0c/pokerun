@@ -5,7 +5,6 @@ namespace Pokerun {
 
     class Ente {
     protected:
-        bool ativo;    
         static Gerenciadores::GerenciadorGrafico* pGG;
         sf::RectangleShape* pFigura;
         sf::Texture textura;
@@ -27,8 +26,5 @@ namespace Pokerun {
 
         sf::RectangleShape& getFig();
         const sf::RectangleShape& getFig()const; //sobrecarga de metodo necessaria pois getFig necessita referencia const 
-
-        bool getAtivo()const;
-        void setAtivo(const bool a);
     };
 }

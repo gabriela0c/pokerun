@@ -1,6 +1,5 @@
 #include "Jogador.h"
 //#include "Projetil.h"
-#include "Fase.h"
 #include <iostream>
 
 namespace Pokerun{
@@ -15,7 +14,7 @@ namespace Pokerun{
 
             Jogador::Jogador(const bool ehJog1):
             Personagem((ehJog1 ? sf::Vector2f(LARGURA_PIKACHU, ALTURA_PIKACHU) : sf::Vector2f(LARGURA_RAICHU, ALTURA_RAICHU)), {VEL_JOG_X, 0.0f}, N_VDS_JOG),
-            ehJogador1(ehJog1), modificador_velocidade(1.0f), vel_knockback_x(0.0f), invencivel(false), pFase(nullptr)
+            ehJogador1(ehJog1), modificador_velocidade(1.0f), vel_knockback_x(0.0f), invencivel(false), ativo(true)
             {
                 if(ehJog1){
                     setTextura("assets/sprites/personagens/jogador/pikachu.png", sf::IntRect({0, 0},{LARGURA_PIKACHU, ALTURA_PIKACHU}));
@@ -126,16 +125,19 @@ namespace Pokerun{
                 relogio_invencibilidade.restart();
             }
 
-            void Jogador::setPFase(Fases::Fase* f)
+            bool Jogador::getAtivo() const
             {
-                if(f){ pFase = f; }
+                return ativo;
+            }  
+
+            void Jogador::setAtivo(const bool a)
+            {
+                ativo = a;
             }
 
             void Jogador::executar()
             {
                 modificador_velocidade = 1.0f;
-                noChao = false;
-                noTeto = false;
 
                 if (envenenado)
                 {
@@ -149,12 +151,8 @@ namespace Pokerun{
                 }
 
                 mover();
-
-                /*if (tempoCooldownTiro > 0.0f)
-                {
-                    tempoCooldownTiro -= dt;
-                    if (tempoCooldownTiro < 0.0f){ tempoCooldownTiro = 0.0f; }
-                }*/
+                noTeto = false;
+                noChao = false;
 
                 if (invencivel && relogio_invencibilidade.getElapsedTime().asSeconds() >= temp_invenc)
                 {

@@ -25,10 +25,6 @@
 #define TAMANHO_RAIO_Y 15.0f
 
 namespace Pokerun{
-    
-    namespace Fases{
-                class Fase;
-            };
 
     namespace Entidades{
 
@@ -45,7 +41,7 @@ namespace Pokerun{
                 bool envenenado;
                 sf::Clock relogio_veneno;
                 static float temp_veneno;
-                Fases::Fase* pFase;
+                bool ativo;
                 //float tempoCooldownTiro;
                     
             public:
@@ -66,11 +62,12 @@ namespace Pokerun{
 
                 bool getInvencivel()const;
                 void ativarInvencibilidade();
-
-                void setPFase(Fases::Fase* f);
                 //void dispararProjetil(float direcao);
 
                 void executar();
+
+                bool getAtivo() const;
+                void setAtivo(const bool a);
             };
         }
     }

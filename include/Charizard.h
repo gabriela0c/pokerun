@@ -13,10 +13,6 @@
 #define COOLDOWN_TIRO_INIM 0.5f
 
 namespace Pokerun{
-    
-    namespace Fases{
-                class Fase;
-            };
 
     namespace Entidades{
 
@@ -25,7 +21,6 @@ namespace Pokerun{
             class Charizard : public Inimigo{ //Chefao
             private:
                 int raio_ataque;
-                Fases::Fase* pFase;
                 float tempoCooldownTiro;
 
             public:
@@ -33,9 +28,8 @@ namespace Pokerun{
                 ~Charizard();
 
                 void danificar(Jogador* p);
-
-                void setPFase(Pokerun::Fases::Fase* f);
-                void dispararProjetil(float direcao);
+                
+                //void dispararProjetil(float direcao);
 
                 void executar();
             };
