@@ -5,7 +5,7 @@
 
 #include "Entidade.h"
 #include "Personagem.h"
-#include "Inimigo.h" //inimigo inclui cmath
+#include "Inimigo.h"
 #include "Obstaculo.h"
 #include "Plataforma.h"
 #include "Chao.h"
@@ -40,7 +40,8 @@ namespace Pokerun{
             void colisaoPersonagemEntidade(Entidades::Personagens::Personagem* pP, Entidades::Entidade* pE);
 
             void setJogador(Entidades::Personagens::Jogador* pJog);
-            void removeJogador(Entidades::Personagens::Jogador* pJog);
+            void remover(Entidades::Entidade* pE);
+            void limparListas();
             void setChao(Entidades::Chao* pCh);
 
             void incluirInimigo(Entidades::Personagens::Inimigo* pI);

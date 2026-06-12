@@ -88,12 +88,13 @@ namespace Pokerun{
             return pChao;
         }
 
-        void Fase::desativaJogador(Entidades::Personagens::Jogador* pJog){
-            lista_ents.remover(pJog);
-            GC.removeJogador(pJog);
+        void Fase::desativaEntidade(Entidades::Entidade* pE){
+            lista_ents.remover(pE);
+            GC.remover(pE);
         }
 
         void Fase::ativaJogador(Entidades::Personagens::Jogador* pJog){
+            lista_ents.remover(pJog); //garante que nao seja incluido 2x
             lista_ents.incluir(pJog);
             GC.setJogador(pJog);
             pJog->setAtivo(true);
@@ -116,10 +117,10 @@ namespace Pokerun{
         {   
 
             if(!pJogador2->getAtivo()){
-                desativaJogador(pJogador2);
+                desativaEntidade(pJogador2);
             }
             if(!pJogador1->getAtivo()){
-                desativaJogador(pJogador1);
+                desativaEntidade(pJogador1);
             }
             lista_ents.percorrer();
             GC.executar();

@@ -57,17 +57,11 @@ namespace Pokerun{
             return flagEnter;
         }
 
-        void GerenciadorEvento::setJogador1(Pokerun::Entidades::Personagens::Jogador* jog1) 
+        void GerenciadorEvento::setJogador(Entidades::Personagens::Jogador* pJog)
         {
-            if(jog1){
-                pJogador1 = jog1;
-            }
-        }
-
-        void GerenciadorEvento::setJogador2(Pokerun::Entidades::Personagens::Jogador* jog2) 
-        {
-            if(jog2){
-                pJogador2 = jog2;
+            if(pJog){
+                if(pJog->getEhJogador1()){pJogador1 = pJog;}
+                else{pJogador2 = pJog;}
             }
         }
 

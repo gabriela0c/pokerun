@@ -45,7 +45,7 @@ namespace Pokerun{
             //void adicionarProjetil(Entidades::Projetil* pProj);
 
             void ativaJogador(Entidades::Personagens::Jogador* pJog);
-            void desativaJogador(Entidades::Personagens::Jogador* pJog);
+            void desativaEntidade(Entidades::Entidade* pE);
 
             Entidades::Chao* getChao()const;
 

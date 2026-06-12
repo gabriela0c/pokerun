@@ -1,5 +1,4 @@
 #include "Jogador.h"
-//#include "Projetil.h"
 #include <iostream>
 
 namespace Pokerun{
@@ -14,7 +13,7 @@ namespace Pokerun{
 
             Jogador::Jogador(const bool ehJog1):
             Personagem((ehJog1 ? sf::Vector2f(LARGURA_PIKACHU, ALTURA_PIKACHU) : sf::Vector2f(LARGURA_RAICHU, ALTURA_RAICHU)), {VEL_JOG_X, 0.0f}, N_VDS_JOG),
-            ehJogador1(ehJog1), modificador_velocidade(1.0f), vel_knockback_x(0.0f), invencivel(false), ativo(true)
+            ehJogador1(ehJog1), modificador_velocidade(1.0f), vel_knockback_x(0.0f), invencivel(false), pontos(0)
             {
                 if(ehJog1){
                     setTextura("assets/sprites/personagens/jogador/pikachu.png", sf::IntRect({0, 0},{LARGURA_PIKACHU, ALTURA_PIKACHU}));
@@ -41,7 +40,7 @@ namespace Pokerun{
                 aplicarGravidade();
 
                 // aplica knockback horizontal usando o dt que aplicarGravidade() acabou de calcular
-                if (vel_knockback_x != 0.0f) 
+                if (vel_knockback_x != 0.0f) //separar em outro metodo
                 {
                     pFigura->move({vel_knockback_x * dt, 0.0f});
                     vel_knockback_x *= (1.0f - 8.0f * dt);
@@ -123,16 +122,6 @@ namespace Pokerun{
             {
                 invencivel = true;
                 relogio_invencibilidade.restart();
-            }
-
-            bool Jogador::getAtivo() const
-            {
-                return ativo;
-            }  
-
-            void Jogador::setAtivo(const bool a)
-            {
-                ativo = a;
             }
 
             void Jogador::executar()

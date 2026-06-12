@@ -103,7 +103,7 @@ namespace Pokerun{
                             }
                         }
 
-                        if(pJogador2){//existe sim a possibilidade do jogo nao ter jogador 2
+                        if(pJogador2){
                             bool colisao2 = verificarColisao(pJogador2, Linimigos[i]);
                             if(colisao2){
                                 colisaoPersonagens(pJogador2, Linimigos[i]);
@@ -303,6 +303,14 @@ namespace Pokerun{
                 }
             }
 
+            void GerenciadorColisoes::limparListas()
+            {
+                Linimigos.clear();
+                Lobstaculos.clear();
+                pJogador1 = nullptr;
+                pJogador2 = nullptr;
+            }
+
            /*void GerenciadorColisoes::incluirProjetil(Entidades::Projetil* pProj)
             {
                 if(pProj){
@@ -310,10 +318,34 @@ namespace Pokerun{
                 }
             }*/
 
-            void GerenciadorColisoes::removeJogador(Entidades::Personagens::Jogador* pJog){
-                if(pJog){
-                    if(pJog->getEhJogador1()){pJogador1 = nullptr;}
-                    else{pJogador2 = nullptr;}
+            void GerenciadorColisoes::remover(Entidades::Entidade* pE) //depois adicionar os projeteis aqui também
+            {
+                if (!pE) { return; }
+
+                if (pJogador1 == pE){ 
+                    pJogador1 = nullptr; 
+                    return;
+                }
+                
+                if (pJogador2 == pE){ 
+                    pJogador2 = nullptr; 
+                    return;
+                }
+
+                for (int i = 0; i < (int)Linimigos.size(); i++){
+                    if (Linimigos[i] == pE) {
+                        Linimigos.erase(Linimigos.begin() + i); //erase tem que receber um iterador 
+                        return;                      
+                    }
+                }
+
+                std::list<Entidades::Obstaculos::Obstaculo*>::iterator it = Lobstaculos.begin();
+                while (it != Lobstaculos.end()) {
+                    if (*it == pE) {
+                        Lobstaculos.erase(it);
+                        return;
+                    }
+                    it++;
                 }
             }
     }

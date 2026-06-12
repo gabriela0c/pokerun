@@ -38,9 +38,9 @@ namespace Pokerun {
             const bool pausaPressionado();
 
             void removeJogador2();
+            
+            void setJogador(Entidades::Personagens::Jogador* pJog);
 
-            void setJogador1(Entidades::Personagens::Jogador* jog1);
-            void setJogador2(Entidades::Personagens::Jogador* jog2);
             void executar();
         };
 

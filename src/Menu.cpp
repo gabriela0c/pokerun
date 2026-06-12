@@ -160,6 +160,7 @@ namespace Pokerun{
                     if(opcaoSelecionada == 0){pJogo->setEstado(EstadoJogo::JOGANDO);}//despausa
                     if(opcaoSelecionada == 1){
                         telaAtual = TelaMenu::INICIO;//volta para o menu de inicio
+                        //reiniciar o jogador talvez, ou reiniciar todos da lista de entidades
                         opcaoSelecionada = 0;
                         pJogo->setEstado(EstadoJogo::MENU);//seta o estado do jogo para menu
                     }

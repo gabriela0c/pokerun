@@ -18,6 +18,7 @@ namespace Pokerun{
             const float gravidade;
             sf::Clock relogio;
             float dt;
+            bool ativo;
         
         public:
             Entidade(const sf::Vector2f tam = {0.0f, 0.0f}, const float vY = 0.0f);
@@ -26,6 +27,9 @@ namespace Pokerun{
             void aplicarGravidade();   
             void antiGravidade();
             float calcularDirecaoKnockback(sf::Vector2f posAlvo, sf::Vector2f posFonte);
+
+            bool getAtivo()const;
+            void setAtivo(const bool a);
 
             
             virtual void executar() = 0; 

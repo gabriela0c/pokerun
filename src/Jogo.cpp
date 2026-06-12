@@ -6,7 +6,7 @@ namespace Pokerun{
     estado(EstadoJogo::MENU), pGrafico(Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico()), pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()),
     pJogador1(new Entidades::Personagens::Jogador(true)), pJogador2(new Entidades::Personagens::Jogador(false)), Fase1(pJogador1, pJogador2), Fase2(pJogador1, pJogador2)
     {   
-        pEvento->setJogador1(pJogador1);
+        pEvento->setJogador(pJogador1);
         
         menu.setJogo(this);
         executar();
@@ -28,7 +28,7 @@ namespace Pokerun{
     {
         if(est == EstadoJogo::JOGANDO){
             if(menu.getNumJogadores() == 2){
-                pEvento->setJogador2(pJogador2);// só ativa se escolheu 2 jogadores
+                pEvento->setJogador(pJogador2);// só ativa se escolheu 2 jogadores
                   
                 if(menu.getFaseEscolhida() == 1)
                     Fase1.ativaJogador(pJogador2);
@@ -38,9 +38,9 @@ namespace Pokerun{
             else{
                 pEvento->removeJogador2();
                 if(menu.getFaseEscolhida() == 1)
-                    Fase1.desativaJogador(pJogador2);
+                    Fase1.desativaEntidade(pJogador2);
                 else   
-                    Fase2.desativaJogador(pJogador2);
+                    Fase2.desativaEntidade(pJogador2);
             }
         }   
 
