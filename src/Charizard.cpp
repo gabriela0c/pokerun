@@ -8,7 +8,8 @@ namespace Pokerun{
         namespace Personagens{
 
             Charizard::Charizard():
-            Inimigo(NIVEL_MALD_CHEFAO, {LARGURA_CHARIZARD, ALTURA_CHARIZARD}, N_VDS_CHEFAO), raio_ataque((int)(rand() % 21 + 30)), tempoCooldownTiro(0.0f)
+            Inimigo(NIVEL_MALD_CHEFAO, {LARGURA_CHARIZARD, ALTURA_CHARIZARD}, N_VDS_CHEFAO, N_PTS_CHEFAO), raio_ataque((int)(rand() % 21 + 30)), 
+            tempoCooldownTiro(0.0f)
             {
                 setTextura("assets/sprites/personagens/inimigo/charizard.png", sf::IntRect({0, 0}, {(int)LARGURA_CHARIZARD, (int)ALTURA_CHARIZARD}));
             }

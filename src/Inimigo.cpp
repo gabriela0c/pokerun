@@ -6,9 +6,9 @@ namespace Pokerun{
 
         namespace Personagens{
             
-            Inimigo::Inimigo(int nivMal, const sf::Vector2f tam , int n_vds):
+            Inimigo::Inimigo(int nivMal, const sf::Vector2f tam , int n_vds, int v_pts):
             Personagem(tam, {VEL_INIM_X, 0.0f}, n_vds), pJogador1(nullptr), pJogador2(nullptr),
-            nivel_maldade(nivMal), direcao(-1), tempoMovimento(0.0f)
+            nivel_maldade(nivMal), direcao(-1), tempoMovimento(0.0f), valorPontos(v_pts)
             {
 
             }
@@ -97,6 +97,11 @@ namespace Pokerun{
                     tempoMovimento = 0.0f;
                     direcao = (rand()%2 == 0) ? -1 : 1;
                 }
+            }
+
+            int Inimigo::getValorPontos()const
+            {
+                return valorPontos;
             }
 
             void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo)

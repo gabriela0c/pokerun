@@ -7,6 +7,7 @@
 
 #define NIVEL_MALD_CHEFAO 3
 #define N_VDS_CHEFAO 5
+#define N_PTS_CHEFAO 600
 
 #define LARGURA_PROJ 104
 #define ALTURA_PROJ 169

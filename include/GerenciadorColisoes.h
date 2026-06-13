@@ -10,6 +10,9 @@
 #include "Plataforma.h"
 #include "Chao.h"
 
+#define ALCANCE_ATAQUE_X 80.0f
+#define FAIXA_ATAQUE_Y 30.0f
+
 namespace Pokerun{
 
     namespace Gerenciadores
@@ -35,6 +38,9 @@ namespace Pokerun{
             void tratarColisoesJogsJogs();
             void tratarColisoesPersChao();
             void tratarColisoesProjeteis();
+
+            void aplicarAtaqueJog(Entidades::Personagens::Jogador* pJog);
+            const bool inRange(Entidades::Personagens::Jogador* pJog, Entidades::Personagens::Inimigo* pInim)const;
 
             void colisaoPersonagens(Entidades::Personagens::Personagem* p1, Entidades::Personagens::Personagem* p2);
             void colisaoPersonagemEntidade(Entidades::Personagens::Personagem* pP, Entidades::Entidade* pE);

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Personagem.h"
+#include "Temporizador.h"
 
 #define VEL_JOG_X 0.10f
 
@@ -26,12 +27,10 @@ namespace Pokerun{
                 const bool ehJogador1;
                 float modificador_velocidade;
                 float vel_knockback_x;
-                bool invencivel;
-                sf::Clock relogio_invencibilidade;
-                static float temp_invenc;
-                bool envenenado;
-                sf::Clock relogio_veneno;
-                static float temp_veneno;
+                Temporizador invencibilidade;
+                Temporizador veneno;
+                Temporizador cd_ataque;
+                bool atacando;
                 int pontos;
                     
             public:
@@ -41,6 +40,8 @@ namespace Pokerun{
                 void mover();
                 void pular();
 
+                void operator+=(int num);
+
                 void diminui_vel(float taxa);
                 float getModVel()const;
                 void receberKnockback(float impulso);
@@ -49,6 +50,11 @@ namespace Pokerun{
 
                 bool getEhJogador1() const;
                 void resetar();
+
+                void setAtacando(const bool a);
+                const bool getAtacando()const;
+                const bool podeAtacar();
+                void iniciarCooldown();
 
                 bool getInvencivel()const;
                 void ativarInvencibilidade();

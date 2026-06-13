@@ -7,6 +7,7 @@
 
 #define NIVEL_MALD_FACIL 1
 #define N_VDS_FACIL 1
+#define N_PTS_FACIL 100
 
 namespace Pokerun{
 

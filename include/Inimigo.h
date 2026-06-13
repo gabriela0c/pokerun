@@ -30,9 +30,10 @@ namespace Pokerun{
                 int nivel_maldade;
                 int direcao;
                 float tempoMovimento;
+                int valorPontos;
 
             public:
-                Inimigo(int nivMal = -1,const sf::Vector2f tam = {}, int n_vds = -1);
+                Inimigo(int nivMal = -1,const sf::Vector2f tam = {}, int n_vds = -1, int v_pts = -1);
                 virtual ~Inimigo();
 
                 void setJogador1(Jogador* jog1);
@@ -42,13 +43,14 @@ namespace Pokerun{
                 void mover();
                 void movimentoAleatorio();
 
-                //void cooldown();
+                int getValorPontos()const;
+                
                 void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                 void receberDano(int quantidade);
 
                 virtual void danificar(Jogador* p) = 0;
 
-            protected:
+            protected://porque?
                 void aplicarKnockback(Jogador* p, float forca);
             };
         }

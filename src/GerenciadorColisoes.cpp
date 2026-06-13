@@ -28,6 +28,8 @@ namespace Pokerun{
                 tratarColisoesInimsInims();
                 tratarColisoesJogsJogs();
                 tratarColisoesPersChao();
+                aplicarAtaqueJog(pJogador1);
+                aplicarAtaqueJog(pJogador2);
                 //tratarColisoesProjeteis();
             }
             
@@ -88,7 +90,6 @@ namespace Pokerun{
                 } 
             }
         
-
             void GerenciadorColisoes::tratarColisoesJogsInims()
             {
                 if(Linimigos.empty()){return;}
@@ -96,16 +97,13 @@ namespace Pokerun{
                 for(int i = 0; i < (int)Linimigos.size(); i++){
                     if(Linimigos[i]){
                         if(pJogador1){
-                            bool colisao1 = verificarColisao(pJogador1, Linimigos[i]);
-                            if(colisao1){
+                            if(verificarColisao(pJogador1, Linimigos[i])){
                                 colisaoPersonagens(pJogador1, Linimigos[i]);
                                 Linimigos[i]->danificar(pJogador1);
                             }
                         }
-
                         if(pJogador2){
-                            bool colisao2 = verificarColisao(pJogador2, Linimigos[i]);
-                            if(colisao2){
+                            if(verificarColisao(pJogador2, Linimigos[i])){
                                 colisaoPersonagens(pJogador2, Linimigos[i]);
                                 Linimigos[i]->danificar(pJogador2);
                             }
@@ -184,13 +182,54 @@ namespace Pokerun{
                 sf::FloatRect bounds2 = (pe2->getFig()).getGlobalBounds();
                 
                 //getGlobalBound retorna as coordenadas do canto superior esquerdo, nao do centro(tambem retorna o tam do corpo)
-                sf::Vector2f centro1 = {bounds1.position.x + (bounds1.size.x/2), bounds1.position.y + (bounds1.size.y/2)};
-                sf::Vector2f centro2 = {bounds2.position.x + (bounds2.size.x/2), bounds2.position.y + (bounds2.size.y/2)};
+                sf::Vector2f centro1 = bounds1.getCenter();
+                sf::Vector2f centro2 = bounds2.getCenter();
                 
                 sf::Vector2f mediaTam = {(bounds1.size.x + bounds2.size.x)/2 , (bounds1.size.y + bounds2.size.y)/2};
                 sf::Vector2f distCentros = {std::abs(centro1.x - centro2.x), std::abs(centro1.y - centro2.y)};
                 //std::abs equivalente a fabs, so que sobrecarregado para retornar float, fabs retorna um double
                 return (distCentros.x < mediaTam.x && distCentros.y < mediaTam.y);
+            }
+
+            void GerenciadorColisoes::aplicarAtaqueJog(Entidades::Personagens::Jogador* pJog)
+            {
+                if(!pJog || Linimigos.empty() || !pJog->getAtacando()){return;}
+
+                pJog->setAtacando(false); //consome o ataque
+
+                if(!pJog->podeAtacar()){return;}//so reinicia o cooldown se ele pode atacar
+                pJog->iniciarCooldown();//reinicia o cooldown ja que vai atacar
+                
+                for(int i = 0; i < (int)Linimigos.size();i++ ){
+                    if(Linimigos[i]){
+                        if(inRange(pJog, Linimigos[i])){
+                            Linimigos[i]->receberDano(1);//criar um dano_jogador para passar aqui talvez
+                            std::cout << "tenho " << Linimigos[i]->getNumvidas() << " vidas" <<  std::endl;
+                        }
+                        if(Linimigos[i]->getNumvidas() <= 0){
+                            pJog->operator+=(Linimigos[i]->getValorPontos());
+                            Linimigos[i]->setAtivo(false);
+                        }
+                    }
+                }
+            }
+
+           const bool GerenciadorColisoes::inRange(Entidades::Personagens::Jogador* pJog, Entidades::Personagens::Inimigo* pInim)const
+           {
+                sf::FloatRect a = pJog->getFig().getGlobalBounds();
+                sf::FloatRect b = pInim->getFig().getGlobalBounds();
+
+                // bordas direita/inferior de cada um (position eh o canto superior esquerdo)
+                float aMaxX = a.position.x + a.size.x;
+                float aMaxY = a.position.y + a.size.y;
+                float bMaxX = b.position.x + b.size.x;
+                float bMaxY = b.position.y + b.size.y;
+
+                // distancia real entre os corpos sem considerar o tamanho deles
+                float gapX = std::max(0.0f, std::max(a.position.x - bMaxX, b.position.x - aMaxX));//0 eh o min caso eles se sobreponham
+                float gapY = std::max(0.0f, std::max(a.position.y - bMaxY, b.position.y - aMaxY));//no eixo (p n ficar -)
+
+                return (gapX <= ALCANCE_ATAQUE_X && gapY <= FAIXA_ATAQUE_Y); 
             }
 
             void GerenciadorColisoes::colisaoPersonagens(Entidades::Personagens::Personagem* p1, Entidades::Personagens::Personagem* p2)
@@ -208,8 +247,8 @@ namespace Pokerun{
                     p2->getFig().move({(-dir * overlap_x) / 2, 0.0f});
                 }
                 else{
-                    sf::Vector2f centro1 = {personagem1.position.x + (personagem1.size.x / 2), personagem1.position.y + (personagem1.size.y / 2)};
-                    sf::Vector2f centro2 = {personagem2.position.x + (personagem2.size.x / 2), personagem2.position.y + (personagem2.size.y / 2)};
+                    sf::Vector2f centro1 = personagem1.getCenter();
+                    sf::Vector2f centro2 = personagem2.getCenter();
                                         
                     if(centro1.y < centro2.y){ //se 1 estava acima de 2
                         p1->getFig().move({0.0f, -overlap_y});
@@ -235,8 +274,8 @@ namespace Pokerun{
                 float maior_lado_superior = std::max(pBounds.position.y, eBounds.position.y);
                 // tem que subtrair o que esta fisicamente a baixo pelo que esta fisicamente acima pois o sistema de coordenadas eh invertido
 
-                sf::Vector2f pCentro = {pBounds.position.x + pBounds.size.x / 2.0f, pBounds.position.y + pBounds.size.y / 2.0f};
-                sf::Vector2f eCentro = {eBounds.position.x + eBounds.size.x / 2.0f, eBounds.position.y + eBounds.size.y / 2.0f};
+                sf::Vector2f pCentro = pBounds.getCenter();
+                sf::Vector2f eCentro = eBounds.getCenter();
                 //calculo dos centros para verificar a direcao da colisao
 
                 sf::Vector2f overlap = {menor_lado_direito - maior_lado_esquerdo, menor_lado_inferior - maior_lado_superior};
@@ -320,32 +359,35 @@ namespace Pokerun{
 
             void GerenciadorColisoes::remover(Entidades::Entidade* pE) //depois adicionar os projeteis aqui também
             {
-                if (!pE) { return; }
+                if(!pE) { return; }
 
-                if (pJogador1 == pE){ 
+                if(pJogador1 == pE){ 
                     pJogador1 = nullptr; 
                     return;
                 }
                 
-                if (pJogador2 == pE){ 
+                if(pJogador2 == pE){ 
                     pJogador2 = nullptr; 
                     return;
                 }
 
-                for (int i = 0; i < (int)Linimigos.size(); i++){
-                    if (Linimigos[i] == pE) {
-                        Linimigos.erase(Linimigos.begin() + i); //erase tem que receber um iterador 
-                        return;                      
-                    }
-                }
+               std::vector<Entidades::Personagens::Inimigo*>::iterator it1 = Linimigos.begin();
 
-                std::list<Entidades::Obstaculos::Obstaculo*>::iterator it = Lobstaculos.begin();
-                while (it != Lobstaculos.end()) {
-                    if (*it == pE) {
-                        Lobstaculos.erase(it);
+                while(it1 != Linimigos.end()){
+                    if(*it1 == pE){
+                        Linimigos.erase(it1);
                         return;
                     }
-                    it++;
+                    it1++;
+                }
+
+                std::list<Entidades::Obstaculos::Obstaculo*>::iterator it2 = Lobstaculos.begin();
+                while(it2 != Lobstaculos.end()){
+                    if(*it2 == pE) {
+                        Lobstaculos.erase(it2);
+                        return;
+                    }
+                    it2++;
                 }
             }
     }

@@ -105,6 +105,10 @@ namespace Pokerun{
                     pJogador1->pular();
                 }
 
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F)){
+                    pJogador1->setAtacando(true);
+                }
+
                 //projeteis
                 /*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)){
                             pJogador1->dispararProjetil(1.0f);
@@ -130,6 +134,10 @@ namespace Pokerun{
                 }
                 if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
                     pJogador2->pular();
+                }
+
+                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L)){
+                    pJogador2->setAtacando(true);
                 }
 
                 //projeteis

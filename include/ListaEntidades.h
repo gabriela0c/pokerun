@@ -23,6 +23,8 @@ namespace Pokerun{
             Elem* getPrimeiro()const;
             int getTam()const;
 
+            std::vector<Entidades::Entidade*> getInativos()const;
+
             void percorrer();
         };
     }

@@ -113,17 +113,24 @@ namespace Pokerun{
             }   
         }
 
+        void Fase::removerInativos()
+        {
+            std::vector<Entidades::Entidade*> lInativos = lista_ents.getInativos();
+
+            for(int i = 0; i < (int)lInativos.size(); i++){
+                desativaEntidade(lInativos[i]);
+                //se for inimigo deleta (eles nao revivem), se jogador pode so inativar (porque tem como mudar de 2 pra 1 e 1 pra 2)
+                if(lInativos[i] != pJogador1 && lInativos[i] != pJogador2){ 
+                    delete lInativos[i]; //o remover da lista nao deleta info, so tira da lista e deleta o ELEMENTO
+                }
+            }
+        }
+
         void Fase::executar()
         {   
-
-            if(!pJogador2->getAtivo()){
-                desativaEntidade(pJogador2);
-            }
-            if(!pJogador1->getAtivo()){
-                desativaEntidade(pJogador1);
-            }
-            lista_ents.percorrer();
+            lista_ents.percorrer();//executa todos da lista polimorficamente
             GC.executar();
+            removerInativos();//aqui porque o GC.executar() que seta inativos apos a logica de ataque
             desenhar();
         }
     }

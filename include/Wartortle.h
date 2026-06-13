@@ -7,6 +7,7 @@
 
 #define NIVEL_MALD_MEDIO 2
 #define N_VDS_MEDIO 3
+#define N_PTS_MEDIO 300
 
 namespace Pokerun{
 

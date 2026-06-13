@@ -44,6 +44,22 @@ namespace Pokerun{
             return LEs.getTam();
         }
 
+        std::vector<Entidades::Entidade*> ListaEntidades::getInativos()const
+        {
+            std::vector<Entidades::Entidade*> inativos;
+            
+            Elem* pAux = LEs.getPrimeiro();
+
+            while(pAux != nullptr){
+                if(pAux->getInfo() && !pAux->getInfo()->getAtivo()){//nem verifica a segunda condicao se a primeira for falsa, nao da seg fault
+                    inativos.push_back(pAux->getInfo());
+                }
+                pAux = pAux->getProx();
+            }
+
+            return inativos;
+        }
+
         void ListaEntidades::percorrer()
         {
             Elem* pAux = LEs.getPrimeiro();

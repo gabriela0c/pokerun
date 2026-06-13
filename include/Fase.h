@@ -49,6 +49,8 @@ namespace Pokerun{
 
             Entidades::Chao* getChao()const;
 
+            void removerInativos();
+
             virtual void executar(); 
         };
     }

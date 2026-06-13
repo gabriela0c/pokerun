@@ -7,7 +7,7 @@ namespace Pokerun{
         namespace Personagens{
 
             Wartortle::Wartortle():
-            Inimigo(NIVEL_MALD_MEDIO, {LARGURA_WARTORTLE, ALTURA_WARTORTLE}, N_VDS_MEDIO), massa((float)(rand() % 51 + 50))
+            Inimigo(NIVEL_MALD_MEDIO, {LARGURA_WARTORTLE, ALTURA_WARTORTLE}, N_VDS_MEDIO, N_PTS_MEDIO), massa((float)(rand() % 51 + 50))
             {
                 setTextura("assets/sprites/personagens/inimigo/wartortle.png", sf::IntRect({0, 0}, {(int)LARGURA_WARTORTLE, (int)ALTURA_WARTORTLE}));
             }
