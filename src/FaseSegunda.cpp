@@ -17,17 +17,23 @@ namespace Pokerun{
 
         FaseSegunda::~FaseSegunda()
         {
-
+            for(int i = 0; i < (int)listaProjeteis.size(); i++)
+            {
+                delete listaProjeteis[i];
+                listaProjeteis[i] = nullptr;
+            }
+            listaProjeteis.clear();
         }
 
         void FaseSegunda::criarCharizards()
         {
-            Entidades::Personagens::Inimigo* pInim = nullptr;
+            Entidades::Personagens::Charizard* pInim = nullptr;
             int n = rand() % 3 + 3; //cria de 3 a 5 inimigos - tabela 1 N5
             for(int i = 0; i < n; i++){
                 pInim = new Entidades::Personagens::Charizard();
                 pInim->setJogador1(pJogador1);
                 pInim->setJogador2(pJogador2);
+                pInim->setListaProjeteis(&listaProjeteis);
                 lista_ents.incluir(static_cast<Entidades::Entidade*>(pInim));
                 GC.incluirInimigo(pInim);
                 pInim = nullptr;
@@ -78,9 +84,51 @@ namespace Pokerun{
             criarFogos();
         }
         
+        void FaseSegunda::atualizarProjeteis()
+        {
+            GC.limparProjeteis();
+ 
+            sf::FloatRect tela(sf::Vector2f(0.0f, 0.0f), sf::Vector2f(WIN_SIZE_X, WIN_SIZE_Y));
+ 
+            for(int i = (int)listaProjeteis.size() - 1; i >= 0; i--)
+            {
+                Entidades::Projetil* pProj = listaProjeteis[i];
+ 
+                if(!pProj){
+                    listaProjeteis.erase(listaProjeteis.begin() + i);
+                    continue;
+                }
+ 
+                if(!tela.contains(pProj->getFig().getPosition())){
+                    pProj->setAtivo(false);
+                }
+ 
+                if(!pProj->getAtivo()){
+                    delete pProj;
+                    listaProjeteis.erase(listaProjeteis.begin() + i);
+                    continue;
+                }
+ 
+                GC.incluirProjetil(pProj);
+                pProj->executar(); // só física, sem desenhar()
+            }
+        }
+
+        void FaseSegunda::desenharProjeteis()
+        {
+            for(int i = 0; i < (int)listaProjeteis.size(); i++){
+                if(listaProjeteis[i] && listaProjeteis[i]->getAtivo()){
+                    listaProjeteis[i]->desenhar();
+                }
+            }
+        }
+
         void FaseSegunda::executar()
         {
-            Fase::executar();
+            atualizarProjeteis();
+            Fase::executar(); //desenha fundo + entidades
+            desenharProjeteis(); //projéteis por cima de tudo
         }
+
     }
 }

@@ -14,17 +14,22 @@ namespace Pokerun{
         private:
             const int maxCharizards;
             const int maxFogos;
-        public:
-        FaseSegunda(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
-        ~FaseSegunda();
-        
-        void criarCharizards();
-        void criarFogos();
-        
-        void criarInimigos();
-        void criarObstaculos();
+            std::vector<Entidades::Projetil*> listaProjeteis;
 
-        void executar();
+            void atualizarProjeteis();
+            void desenharProjeteis();
+
+        public:
+            FaseSegunda(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
+            ~FaseSegunda();
+            
+            void criarCharizards();
+            void criarFogos();
+            
+            void criarInimigos();
+            void criarObstaculos();
+
+            void executar();
         
         };
     }

@@ -1,6 +1,9 @@
 #pragma once 
 
 #include "Inimigo.h"
+#include "Projetil.h"
+#include <vector>
+#include <cmath>
 
 #define LARGURA_CHARIZARD 87.0f
 #define ALTURA_CHARIZARD 77.0f
@@ -9,9 +12,7 @@
 #define N_VDS_CHEFAO 5
 #define N_PTS_CHEFAO 600
 
-#define LARGURA_PROJ 104
-#define ALTURA_PROJ 169
-#define COOLDOWN_TIRO_INIM 0.5f
+#define COOLDOWN_TIRO_INIM 2.0f
 
 namespace Pokerun{
 
@@ -22,17 +23,23 @@ namespace Pokerun{
             class Charizard : public Inimigo{ //Chefao
             private:
                 int raio_ataque;
-                float tempoCooldownTiro;
+                std::vector<Projetil*>* pListaProj;
+                sf::Clock cooldownClock;
+                float cooldownSegundos;
 
             public:
                 Charizard();
-                ~Charizard();
+                virtual ~Charizard();
 
-                void danificar(Jogador* p);
-                
-                //void dispararProjetil(float direcao);
+                void setListaProjeteis(std::vector<Projetil*>* listaProj);
+                virtual void danificar(Jogador* p);
 
                 void executar();
+
+            private:
+                Jogador* jogadorMaisProximo();
+                float distancia(sf::Vector2f a, sf::Vector2f b) const;
+
             };
         }
     }

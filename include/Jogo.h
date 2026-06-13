@@ -19,7 +19,7 @@ namespace Pokerun{
         Fases::FasePrimeira Fase1;
         Fases::FaseSegunda Fase2;
         Menu menu;
-        bool pausado;
+        //bool pausado;
 
     public:
         Jogo();

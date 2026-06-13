@@ -8,6 +8,7 @@
 #include "Inimigo.h"
 #include "Obstaculo.h"
 #include "Plataforma.h"
+#include "Projetil.h"
 #include "Chao.h"
 
 #define ALCANCE_ATAQUE_X 80.0f
@@ -24,6 +25,7 @@ namespace Pokerun{
             Entidades::Personagens::Jogador* pJogador2;
             std::vector<Entidades::Personagens::Inimigo*> Linimigos;
             std::list<Entidades::Obstaculos::Obstaculo*> Lobstaculos;
+            std::vector<Entidades::Projetil*> Lprojeteis;
             Entidades::Chao* pChao;
 
         public:
@@ -48,11 +50,12 @@ namespace Pokerun{
             void setJogador(Entidades::Personagens::Jogador* pJog);
             void remover(Entidades::Entidade* pE);
             void limparListas();
+            void limparProjeteis();
             void setChao(Entidades::Chao* pCh);
 
             void incluirInimigo(Entidades::Personagens::Inimigo* pI);
             void incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO);
-            //void incluirProjetil(Entidades::Projetil* pProj);
+            void incluirProjetil(Entidades::Projetil* pProj);
 
             void executar();
         };

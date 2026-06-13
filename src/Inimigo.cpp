@@ -125,12 +125,12 @@ namespace Pokerun{
                 } 
             }
 
-            void Inimigo::receberDano(int quantidade)
+            /*void Inimigo::receberDano(int quantidade)
             {
                 for (int i = 0; i < quantidade; i++){
                     operator--();
                 }
-            }
+            }*/
 
             void Inimigo::aplicarKnockback(Jogador* p, float forca)
             {
