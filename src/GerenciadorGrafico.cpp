@@ -1,5 +1,6 @@
 #include "GerenciadorGrafico.h"
 #include "Ente.h"
+#include <stdexcept>
 
 namespace Pokerun{
 
@@ -80,11 +81,19 @@ namespace Pokerun{
 
         const bool GerenciadorGrafico::verificaJanelaAberta()
         {
-            if(window){
+            //try-catch
+            try {
+                if (!window) {
+                    // mostra a exceção se a janela não existir
+                    throw std::runtime_error("Erro: O ponteiro da janela grafica eh nulo!");
+                }
                 return (window->isOpen());
             }
-            std::cout << "Janela nula" <<std::endl;
-            return false;
+            catch (const std::exception& e) {
+                // pega a exceção e avisa no terminal p não crashar o jogo do nada
+                std::cerr << "Excecao: " << e.what() << std::endl;
+                return false;
+            }
         }
     }
 } 

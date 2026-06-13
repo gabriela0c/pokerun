@@ -22,7 +22,13 @@ namespace Pokerun{
 
         namespace Personagens{
 
-            class Jogador : public Personagem{
+            class Status {
+            public:
+                virtual ~Status() {}
+                virtual void imprimirStatus() const = 0;
+            };
+
+            class Jogador : public Personagem, public Status{
             protected:
                 const bool ehJogador1;
                 float modificador_velocidade;
@@ -58,7 +64,7 @@ namespace Pokerun{
 
                 bool getInvencivel()const;
                 void ativarInvencibilidade();
-
+                void imprimirStatus() const;
                 void executar();
             };
         }
