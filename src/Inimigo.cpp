@@ -81,7 +81,7 @@ namespace Pokerun{
 
             void Inimigo::movimentoAleatorio()
             {
-                sf::Vector2f tam = getFig().getSize(); //talvez criar atributo tam
+                sf::Vector2f tam = getFig().getSize(); 
 
                 pFigura->move({-vel_x * direcao * dt, 0.0f});
                 
@@ -125,16 +125,16 @@ namespace Pokerun{
                 } 
             }
 
-            /*void Inimigo::receberDano(int quantidade)
+            void Inimigo::receberDano(int quantidade)
             {
                 for (int i = 0; i < quantidade; i++){
                     operator--();
                 }
-            }*/
+            }
 
             void Inimigo::aplicarKnockback(Jogador* p, float forca)
             {
-                float sinal = calcularDirecaoKnockback(p->getFig().getPosition(), pFigura->getPosition());
+                float sinal = calcularDirecao(p->getFig().getPosition(), pFigura->getPosition());
                 p->receberKnockback(sinal * forca);
             }
         }

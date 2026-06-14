@@ -9,7 +9,7 @@ namespace Pokerun{
 
             Jogador::Jogador(const bool ehJog1):
             Personagem((ehJog1 ? sf::Vector2f(LARGURA_PIKACHU, ALTURA_PIKACHU) : sf::Vector2f(LARGURA_RAICHU, ALTURA_RAICHU)), {VEL_JOG_X, 0.0f}, N_VDS_JOG),
-            ehJogador1(ehJog1), modificador_velocidade(1.0f), vel_knockback_x(0.0f), invencibilidade(1.0f), veneno(3.0f), cd_ataque(0.5f), pontos(0)
+            ehJogador1(ehJog1), modificador_velocidade(1.0f), vel_knockback_x(0.0f), invencibilidade(1.0f), veneno(3.0f), cd_ataque(0.7f), pontos(0)
             {
                 if(ehJog1){
                     setTextura("assets/sprites/personagens/jogador/pikachu.png", sf::IntRect({0, 0},{LARGURA_PIKACHU, ALTURA_PIKACHU}));
@@ -83,7 +83,7 @@ namespace Pokerun{
             {
                 if (invencibilidade.getAtivo()) { return; }
                 for (int i = 0; i < quantidade; i++)
-                    --(*this);
+                    operator--();
                 invencibilidade.iniciar();
             }
 
@@ -154,23 +154,22 @@ namespace Pokerun{
             {
                 modificador_velocidade = 1.0f;
 
-                if (veneno.getAtivo())
-                {
-                    if (veneno.expirou())
-                    {
-                        std::cout << (ehJogador1 ? "Jogador 1 (Pikachu)" : "Jogador 2 (Raichu)") << " se curou do veneno!" << std::endl;
-                    }
-                    else
-                        diminui_vel(0.4f);
+                bool estavaEnvenenado = veneno.getAtivo();
+                veneno.atualizar();
+                
+                if(!veneno.getAtivo() && estavaEnvenenado){
+                    std::cout << (ehJogador1 ? "Jogador 1 (Pikachu)" : "Jogador 2 (Raichu)") << " se curou do veneno!" << std::endl;
                 }
+                else if(veneno.getAtivo()){
+                    diminui_vel(0.4f);
+                }
+
+                invencibilidade.atualizar();
+                cd_ataque.atualizar();   
 
                 mover();
                 noTeto = false;
                 noChao = false;
-
-                invencibilidade.expirou();//nao preciso do retorno aqui, só que ele atualize a lógica de ver se duracao acabou
-                cd_ataque.expirou();   
-
 
                 if (num_vidas <= 0)
                 {

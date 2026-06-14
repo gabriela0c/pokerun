@@ -7,12 +7,8 @@ namespace Pokerun{
         FaseSegunda::FaseSegunda(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
         Fase(pJog1, pJog2), maxCharizards(5), maxFogos(5)
         {
-            GC.setChao(pChao);
-            
             setTextura("assets/sprites/fundos/fase2.png", sf::IntRect({0, 0}, {TAM_CAVERNA_X, TAM_CAVERNA_Y}));
-            
-            criarInimigos();
-            criarObstaculos();
+            criarCenario();
         }
 
         FaseSegunda::~FaseSegunda()

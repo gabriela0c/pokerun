@@ -15,7 +15,7 @@ namespace Pokerun{
         ~Temporizador();
 
         void iniciar();
-        bool expirou();
+        void atualizar();
         void parar();
 
         bool getAtivo()const;

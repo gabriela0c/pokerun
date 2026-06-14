@@ -17,8 +17,8 @@ namespace Pokerun{
 
         }
 
-         void Entidade::aplicarGravidade()
-         {
+        void Entidade::aplicarGravidade()
+        {
             dt = relogio.restart().asSeconds();
     
             if (dt > 0.1f) 
@@ -28,29 +28,29 @@ namespace Pokerun{
             if(vel_y > VEL_TERM){vel_y = VEL_TERM;}
 
             pFigura->move({0.0f, vel_y*dt});
-         }
+        }
 
-         void Entidade::antiGravidade()
-         {//nao tem um clock.restart pq senao ia ser quase 0 o dt, tem que usar o mesmo dt do aplicarGravidade
+            float Entidade::calcularDirecao(sf::Vector2f posAlvo, sf::Vector2f posFonte)
+            {
+                float dirX = posAlvo.x - posFonte.x;
+                return (dirX >= 0.0f) ? 1.0f : -1.0f;
+            }
+
+        void Entidade::antiGravidade()
+        {//nao tem um clock.restart pq senao ia ser quase 0 o dt, tem que usar o mesmo dt do aplicarGravidade
             pFigura->move({0.0f, - vel_y*dt});//desfaz o movimento p/baixo que a gravidade causou
         
             vel_y = 0; //zera velocidade para ela nao acumular
-         }
+        }
 
-         float Entidade::calcularDirecaoKnockback(sf::Vector2f posAlvo, sf::Vector2f posFonte)
-         {
-            float dirX = posAlvo.x - posFonte.x;
-            return (dirX >= 0.0f) ? 1.0f : -1.0f;
-         }
+        bool Entidade::getAtivo() const
+        {
+            return ativo;
+        }  
 
-            bool Entidade::getAtivo() const
-            {
-                return ativo;
-            }  
-
-            void Entidade::setAtivo(const bool a)
-            {
-                ativo = a;
-            }
+        void Entidade::setAtivo(const bool a)
+        {
+            ativo = a;
+        }
     }
 }

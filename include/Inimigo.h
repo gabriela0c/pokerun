@@ -46,11 +46,11 @@ namespace Pokerun{
                 int getValorPontos()const;
                 
                 void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
-                //void receberDano(int quantidade);
+                void receberDano(int quantidade);
 
                 virtual void danificar(Jogador* p) = 0;
 
-            protected://porque?
+            protected:
                 void aplicarKnockback(Jogador* p, float forca);
             };
         }

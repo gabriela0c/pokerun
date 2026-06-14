@@ -7,12 +7,8 @@ namespace Pokerun{
         FasePrimeira::FasePrimeira(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
         Fase(pJog1, pJog2), maxWartortles(5), maxPocas(5)
         {
-            GC.setChao(pChao);
-            
             setTextura("assets/sprites/fundos/fase1.png", sf::IntRect({0, 0}, {(int)WIN_SIZE_X, (int)WIN_SIZE_Y}));
-            
-            criarInimigos();
-            criarObstaculos();
+            criarCenario();
         }
 
         FasePrimeira::~FasePrimeira()

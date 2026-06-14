@@ -18,13 +18,11 @@ namespace Pokerun{
             ativo = true;
         }
         
-        bool Temporizador::expirou()
+        void Temporizador::atualizar()
         {
             if(ativo && relogio.getElapsedTime().asSeconds() > duracao){
                 ativo = false;
-                return true;
             }
-            return false;
         }
 
         void Temporizador::parar()

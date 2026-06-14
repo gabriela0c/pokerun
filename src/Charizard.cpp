@@ -8,13 +8,14 @@ namespace Pokerun{
         namespace Personagens{
 
             Charizard::Charizard():
-            Inimigo(NIVEL_MALD_CHEFAO, {LARGURA_CHARIZARD, ALTURA_CHARIZARD}, N_VDS_CHEFAO), raio_ataque((int)(rand() % 201 + 100)), pListaProj(nullptr), cooldownSegundos(COOLDOWN_TIRO_INIM)
+            Inimigo(NIVEL_MALD_CHEFAO, {LARGURA_CHARIZARD, ALTURA_CHARIZARD}, N_VDS_CHEFAO), raio_ataque((int)(rand() % 201 + 100)), pListaProj(nullptr), cd_projetil(COOLDOWN_TIRO_INIM)
             {
                 setTextura("assets/sprites/personagens/inimigo/charizard.png", sf::IntRect({0, 0}, {(int)LARGURA_CHARIZARD, (int)ALTURA_CHARIZARD}));
             }
 
             Charizard::~Charizard()
             {
+                pListaProj = nullptr;
             }
 
             void Charizard::setListaProjeteis(std::vector<Projetil*>* pLista)
@@ -69,14 +70,15 @@ namespace Pokerun{
                 if(!pListaProj){ return; }
  
                 //cooldown entre tiros
-                if(cooldownClock.getElapsedTime().asSeconds() < cooldownSegundos){ return; }
+                cd_projetil.atualizar(); //desativa quando a duracao passa
+                if(cd_projetil.getAtivo()){return;} //se cd ativo retorna
  
                 Jogador* alvo = jogadorMaisProximo();
                 if(!alvo){ return; }
  
                 sf::Vector2f posChar = pFigura->getPosition();
                 sf::Vector2f posAlvo = alvo->getFig().getPosition();
-                float dirX = (posAlvo.x >= posChar.x) ? 1.0f : -1.0f;
+                float dirX = calcularDirecao(posAlvo, posChar);
  
                 float spawnX = posChar.x + (dirX > 0.0f ? pFigura->getSize().x : -LARGURA_PROJ);
                 float spawnY = posChar.y + pFigura->getSize().y * 0.3f;
@@ -85,7 +87,7 @@ namespace Pokerun{
                 pProj->getFig().setPosition(sf::Vector2f(spawnX, spawnY));
  
                 pListaProj->push_back(pProj);
-                cooldownClock.restart();
+                cd_projetil.iniciar();
             }
         }
     }

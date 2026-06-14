@@ -7,16 +7,17 @@ namespace Pokerun{
  
         Fase::Fase(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
         Ente({WIN_SIZE_X, WIN_SIZE_Y}), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2), pChao(new Entidades::Chao()),
-        maxBulbasaurs(5) //jog1Ativo(true), jog2Ativo(true)
+        maxBulbasaurs(5) 
         {
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
-            pFigura->setPosition({0.0f, 0.0f});//poderia tirar essa linha ja que default é 0,0
+            pFigura->setPosition({0.0f, 0.0f});
             posicoesPlataformas.push_back(pChao->getFig().getGlobalBounds());//garante que plataformas nao vao ficar em cima do chao
 
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pJogador1));
             GC.setJogador(pJog1);
             //jogador 2 so eh incluido na lista e em GC se forem selecionados 2 jogadores no menu, senao ele eh incluido 2 vezes na lista
             //e o sprite continua aparecendo apos ele morrer. Pro gerenciador de colisoes nao ocorre nenhum bug, so nao eh necessario
+            GC.setChao(pChao);
         }
 
         Fase::~Fase()
@@ -124,6 +125,13 @@ namespace Pokerun{
                     delete lInativos[i]; //o remover da lista nao deleta info, so tira da lista e deleta o ELEMENTO
                 }
             }
+        }
+
+        void Fase::criarCenario()
+        {
+            criarInimigos();
+            criarPlataformas();
+            criarObstaculos();
         }
 
         void Fase::executar()

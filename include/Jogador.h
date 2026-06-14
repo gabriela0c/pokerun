@@ -13,9 +13,6 @@
 
 #define N_VDS_JOG 10
 
-#define DANO_PROJETIL_JOG 1
-#define COOLDOWN_TIRO_JOG 0.5f
-
 namespace Pokerun{
 
     namespace Entidades{

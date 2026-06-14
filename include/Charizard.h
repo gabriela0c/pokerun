@@ -24,8 +24,7 @@ namespace Pokerun{
             private:
                 int raio_ataque;
                 std::vector<Projetil*>* pListaProj;
-                sf::Clock cooldownClock;
-                float cooldownSegundos;
+                Temporizador cd_projetil;
 
             public:
                 Charizard();

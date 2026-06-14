@@ -7,18 +7,18 @@ namespace Pokerun{
     namespace Gerenciadores{
 
         GerenciadorColisoes::GerenciadorColisoes():
-        pJogador1(nullptr), pJogador2(nullptr), Linimigos(), Lobstaculos(), Lprojeteis(), pChao(nullptr)
+        pJogador1(nullptr), pJogador2(nullptr), Linimigos(), Lobstaculos(), setProjeteis(), pChao(nullptr)
         {
             Linimigos.clear();
             Lobstaculos.clear();
-            Lprojeteis.clear();
+            setProjeteis.clear();
         }
 
         GerenciadorColisoes::~GerenciadorColisoes()
         {
             Linimigos.clear();
             Lobstaculos.clear();
-            Lprojeteis.clear();
+            setProjeteis.clear();
             pJogador1 = nullptr;
             pJogador2 = nullptr;
             pChao = nullptr;
@@ -180,11 +180,13 @@ namespace Pokerun{
 
         void GerenciadorColisoes::tratarColisoesProjeteis()
         {
-            if(Lprojeteis.empty()){ return; }
+            if(setProjeteis.empty()){ return; }
 
-            for(int i = 0; i < (int)Lprojeteis.size(); i++)
+            std::set<Entidades::Projetil*>::iterator itProj;
+
+            for(itProj = setProjeteis.begin(); itProj != setProjeteis.end(); itProj++)
             {
-                Entidades::Projetil* pProj = Lprojeteis[i];
+                Entidades::Projetil* pProj = (*itProj);
                 if(!pProj || !pProj->getAtivo()){ continue; }
 
                 std::list<Entidades::Obstaculos::Obstaculo*>::const_iterator it = Lobstaculos.begin();
@@ -196,33 +198,28 @@ namespace Pokerun{
                     it++;
                 }
 
-                if(!pProj->getAtivo()){ continue; }
+                if(!pProj->getAtivo()){ continue;}
 
-                if(pJogador1 && pJogador1->getAtivo() &&
-                verificarColisao(pProj, pJogador1))
+                if(pJogador1 && pJogador1->getAtivo() && verificarColisao(pProj, pJogador1))
                 {
                     if(!pJogador1->getInvencivel()){
                         for(int d = 0; d < pProj->getDano(); d++){
                             pJogador1->operator--();
                         }
                         pJogador1->ativarInvencibilidade();
-                        std::cout << "Projetil acertou Pikachu! Vidas: "
-                                << pJogador1->getNumvidas() << std::endl;
+                        std::cout << "Projetil acertou Pikachu! Vidas: " << pJogador1->getNumvidas() << std::endl;
                     }
                     pProj->setAtivo(false);
                 }
 
-                if(pProj->getAtivo() &&
-                pJogador2 && pJogador2->getAtivo() &&
-                verificarColisao(pProj, pJogador2))
+                if(pProj->getAtivo() && pJogador2 && pJogador2->getAtivo() && verificarColisao(pProj, pJogador2))
                 {
                     if(!pJogador2->getInvencivel()){
                         for(int d = 0; d < pProj->getDano(); d++){
                             pJogador2->operator--();
                         }
                         pJogador2->ativarInvencibilidade();
-                        std::cout << "Projetil acertou Raichu! Vidas: "
-                                << pJogador2->getNumvidas() << std::endl;
+                        std::cout << "Projetil acertou Raichu! Vidas: " << pJogador2->getNumvidas() << std::endl;
                     }
                     pProj->setAtivo(false);
                 }
@@ -376,13 +373,13 @@ namespace Pokerun{
                 it++;
             }
 
-            for(int i = 0; i < (int)Lprojeteis.size(); i++)
-            {
-                if(Lprojeteis[i] == pE)
-                {
-                    Lprojeteis.erase(Lprojeteis.begin() + i);
+            std::set<Entidades::Projetil*>::iterator itProj = setProjeteis.begin();
+            while (itProj != setProjeteis.end()) {
+                if (*itProj == pE) {
+                    setProjeteis.erase(itProj);
                     return;
-                }   
+                }
+                itProj++;
             }
         }
 
@@ -396,7 +393,7 @@ namespace Pokerun{
 
         void GerenciadorColisoes::limparProjeteis()
         {
-            Lprojeteis.clear();
+            setProjeteis.clear();
         }
 
         void GerenciadorColisoes::setChao(Entidades::Chao* pCh)
@@ -423,7 +420,7 @@ namespace Pokerun{
         void GerenciadorColisoes::incluirProjetil(Entidades::Projetil* pProj)
         {
             if(pProj){ 
-                Lprojeteis.push_back(pProj); 
+                setProjeteis.insert(pProj); 
             }
         }
 

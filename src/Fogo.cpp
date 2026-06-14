@@ -32,7 +32,7 @@ namespace Pokerun{
                 for(int i = 1; i < intensidade; i++)
                     pJog->operator--();
                 
-                float sinal = calcularDirecaoKnockback(pJog->getFig().getPosition(), pFigura->getPosition());
+                float sinal = calcularDirecao(pJog->getFig().getPosition(), pFigura->getPosition());
                 pJog->receberKnockback(sinal * 200.0f);
                 pJog->ativarInvencibilidade();
  

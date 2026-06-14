@@ -40,9 +40,7 @@ namespace Pokerun{
             
             void criarBulbasaurs();
             void criarPlataformas();
-            //void criarCenario();
-
-            //void adicionarProjetil(Entidades::Projetil* pProj);
+            void criarCenario();
 
             void ativaJogador(Entidades::Personagens::Jogador* pJog);
             void desativaEntidade(Entidades::Entidade* pE);

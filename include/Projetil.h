@@ -17,12 +17,13 @@ namespace Pokerun {
         class Projetil : public Entidade {
             private:
                 float vel_x;
+                const float dano;
 
             public:
             Projetil(float velX);
             ~Projetil();
 
-            int getDano() const;
+            const int getDano()const;
             
             virtual void executar();
         };

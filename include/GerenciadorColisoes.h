@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <list>
+#include <set>
 
 #include "Entidade.h"
 #include "Personagem.h"
@@ -25,7 +26,7 @@ namespace Pokerun{
             Entidades::Personagens::Jogador* pJogador2;
             std::vector<Entidades::Personagens::Inimigo*> Linimigos;
             std::list<Entidades::Obstaculos::Obstaculo*> Lobstaculos;
-            std::vector<Entidades::Projetil*> Lprojeteis;
+            std::set<Entidades::Projetil*> setProjeteis;
             Entidades::Chao* pChao;
 
         public:
