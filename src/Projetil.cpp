@@ -22,6 +22,10 @@ namespace Pokerun {
         {
             aplicarGravidade();
             pFigura->move({vel_x * dt, 0.0f});
+
+            sf::Vector2f pos = pFigura->getPosition();
+            if(pos.x < 0.0f || pos.x > WIN_SIZE_X || pos.y < 0.0f || pos.y > WIN_SIZE_Y)//inativa se ele bate em um dos cantos
+                setAtivo(false);
         }
 
     }

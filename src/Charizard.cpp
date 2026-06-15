@@ -8,19 +8,19 @@ namespace Pokerun{
         namespace Personagens{
 
             Charizard::Charizard():
-            Inimigo(NIVEL_MALD_CHEFAO, {LARGURA_CHARIZARD, ALTURA_CHARIZARD}, N_VDS_CHEFAO), raio_ataque((int)(rand() % 201 + 100)), pListaProj(nullptr), cd_projetil(COOLDOWN_TIRO_INIM)
+            Inimigo(NIVEL_MALD_CHEFAO, {LARGURA_CHARIZARD, ALTURA_CHARIZARD}, N_VDS_CHEFAO), raio_ataque((int)(rand() % 201 + 100)), cd_projetil(COOLDOWN_TIRO_INIM), pReceptor(nullptr)
             {
                 setTextura("assets/sprites/personagens/inimigo/charizard.png", sf::IntRect({0, 0}, {(int)LARGURA_CHARIZARD, (int)ALTURA_CHARIZARD}));
             }
 
             Charizard::~Charizard()
             {
-                pListaProj = nullptr;
+                pReceptor = nullptr;
             }
 
-            void Charizard::setListaProjeteis(std::vector<Projetil*>* pLista)
+            void Charizard::setReceptorProjeteis(ReceptorProjetil* pRec)
             {
-                if(pLista){ pListaProj = pLista; }
+                if(pRec){ pReceptor = pRec; }
             }
 
            void Charizard::danificar(Jogador* p)
@@ -67,7 +67,7 @@ namespace Pokerun{
             {
                 Inimigo::executar();
  
-                if(!pListaProj){ return; }
+                if(!pReceptor){ return; }
  
                 //cooldown entre tiros
                 cd_projetil.atualizar(); //desativa quando a duracao passa
@@ -86,7 +86,7 @@ namespace Pokerun{
                 Projetil* pProj = new Projetil(VEL_PROJETIL_X * dirX);
                 pProj->getFig().setPosition(sf::Vector2f(spawnX, spawnY));
  
-                pListaProj->push_back(pProj);
+                pReceptor->adicionarProjetil(pProj);
                 cd_projetil.iniciar();
             }
         }

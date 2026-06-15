@@ -2,6 +2,7 @@
 
 #include "Inimigo.h"
 #include "Projetil.h"
+#include "ReceptorProjetil.h"
 #include <vector>
 #include <cmath>
 
@@ -23,14 +24,14 @@ namespace Pokerun{
             class Charizard : public Inimigo{ //Chefao
             private:
                 int raio_ataque;
-                std::vector<Projetil*>* pListaProj;
                 Temporizador cd_projetil;
+                ReceptorProjetil* pReceptor;
 
             public:
                 Charizard();
                 virtual ~Charizard();
 
-                void setListaProjeteis(std::vector<Projetil*>* listaProj);
+                void setReceptorProjeteis(ReceptorProjetil* pRec);
                 virtual void danificar(Jogador* p);
 
                 void executar();

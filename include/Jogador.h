@@ -19,13 +19,7 @@ namespace Pokerun{
 
         namespace Personagens{
 
-            class Status {
-            public:
-                virtual ~Status() {}
-                virtual void imprimirStatus() const = 0;
-            };
-
-            class Jogador : public Personagem, public Status{
+            class Jogador : public Personagem{
             protected:
                 const bool ehJogador1;
                 float modificador_velocidade;

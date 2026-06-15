@@ -5,7 +5,7 @@ namespace Pokerun{
     namespace Fases{
 
         FasePrimeira::FasePrimeira(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
-        Fase(pJog1, pJog2), maxWartortles(5), maxPocas(5)
+        Fase(pJog1, pJog2), maxWartortles(4), maxPocas(5)
         {
             setTextura("assets/sprites/fundos/fase1.png", sf::IntRect({0, 0}, {(int)WIN_SIZE_X, (int)WIN_SIZE_Y}));
             criarCenario();
@@ -18,7 +18,7 @@ namespace Pokerun{
         void FasePrimeira::criarWartortles()
         {
             Entidades::Personagens::Inimigo* pInim = nullptr;
-            int n = rand() % 3 + 3; //cria de 3 a 5 inimigos - tabela 1 N5
+            int n = rand() % 2 + 3; //cria de 3 a 4 inimigos - tabela 1 N5
             for(int i = 0; i < n; i++){
                 pInim = new Entidades::Personagens::Wartortle();
                 pInim->setJogador1(pJogador1);

@@ -10,14 +10,10 @@ namespace Pokerun{
 
     namespace Fases{
 
-        class FaseSegunda : public Fase{
+        class FaseSegunda : public Fase , public ReceptorProjetil{
         private:
             const int maxCharizards;
             const int maxFogos;
-            std::vector<Entidades::Projetil*> listaProjeteis;
-
-            void atualizarProjeteis();
-            void desenharProjeteis();
 
         public:
             FaseSegunda(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
@@ -28,6 +24,8 @@ namespace Pokerun{
             
             void criarInimigos();
             void criarObstaculos();
+
+            void adicionarProjetil(Entidades::Projetil* pProj);
 
             void executar();
         
