@@ -8,7 +8,7 @@ namespace Pokerun{
  
             Fogo::Fogo():
             Obstaculo({TAM_FOGO_X, TAM_FOGO_Y}, true, false),
-            intensidade(rand() % 3)
+            intensidade(rand() % 3 + 1)
             {
                 setTextura("assets/sprites/obstaculos/fogo.png", sf::IntRect({0, 0}, {LARGURA_FOGO, ALTURA_FOGO}));
             }
@@ -40,9 +40,9 @@ namespace Pokerun{
  
             void Fogo::queimar(Personagens::Jogador* pJog)
             {
-                //intensidade 1: só knockback
-                //intensidade 2: 1 de dano + knockback
-                //intensidade 3: 2 de dano + knockback
+                //intensidade 1: 1 de dano + knockback
+                //intensidade 2: 2 de dano + knockback
+                //intensidade 3: 3 de dano + knockback
                 for(int i = 1; i < intensidade; i++)
                     pJog->operator--();
                 
