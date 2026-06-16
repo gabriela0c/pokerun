@@ -1,5 +1,5 @@
 #pragma once
-#include "GerenciadorGrafico.h"
+#include "Gerenciadores/GerenciadorGrafico.h"
 
 namespace Pokerun {
 

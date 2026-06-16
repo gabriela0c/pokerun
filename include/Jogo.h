@@ -2,9 +2,9 @@
 #pragma once
 
 #include "EstadoJogo.h"
-#include "FasePrimeira.h"
-#include "FaseSegunda.h"
-#include "GerenciadorEvento.h"
+#include "Fases/FasePrimeira.h"
+#include "Fases/FaseSegunda.h"
+#include "Gerenciadores/GerenciadorEvento.h"
 #include "Menu.h"
 
 namespace Pokerun{

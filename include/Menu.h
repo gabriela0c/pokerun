@@ -1,6 +1,6 @@
 #pragma once
 
-#include "GerenciadorEvento.h"
+#include "Gerenciadores/GerenciadorEvento.h"
 #include "Ente.h"
 #include "Ranking.h"
 
