@@ -32,6 +32,20 @@ namespace Pokerun{
                 antiGravidade();
             }
 
+            void Plataforma::salvarDataBuffer()
+            {
+                Obstaculo::salvarDataBuffer();
+                buffer << " " << dimensoes.x << " " << dimensoes.y;
+            }
+
+            void Plataforma::salvar()
+            {
+                buffer.str("");               
+                salvarDataBuffer();
+                std::ofstream arquivo("save.dat", std::ios::app);
+                arquivo << "PLATAFORMA " << buffer.str() << std::endl;
+            }
+
             void Plataforma::obstaculizar(Personagens::Jogador* pJog)
             {
                 

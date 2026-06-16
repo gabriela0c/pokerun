@@ -37,6 +37,9 @@ namespace Pokerun{
                 void mover();
                 void pular();
 
+                void salvarDataBuffer(); 
+                void salvar();            
+
                 void operator+=(int num);
 
                 void diminui_vel(float taxa);

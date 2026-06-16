@@ -24,6 +24,9 @@ namespace Pokerun{
                 Fogo();
                 ~Fogo();
 
+                void salvarDataBuffer();
+                void salvar();
+
                 void executar();
                 void obstaculizar(Personagens::Jogador* pJog);
             };

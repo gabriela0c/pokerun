@@ -21,6 +21,7 @@ namespace Pokerun{
             ~Chao();
 
             void executar();
+            void salvar();
         };
     }
 }

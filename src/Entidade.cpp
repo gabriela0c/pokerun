@@ -17,6 +17,11 @@ namespace Pokerun{
 
         }
 
+        void Entidade::salvarDataBuffer()
+        {
+            buffer << id << x << " " << y << " " << vel_y << " " << (ativo ? 1 : 0) ;
+        }
+
         void Entidade::aplicarGravidade()
         {
             dt = relogio.restart().asSeconds();
@@ -30,11 +35,18 @@ namespace Pokerun{
             pFigura->move({0.0f, vel_y*dt});
         }
 
-            float Entidade::calcularDirecao(sf::Vector2f posAlvo, sf::Vector2f posFonte)
-            {
-                float dirX = posAlvo.x - posFonte.x;
-                return (dirX >= 0.0f) ? 1.0f : -1.0f;
-            }
+        void Entidade::sincronizarPosicao()
+        {
+            sf::Vector2f pos = pFigura->getPosition();
+            x = pos.x;
+            y = pos.y;
+        }
+
+        float Entidade::calcularDirecao(sf::Vector2f posAlvo, sf::Vector2f posFonte)
+        {
+           float dirX = posAlvo.x - posFonte.x;
+            return (dirX >= 0.0f) ? 1.0f : -1.0f;
+        }
 
         void Entidade::antiGravidade()
         {//nao tem um clock.restart pq senao ia ser quase 0 o dt, tem que usar o mesmo dt do aplicarGravidade

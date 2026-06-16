@@ -22,6 +22,9 @@ namespace Pokerun{
             
                 void executar();
                 void obstaculizar(Personagens::Jogador* pJog);
+
+                void salvarDataBuffer(); 
+                void salvar();           
             };
         }
     }

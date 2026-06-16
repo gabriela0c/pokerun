@@ -17,16 +17,25 @@
 namespace Pokerun {
     namespace Entidades {
 
+        namespace Personagens{
+            class Charizard;
+        }
+
         class Projetil : public Entidade {
         private:
             float vel_x;
             const float dano;
+            Personagens::Charizard* pCharizard;
 
         public:
             Projetil(float velX);
             ~Projetil();
 
+            void salvarDataBuffer();  
+            void salvar();            
+
             const int getDano()const;
+            void setCharizard(Personagens::Charizard* pChar);
             
             void executar();
         };

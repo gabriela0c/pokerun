@@ -17,6 +17,12 @@ namespace Pokerun{
 
             }
 
+            void Obstaculo::salvarDataBuffer()
+            {
+                Entidade::salvarDataBuffer();
+                buffer << " " << danoso << " " << solido;
+            }
+
             const bool Obstaculo::isSolido()const
             {
                 return solido;

@@ -17,11 +17,14 @@ namespace Pokerun{
 
             class Bulbasaur : public Inimigo{
             private:
-                float chance_veneno;
+                int chance_veneno;
 
             public:
                 Bulbasaur();
                 ~Bulbasaur();
+
+                void salvarDataBuffer();
+                void salvar();
 
                 void executar();
                 void danificar(Jogador* p);

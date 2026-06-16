@@ -17,6 +17,21 @@ namespace Pokerun{
 
             }
 
+            void Poca::salvarDataBuffer()
+            {
+                Obstaculo::salvarDataBuffer();
+                buffer << " " << profundidade;
+            }
+
+            void Poca::salvar()
+            {
+                buffer.str("");
+                salvarDataBuffer();
+                std::ofstream arquivo("save.dat", std::ios::app);
+                arquivo << "POCA " << buffer.str() << std::endl;
+
+            }
+
             void Poca::executar()
             {
                 aplicarGravidade();
@@ -26,10 +41,9 @@ namespace Pokerun{
             void Poca::obstaculizar(Personagens::Jogador* pJog)
             {
                 if(pJog){   
-                    //pJog->setNoChao(false);//faz com que o jogador nao possa pular quando esta na poca
                     float taxa = 1 - (profundidade/100); //para fazer a vel do jogador diminuir algo entre 50 e 80%
                     pJog->diminui_vel(taxa);
-               }
+                }
             }
         }
     }

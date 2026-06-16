@@ -17,6 +17,20 @@ namespace Pokerun{
             {
  
             }
+
+            void Fogo::salvarDataBuffer()
+            {
+                Obstaculo::salvarDataBuffer();
+                buffer << " " << intensidade;
+            }
+
+            void Fogo::salvar()
+            {
+                buffer.str("");
+                salvarDataBuffer();
+                std::ofstream arquivo("save.dat", std::ios::app);
+                arquivo << "FOGO " << buffer.str() << std::endl;
+            }
  
             void Fogo::executar()
             {

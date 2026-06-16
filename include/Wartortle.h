@@ -23,6 +23,9 @@ namespace Pokerun{
                 Wartortle();
                 ~Wartortle();
 
+                void salvarDataBuffer();
+                void salvar();
+
                 void danificar(Jogador* p);
                 void executar();
             };

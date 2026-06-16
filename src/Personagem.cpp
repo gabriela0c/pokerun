@@ -40,9 +40,15 @@ namespace Pokerun{
                 noChao = nC;
             }
 
-             void Personagem::operator--()
-             {
+            void Personagem::operator--()
+            {
                 if(num_vidas > 0){num_vidas--;}
+            }
+
+            void Personagem::salvarDataBuffer()
+            {
+                Entidade::salvarDataBuffer();
+                buffer << vel_x << " " << noChao << " " << noTeto << " " << num_vidas;
             }
 
             int Personagem::getNumvidas()const

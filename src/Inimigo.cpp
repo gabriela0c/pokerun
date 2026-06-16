@@ -19,6 +19,12 @@ namespace Pokerun{
                 pJogador2 = nullptr;
             }
 
+            void Inimigo::salvarDataBuffer()
+            {
+                Personagem::salvarDataBuffer();
+                buffer << " " << nivel_maldade << " " << valorPontos << " " << direcao;
+            }
+
             void Inimigo::setJogador1(Jogador* jog1)
             {
                 if(jog1){

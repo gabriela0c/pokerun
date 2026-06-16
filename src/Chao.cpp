@@ -16,6 +16,14 @@ namespace Pokerun{
 
         }
 
+        void Chao::salvar()
+        {
+            buffer.str("");
+            salvarDataBuffer();   //chao nao tem campos extras pra salvar
+            std::ofstream arquivo("save.dat", std::ios::app);
+            arquivo << "CHAO " << buffer.str() << "\n";
+        }
+
         void Chao::executar()
         {
 

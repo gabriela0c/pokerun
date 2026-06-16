@@ -43,6 +43,9 @@ namespace Pokerun{
                 void mover();
                 void movimentoAleatorio();
 
+                void salvarDataBuffer();              
+                virtual void salvar() = 0;            
+
                 int getValorPontos()const;
                 
                 void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);

@@ -68,6 +68,7 @@ namespace Pokerun{
                 
                 if(pAux->getInfo()){
                     (pAux->getInfo())->executar();
+                    (pAux->getInfo())->sincronizarPosicao();
                 }
                 pAux = pAux->getProx();
             }

@@ -19,6 +19,8 @@ namespace Pokerun{
                 virtual ~Obstaculo();
 
                 const bool isSolido()const;
+                virtual void salvarDataBuffer();
+                virtual void salvar() = 0;
                 
                 virtual void executar() = 0;
                 virtual void obstaculizar(Personagens::Jogador* pJog) = 0;

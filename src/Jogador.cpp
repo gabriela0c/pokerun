@@ -58,6 +58,20 @@ namespace Pokerun{
                 } 
             }
 
+            void Jogador::salvarDataBuffer()
+            {
+                Personagem::salvarDataBuffer();
+                buffer << " " << pontos;
+            }
+
+            void Jogador::salvar()
+            {
+                buffer.str("");
+                salvarDataBuffer();
+                std::ofstream arquivo("save.dat", std::ios::app);
+                arquivo << (ehJogador1 ? "JOGADOR1 " : "JOGADOR2 ") << buffer.str() << std::endl;
+            }
+
             void Jogador::operator+=(int num)
             {
                 pontos += num;

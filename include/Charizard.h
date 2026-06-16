@@ -26,13 +26,19 @@ namespace Pokerun{
                 int raio_ataque;
                 Temporizador cd_projetil;
                 ReceptorProjetil* pReceptor;
+                std::vector<Projetil*> lProjeteis;
 
             public:
                 Charizard();
-                virtual ~Charizard();
+                ~Charizard();
 
                 void setReceptorProjeteis(ReceptorProjetil* pRec);
-                virtual void danificar(Jogador* p);
+                void adicionarProjetil(Projetil* pProj);
+                void removerProjetil(Projetil* pProj);
+                void danificar(Jogador* p);
+
+                void salvarDataBuffer();  
+                void salvar();            
 
                 void executar();
 

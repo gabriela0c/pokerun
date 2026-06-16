@@ -1,9 +1,10 @@
 #include "Projetil.h"
+#include "Charizard.h"
 
 namespace Pokerun {
     namespace Entidades {
 
-        Projetil::Projetil(float velX) : Entidade({LARGURA_PROJ, ALTURA_PROJ}, 0.0f), vel_x(velX), dano(DANO_PROJETIL)
+        Projetil::Projetil(float velX) : Entidade({LARGURA_PROJ, ALTURA_PROJ}, 0.0f), vel_x(velX), dano(DANO_PROJETIL), pCharizard(nullptr)
         {
             setTextura("assets/sprites/outros/fogo-charizard.png",
                 sf::IntRect({0, 0}, {TAMANHO_PROJ_X, TAMANHO_PROJ_Y}));
@@ -11,11 +12,32 @@ namespace Pokerun {
 
         Projetil::~Projetil() 
         {
+            if(pCharizard){ pCharizard->removerProjetil(this);}
+            pCharizard = nullptr; 
+        }
+
+        void Projetil::salvarDataBuffer()
+        {
+            Entidade::salvarDataBuffer();
+            buffer << " " << vel_x;
+        }
+
+        void Projetil::salvar()
+        {
+            buffer.str("");
+            salvarDataBuffer();
+            std::ofstream arquivo("save.dat", std::ios::app);
+            arquivo << "PROJETIL " << buffer.str() << std::endl;
         }
 
         const int Projetil::getDano()const
         {
             return dano;
+        }
+
+        void Projetil::setCharizard(Personagens::Charizard* pChar)
+        {
+            pCharizard = pChar;
         }
 
         void Projetil::executar()
