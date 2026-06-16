@@ -187,18 +187,18 @@ namespace Pokerun{
             for(itProj = setProjeteis.begin(); itProj != setProjeteis.end(); itProj++)
             {
                 Entidades::Projetil* pProj = (*itProj);
-                if(!pProj || !pProj->getAtivo()){ continue; }
+                if(!pProj || !pProj->getVoando()){ continue; }
 
                 std::list<Entidades::Obstaculos::Obstaculo*>::const_iterator it = Lobstaculos.begin();
-                while(it != Lobstaculos.end() && pProj->getAtivo())
+                while(it != Lobstaculos.end() && pProj->getVoando())
                 {
                     if(*it && (*it)->isSolido() && verificarColisao(pProj, *it)){
-                        pProj->resetar();
+                        pProj->guardar();
                     }
                     it++;
                 }
 
-                if(!pProj->getAtivo()){continue;}
+                if(!pProj->getVoando()){continue;}
 
                 if(pJogador1 && pJogador1->getAtivo() && verificarColisao(pProj, pJogador1))
                 {
@@ -209,10 +209,10 @@ namespace Pokerun{
                         pJogador1->ativarInvencibilidade();
                         std::cout << "Projetil acertou Pikachu! Vidas: " << pJogador1->getNumvidas() << std::endl;
                     }
-                    pProj->resetar();
+                    pProj->guardar();
                 }
 
-                if(pProj->getAtivo() && pJogador2 && pJogador2->getAtivo() && verificarColisao(pProj, pJogador2))
+                if(pProj->getVoando() && pJogador2 && pJogador2->getAtivo() && verificarColisao(pProj, pJogador2))
                 {
                     if(!pJogador2->getInvencivel()){
                         for(int d = 0; d < pProj->getDano(); d++){
@@ -221,7 +221,7 @@ namespace Pokerun{
                         pJogador2->ativarInvencibilidade();
                         std::cout << "Projetil acertou Raichu! Vidas: " << pJogador2->getNumvidas() << std::endl;
                     }
-                    pProj->resetar();
+                    pProj->guardar();
                 }
             }
         }

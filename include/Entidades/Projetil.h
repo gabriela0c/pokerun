@@ -8,7 +8,8 @@
 #define TAMANHO_PROJ_X 104
 #define TAMANHO_PROJ_Y 169
 
-#define VEL_PROJETIL_X 300.0f
+#define VEL_PROJETIL_X 150.0f
+#define VEL_PROJETIL_Y 300.0f //aqui tem que ser maior pq age a gravidade senao nao vai p/cima
 #define DANO_PROJETIL 3
 
 #define WIN_SIZE_X 800.0f
@@ -40,10 +41,13 @@ namespace Pokerun {
 
             const int getDano()const;
             void setCharizard(Personagens::Charizard* pChar);
-            void resetar();
-            
+            void guardar();
+            bool disparar();
+            void recarregar(sf::Vector2f dir); //posiciona na borda do charizard e ajusta vel_x conforme a direcao
+
+            void desenhar();//redefino o desenhar aqui porque quero que o GG desenhe o projéti só quando voando
+
             void executar();
         };
-
     }
 }

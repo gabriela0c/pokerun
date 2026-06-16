@@ -36,14 +36,12 @@ namespace Pokerun{
 
                 void salvarDataBuffer();  
                 void salvar();     
-                float getDirProjetil();       
-
-                void executar();
-
-            private:
+                sf::Vector2f getDirProjetil();
+                
                 Jogador* jogadorMaisProximo();
                 float distancia(sf::Vector2f a, sf::Vector2f b) const;
 
+                void executar();
             };
         }
     }

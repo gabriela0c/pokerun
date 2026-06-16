@@ -85,12 +85,6 @@ namespace Pokerun{
                 break;
                 }
 
-                case EstadoJogo::RANKING:{
-                    //menu.desenharRanking(pPontuacao->getRanking());
-                    std::cout << "ainda nao implementado" << std::endl;
-                break;
-                }
-
                 case EstadoJogo::SAINDO:{
                     pGrafico->fecharJanela();
                 break;

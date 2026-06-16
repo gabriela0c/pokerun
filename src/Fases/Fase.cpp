@@ -119,21 +119,20 @@ namespace Pokerun{
         {
             int indicePlataforma = rand() % posicoesPlataformas.size();
             sf::FloatRect base = posicoesPlataformas[indicePlataforma];
-                
-            float larguraObs = pObs->getFig().getSize().x;
-            float alturaObs  = pObs->getFig().getSize().y;
+
+            sf::Vector2f sizeObs = pObs->getSize();
                 
             int limiteEsq = (int)base.position.x;
-            int limiteDir = (int)(base.position.x + base.size.x - larguraObs);
+            int limiteDir = (int)(base.position.x + base.size.x - sizeObs.x);
                 
             if (limiteDir <= limiteEsq) {
                 limiteDir = limiteEsq + 1;
             }
 
             float novoX = (float)(rand() % (limiteDir - limiteEsq + 1) + limiteEsq);
-            float novoY = base.position.y - alturaObs;
+            float novoY = base.position.y - sizeObs.y;
 
-            pObs->getFig().setPosition({novoX, novoY});
+            pObs->setPosicao({novoX, novoY});
         }
 
         void Fase::desenhar()

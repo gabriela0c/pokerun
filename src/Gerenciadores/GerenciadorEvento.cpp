@@ -102,7 +102,7 @@ namespace Pokerun{
             if (pJog) 
             {
                 float vX = pJog->getVelX();
-                sf::Vector2f tam = pJog->getFig().getSize();
+                sf::Vector2f tam = pJog->getSize();
                 float modificador = pJog->getModVel();
 
                 if(pJog->getEhJogador1()){

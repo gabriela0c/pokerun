@@ -7,7 +7,6 @@ namespace Pokerun{
     {
         MENU,
         JOGANDO,
-        RANKING,
         SAINDO
     };
 }

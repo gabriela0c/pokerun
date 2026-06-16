@@ -46,8 +46,9 @@ namespace Pokerun{
                     return;
                 }
 
-                sf::Vector2f posInimigo = pFigura->getPosition();
-                sf::Vector2f posJogador1 = pJogador1->getFig().getPosition();
+                // usa o centro dos sprites para o raio nao depender do tamanho da entidade
+                sf::Vector2f posInimigo = pFigura->getPosition() + getSize() / 2.0f;
+                sf::Vector2f posJogador1 = pJogador1->getPosition() + pJogador1->getSize() / 2.0f;
 
                 // flags para saber quem está dentro do raio de visão do inimigo
                 bool j1NoRaio = (std::abs(posInimigo.x - posJogador1.x) <= RAIO_X && std::abs(posInimigo.y - posJogador1.y) <= RAIO_Y);
@@ -56,7 +57,7 @@ namespace Pokerun{
 
                 // so calcula o Jogador 2 se ele realmente existir no jogo
                 if (pJogador2) {
-                    posJogador2 = pJogador2->getFig().getPosition();
+                    posJogador2 = pJogador2->getPosition() + pJogador2->getSize() / 2.0f;
                     j2NoRaio = (std::abs(posInimigo.x - posJogador2.x) <= RAIO_X && std::abs(posInimigo.y - posJogador2.y) <= RAIO_Y);
                 }
 
@@ -80,7 +81,7 @@ namespace Pokerun{
 
             void Inimigo::movimentoAleatorio()
             {
-                sf::Vector2f tam = getFig().getSize(); 
+                sf::Vector2f tam = getSize(); 
 
                 pFigura->move({-vel_x * direcao * dt, 0.0f});
                 
@@ -109,7 +110,7 @@ namespace Pokerun{
                 float tolerancia = 2.0f; //para evitar o inimigo ficar oscilando qdo o jogador esta em cima dele
                 
                 if(std::abs(distanciaX) > tolerancia){
-                    sf::Vector2f tam = getFig().getSize();
+                    sf::Vector2f tam = getSize();
                 
                     if(distanciaX > 0.0f){
                         //indo p direita
@@ -133,8 +134,8 @@ namespace Pokerun{
 
             void Inimigo::aplicarKnockback(Jogador* p, float forca)
             {
-                float sinal = calcularDirecao(p->getFig().getPosition(), pFigura->getPosition());
-                p->receberKnockback(sinal * forca);
+                sf::Vector2f sinais = calcularDirecao(p->getPosition(), getPosition());
+                p->receberKnockback(sinais.x * forca);
             }
         }
     }

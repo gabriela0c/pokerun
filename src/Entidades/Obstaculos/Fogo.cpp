@@ -44,8 +44,8 @@ namespace Pokerun{
                 //intensidade 2: 2 de dano + knockback
                 //intensidade 3: 3 de dano + knockback
                 
-                float sinal = calcularDirecao(pJog->getFig().getPosition(), pFigura->getPosition());
-                pJog->receberKnockback(sinal * 200.0f);
+                sf::Vector2f sinais = calcularDirecao(pJog->getPosition(), getPosition());
+                pJog->receberKnockback(sinais.x * 200.0f);
                 pJog->ativarInvencibilidade();
  
                 std::cout << "Fogo queimou " << (pJog->getEhJogador1() ? "Pikachu" : "Raichu") << "! (intensidade =" << intensidade << ") Vidas: " << pJog->getNumvidas() << std::endl;

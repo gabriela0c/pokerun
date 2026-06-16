@@ -50,25 +50,53 @@ namespace Pokerun {
             pCharizard = pChar;
         }
 
-        void Projetil::resetar()
+        void Projetil::recarregar(sf::Vector2f dir)
+        {
+            sf::Vector2f posChar  = pCharizard->getPosition();
+            sf::Vector2f sizeChar = pCharizard->getSize();
+
+            float spawnX = posChar.x + (dir.x > 0.0f ? sizeChar.x : -LARGURA_PROJ);
+            float spawnY = posChar.y + sizeChar.y * 0.3f;
+
+            pFigura->setPosition({spawnX, spawnY});
+            sincronizarPosicao();
+            vel_x = dir.x * VEL_PROJETIL_X;
+            vel_y = dir.y * VEL_PROJETIL_Y;
+        }
+
+        void Projetil::guardar()
         {
             if(!pCharizard){//se o charizard morreu, inativa o projetil, o que o remove da lista_ents, GC e o deleta
+                setVoando(false);
                 setAtivo(false);
                 return;
             }
 
             setVoando(false);
-            
-            sf::Vector2f posChar = pCharizard->getPosition();
-            sf::Vector2f sizeChar = pCharizard->getSize();
+            recarregar(pCharizard->getDirProjetil());
+        }
 
-            float dirX = pCharizard->getDirProjetil();
+        bool Projetil::disparar()
+        {
+            if(!pCharizard){
+                setVoando(false);
+                setAtivo(false);
+                return false;
+            }
 
-            float spawnX = posChar.x + (dirX > 0.0f ? sizeChar.x : -LARGURA_PROJ);
-            float spawnY = posChar.y + sizeChar.y * 0.3f;
+            sf::Vector2f dir = pCharizard->getDirProjetil();
+            if(dir.x == 0.0f && dir.y == 0.0f){ return false; } //sem alvo valido, nao dispara
 
-            pFigura->setPosition({spawnX, spawnY});
-            vel_x = dirX * VEL_PROJETIL_X;
+            recarregar(dir);
+            setVoando(true);
+            return true;
+        }
+
+        void Projetil::desenhar()
+        {
+            if(getVoando()){
+                Ente::desenhar();
+            }
         }
 
         void Projetil::executar()
@@ -85,7 +113,7 @@ namespace Pokerun {
 
             sf::Vector2f pos = pFigura->getPosition();
             if(pos.x < 0.0f || pos.x > WIN_SIZE_X || pos.y < 0.0f || pos.y > WIN_SIZE_Y)//se colide com os limites da tela
-                resetar();
+                guardar();
         }
 
     }

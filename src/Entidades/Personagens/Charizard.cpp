@@ -16,6 +16,10 @@ namespace Pokerun{
 
             Charizard::~Charizard()
             {
+                if(pProjetil){
+                    pProjetil->setCharizard(nullptr);  
+                    pProjetil->setAtivo(false);         
+                }
                 pProjetil = nullptr;
             }
 
@@ -45,22 +49,23 @@ namespace Pokerun{
 
            void Charizard::danificar(Jogador* p)
             {
-                if(!p){ return; }
+                if(!p || !pProjetil){ return; }
 
                 cd_projetil.atualizar();//desativa quando a duracao passa
-                if(cd_projetil.getAtivo()){ return; } //se o cd ativo nao dispara projetil
+                if(cd_projetil.getAtivo()){ return; }//se o cd ativo nao dispara projetil
+                if(pProjetil->getVoando()){ return; }//se ja foi disparado nao dispara outro
 
-                
-
-                cd_projetil.iniciar();
+                if(pProjetil->disparar()){//so inicia o cooldown se realmente disparou 
+                    cd_projetil.iniciar();//reinicia o cooldown
+                }
             }
 
-            float Charizard::getDirProjetil()
+            sf::Vector2f Charizard::getDirProjetil()
             {
-                sf::Vector2f posChar = pFigura->getPosition();
+                sf::Vector2f posChar = getPosition();
                 Jogador* jog = jogadorMaisProximo();
-                if(!jog){return 0.0f;} // sem alvo, sem direção projetil nao eh lancado
-                sf::Vector2f posAlvo = jog->getFig().getPosition();
+                if(!jog){return {0.0f, 0.0f};} // sem alvo, sem direção projetil nao eh lancado
+                sf::Vector2f posAlvo = jog->getPosition();
                 return calcularDirecao(posAlvo, posChar);
             }
 
@@ -75,20 +80,22 @@ namespace Pokerun{
             {
                 Jogador* alvo = nullptr;
                 float menorDist = (float)raio_ataque;
- 
+
+                sf::Vector2f centroChar = getPosition() + getSize() / 2.0f; //mede a partir do centro, nao do canto
+
                 if(pJogador1 && pJogador1->getAtivo())
                 {
-                    float d = distancia(pFigura->getPosition(), pJogador1->getFig().getPosition());
+                    float d = distancia(centroChar, pJogador1->getPosition() + pJogador1->getSize() / 2.0f);
                     if(d < menorDist)
                     {
                         menorDist = d;
                         alvo = pJogador1;
                     }
                 }
- 
+
                 if(pJogador2 && pJogador2->getAtivo())
                 {
-                    float d = distancia(pFigura->getPosition(), pJogador2->getFig().getPosition());
+                    float d = distancia(centroChar, pJogador2->getPosition() + pJogador2->getSize() / 2.0f);
                     if(d < menorDist)
                     {
                         alvo = pJogador2;
