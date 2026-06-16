@@ -5,12 +5,14 @@ namespace Pokerun{
 
     Menu::Menu():
     Ente({WIN_SIZE_X, WIN_SIZE_Y}), telaAtual(TelaMenu::INICIO), pJogo(nullptr), pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()), 
-    opcaoSelecionada(0), numJogadores(1), faseEscolhida(1), fonte()
+    opcaoSelecionada(0), numJogadores(1), faseEscolhida(1), fonte(), ranking()
     {
         setTextura("assets/sprites/fundos/fundo_menu.jpg", {{},{1024, 765}});
         
         if(!fonte.openFromFile("assets/fonts/ARIAL.TTF"))
             std::cerr << "fonte nao carregada!" << std::endl;
+
+        ranking.carregar();//le o arquivo do ranking ao abrir o menu
     }
 
     Menu::~Menu()
@@ -26,6 +28,43 @@ namespace Pokerun{
     const int Menu::getNumJogadores()const
     {
         return numJogadores;
+    }
+
+    const std::string Menu::getNomeJogador(int i)const
+    {
+        return nomes[i];
+    }
+
+    bool Menu::nomesPreenchidos()const
+    {
+        bool pronto = false;
+        if(getNumJogadores() == 1 && !nomes[0].empty()){
+            pronto = true;
+        }
+        else{
+            if(!nomes[0].empty() && !nomes[1].empty()){
+                pronto = true;
+            }
+        }
+
+        return pronto;
+    }
+
+    void Menu::capturarNome()
+    {
+        std::string digitado = pEvento->getTextoDigitado();
+        
+        if(!digitado.empty()){
+            char c = digitado[0];
+            if(c == 8){ // backspace
+                if(!nomes[opcaoSelecionada].empty()){
+                    nomes[opcaoSelecionada].erase(nomes[opcaoSelecionada].size() - 1); 
+                }
+            }//intervalo dos caracteres ASCII que fazem sentido poder estar em um nome
+            else if(c >= 32 && c < 127 && (int)nomes[opcaoSelecionada].size() < 10){//tamanho maximo do nome = 10
+                nomes[opcaoSelecionada] += c;
+            }
+        }
     }
 
     void Menu::irParaPausa()
@@ -62,13 +101,18 @@ namespace Pokerun{
             }
 
             case TelaMenu::RANKING:{
-                //desenharRanking();
+                desenharRanking();
+            break;
+            }
+
+            case TelaMenu::DIGITAR_NOME:{
+                desenharTelaNomes();
             break;
             }
         }
     }
 
-    void Menu::desenharOpcoes(std::vector<std::string>& opcoes)
+    void Menu::desenharOpcoes(std::vector<std::string> opcoes)
     {
         sf::Text texto(fonte);
         texto.setCharacterSize(30);
@@ -78,12 +122,7 @@ namespace Pokerun{
         for(int i = 0; i < (int)opcoes.size(); i++){
             texto.setString(opcoes[i]);//atribui a string na posicao i do vetor ao texto
 
-            if(i == opcaoSelecionada){
-                texto.setFillColor(sf::Color::Yellow);//se esta selecionado amarelo
-            }
-            else {
-                texto.setFillColor(sf::Color::Black);//senao preto
-            }
+            texto.setFillColor((i == opcaoSelecionada) ? sf::Color::Yellow : sf::Color::Black);
 
             sf::FloatRect bounds = texto.getLocalBounds();//pega as posicoes e tamanho do texto
 
@@ -92,6 +131,74 @@ namespace Pokerun{
             pGG->desenhaElementos(texto);
 
             posY += 60.0f;//incrementa a posicao em y para os textos ficarem espacados
+        }
+    }
+
+    void Menu::desenharRanking()
+    {
+        sf::Text titulo(fonte);
+        titulo.setCharacterSize(40);
+        titulo.setString("Ranking");
+        titulo.setFillColor(sf::Color::Black);
+        sf::FloatRect boundsT = titulo.getLocalBounds();
+        titulo.setPosition({(WIN_SIZE_X/2) - (boundsT.size.x/2), 125.0f}); //centraliza
+        pGG->desenhaElementos(titulo);
+
+        sf::Text linha(fonte);//linhas do ranking
+        linha.setCharacterSize(26);
+        linha.setFillColor(sf::Color::Black);
+
+        int total = ranking.getTam();
+        
+        if(total > MAX_RANKING){ 
+            total = MAX_RANKING; 
+        }
+
+        float posY = 140.0f;
+        for(int i = 0; i < total; i++){//uso de sobrecargas de std::string
+            std::string txt = std::to_string(i + 1) + ": " + ranking.getNome(i) + " - " + std::to_string(ranking.getPontos(i));
+            linha.setString(txt);
+
+            sf::FloatRect bounds = linha.getGlobalBounds();
+            linha.setPosition({(WIN_SIZE_X/2) - (bounds.size.x/2), posY});
+            pGG->desenhaElementos(linha);
+            posY += 40.0f;
+        }
+
+        sf::Text voltar(fonte); //o escrito de como voltar no canto da tela
+        voltar.setCharacterSize(20);
+        voltar.setString("Enter para voltar");
+        voltar.setFillColor(sf::Color::Black);
+        sf::FloatRect boundsV = voltar.getLocalBounds();
+        voltar.setPosition({WIN_SIZE_X - boundsV.size.x - 20.0f, 20.0f});
+        pGG->desenhaElementos(voltar);
+    }
+
+    void Menu::desenharTelaNomes()
+    {
+        sf::Text prompt(fonte);
+        prompt.setCharacterSize(28);
+        prompt.setString(getNumJogadores() == 2 ? "Nomes:" : "Digite seu nome:");
+        prompt.setFillColor(sf::Color::Black);
+        sf::FloatRect bounds = prompt.getLocalBounds();
+        prompt.setPosition({(WIN_SIZE_X/2) - (bounds.size.x/2), 150.0f});
+        pGG->desenhaElementos(prompt);
+
+        float posY = 230.0f;
+        for(int i = 0; i < getNumJogadores(); i++){
+            sf::Text linha(fonte);
+            linha.setCharacterSize(32);
+
+            std::string texto = "Jogador " + std::to_string(i + 1) + ": " + nomes[i] + "_";
+
+            linha.setString(texto);
+            linha.setFillColor(i == opcaoSelecionada ? sf::Color::Yellow : sf::Color::Black); //destaca a linha atual
+
+            sf::FloatRect b = linha.getLocalBounds();
+            linha.setPosition({(WIN_SIZE_X/2) - (b.size.x/2), posY});
+            pGG->desenhaElementos(linha);
+
+            posY += 60.0f;
         }
     }
 
@@ -134,11 +241,27 @@ namespace Pokerun{
 
                 if(pEvento->enterPressionado()){
                     numJogadores = opcaoSelecionada + 1;//guarda o numero de jogadores escolhido
-                    telaAtual = TelaMenu::SELECIONAR_FASE;//vai para a tela de selecao de fase
+                    telaAtual = TelaMenu::DIGITAR_NOME;//vai para a area de digitar nomes
                     opcaoSelecionada = 0;
                 }
             break;
             }
+
+            case TelaMenu::DIGITAR_NOME:{
+                if(getNumJogadores() == 2){
+                    if(pEvento->cimaPressionado() &&  opcaoSelecionada > 0) {opcaoSelecionada--;}
+                    if(pEvento->baixoPressionado() &&  opcaoSelecionada < 1) {opcaoSelecionada++;}
+                }
+
+                capturarNome();
+                bool pronto = nomesPreenchidos();
+
+                if(pEvento->enterPressionado() && pronto){
+                    telaAtual = TelaMenu::SELECIONAR_FASE;//vai para a tela de selecao de fase
+                    opcaoSelecionada = 0;
+                }
+            break;
+            }    
 
             case TelaMenu::SELECIONAR_FASE:{
                 if(pEvento->cimaPressionado() &&  opcaoSelecionada > 0) {opcaoSelecionada--;}

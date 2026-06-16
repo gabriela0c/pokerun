@@ -7,7 +7,7 @@ namespace Pokerun{
         GerenciadorEvento* GerenciadorEvento::pEvento = nullptr;
 
         GerenciadorEvento::GerenciadorEvento(): pGrafico(GerenciadorGrafico::getGerenciadorGrafico()), pJogador1(nullptr), pJogador2(nullptr),
-        flagPausa(false), flagCima(false), flagBaixo(false), flagEnter(false)
+        flagPausa(false), flagCima(false), flagBaixo(false), flagEnter(false), texto_digitado("")
         {
 
         }
@@ -57,6 +57,11 @@ namespace Pokerun{
             return flagEnter;
         }
 
+        const std::string GerenciadorEvento::getTextoDigitado()const
+        {
+            return texto_digitado;
+        }
+
         void GerenciadorEvento::setJogador(Entidades::Personagens::Jogador* pJog)
         {
             if(pJog){
@@ -65,17 +70,16 @@ namespace Pokerun{
             }
         }
 
-        void GerenciadorEvento::removeJogador2(){
-            pJogador2 = nullptr;
-        }
-
-        void GerenciadorEvento::executar() 
+        void GerenciadorEvento::resetFlags()
         {
             flagCima  = false;
             flagBaixo = false;
             flagEnter = false;
             flagPausa = false;
-            
+        }
+
+        void GerenciadorEvento::pollEvent()
+        {
             while (const auto event = pGrafico->getWindow()->pollEvent()) {
                 if (event->getIf<sf::Event::Closed>()) 
                     pGrafico->getWindow()->close();
@@ -85,69 +89,71 @@ namespace Pokerun{
                     if(key->code == sf::Keyboard::Key::Enter){flagEnter = true;}
                     if(key->code == sf::Keyboard::Key::Escape){flagPausa = true;}
                 }
+                else if(const auto* text = event->getIf<sf::Event::TextEntered>()){
+                    if(text->unicode < 128){ //só ASCII                 
+                    texto_digitado += (char)(text->unicode);
+                    }
+                }
             }
-    
-            if (pJogador1) 
+        }
+
+        void GerenciadorEvento::evento_movimento(Entidades::Personagens::Jogador* pJog)
+        {
+            if (pJog) 
             {
-                float vX = pJogador1->getVelX();
-                sf::Vector2f tam = pJogador1->getFig().getSize();
-                float modificador = pJogador1->getModVel();
+                float vX = pJog->getVelX();
+                sf::Vector2f tam = pJog->getFig().getSize();
+                float modificador = pJog->getModVel();
 
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-                    pJogador1->getFig().move({-vX * modificador, 0.0f});
-                    pJogador1->getFig().setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
-                }
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-                    pJogador1->getFig().move({vX * modificador, 0.0f});
-                    pJogador1->getFig().setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
-                }
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-                    pJogador1->pular();
-                }
+                if(pJog->getEhJogador1()){
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+                        pJog->getFig().move({-vX * modificador, 0.0f});
+                        pJog->getFig().setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
+                    }
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+                        pJog->getFig().move({vX * modificador, 0.0f});
+                        pJog->getFig().setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
+                    }
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+                        pJog->pular();
+                    }
 
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F)){
-                    pJogador1->setAtacando(true);
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::F)){
+                        pJog->setAtacando(true);
+                    }
                 }
+                else{
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
+                        pJogador2->getFig().move({-vX * modificador, 0.0f});
+                        pJogador2->getFig().setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
+                    }
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
+                        pJogador2->getFig().move({vX * modificador, 0.0f});
+                        pJogador2->getFig().setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
+                    }
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+                        pJogador2->pular();
+                    }
 
-                //projeteis
-                /*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::E)){
-                            pJogador1->dispararProjetil(1.0f);
+                    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L)){
+                        pJogador2->setAtacando(true);
+                    }
                 }
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Q)){
-                            pJogador1->dispararProjetil(-1.0f);
-                }*/
-            }  
-            
-            if (pJogador2) 
-            {
-                float vX = pJogador2->getVelX();
-                sf::Vector2f tam = pJogador2->getFig().getSize();
-                float modificador = pJogador2->getModVel();
+            } 
+        }
 
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-                    pJogador2->getFig().move({-vX * modificador, 0.0f});
-                    pJogador2->getFig().setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
-                }
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-                    pJogador2->getFig().move({vX * modificador, 0.0f});
-                    pJogador2->getFig().setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
-                }
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-                    pJogador2->pular();
-                }
+        void GerenciadorEvento::removeJogador2(){
+            pJogador2 = nullptr;
+        }
 
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L)){
-                    pJogador2->setAtacando(true);
-                }
+        void GerenciadorEvento::executar() 
+        {
+            resetFlags();
+            texto_digitado.clear(); 
+            pollEvent();
 
-                //projeteis
-                /*if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad0)){
-                            pJogador2->dispararProjetil(1.0f);
-                }
-                if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Numpad1)){
-                            pJogador2->dispararProjetil(-1.0f);
-                }*/
-            }       
+            evento_movimento(pJogador1);
+            evento_movimento(pJogador2);  
         }
     }
 }

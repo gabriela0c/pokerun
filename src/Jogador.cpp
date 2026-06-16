@@ -77,6 +77,11 @@ namespace Pokerun{
                 pontos += num;
             }
 
+            int Jogador::getPontos()const
+            {
+                return pontos;
+            }
+
             void Jogador::diminui_vel(float taxa)
             {
                 if(taxa < modificador_velocidade){
@@ -145,6 +150,7 @@ namespace Pokerun{
             void Jogador::resetar()
             {
                 num_vidas = N_VDS_JOG;
+                pontos = 0;
                 invencibilidade.parar();
                 veneno.parar();
                 vel_knockback_x = 0.0f;

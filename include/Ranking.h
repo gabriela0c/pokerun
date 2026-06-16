@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fstream>
 #include <string>
 #include <vector>
 
@@ -20,7 +21,7 @@ namespace Pokerun{
         Ranking();
         ~Ranking();
 
-        void carregar();// lê ranking.dat
+        void carregar();// le ranking.dat
         void adicionar(const std::string nome, int pontos);
         void salvar();// grava ranking.dat
         

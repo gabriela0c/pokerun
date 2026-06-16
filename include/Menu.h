@@ -2,6 +2,7 @@
 
 #include "GerenciadorEvento.h"
 #include "Ente.h"
+#include "Ranking.h"
 
 namespace Pokerun{
     class Jogo;
@@ -16,6 +17,7 @@ namespace Pokerun{
         {
             INICIO,
             SELECIONAR_JOGADORES,
+            DIGITAR_NOME,
             SELECIONAR_FASE,
             PAUSA,
             RANKING
@@ -28,6 +30,8 @@ namespace Pokerun{
         int numJogadores;
         int faseEscolhida;
         sf::Font fonte;
+        Ranking ranking;
+        std::string nomes[2];
 
     public:
         Menu();
@@ -36,12 +40,18 @@ namespace Pokerun{
         void setJogo(Jogo* pJog);
 
         void desenhar();
-        void desenharOpcoes(std::vector<std::string>& opcoes);
+        void desenharOpcoes(std::vector<std::string> opcoes);
         void desenharRanking();
+        void desenharTelaNomes();
+
         void irParaPausa();
+
+        bool nomesPreenchidos()const;
+        void capturarNome();
 
         const int getFaseEscolhida()const;
         const int getNumJogadores()const;
+        const std::string getNomeJogador(int i)const;   
 
         void executar();
     };

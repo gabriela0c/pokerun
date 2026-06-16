@@ -41,6 +41,7 @@ namespace Pokerun{
                 void salvar();            
 
                 void operator+=(int num);
+                int getPontos()const;
 
                 void diminui_vel(float taxa);
                 float getModVel()const;
