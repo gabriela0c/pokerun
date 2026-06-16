@@ -2,7 +2,6 @@
 
 #include "Inimigo.h"
 #include "Projetil.h"
-#include "ReceptorProjetil.h"
 #include <vector>
 #include <cmath>
 
@@ -25,20 +24,19 @@ namespace Pokerun{
             private:
                 int raio_ataque;
                 Temporizador cd_projetil;
-                ReceptorProjetil* pReceptor;
-                std::vector<Projetil*> lProjeteis;
+                Projetil* pProjetil;
 
             public:
                 Charizard();
                 ~Charizard();
 
-                void setReceptorProjeteis(ReceptorProjetil* pRec);
                 void adicionarProjetil(Projetil* pProj);
-                void removerProjetil(Projetil* pProj);
+                void removerProjetil();
                 void danificar(Jogador* p);
 
                 void salvarDataBuffer();  
-                void salvar();            
+                void salvar();     
+                float getDirProjetil();       
 
                 void executar();
 

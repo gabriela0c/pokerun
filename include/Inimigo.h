@@ -36,8 +36,7 @@ namespace Pokerun{
                 Inimigo(int nivMal = -1,const sf::Vector2f tam = {}, int n_vds = -1, int v_pts = -1);
                 virtual ~Inimigo();
 
-                void setJogador1(Jogador* jog1);
-                void setJogador2(Jogador* jog2);
+                void setJogador(Jogador* pJog);
 
                 void executar();
                 void mover();

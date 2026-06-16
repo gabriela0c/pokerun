@@ -10,7 +10,7 @@ namespace Pokerun{
 
     namespace Fases{
 
-        class FaseSegunda : public Fase , public ReceptorProjetil{
+        class FaseSegunda : public Fase{
         private:
             const int maxCharizards;
             const int maxFogos;
@@ -20,6 +20,7 @@ namespace Pokerun{
             ~FaseSegunda();
             
             void criarCharizards();
+            void criarProjeteis();
             void criarFogos();
             
             void criarInimigos();

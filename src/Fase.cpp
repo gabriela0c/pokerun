@@ -7,7 +7,7 @@ namespace Pokerun{
  
         Fase::Fase(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
         Ente({WIN_SIZE_X, WIN_SIZE_Y}), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2), pChao(new Entidades::Chao()),
-        maxBulbasaurs(4) 
+        maxBulbasaurs(4), maxPlataformas(5)
         {
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
             pFigura->setPosition({0.0f, 0.0f});
@@ -29,15 +29,12 @@ namespace Pokerun{
 
         void Fase::criarBulbasaurs()
         {
-            Entidades::Personagens::Inimigo* pInim = nullptr;
+            Entidades::Personagens::Inimigo* pBulba = nullptr;
             int n = rand() % 2 + 3; //cria de 3 a 4 inimigos - tabela 1 N5
             for(int i = 0; i < n; i++){
-                pInim = new Entidades::Personagens::Bulbasaur();
-                pInim->setJogador1(pJogador1);
-                pInim->setJogador2(pJogador2);
-                lista_ents.incluir(static_cast<Entidades::Entidade*>(pInim));
-                GC.incluirInimigo(pInim);
-                pInim = nullptr;
+                pBulba = new Entidades::Personagens::Bulbasaur();
+                adicionarInimigos(pBulba);
+                pBulba = nullptr;
             }
         }
 
@@ -68,20 +65,17 @@ namespace Pokerun{
                 pPlat->getFig().setPosition(posicoesPossiveis[i]); //cada i pega uma posição única
 
                 posicoesPlataformas.push_back(pPlat->getFig().getGlobalBounds());
-                lista_ents.incluir(static_cast<Entidades::Entidade*>(pPlat));
-                GC.incluirObstaculo(pPlat);
+                adicionarObstaculos(pPlat);
                 pPlat = nullptr;
             }
 
             // parede invisível na esquerda
             Entidades::Obstaculos::Plataforma* pParedeEsq = new Entidades::Obstaculos::Plataforma({-100.0f, 0.0f}, {100.0f, WIN_SIZE_Y});
-            lista_ents.incluir(pParedeEsq);
-            GC.incluirObstaculo(pParedeEsq);
+            adicionarObstaculos(pParedeEsq);
 
             // parede invisível na direita
             Entidades::Obstaculos::Plataforma* pParedeDir = new Entidades::Obstaculos::Plataforma({WIN_SIZE_X, 0.0f}, {100.0f, WIN_SIZE_Y});
-            lista_ents.incluir(pParedeDir);
-            GC.incluirObstaculo(pParedeDir);
+            adicionarObstaculos(pParedeDir);
         }
 
         Entidades::Chao* Fase::getChao()const
@@ -89,16 +83,57 @@ namespace Pokerun{
             return pChao;
         }
 
-        void Fase::desativaEntidade(Entidades::Entidade* pE){
+        void Fase::desativaEntidade(Entidades::Entidade* pE)
+        {
             lista_ents.remover(pE);
             GC.remover(pE);
         }
 
-        void Fase::ativaJogador(Entidades::Personagens::Jogador* pJog){
+        void Fase::ativaJogador(Entidades::Personagens::Jogador* pJog)
+        {
             lista_ents.remover(pJog); //garante que nao seja incluido 2x
             lista_ents.incluir(pJog);
             GC.setJogador(pJog);
             pJog->setAtivo(true);
+        }
+
+        void Fase::adicionarInimigos(Entidades::Personagens::Inimigo* pInim)
+        {
+            if(pInim){
+                pInim->setJogador(pJogador1);
+                pInim->setJogador(pJogador2);
+                lista_ents.incluir(pInim);
+                GC.incluirInimigo(pInim);
+            }
+        }
+
+        void Fase::adicionarObstaculos(Entidades::Obstaculos::Obstaculo* pObs)
+        {
+            if(pObs){
+                lista_ents.incluir(pObs);
+                GC.incluirObstaculo(pObs);
+            }
+        }
+
+        void Fase::colocaNaPlataforma(Entidades::Obstaculos::Obstaculo* pObs)
+        {
+            int indicePlataforma = rand() % posicoesPlataformas.size();
+            sf::FloatRect base = posicoesPlataformas[indicePlataforma];
+                
+            float larguraObs = pObs->getFig().getSize().x;
+            float alturaObs  = pObs->getFig().getSize().y;
+                
+            int limiteEsq = (int)base.position.x;
+            int limiteDir = (int)(base.position.x + base.size.x - larguraObs);
+                
+            if (limiteDir <= limiteEsq) {
+                limiteDir = limiteEsq + 1;
+            }
+
+            float novoX = (float)(rand() % (limiteDir - limiteEsq + 1) + limiteEsq);
+            float novoY = base.position.y - alturaObs;
+
+            pObs->getFig().setPosition({novoX, novoY});
         }
 
         void Fase::desenhar()

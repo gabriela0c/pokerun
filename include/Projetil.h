@@ -26,16 +26,21 @@ namespace Pokerun {
             float vel_x;
             const float dano;
             Personagens::Charizard* pCharizard;
+            bool voando;
 
         public:
-            Projetil(float velX);
+            Projetil(float velX = 0);
             ~Projetil();
 
             void salvarDataBuffer();  
-            void salvar();            
+            void salvar();    
+            
+            void setVoando(const bool v);
+            bool getVoando()const;
 
             const int getDano()const;
             void setCharizard(Personagens::Charizard* pChar);
+            void resetar();
             
             void executar();
         };

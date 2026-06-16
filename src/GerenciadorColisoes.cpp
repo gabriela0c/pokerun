@@ -193,12 +193,12 @@ namespace Pokerun{
                 while(it != Lobstaculos.end() && pProj->getAtivo())
                 {
                     if(*it && (*it)->isSolido() && verificarColisao(pProj, *it)){
-                        pProj->setAtivo(false);
+                        pProj->resetar();
                     }
                     it++;
                 }
 
-                if(!pProj->getAtivo()){ continue;}
+                if(!pProj->getAtivo()){continue;}
 
                 if(pJogador1 && pJogador1->getAtivo() && verificarColisao(pProj, pJogador1))
                 {
@@ -209,7 +209,7 @@ namespace Pokerun{
                         pJogador1->ativarInvencibilidade();
                         std::cout << "Projetil acertou Pikachu! Vidas: " << pJogador1->getNumvidas() << std::endl;
                     }
-                    pProj->setAtivo(false);
+                    pProj->resetar();
                 }
 
                 if(pProj->getAtivo() && pJogador2 && pJogador2->getAtivo() && verificarColisao(pProj, pJogador2))
@@ -221,7 +221,7 @@ namespace Pokerun{
                         pJogador2->ativarInvencibilidade();
                         std::cout << "Projetil acertou Raichu! Vidas: " << pJogador2->getNumvidas() << std::endl;
                     }
-                    pProj->setAtivo(false);
+                    pProj->resetar();
                 }
             }
         }

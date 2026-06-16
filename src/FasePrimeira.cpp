@@ -17,15 +17,12 @@ namespace Pokerun{
 
         void FasePrimeira::criarWartortles()
         {
-            Entidades::Personagens::Inimigo* pInim = nullptr;
+            Entidades::Personagens::Inimigo* pWart = nullptr;
             int n = rand() % 2 + 3; //cria de 3 a 4 inimigos - tabela 1 N5
             for(int i = 0; i < n; i++){
-                pInim = new Entidades::Personagens::Wartortle();
-                pInim->setJogador1(pJogador1);
-                pInim->setJogador2(pJogador2);
-                lista_ents.incluir(static_cast<Entidades::Entidade*>(pInim));
-                GC.incluirInimigo(pInim);
-                pInim = nullptr;
+                pWart = new Entidades::Personagens::Wartortle();
+                adicionarInimigos(pWart);
+                pWart = nullptr;
             }
         }
         
@@ -36,28 +33,11 @@ namespace Pokerun{
 
             for(int i = 0; i < n; i++)
             {
-                Entidades::Obstaculos::Poca* pObs = new Entidades::Obstaculos::Poca();
+                Entidades::Obstaculos::Poca* pPoca = new Entidades::Obstaculos::Poca();
                 
-                int indicePlataforma = rand() % posicoesPlataformas.size();
-                sf::FloatRect base = posicoesPlataformas[indicePlataforma];
-                
-                float larguraObs = pObs->getFig().getSize().x;
-                float alturaObs  = pObs->getFig().getSize().y;
-                
-                int limiteEsq = (int)base.position.x;
-                int limiteDir = (int)(base.position.x + base.size.x - larguraObs);
-                
-                if (limiteDir <= limiteEsq) {
-                    limiteDir = limiteEsq + 1;
-                }
+                colocaNaPlataforma(pPoca);
 
-                float novoX = (float)(rand() % (limiteDir - limiteEsq + 1) + limiteEsq);
-                float novoY = base.position.y - alturaObs;
-
-                pObs->getFig().setPosition({novoX, novoY});
-
-                lista_ents.incluir(static_cast<Entidades::Entidade*>(pObs));
-                GC.incluirObstaculo(static_cast<Entidades::Obstaculos::Obstaculo*>(pObs));
+                adicionarObstaculos(pPoca);
             }
         }
 

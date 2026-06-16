@@ -37,6 +37,8 @@ namespace Pokerun{
             void setAtivo(const bool a);
 
             float calcularDirecao(sf::Vector2f posAlvo, sf::Vector2f posFonte);
+            sf::Vector2f getPosition()const;
+            sf::Vector2f getSize()const;
             
             virtual void executar() = 0; 
             virtual void salvar() = 0;

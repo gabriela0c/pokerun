@@ -48,6 +48,16 @@ namespace Pokerun{
             return (dirX >= 0.0f) ? 1.0f : -1.0f;
         }
 
+        sf::Vector2f Entidade::getPosition()const
+        {
+            return {x, y};
+        }
+
+        sf::Vector2f Entidade::getSize()const
+        {
+            return {pFigura->getSize()};
+        }
+
         void Entidade::antiGravidade()
         {//nao tem um clock.restart pq senao ia ser quase 0 o dt, tem que usar o mesmo dt do aplicarGravidade
             pFigura->move({0.0f, - vel_y*dt});//desfaz o movimento p/baixo que a gravidade causou

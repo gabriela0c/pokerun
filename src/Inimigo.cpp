@@ -25,17 +25,10 @@ namespace Pokerun{
                 buffer << " " << nivel_maldade << " " << valorPontos << " " << direcao;
             }
 
-            void Inimigo::setJogador1(Jogador* jog1)
+            void Inimigo::setJogador(Jogador* pJog)
             {
-                if(jog1){
-                    pJogador1 = jog1;
-                }
-            }
-
-            void Inimigo::setJogador2(Jogador* jog2)
-            {
-                if(jog2){
-                    pJogador2 = jog2;
+                if(pJog){
+                    (pJog->getEhJogador1()) ? pJogador1 = pJog : pJogador2 = pJog;
                 }
             }
 

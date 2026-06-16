@@ -28,6 +28,7 @@ namespace Pokerun{
             std::vector<sf::FloatRect> posicoesPlataformas;
             Entidades::Chao* pChao;
             const int maxBulbasaurs;//ja que ele esta em ambas as fases
+            const int maxPlataformas;
 
         public:
             Fase(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
@@ -37,6 +38,10 @@ namespace Pokerun{
             virtual void criarObstaculos() = 0;
 
             void desenhar();
+
+            void adicionarInimigos(Entidades::Personagens::Inimigo* pInim);
+            void adicionarObstaculos(Entidades::Obstaculos::Obstaculo* pObs);
+            void colocaNaPlataforma(Entidades::Obstaculos::Obstaculo* pObs);
             
             void criarBulbasaurs();
             void criarPlataformas();
