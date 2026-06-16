@@ -33,6 +33,10 @@ namespace Pokerun{
             void Personagem::setNoTeto(const bool nT)
             {
                 noTeto = nT;
+
+                //se bater no teto, zera a velocidade vertical imediatamente
+                if (noTeto && vel_y < 0.0f)
+                    vel_y = 0.0f;
             }
 
             void Personagem::setNoChao(const bool nC)

@@ -57,7 +57,7 @@ namespace Pokerun{
                 float novoX = (float)(rand() % (limiteDir - limiteEsq + 1) + limiteEsq);
                 float novoY = base.position.y - alturaObs;
 
-                pObs->getFig().setPosition({novoX, novoY});
+                pObs->setPosicao({novoX, novoY});
 
                 lista_ents.incluir(static_cast<Entidades::Entidade*>(pObs));
                 GC.incluirObstaculo(static_cast<Entidades::Obstaculos::Obstaculo*>(pObs));

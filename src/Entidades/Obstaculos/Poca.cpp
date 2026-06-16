@@ -43,6 +43,8 @@ namespace Pokerun{
                 if(pJog){   
                     float taxa = 1 - (profundidade/100); //para fazer a vel do jogador diminuir algo entre 50 e 80%
                     pJog->diminui_vel(taxa);
+                    if(danoso)
+                        pJog->operator--();
                 }
             }
         }

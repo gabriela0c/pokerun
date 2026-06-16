@@ -37,7 +37,7 @@ namespace Pokerun{
             for(int i = 0; i < n; i++)
             {
                 Entidades::Obstaculos::Poca* pObs = new Entidades::Obstaculos::Poca();
-                
+                pObs->setPosicao({0.0f, 0.0f}); // Posiciona a poca no canto superior esquerdo (será ajustada posteriormente)
                 int indicePlataforma = rand() % posicoesPlataformas.size();
                 sf::FloatRect base = posicoesPlataformas[indicePlataforma];
                 
@@ -54,7 +54,7 @@ namespace Pokerun{
                 float novoX = (float)(rand() % (limiteDir - limiteEsq + 1) + limiteEsq);
                 float novoY = base.position.y - alturaObs;
 
-                pObs->getFig().setPosition({novoX, novoY});
+                pObs->setPosicao({novoX, novoY});
 
                 lista_ents.incluir(static_cast<Entidades::Entidade*>(pObs));
                 GC.incluirObstaculo(static_cast<Entidades::Obstaculos::Obstaculo*>(pObs));

@@ -3,6 +3,7 @@
 #include "Ente.h"
 #include <sstream>
 #include <fstream>
+#include <cmath>
 
 #define GRAVIDADE 600.0f
 #define VEL_TERM 240.0f
@@ -15,10 +16,12 @@ namespace Pokerun{
         protected:
             float x;
             float y;
+            float y_inicial;
             float vel_y;
             const float gravidade;
             sf::Clock relogio;
             float dt;
+            float tempo_total;
             bool ativo;
             std::ostringstream buffer; 
 
@@ -32,6 +35,7 @@ namespace Pokerun{
             void aplicarGravidade();
             void antiGravidade();
             void sincronizarPosicao();  
+            void setPosicao(const sf::Vector2f pos);
 
             bool getAtivo()const;
             void setAtivo(const bool a);

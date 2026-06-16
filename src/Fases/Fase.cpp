@@ -65,7 +65,7 @@ namespace Pokerun{
             for (int i = 0; i < n; i++)
             {
                 pPlat = new Entidades::Obstaculos::Plataforma();
-                pPlat->getFig().setPosition(posicoesPossiveis[i]); //cada i pega uma posição única
+                pPlat->setPosicao(posicoesPossiveis[i]); //cada i pega uma posição única
 
                 posicoesPlataformas.push_back(pPlat->getFig().getGlobalBounds());
                 lista_ents.incluir(static_cast<Entidades::Entidade*>(pPlat));

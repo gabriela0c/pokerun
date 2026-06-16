@@ -19,6 +19,8 @@ namespace Pokerun{
                 pFigura->setFillColor(sf::Color::Blue);
                 setTextura("assets/sprites/obstaculos/plataforma.png", sf::IntRect({0, 0}, dimensoes));
                 pFigura->setPosition(pos);
+                sincronizarPosicao();
+                y_inicial = y;
             }
 
             Plataforma::~Plataforma()
@@ -48,7 +50,8 @@ namespace Pokerun{
 
             void Plataforma::obstaculizar(Personagens::Jogador* pJog)
             {
-                
+                if(danoso)
+                    pJog->operator--();
             }
         }
     }

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Obstaculos/Obstaculo.h"
+#include "Entidades/Obstaculos/Obstaculo.h"
 
 #define TAM_PLAT_X 300.0f
 #define TAM_PLAT_Y 58.0f

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Obstaculos/Obstaculo.h"
+#include "Entidades/Obstaculos/Obstaculo.h"
 
 #define TAM_FOGO_X 40.0f
 #define TAM_FOGO_Y 50.0f

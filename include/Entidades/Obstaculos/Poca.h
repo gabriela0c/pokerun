@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Obstaculos/Obstaculo.h"
+#include "Entidades/Obstaculos/Obstaculo.h"
 
 #define TAM_OBST_MEDIO_X 120.0f
 #define TAM_OBST_MEDIO_Y 30.0f

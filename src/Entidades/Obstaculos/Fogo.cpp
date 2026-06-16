@@ -43,8 +43,6 @@ namespace Pokerun{
                 //intensidade 1: 1 de dano + knockback
                 //intensidade 2: 2 de dano + knockback
                 //intensidade 3: 3 de dano + knockback
-                for(int i = 1; i < intensidade; i++)
-                    pJog->operator--();
                 
                 float sinal = calcularDirecao(pJog->getFig().getPosition(), pFigura->getPosition());
                 pJog->receberKnockback(sinal * 200.0f);
@@ -59,6 +57,10 @@ namespace Pokerun{
                 if (!pJog->getInvencivel())
                 {
                     queimar(pJog);
+                    if(danoso){
+                        for(int i = 1; i < intensidade; i++)
+                        pJog->operator--();
+                    }
                 }
             }
         }
