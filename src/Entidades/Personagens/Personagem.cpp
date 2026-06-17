@@ -52,7 +52,7 @@ namespace Pokerun{
             void Personagem::salvarDataBuffer()
             {
                 Entidade::salvarDataBuffer();
-                buffer << vel_x << " " << noChao << " " << noTeto << " " << num_vidas;
+                buffer << " " << vel_x << " " << noChao << " " << noTeto << " " << num_vidas;
             }
 
             int Personagem::getNumvidas()const

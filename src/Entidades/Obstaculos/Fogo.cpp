@@ -26,10 +26,9 @@ namespace Pokerun{
 
             void Fogo::salvar()
             {
-                buffer.str("");
-                salvarDataBuffer();
-                std::ofstream arquivo("save.dat", std::ios::app);
-                arquivo << "FOGO " << buffer.str() << std::endl;
+                buffer << "FOGO "; 
+                salvarDataBuffer(); 
+                buffer << std::endl; 
             }
  
             void Fogo::executar()
@@ -44,11 +43,8 @@ namespace Pokerun{
                 //intensidade 2: 2 de dano + knockback
                 //intensidade 3: 3 de dano + knockback
                 
-                sf::Vector2f sinais = calcularDirecao(pJog->getPosition(), getPosition());
-                pJog->receberKnockback(sinais.x * 200.0f);
-                pJog->ativarInvencibilidade();
- 
-                std::cout << "Fogo queimou " << (pJog->getEhJogador1() ? "Pikachu" : "Raichu") << "! (intensidade =" << intensidade << ") Vidas: " << pJog->getNumvidas() << std::endl;
+                sf::Vector2f sinal = calcularDirecao(pJog->getPosition(), getPosition());
+                pJog->receberKnockback(sinal.x * 200.0f);
             }
  
             void Fogo::obstaculizar(Personagens::Jogador* pJog)
@@ -56,11 +52,12 @@ namespace Pokerun{
                 if (!pJog) { return; }
                 if (!pJog->getInvencivel())
                 {
+                    if(danoso)
+                        pJog->receberDano(intensidade);
                     queimar(pJog);
-                    if(danoso){
-                        for(int i = 1; i < intensidade; i++)
-                        pJog->operator--();
-                    }
+
+                    
+                std::cout << "Fogo queimou " << (pJog->getEhJogador1() ? "Pikachu" : "Raichu") << "! (intensidade =" << intensidade << ") Vidas: " << pJog->getNumvidas() << std::endl;
                 }
             }
         }

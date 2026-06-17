@@ -15,6 +15,8 @@ namespace Pokerun{
             const int maxCharizards;
             const int maxFogos;
 
+            std::string getNomeArquivo()const;
+
         public:
             FaseSegunda(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
             ~FaseSegunda();

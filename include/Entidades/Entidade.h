@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Ente.h"
-#include <sstream>
-#include <fstream>
+#include <ostream>
 #include <cmath>
 
 #define GRAVIDADE 600.0f
@@ -23,7 +22,7 @@ namespace Pokerun{
             float dt;
             float tempo_total;
             bool ativo;
-            std::ostringstream buffer; 
+            std::ostream buffer; 
 
         protected:
             virtual void salvarDataBuffer();
@@ -36,6 +35,8 @@ namespace Pokerun{
             void antiGravidade();
             void sincronizarPosicao();  
             void setPosicao(const sf::Vector2f pos);
+
+            void conectarSaida(std::ostream& os);
 
             bool getAtivo()const;
             void setAtivo(const bool a);

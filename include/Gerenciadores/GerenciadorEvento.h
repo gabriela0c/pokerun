@@ -26,6 +26,8 @@ namespace Pokerun {
             bool flagEnter;
             std::string texto_digitado;
 
+            bool flagQ;//comentar
+
             GerenciadorEvento(); //construtor privado para evitar que outra classe crie um novo
         public:
             ~GerenciadorEvento();
@@ -37,6 +39,7 @@ namespace Pokerun {
             const bool baixoPressionado();
             const bool enterPressionado();
             const bool pausaPressionado();
+            const bool QPressionado();
 
             const std::string getTextoDigitado()const;
 

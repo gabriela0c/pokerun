@@ -64,10 +64,9 @@ namespace Pokerun{
 
             void Jogador::salvar()
             {
-                buffer.str("");
-                salvarDataBuffer();
-                std::ofstream arquivo("save.dat", std::ios::app);
-                arquivo << (ehJogador1 ? "JOGADOR1 " : "JOGADOR2 ") << buffer.str() << std::endl;
+                buffer << (ehJogador1 ? "JOGADOR1" : "JOGADOR2") << " "; 
+                salvarDataBuffer(); 
+                buffer << std::endl;
             }
 
             void Jogador::operator+=(int num)
@@ -78,6 +77,12 @@ namespace Pokerun{
             int Jogador::getPontos()const
             {
                 return pontos;
+            }
+
+            void Jogador::curarVida()
+            {
+                if(num_vidas < N_VDS_JOG)
+                    num_vidas++;
             }
 
             void Jogador::diminui_vel(float taxa)

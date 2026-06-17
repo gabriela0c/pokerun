@@ -8,16 +8,24 @@ namespace Pokerun{
         namespace Obstaculos{            
 
             Plataforma::Plataforma():
-            Obstaculo({TAM_PLAT_X, TAM_PLAT_Y}, false, true), dimensoes({(int)TAM_PLAT_X, (int)TAM_PLAT_Y})
+            Obstaculo({TAM_PLAT_X, TAM_PLAT_Y}, false, true), dimensoes({(int)TAM_PLAT_X, (int)TAM_PLAT_Y}), 
+            pode_curar((rand() % 100) < 30), cura_consumida(false)
             {
-                setTextura("assets/sprites/obstaculos/plataforma.png", sf::IntRect({0, 0}, dimensoes));
+                if(pode_curar == false)
+                    setTextura("assets/sprites/obstaculos/plataforma.png", sf::IntRect({0, 0}, dimensoes));
+                else
+                    setTextura("assets/sprites/obstaculos/plataforma-cura.png", sf::IntRect({0, 0}, dimensoes));
             }
 
             Plataforma::Plataforma(sf::Vector2f pos,sf::Vector2f dim):
-            Obstaculo(dim, false, true), dimensoes(dim)
+            Obstaculo(dim, false, true), dimensoes(dim), pode_curar((rand() % 100) < 30), cura_consumida(false)
             {
                 pFigura->setFillColor(sf::Color::Blue);
-                setTextura("assets/sprites/obstaculos/plataforma.png", sf::IntRect({0, 0}, dimensoes));
+                if(pode_curar == false)
+                    setTextura("assets/sprites/obstaculos/plataforma.png", sf::IntRect({0, 0}, dimensoes));
+                else
+                    setTextura("assets/sprites/obstaculos/plataforma-cura.png", sf::IntRect({0, 0}, dimensoes));
+
                 pFigura->setPosition(pos);
                 sincronizarPosicao();
                 y_inicial = y;
@@ -37,21 +45,31 @@ namespace Pokerun{
             void Plataforma::salvarDataBuffer()
             {
                 Obstaculo::salvarDataBuffer();
-                buffer << " " << dimensoes.x << " " << dimensoes.y;
+                buffer << " " << pode_curar << " " << cura_consumida;
             }
 
             void Plataforma::salvar()
             {
-                buffer.str("");               
-                salvarDataBuffer();
-                std::ofstream arquivo("save.dat", std::ios::app);
-                arquivo << "PLATAFORMA " << buffer.str() << std::endl;
+                buffer << "PLATAFORMA "; 
+                salvarDataBuffer(); 
+                buffer << std::endl;
             }
 
             void Plataforma::obstaculizar(Personagens::Jogador* pJog)
             {
                 if(danoso)
-                    pJog->operator--();
+                    pJog->receberDano(1);
+
+                if(pode_curar && !cura_consumida && pJog != nullptr && pJog->getNumvidas() < N_VDS_JOG){
+                    cura_consumida = true;
+                    
+                    pJog->curarVida(); 
+                    
+                    std::cout << "Plataforma magica curou o " << (pJog->getEhJogador1() ? "Pikachu" : "Raichu") << "! Vidas: " << pJog->getNumvidas() << std::endl;
+                    
+                    sf::Vector2f tam = pFigura->getSize();
+                    setTextura("assets/sprites/obstaculos/plataforma.png", sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
+                }
             }
         }
     }

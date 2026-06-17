@@ -24,10 +24,9 @@ namespace Pokerun{
 
             void Bulbasaur::salvar()
             {
-                buffer.str("");
-                salvarDataBuffer();
-                std::ofstream arquivo("save.dat", std::ios::app);
-                arquivo << "BULBASAUR " << buffer.str() << std::endl;
+                buffer << "BULBASAUR "; 
+                salvarDataBuffer(); 
+                buffer << std::endl;
             }
 
             void Bulbasaur::executar()

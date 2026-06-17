@@ -19,8 +19,7 @@ namespace Pokerun{
 
             void Obstaculo::salvarDataBuffer()
             {
-                Entidade::salvarDataBuffer();
-                buffer << " " << danoso << " " << solido;
+                Entidade::salvarDataBuffer(); //todos atributos dessa classe são iguais para todos objetos de uma mesma classe, não preciso salvar
             }
 
             const bool Obstaculo::isSolido()const

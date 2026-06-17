@@ -8,6 +8,7 @@
 #include "Entidades/Obstaculos/Fogo.h"
 #include "Entidades/Personagens/Bulbasaur.h"
 #include <vector>
+#include <fstream>
 
 #define WIN_SIZE_X 800.0f
 #define WIN_SIZE_Y 600.0f
@@ -28,7 +29,9 @@ namespace Pokerun{
             std::vector<sf::FloatRect> posicoesPlataformas;
             Entidades::Chao* pChao;
             const int maxBulbasaurs;//ja que ele esta em ambas as fases
-            const int maxPlataformas;
+
+        protected:
+            virtual std::string getNomeArquivo()const = 0;
 
         public:
             Fase(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
@@ -53,6 +56,8 @@ namespace Pokerun{
             Entidades::Chao* getChao()const;
 
             void removerInativos();
+
+            virtual void gravaFase();
 
             virtual void executar(); 
         };

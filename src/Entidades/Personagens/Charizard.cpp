@@ -31,10 +31,9 @@ namespace Pokerun{
 
             void Charizard::salvar()
             {
-                buffer.str("");
-                salvarDataBuffer();
-                std::ofstream arquivo("save.dat", std::ios::app);
-                arquivo << "CHARIZARD " << buffer.str() << std::endl;
+                buffer << "CHARIZARD "; 
+                salvarDataBuffer(); 
+                buffer << std::endl;
             }
 
             void Charizard::adicionarProjetil(Projetil* pProj)

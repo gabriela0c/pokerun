@@ -22,7 +22,7 @@ namespace Pokerun{
             void Inimigo::salvarDataBuffer()
             {
                 Personagem::salvarDataBuffer();
-                buffer << " " << nivel_maldade << " " << valorPontos << " " << direcao;
+                buffer << " " << direcao;
             }
 
             void Inimigo::setJogador(Jogador* pJog)

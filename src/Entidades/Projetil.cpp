@@ -19,15 +19,14 @@ namespace Pokerun {
         void Projetil::salvarDataBuffer()
         {
             Entidade::salvarDataBuffer();
-            buffer << " " << vel_x;
+            buffer << " " << vel_x << " " << voando;
         }
 
         void Projetil::salvar()
         {
-            buffer.str("");
-            salvarDataBuffer();
-            std::ofstream arquivo("save.dat", std::ios::app);
-            arquivo << "PROJETIL " << buffer.str() << std::endl;
+            buffer << "PROJETIL "; 
+            salvarDataBuffer(); 
+            buffer << std::endl;
         }
 
         const int Projetil::getDano()const

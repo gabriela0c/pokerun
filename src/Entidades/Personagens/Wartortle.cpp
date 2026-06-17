@@ -25,10 +25,9 @@ namespace Pokerun{
 
             void Wartortle::salvar()
             {
-                buffer.str("");
-                salvarDataBuffer();
-                std::ofstream arquivo("save.dat", std::ios::app);
-                arquivo << "WARTORTLE " << buffer.str() << std::endl;
+                buffer << "WARTORTLE "; 
+                salvarDataBuffer(); 
+                buffer << std::endl;
             }
 
             void Wartortle::danificar(Jogador* p)

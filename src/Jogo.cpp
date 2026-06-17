@@ -64,6 +64,8 @@ namespace Pokerun{
 
             pEvento->executar();
 
+            if(pEvento->QPressionado()){Fase1.gravaFase(); Fase2.gravaFase(); pGrafico->fecharJanela();}//comentar
+
             switch (estado) {
                 case EstadoJogo::MENU:{
                     menu.executar();  

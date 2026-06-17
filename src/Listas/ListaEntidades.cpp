@@ -60,6 +60,20 @@ namespace Pokerun{
             return inativos;
         }
 
+        void ListaEntidades::conectaBuffer(std::ostream& arquivo)
+        {
+            Elem* pAux = LEs.getPrimeiro();
+
+            while(pAux != nullptr){
+                
+                if(pAux->getInfo()){
+                    (pAux->getInfo())->conectarSaida(arquivo);
+                    (pAux->getInfo())->salvar();
+                }
+                pAux = pAux->getProx();
+            }
+        }
+
         void ListaEntidades::percorrer()
         {
             Elem* pAux = LEs.getPrimeiro();

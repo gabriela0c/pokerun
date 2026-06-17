@@ -13,13 +13,19 @@ namespace Pokerun{
 
         FasePrimeira::~FasePrimeira()
         {
+
+        }
+
+        std::string FasePrimeira::getNomeArquivo()const
+        {
+            return "Fase1.dat";
         }
 
         void FasePrimeira::criarWartortles()
         {
             Entidades::Personagens::Inimigo* pWart = nullptr;
-            int n = rand() % 2 + 3; //cria de 3 a 4 inimigos - tabela 1 N5
-            for(int i = 0; i < n; i++){
+            int n = rand() % 2;
+            for(int i = n; i < maxWartortles; i++){
                 pWart = new Entidades::Personagens::Wartortle();
                 adicionarInimigos(pWart);
                 pWart = nullptr;
@@ -28,10 +34,9 @@ namespace Pokerun{
         
         void FasePrimeira::criarPocas()
         {
-            //mínimo 3 e máximo 5 
-            int n = rand() % (maxPocas - 2) + 3;
+            int n = rand() % 3;
 
-            for(int i = 0; i < n; i++)
+            for(int i = n; i < maxPocas; i++)
             {
                 Entidades::Obstaculos::Poca* pPoca = new Entidades::Obstaculos::Poca();
                 

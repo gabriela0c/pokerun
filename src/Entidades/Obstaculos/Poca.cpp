@@ -25,10 +25,9 @@ namespace Pokerun{
 
             void Poca::salvar()
             {
-                buffer.str("");
-                salvarDataBuffer();
-                std::ofstream arquivo("save.dat", std::ios::app);
-                arquivo << "POCA " << buffer.str() << std::endl;
+                buffer << "POCA "; 
+                salvarDataBuffer(); 
+                buffer << std::endl;
 
             }
 
@@ -44,7 +43,7 @@ namespace Pokerun{
                     float taxa = 1 - (profundidade/100); //para fazer a vel do jogador diminuir algo entre 50 e 80%
                     pJog->diminui_vel(taxa);
                     if(danoso)
-                        pJog->operator--();
+                        pJog->receberDano(1);
                 }
             }
         }
