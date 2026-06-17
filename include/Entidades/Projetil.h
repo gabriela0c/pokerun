@@ -4,6 +4,7 @@
 
 #define LARGURA_PROJ 15.0f
 #define ALTURA_PROJ 15.0f
+#define TAM_CHAO_Y 50.0f
 
 #define TAMANHO_PROJ_X 104
 #define TAMANHO_PROJ_Y 169

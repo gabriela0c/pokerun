@@ -61,7 +61,9 @@ namespace Pokerun {
             pFigura->setPosition({spawnX, spawnY});
             sincronizarPosicao();
             vel_x = dir.x * VEL_PROJETIL_X;
-            vel_y = dir.y * VEL_PROJETIL_Y;
+            if(dir.y < 0){//ja tem a gravidade pra baixo entao quando o inimigo ta abaixo ele so taca pro lado msm, nao precisa tacar p cima
+                vel_y = dir.y * VEL_PROJETIL_Y;
+            }
         }
 
         void Projetil::guardar()
@@ -112,7 +114,7 @@ namespace Pokerun {
             pFigura->move({vel_x * dt, 0.0f});
 
             sf::Vector2f pos = pFigura->getPosition();
-            if(pos.x < 0.0f || pos.x > WIN_SIZE_X || pos.y < 0.0f || pos.y > WIN_SIZE_Y)//se colide com os limites da tela
+            if(pos.x < 0.0f || pos.x > WIN_SIZE_X || pos.y < 0.0f || pos.y > WIN_SIZE_Y - TAM_CHAO_Y)//se colide com os limites da tela
                 guardar();
         }
 

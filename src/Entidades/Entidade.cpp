@@ -8,7 +8,7 @@ namespace Pokerun{
         x((float)(rand() % (int)(801 - tam.x))), y((float)(rand() % (int)(601 - tam.y))), y_inicial(y),
         vel_y(vY), gravidade(GRAVIDADE), relogio(), dt(0.0f), tempo_total(0.0f), ativo(true), buffer()
         {
-            pFigura->setPosition({x, y});
+            setPosicao({x, y});
         }
 
         Entidade::~Entidade()
@@ -18,7 +18,7 @@ namespace Pokerun{
 
         void Entidade::salvarDataBuffer()
         {
-            buffer << id << x << " " << y << " " << vel_y << " " << (ativo ? 1 : 0) ;
+            buffer << id << "" << x << " " << y << " " << vel_y << " " << (ativo ? 1 : 0) ;
         }
 
         void Entidade::aplicarGravidade()
