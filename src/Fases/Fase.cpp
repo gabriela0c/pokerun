@@ -7,7 +7,7 @@ namespace Pokerun{
  
         Fase::Fase(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
         Ente({WIN_SIZE_X, WIN_SIZE_Y}), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2), pChao(new Entidades::Chao()),
-        maxBulbasaurs(4), maxPlataformas(5)
+        maxBulbasaurs(4)
         {
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
             pFigura->setPosition({0.0f, 0.0f});
@@ -30,8 +30,9 @@ namespace Pokerun{
         void Fase::criarBulbasaurs()
         {
             Entidades::Personagens::Inimigo* pBulba = nullptr;
-            int n = rand() % 2 + 3; //cria de 3 a 4 inimigos - tabela 1 N5
-            for(int i = 0; i < n; i++){
+            int n = rand() % 2;
+            for(int i = n; i < maxBulbasaurs; i++)
+            {//cria de 3 a 4 bulbasaur (instâncias aleatórias)
                 pBulba = new Entidades::Personagens::Bulbasaur();
                 adicionarInimigos(pBulba);
                 pBulba = nullptr;
@@ -47,7 +48,7 @@ namespace Pokerun{
             posicoesPossiveis.push_back(sf::Vector2f(100.f, 150.f));
             posicoesPossiveis.push_back(sf::Vector2f(300.f, 320.f));
             posicoesPossiveis.push_back(sf::Vector2f(500.f, 200.f));
-            posicoesPossiveis.push_back(sf::Vector2f(150.f, 450.f));
+            posicoesPossiveis.push_back(sf::Vector2f(150.f, 440.f));
             posicoesPossiveis.push_back(sf::Vector2f(400.f, 500.f));
 
             for (int i = 4; i > 0; i--)

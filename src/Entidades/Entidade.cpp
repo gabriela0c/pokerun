@@ -69,7 +69,7 @@ namespace Pokerun{
         void Entidade::antiGravidade()
         {
             //conceito de ensino superior: movimento harmônico simples (MHS)
-            float amplitude = 10.0f;          //altura do balanço em pixels
+            float amplitude = 5.0f;          //altura do balanço em pixels
             float frequencia_angular = 2.0f;  //rapidez do balanço (rad/s)
             
             //equação da posição

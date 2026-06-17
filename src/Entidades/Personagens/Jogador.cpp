@@ -80,6 +80,12 @@ namespace Pokerun{
                 return pontos;
             }
 
+            void Jogador::curarVida()
+            {
+                if(num_vidas < N_VDS_JOG)
+                    num_vidas++;
+            }
+
             void Jogador::diminui_vel(float taxa)
             {
                 if(taxa < modificador_velocidade){

@@ -2,8 +2,8 @@
 
 #include "Entidades/Obstaculos/Obstaculo.h"
 
-#define TAM_PLAT_X 300.0f
-#define TAM_PLAT_Y 58.0f
+#define TAM_PLAT_X 250.0f
+#define TAM_PLAT_Y 30.0f
 
 namespace Pokerun{
 
@@ -14,6 +14,8 @@ namespace Pokerun{
             class Plataforma : public Obstaculo{
             private:
                 sf::Vector2i dimensoes;
+                bool pode_curar;
+                bool cura_consumida;
 
             public:
                 Plataforma();

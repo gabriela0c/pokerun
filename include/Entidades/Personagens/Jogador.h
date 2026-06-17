@@ -42,6 +42,7 @@ namespace Pokerun{
 
                 void operator+=(int num);
                 int getPontos()const;
+                void curarVida();
 
                 void diminui_vel(float taxa);
                 float getModVel()const;

@@ -239,7 +239,6 @@ namespace Pokerun{
                 if(Linimigos[i]){
                     if(inRange(pJog, Linimigos[i])){
                         Linimigos[i]->receberDano(1);
-                        std::cout << "tenho " << Linimigos[i]->getNumvidas() << " vidas" <<  std::endl;
                     }
                     if(Linimigos[i]->getNumvidas() <= 0){
                         pJog->operator+=(Linimigos[i]->getValorPontos());

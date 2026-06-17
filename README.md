@@ -8,7 +8,7 @@ Foi utilizado o SFML na versão 3.1.0, e o compilador g++ na versão 14.2.0.
 O comando para a compilação e execução é "ming32-make ; ./bin/jogo.exe".
 
 # Autores
-- Gabriela Cardoso Machado - @gabriela.2007@alunos.utfpr.edu.br
+- Gabriela Cardoso Machado - gabriela.2007@alunos.utfpr.edu.br
 - Geraldo Moreno Dutra de Andrade - geraldomoreno@alunos.utfpr.edu.br
 
 # Documentação
