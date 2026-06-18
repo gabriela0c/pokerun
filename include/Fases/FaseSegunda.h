@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Fases/Fase.h"
-#include "Entidades/Personagens/Charizard.h"
 
 #define TAM_CAVERNA_X 1406 //esse é o tamanho dos sprites nao o que ele tem na tela
 #define TAM_CAVERNA_Y 913
@@ -26,8 +25,6 @@ namespace Pokerun{
             
             void criarInimigos();
             void criarObstaculos();
-
-            void adicionarProjetil(Entidades::Projetil* pProj);
 
             void executar();
         

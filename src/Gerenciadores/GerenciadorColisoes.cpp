@@ -386,13 +386,9 @@ namespace Pokerun{
         {
             Linimigos.clear();
             Lobstaculos.clear();
+            setProjeteis.clear();
             pJogador1 = nullptr;
             pJogador2 = nullptr;
-        }
-
-        void GerenciadorColisoes::limparProjeteis()
-        {
-            setProjeteis.clear();
         }
 
         void GerenciadorColisoes::setChao(Entidades::Chao* pCh)

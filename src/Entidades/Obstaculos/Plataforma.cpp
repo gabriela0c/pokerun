@@ -45,13 +45,14 @@ namespace Pokerun{
             void Plataforma::salvarDataBuffer()
             {
                 Obstaculo::salvarDataBuffer();
-                buffer << " " << pode_curar << " " << cura_consumida;
+                buffer << " " << pode_curar << " " << cura_consumida << " " << dimensoes.x << " " << dimensoes.y;
             }
 
             void Plataforma::carregarDataBuffer(std::istream& is)
             {
                 Obstaculo::carregarDataBuffer(is);
-                is >> pode_curar >> cura_consumida;
+                is >> pode_curar >> cura_consumida >> dimensoes.x >> dimensoes.y;
+                pFigura->setSize({(float)dimensoes.x, (float)dimensoes.y});//restaura o tamanho (importante p/ as paredes laterais)
             }
 
             void Plataforma::salvar()

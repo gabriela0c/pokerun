@@ -78,11 +78,6 @@ namespace Pokerun{
             flagPausa = false;
         }
 
-        const bool GerenciadorEvento::QPressionado()
-        {
-            return flagQ;
-        }
-
         void GerenciadorEvento::pollEvent()
         {
             while (const auto event = pGrafico->getWindow()->pollEvent()) {
@@ -93,7 +88,6 @@ namespace Pokerun{
                     if(key->code == sf::Keyboard::Key::Down){flagBaixo = true;}
                     if(key->code == sf::Keyboard::Key::Enter){flagEnter = true;}
                     if(key->code == sf::Keyboard::Key::Escape){flagPausa = true;}
-                    if(key->code == sf::Keyboard::Key::Q){flagQ = true;}//comentar
                 }
                 else if(const auto* text = event->getIf<sf::Event::TextEntered>()){
                     if(text->unicode < 128){ //só ASCII                 

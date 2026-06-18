@@ -54,12 +54,6 @@ namespace Pokerun{
             }
         }
 
-        void FaseSegunda::adicionarProjetil(Entidades::Projetil* pProj)
-        {
-            GC.incluirProjetil(pProj);
-            lista_ents.incluir(pProj);
-        }
-
         void FaseSegunda::criarInimigos()
         {
             criarBulbasaurs();

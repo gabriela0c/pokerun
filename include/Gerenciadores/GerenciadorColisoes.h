@@ -51,7 +51,6 @@ namespace Pokerun{
             void setJogador(Entidades::Personagens::Jogador* pJog);
             void remover(Entidades::Entidade* pE);
             void limparListas();
-            void limparProjeteis();
             void setChao(Entidades::Chao* pCh);
 
             void incluirInimigo(Entidades::Personagens::Inimigo* pI);

@@ -49,6 +49,7 @@ namespace Pokerun{
 
             void adicionarInimigos(Entidades::Personagens::Inimigo* pInim);
             void adicionarObstaculos(Entidades::Obstaculos::Obstaculo* pObs);
+            void adicionarProjetil(Entidades::Projetil* pProj);
             void colocaNaPlataforma(Entidades::Obstaculos::Obstaculo* pObs);
             
             void criarBulbasaurs();
@@ -61,9 +62,10 @@ namespace Pokerun{
             Entidades::Chao* getChao()const;
 
             void removerInativos();
+            void limpaFase();
 
             void gravaFase();
-            void recuperaFase();
+            int recuperaFase();
             virtual std::string getNomeArquivo()const = 0;
             Entidades::Entidade* criarPorTipo(const std::string tipo);
 

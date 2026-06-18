@@ -35,6 +35,16 @@ namespace Pokerun{
         return nomes[i];
     }
 
+    void Menu::setFaseEscolhida(int f)
+    {
+        faseEscolhida = f;
+    }
+
+    void Menu::setNumJogadores(int num)
+    {
+        numJogadores = num;
+    }
+
     bool Menu::nomesPreenchidos()const
     {
         bool pronto = false;
@@ -77,7 +87,7 @@ namespace Pokerun{
         switch(telaAtual)
         {
             case TelaMenu::INICIO:{
-                std::vector<std::string> opcoes = {"Iniciar", "Ranking", "Sair"};
+                std::vector<std::string> opcoes = {"Iniciar", "Continuar", "Ranking", "Sair"};
                 desenharOpcoes(opcoes);
             break;
             }
@@ -95,7 +105,7 @@ namespace Pokerun{
             }
 
             case TelaMenu::PAUSA:{
-                std::vector<std::string> opcoes = {"Continuar", "Inicio"};
+                std::vector<std::string> opcoes = {"Continuar", "Salvar e Sair", "Inicio"};
                 desenharOpcoes(opcoes);
             break;
             }
@@ -217,18 +227,22 @@ namespace Pokerun{
         {
             case TelaMenu::INICIO:{
                 if(pEvento->cimaPressionado() && opcaoSelecionada > 0){opcaoSelecionada--;}
-                if(pEvento->baixoPressionado() && opcaoSelecionada < 2){opcaoSelecionada++;}
-        
+                if(pEvento->baixoPressionado() && opcaoSelecionada < 3){opcaoSelecionada++;}
+
                 if(pEvento->enterPressionado()){
                     if(opcaoSelecionada == 0){
                         telaAtual = TelaMenu::SELECIONAR_JOGADORES;//vai para a tela de selecao no num de jogadores
                         opcaoSelecionada = 0;
                     }
                     else if(opcaoSelecionada == 1){
-                        telaAtual = TelaMenu::RANKING;//vai para a tela dos rankings
+                        pJogo->continuarJogo();//recupera o jogo salvo e vai para JOGANDO
                         opcaoSelecionada = 0;
                     }
                     else if(opcaoSelecionada == 2){
+                        telaAtual = TelaMenu::RANKING;//vai para a tela dos rankings
+                        opcaoSelecionada = 0;
+                    }
+                    else if(opcaoSelecionada == 3){
                         pJogo->setEstado(EstadoJogo::SAINDO);//sai do jogo
                     }
                 }
@@ -277,15 +291,20 @@ namespace Pokerun{
 
             case TelaMenu::PAUSA:{
                 if(pEvento->cimaPressionado() &&  opcaoSelecionada > 0) {opcaoSelecionada--;}
-                if(pEvento->baixoPressionado() &&  opcaoSelecionada < 1){opcaoSelecionada++;}
+                if(pEvento->baixoPressionado() &&  opcaoSelecionada < 2){opcaoSelecionada++;}
 
                 if(pEvento->enterPressionado()){
                     if(opcaoSelecionada == 0){pJogo->setEstado(EstadoJogo::JOGANDO);}//despausa
-                    if(opcaoSelecionada == 1){
-                        telaAtual = TelaMenu::INICIO;//volta para o menu de inicio
-                        //reiniciar o jogador talvez, ou reiniciar todos da lista de entidades
+                    else if(opcaoSelecionada == 1){//Salvar e Sair
+                        pJogo->salvarJogo();
+                        telaAtual = TelaMenu::INICIO;
                         opcaoSelecionada = 0;
-                        pJogo->setEstado(EstadoJogo::MENU);//seta o estado do jogo para menu
+                        pJogo->setEstado(EstadoJogo::MENU);
+                    }
+                    else if(opcaoSelecionada == 2){//Inicio (sem salvar)
+                        telaAtual = TelaMenu::INICIO;
+                        opcaoSelecionada = 0;
+                        pJogo->setEstado(EstadoJogo::MENU);
                     }
                 }
             break;

@@ -48,15 +48,10 @@ namespace Pokerun{
  
                 aplicarKnockback(p, forcaH);
                 p->ativarInvencibilidade();
- 
-                std::cout << "Wartortle danificou " << (p->getEhJogador1() ? "Pikachu" : "Raichu") 
-                          << "! (massa=" << massa << ", forcaH=" << forcaH << ") Vidas: " << p->getNumvidas() << std::endl;
             }
  
             void Wartortle::executar()
             {
-                //novo ciclo: avança por DURACAO_AVANCO segundos, para
-                //por DURACAO_PAUSA segundos antes de avançar de novo
                 tempo_ciclo += dt;
  
                 if(!em_pausa && tempo_ciclo >= DURACAO_AVANCO)

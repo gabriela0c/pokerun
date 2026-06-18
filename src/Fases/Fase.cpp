@@ -127,6 +127,12 @@ namespace Pokerun{
             }
         }
 
+        void Fase::adicionarProjetil(Entidades::Projetil* pProj)
+        {
+            GC.incluirProjetil(pProj);
+            lista_ents.incluir(pProj);
+        }
+
         void Fase::colocaNaPlataforma(Entidades::Obstaculos::Obstaculo* pObs)
         {
             int indicePlataforma = rand() % posicoesPlataformas.size();
@@ -151,10 +157,7 @@ namespace Pokerun{
         {
             Ente::desenhar(); //fundo da fase
             lista_ents.desenhaMembros(); //sprites dos personagens e obstáculos
-
-            Gerenciadores::GerenciadorGrafico* pGrafico = Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico();
-            if (!pGrafico || !pGrafico->getWindow()) { return; }
-
+            
             //barras de vida dos inimigos médios e chefões
             Listas::Elem* pAux = lista_ents.getPrimeiro();
             while (pAux != nullptr) 
@@ -205,8 +208,8 @@ namespace Pokerun{
                         barraVida.setFillColor(sf::Color::Green);
                         barraVida.setPosition(posBarra);
 
-                        pGrafico->desenhaElementos(fundo);
-                        pGrafico->desenhaElementos(barraVida);
+                        pGG->desenhaElementos(fundo);
+                        pGG->desenhaElementos(barraVida);
                     }
                 }
                 pAux = pAux->getProx();
@@ -220,7 +223,7 @@ namespace Pokerun{
             if (pJogador1 && pJogador1->getAtivo()) 
             {
                 spriteCoracao.setPosition(sf::Vector2f(20.0f, 20.0f));
-                pGrafico->desenhaElementos(spriteCoracao);
+                pGG->desenhaElementos(spriteCoracao);
 
                 std::ostringstream ssVidas, ssPontos;
                 ssVidas << "x " << pJogador1->getNumvidas();
@@ -238,14 +241,14 @@ namespace Pokerun{
                 txtPts.setFillColor(sf::Color::Yellow);
                 txtPts.setPosition(sf::Vector2f(20.0f, 60.0f));
 
-                pGrafico->desenhaElementos(txtVidas);
-                pGrafico->desenhaElementos(txtPts);
+                pGG->desenhaElementos(txtVidas);
+                pGG->desenhaElementos(txtPts);
             }
 
             //raichu na direita
             if (pJogador2 && pJogador2->getAtivo()) {
                 spriteCoracao.setPosition(sf::Vector2f(660.0f, 20.0f));
-                pGrafico->desenhaElementos(spriteCoracao);
+                pGG->desenhaElementos(spriteCoracao);
 
                 std::ostringstream ssVidas, ssPontos;
                 ssVidas << "x " << pJogador2->getNumvidas();
@@ -263,8 +266,8 @@ namespace Pokerun{
                 txtPts.setFillColor(sf::Color::Yellow);
                 txtPts.setPosition(sf::Vector2f(660.0f, 60.0f));
 
-                pGrafico->desenhaElementos(txtVidas);
-                pGrafico->desenhaElementos(txtPts);
+                pGG->desenhaElementos(txtVidas);
+                pGG->desenhaElementos(txtPts);
             }
         }
 
@@ -286,7 +289,25 @@ namespace Pokerun{
             std::ofstream arquivo(getNomeArquivo());
             if(!arquivo.is_open()){ return; }
 
+            int numJogs = (pJogador2 && pJogador2->getAtivo()) ? 2 : 1;
+            arquivo << numJogs << std::endl;
+
             lista_ents.conectaBuffer(arquivo);
+        }
+
+        void Fase::limpaFase()//remove do GC, lista_ents e deleta todos menos jogadores e chao
+        {
+            lista_ents.remover(pJogador1);
+            lista_ents.remover(pJogador2);
+            lista_ents.remover(pChao);
+
+            lista_ents.deletaMembros();
+            lista_ents.limpar();
+            GC.limparListas();      
+
+            lista_ents.incluir(pJogador1);
+            lista_ents.incluir(pJogador2);
+            lista_ents.incluir(pChao);
         }
 
         Entidades::Entidade* Fase::criarPorTipo(const std::string tipo)
@@ -309,30 +330,20 @@ namespace Pokerun{
                 return nullptr;  
         }
 
-        void Fase::recuperaFase()
+        int Fase::recuperaFase()
         {
             std::ifstream arquivo(getNomeArquivo());
-            if(!arquivo.is_open()){ return; }
+            if(!arquivo.is_open()){ return 0; }
+
+            std::string linhaCabecalho;
+            std::getline(arquivo, linhaCabecalho);
+            std::istringstream issCabec(linhaCabecalho);
+            int numJogs = 1;
+            issCabec >> numJogs;
 
             //limpa entidades atuais menos jogadores e chao
-            std::vector<Entidades::Entidade*> lRemover;
-            Listas::Elem* pAux = lista_ents.getPrimeiro();
-            while(pAux != nullptr){
-                Entidades::Entidade* pE = pAux->getInfo();
-                if(pE){
-                    if(pE != pJogador1 && pE != pJogador2 && pE != pChao){
-                    lRemover.push_back(pE);
-                    }
-                }
-                pAux = pAux->getProx();
-            }
+            limpaFase();
 
-            for(int i = 0; i < (int)lRemover.size(); i++){
-                desativaEntidade(lRemover[i]);   // tira da lista_ents e GC
-                delete lRemover[i];
-            }
-
-            //le o arquivo e recria
             //vetores para religar projetil e charizard 
             std::vector<Entidades::Personagens::Charizard*> lCharizards;
             std::vector<int> idsCharizards;          // id salvo de cada charizard (mesmo indice)
@@ -348,14 +359,21 @@ namespace Pokerun{
 
                 Entidades::Entidade* pE = nullptr;
 
-                if(tipo == "JOGADOR1"){ pE = pJogador1; ativaJogador(pJogador1); }
-                else if(tipo == "JOGADOR2"){ pE = pJogador2; ativaJogador(pJogador2); }
+                if(tipo == "JOGADOR1"){ 
+                    pE = pJogador1; 
+                    ativaJogador(pJogador1); 
+                }
+                else if(tipo == "JOGADOR2"){
+                    pE = pJogador2; 
+                    ativaJogador(pJogador2); 
+                }
                 else{
                     pE = criarPorTipo(tipo);
                     if(!pE){ continue; }   
 
-                    if(tipo == "BULBASAUR" || tipo == "WARTORTLE" || tipo == "CHARIZARD"){
+                    if(tipo == "BULBASAUR" || tipo == "WARTORTLE" || tipo == "CHARIZARD"){//downcasts nao sao opcionais
                         adicionarInimigos(static_cast<Entidades::Personagens::Inimigo*>(pE));
+
                         if(tipo == "CHARIZARD"){
                             lCharizards.push_back(static_cast<Entidades::Personagens::Charizard*>(pE));
                             idsCharizards.push_back(idSalvo);
@@ -366,13 +384,12 @@ namespace Pokerun{
                     }
                     else if(tipo == "PROJETIL"){
                         Entidades::Projetil* pProj = static_cast<Entidades::Projetil*>(pE);
-                        GC.incluirProjetil(pProj);
-                        lista_ents.incluir(pProj);
+                        adicionarProjetil(pProj);
                     }
                 }
 
-                if(pE){
-                    pE->carregarDataBuffer(iss);   // restaura o estado proprio
+                if(pE){// restaura o estado da entidade
+                    pE->carregarDataBuffer(iss);   
 
                     if(tipo == "PROJETIL"){
                         int idChar;
@@ -383,7 +400,7 @@ namespace Pokerun{
                 }
             }
 
-            // 3) religa cada projetil ao charizard de id correspondente (busca linear)
+            //religa cada projetil ao charizard de id correspondente 
             for(int i = 0; i < (int)lProjeteis.size(); i++){
                 for(int j = 0; j < (int)lCharizards.size(); j++){
                     if(idsCharizards[j] == idsCharDosProjeteis[i]){
@@ -393,6 +410,8 @@ namespace Pokerun{
                     }
                 }
             }
+            
+            return numJogs; 
         }
 
         void Fase::criarCenario()

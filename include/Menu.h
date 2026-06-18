@@ -51,7 +51,10 @@ namespace Pokerun{
 
         const int getFaseEscolhida()const;
         const int getNumJogadores()const;
-        const std::string getNomeJogador(int i)const;   
+        const std::string getNomeJogador(int i)const;
+
+        void setFaseEscolhida(int f);
+        void setNumJogadores(int num);
 
         void executar();
     };

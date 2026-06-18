@@ -23,6 +23,49 @@ namespace Pokerun{
         Gerenciadores::GerenciadorGrafico::destruir();
         Gerenciadores::GerenciadorEvento::destruir();
     }
+            
+    void Jogo::salvarJogo()
+    {
+        //grava a fase atual e apaga a outra 
+        if(menu.getFaseEscolhida() == 1){
+            Fase1.gravaFase();
+            std::remove("Fase2.dat");
+        }
+        else{
+            Fase2.gravaFase();
+            std::remove("Fase1.dat");
+        }
+    }
+
+    void Jogo::continuarJogo()
+    {
+        //descobre qual fase tem save 
+        int fase = 0;
+        std::ifstream f1("Fase1.dat");
+        
+        if(f1.is_open()){ 
+            fase = 1; 
+            f1.close(); 
+        }
+        else{
+            std::ifstream f2("Fase2.dat");
+            if(f2.is_open()){ 
+                fase = 2; 
+                f2.close(); 
+            }
+        }
+
+        if(fase == 0){//nao teve save 
+            return; 
+        }   
+
+        int numJog = (fase == 1) ? Fase1.recuperaFase() : Fase2.recuperaFase();
+
+        menu.setFaseEscolhida(fase);//configura o jogo conforme o save
+        menu.setNumJogadores(numJog);
+       
+        setEstado(EstadoJogo::JOGANDO); 
+    }
 
     void Jogo::setEstado(EstadoJogo est)
     {
@@ -57,15 +100,17 @@ namespace Pokerun{
     void Jogo::executar()
     {
         while(pGrafico->verificaJanelaAberta()){
-            if(!pJogador1->getAtivo() && !pJogador2->getAtivo()){pGrafico->fecharJanela();}//fecha a janela quando ambos morrem por enquanto
+            if(!pJogador1->getAtivo() && !pJogador2->getAtivo()){//fecha a janela quando ambos morrem por enquanto
+                pGrafico->fecharJanela();
+            }
 
-            if(!pJogador1->getAtivo() && menu.getNumJogadores() == 1){pGrafico->fecharJanela();}//fecha janela quando jog1 morreu e so tem ele
+            if(!pJogador1->getAtivo() && menu.getNumJogadores() == 1){//fecha janela quando jog1 morreu e so tem ele
+                pGrafico->fecharJanela();
+            }
             
             pGrafico->limpaJanela();
 
             pEvento->executar();
-
-            if(pEvento->QPressionado()){Fase1.gravaFase(); Fase2.gravaFase(); pGrafico->fecharJanela();}//comentar
 
             switch (estado) {
                 case EstadoJogo::MENU:{

@@ -1,5 +1,7 @@
-
 #pragma once
+
+#include <fstream>
+#include <cstdio>
 
 #include "EstadoJogo.h"
 #include "Fases/FasePrimeira.h"
@@ -23,6 +25,9 @@ namespace Pokerun{
     public:
         Jogo();
         ~Jogo();
+
+        void salvarJogo();
+        void continuarJogo();
 
         void setEstado(EstadoJogo est);
         EstadoJogo getEstado()const;
