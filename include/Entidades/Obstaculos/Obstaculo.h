@@ -20,6 +20,7 @@ namespace Pokerun{
 
                 const bool isSolido()const;
                 virtual void salvarDataBuffer();
+                virtual void carregarDataBuffer(std::istream& is);
                 virtual void salvar() = 0;
                 
                 virtual void executar() = 0;

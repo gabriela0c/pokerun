@@ -24,6 +24,7 @@ namespace Pokerun{
                 ~Bulbasaur();
 
                 void salvarDataBuffer();
+                void carregarDataBuffer(std::istream& is);
                 void salvar();
 
                 void executar();

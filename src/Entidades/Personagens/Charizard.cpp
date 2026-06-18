@@ -29,6 +29,12 @@ namespace Pokerun{
                 buffer << " " << raio_ataque;
             }
 
+            void Charizard::carregarDataBuffer(std::istream& is)
+            {
+                Inimigo::carregarDataBuffer(is);
+                is >> raio_ataque;
+            }
+
             void Charizard::salvar()
             {
                 buffer << "CHARIZARD "; 

@@ -48,6 +48,12 @@ namespace Pokerun{
                 buffer << " " << pode_curar << " " << cura_consumida;
             }
 
+            void Plataforma::carregarDataBuffer(std::istream& is)
+            {
+                Obstaculo::carregarDataBuffer(is);
+                is >> pode_curar >> cura_consumida;
+            }
+
             void Plataforma::salvar()
             {
                 buffer << "PLATAFORMA "; 

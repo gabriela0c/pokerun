@@ -5,15 +5,20 @@
 #include "Listas/ListaEntidades.h"
 #include "Gerenciadores/GerenciadorColisoes.h"
 #include "Entidades/Obstaculos/Poca.h"
+#include "Entidades/Obstaculos/Plataforma.h"
 #include "Entidades/Obstaculos/Fogo.h"
 #include "Entidades/Personagens/Bulbasaur.h"
+#include "Entidades/Personagens/Wartortle.h"
+#include "Entidades/Personagens/Charizard.h"
+#include "Entidades/Projetil.h"
 #include <vector>
+#include <string>
 #include <fstream>
+#include <sstream>
 
 #define WIN_SIZE_X 800.0f
 #define WIN_SIZE_Y 600.0f
 
-//dim chao x eh sempre o tamanho da janela
 #define DIM_CHAO_Y 50.0f
 
 namespace Pokerun{
@@ -29,9 +34,6 @@ namespace Pokerun{
             std::vector<sf::FloatRect> posicoesPlataformas;
             Entidades::Chao* pChao;
             const int maxBulbasaurs;//ja que ele esta em ambas as fases
-
-        protected:
-            virtual std::string getNomeArquivo()const = 0;
 
         public:
             Fase(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
@@ -57,9 +59,12 @@ namespace Pokerun{
 
             void removerInativos();
 
-            virtual void gravaFase();
+            void gravaFase();
+            void recuperaFase();
+            virtual std::string getNomeArquivo()const = 0;
+            Entidades::Entidade* criarPorTipo(const std::string tipo);
 
-            virtual void executar(); 
+            virtual void executar();
         };
     }
 }

@@ -22,6 +22,11 @@ namespace Pokerun{
                 Inimigo::salvarDataBuffer();
                 buffer << " " << massa;
             }
+            void Wartortle::carregarDataBuffer(std::istream& is)
+            {
+                Inimigo::carregarDataBuffer(is);
+                is >> massa;
+            }
 
             void Wartortle::salvar()
             {

@@ -17,8 +17,10 @@ namespace Pokerun{
             ~ListaEntidades();
 
             void incluir(Entidades::Entidade* pE);
+            void desenhaMembros();
             void remover(Entidades::Entidade* pE);
             void limpar();
+            void deletaMembros();
             
             Elem* getPrimeiro()const;
             int getTam()const;

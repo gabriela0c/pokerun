@@ -1,5 +1,5 @@
 #include "Fases/Fase.h"
-#include <vector>
+
 
 namespace Pokerun{
 
@@ -21,7 +21,12 @@ namespace Pokerun{
         }
 
         Fase::~Fase()
-        {
+        {            
+            lista_ents.remover(pJogador1); //remover os jogadores da lista primeiro porque não quero que 
+            lista_ents.remover(pJogador2); //eles sejam deletados na fase e sim no jogo
+
+            lista_ents.deletaMembros();
+
             pJogador1 = nullptr;
             pJogador2 = nullptr;
             lista_ents.limpar();
@@ -138,15 +143,8 @@ namespace Pokerun{
 
         void Fase::desenhar()
         {
-            Ente::desenhar();
-            
-            auto* pAux = lista_ents.getPrimeiro();
-            while(pAux!=nullptr){
-                if(pAux->getInfo()){
-                    pAux->getInfo()->desenhar();
-                }    
-            pAux = pAux->getProx();
-            }   
+            Ente::desenhar();//desenha o fundo da fase
+            lista_ents.desenhaMembros();
         }
 
         void Fase::removerInativos()
@@ -164,10 +162,116 @@ namespace Pokerun{
 
         void Fase::gravaFase()
         {
-            std::ofstream arquivo(getNomeArquivo());   
+            std::ofstream arquivo(getNomeArquivo());
             if(!arquivo.is_open()){ return; }
 
-            lista_ents.conectaBuffer(arquivo); 
+            lista_ents.conectaBuffer(arquivo);
+        }
+
+        Entidades::Entidade* Fase::criarPorTipo(const std::string tipo)
+        {
+            if(tipo == "BULBASAUR")  
+                return new Entidades::Personagens::Bulbasaur();
+            else if(tipo == "WARTORTLE")  
+                return new Entidades::Personagens::Wartortle();
+            else if(tipo == "CHARIZARD")  
+                return new Entidades::Personagens::Charizard();
+            else if(tipo == "PLATAFORMA") 
+                return new Entidades::Obstaculos::Plataforma();
+            else if(tipo == "POCA")       
+                return new Entidades::Obstaculos::Poca();
+            else if(tipo == "FOGO")       
+                return new Entidades::Obstaculos::Fogo();
+            else if(tipo == "PROJETIL")   
+                return new Entidades::Projetil();
+            else    
+                return nullptr;  
+        }
+
+        void Fase::recuperaFase()
+        {
+            std::ifstream arquivo(getNomeArquivo());
+            if(!arquivo.is_open()){ return; }
+
+            //limpa entidades atuais menos jogadores e chao
+            std::vector<Entidades::Entidade*> lRemover;
+            Listas::Elem* pAux = lista_ents.getPrimeiro();
+            while(pAux != nullptr){
+                Entidades::Entidade* pE = pAux->getInfo();
+                if(pE){
+                    if(pE != pJogador1 && pE != pJogador2 && pE != pChao){
+                    lRemover.push_back(pE);
+                    }
+                }
+                pAux = pAux->getProx();
+            }
+
+            for(int i = 0; i < (int)lRemover.size(); i++){
+                desativaEntidade(lRemover[i]);   // tira da lista_ents e GC
+                delete lRemover[i];
+            }
+
+            //le o arquivo e recria
+            //vetores para religar projetil e charizard 
+            std::vector<Entidades::Personagens::Charizard*> lCharizards;
+            std::vector<int> idsCharizards;          // id salvo de cada charizard (mesmo indice)
+            std::vector<Entidades::Projetil*> lProjeteis;
+            std::vector<int> idsCharDosProjeteis;    // id do charizard que cada projetil referencia
+
+            std::string linha;
+            while(std::getline(arquivo, linha)){
+                std::istringstream iss(linha);
+                std::string tipo;
+                int idSalvo;
+                iss >> tipo >> idSalvo;
+
+                Entidades::Entidade* pE = nullptr;
+
+                if(tipo == "JOGADOR1"){ pE = pJogador1; ativaJogador(pJogador1); }
+                else if(tipo == "JOGADOR2"){ pE = pJogador2; ativaJogador(pJogador2); }
+                else{
+                    pE = criarPorTipo(tipo);
+                    if(!pE){ continue; }   
+
+                    if(tipo == "BULBASAUR" || tipo == "WARTORTLE" || tipo == "CHARIZARD"){
+                        adicionarInimigos(static_cast<Entidades::Personagens::Inimigo*>(pE));
+                        if(tipo == "CHARIZARD"){
+                            lCharizards.push_back(static_cast<Entidades::Personagens::Charizard*>(pE));
+                            idsCharizards.push_back(idSalvo);
+                        }
+                    }
+                    else if(tipo == "PLATAFORMA" || tipo == "POCA" || tipo == "FOGO"){
+                        adicionarObstaculos(static_cast<Entidades::Obstaculos::Obstaculo*>(pE));
+                    }
+                    else if(tipo == "PROJETIL"){
+                        Entidades::Projetil* pProj = static_cast<Entidades::Projetil*>(pE);
+                        GC.incluirProjetil(pProj);
+                        lista_ents.incluir(pProj);
+                    }
+                }
+
+                if(pE){
+                    pE->carregarDataBuffer(iss);   // restaura o estado proprio
+
+                    if(tipo == "PROJETIL"){
+                        int idChar;
+                        iss >> idChar;             // le o id do charizard que sobrou na linha
+                        lProjeteis.push_back(static_cast<Entidades::Projetil*>(pE));
+                        idsCharDosProjeteis.push_back(idChar);
+                    }
+                }
+            }
+
+            // 3) religa cada projetil ao charizard de id correspondente (busca linear)
+            for(int i = 0; i < (int)lProjeteis.size(); i++){
+                for(int j = 0; j < (int)lCharizards.size(); j++){
+                    if(idsCharizards[j] == idsCharDosProjeteis[i]){
+                        lProjeteis[i]->setCharizard(lCharizards[j]);
+                        lCharizards[j]->adicionarProjetil(lProjeteis[i]);
+                        break;
+                    }
+                }
+            }
         }
 
         void Fase::criarCenario()
@@ -181,7 +285,7 @@ namespace Pokerun{
         {   
             lista_ents.percorrer();//executa todos da lista polimorficamente
             GC.executar();
-            removerInativos();//aqui porque o GC.executar() que seta inativos apos a logica de ataque
+            removerInativos();//aqui porque o GC.executar() seta inativos apos a logica de ataque
             desenhar();
         }
     }

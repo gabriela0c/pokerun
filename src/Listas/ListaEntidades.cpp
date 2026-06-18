@@ -74,6 +74,30 @@ namespace Pokerun{
             }
         }
 
+        void ListaEntidades::desenhaMembros()
+        {
+            Elem* pAux = LEs.getPrimeiro();
+            while(pAux!=nullptr){
+                if(pAux->getInfo()){
+                    pAux->getInfo()->desenhar();
+                }    
+            pAux = pAux->getProx();
+            }   
+        }
+
+        void ListaEntidades::deletaMembros()
+        {
+            Listas::Elem* pAux = LEs.getPrimeiro();
+            while(pAux != nullptr){                       
+                Entidades::Entidade* pE = pAux->getInfo();
+                if(pE){
+                    delete pE;
+                    pE = nullptr;         
+                }
+                pAux = pAux->getProx();
+            }
+        }
+
         void ListaEntidades::percorrer()
         {
             Elem* pAux = LEs.getPrimeiro();

@@ -42,7 +42,8 @@ namespace Pokerun{
                 void mover();
                 void movimentoAleatorio();
 
-                void salvarDataBuffer();              
+                void salvarDataBuffer();        
+                virtual void carregarDataBuffer(std::istream& is);
                 virtual void salvar() = 0;            
 
                 int getValorPontos()const;
@@ -52,7 +53,6 @@ namespace Pokerun{
 
                 virtual void danificar(Jogador* p) = 0;
 
-            protected:
                 void aplicarKnockback(Jogador* p, float forca);
             };
         }

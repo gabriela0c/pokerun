@@ -4,7 +4,8 @@
 namespace Pokerun {
     namespace Entidades {
 
-        Projetil::Projetil(float velX) : Entidade({LARGURA_PROJ, ALTURA_PROJ}, 0.0f), vel_x(velX), dano(DANO_PROJETIL), pCharizard(nullptr), voando(false)
+        Projetil::Projetil(float velX) : Entidade({LARGURA_PROJ, ALTURA_PROJ}, 0.0f), vel_x(velX), dano(DANO_PROJETIL), 
+        pCharizard(nullptr), voando(false)
         {
             setTextura("assets/sprites/outros/fogo-charizard.png",
             sf::IntRect({0, 0}, {TAMANHO_PROJ_X, TAMANHO_PROJ_Y}));
@@ -19,7 +20,13 @@ namespace Pokerun {
         void Projetil::salvarDataBuffer()
         {
             Entidade::salvarDataBuffer();
-            buffer << " " << vel_x << " " << voando;
+            buffer << " " << vel_x << " " << voando << " " << (pCharizard ? pCharizard->getID() : -1);
+        }
+
+        void Projetil::carregarDataBuffer(std::istream& is)
+        {
+            Entidade::carregarDataBuffer(is);
+            is >> vel_x >> voando;
         }
 
         void Projetil::salvar()

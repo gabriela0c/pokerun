@@ -22,6 +22,12 @@ namespace Pokerun{
                 buffer << " " << chance_veneno;
             }
 
+            void Bulbasaur::carregarDataBuffer(std::istream& is)
+            {
+                Inimigo::carregarDataBuffer(is);
+                is >> chance_veneno;
+            }
+
             void Bulbasaur::salvar()
             {
                 buffer << "BULBASAUR "; 

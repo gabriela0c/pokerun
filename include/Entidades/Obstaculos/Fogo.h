@@ -25,6 +25,7 @@ namespace Pokerun{
                 ~Fogo();
 
                 void salvarDataBuffer();
+                void carregarDataBuffer(std::istream& is);
                 void salvar();
 
                 void executar();
