@@ -8,7 +8,7 @@ namespace Pokerun{
 
             Bulbasaur::Bulbasaur() : 
             Inimigo(NIVEL_MALD_FACIL, {LARGURA_BULBASAUR, ALTURA_BULBASAUR}, N_VDS_FACIL, N_PTS_FACIL), 
-            chance_veneno((rand()%10) + 1), pos_x_inicial(0.0f), pos_inicial_salva(false)
+            chance_veneno((rand()%10) + 1), pos_x_inicial(0.0f), ultima_pos_x(0.0f), pos_inicial_salva(false)
             {
                 setTextura("assets/sprites/personagens/inimigo/bulbasaur.png", sf::IntRect({0,0}, {(int)LARGURA_BULBASAUR, (int)ALTURA_BULBASAUR}));
             }
@@ -39,32 +39,49 @@ namespace Pokerun{
 
             void Bulbasaur::executar()
             {
-                aplicarGravidade();
+                if (num_vidas <= 0) 
+                {
+                    setAtivo(false);
+                    return;
+                }
 
-                if (!pos_inicial_salva) {
-                    pos_x_inicial = pFigura->getPosition().x;
+                aplicarGravidade();
+                float pos_atual_x = pFigura->getPosition().x;
+
+                //"patrulha" c detecção de parede 
+                if (!pos_inicial_salva) 
+                {
+                    pos_x_inicial = pos_atual_x;
+                    ultima_pos_x = pos_atual_x;
                     pos_inicial_salva = true;
                     direcao = -1; 
-                }
-
-                float pos_atual_x = pFigura->getPosition().x;
-                float limite_patrulha = 100.0f; //ele só pode andar 100 pixels
-
-                //alterna a direção
-                if (pos_atual_x > pos_x_inicial + limite_patrulha) {
-                    direcao = 1;
                 } 
-                else if (pos_atual_x < pos_x_inicial - limite_patrulha) {
-                    direcao = -1;
+                else 
+                {
+                    //se bateu e parou ...
+                    if (std::abs(pos_atual_x - ultima_pos_x) < 0.1f) 
+                    {
+                        direcao *= -1;               
+                        pos_x_inicial = pos_atual_x; 
+                    }
                 }
 
-                //usa a mesma lógica do movimentoAleatorio()
+                ultima_pos_x = pos_atual_x; 
+
+                float limite_patrulha = 100.0f;
+
+                if (pos_atual_x > pos_x_inicial + limite_patrulha)
+                    direcao = 1;
+                else if (pos_atual_x < pos_x_inicial - limite_patrulha)
+                    direcao = -1;
+
                 sf::Vector2f tam = getSize(); 
                 pFigura->move({-vel_x * direcao * dt, 0.0f});
                 
-                if (direcao == -1) //move p direita
+                if (direcao == -1)
                     pFigura->setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
-                else //move p esquerda
+
+                else
                     pFigura->setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
 
                 noChao = false;

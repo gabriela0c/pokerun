@@ -8,7 +8,7 @@ namespace Pokerun{
         namespace Personagens{
  
             Charizard::Charizard():
-            Inimigo(NIVEL_MALD_CHEFAO, {LARGURA_CHARIZARD, ALTURA_CHARIZARD}, N_VDS_CHEFAO), 
+            Inimigo(NIVEL_MALD_CHEFAO, {LARGURA_CHARIZARD, ALTURA_CHARIZARD}, N_VDS_CHEFAO, N_PTS_CHEFAO), 
             raio_ataque((int)(rand() % 201 + 100)), 
             cd_projetil(COOLDOWN_TIRO_INIM), pProjetil(nullptr)
             {

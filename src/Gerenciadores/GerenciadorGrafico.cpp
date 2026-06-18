@@ -9,7 +9,7 @@ namespace Pokerun{
         GerenciadorGrafico::GerenciadorGrafico():
         window (new sf::RenderWindow(sf::VideoMode(sf::Vector2u(800, 600)), "Pokerun"))
         {
-
+            window->setFramerateLimit(60); //para evitar travamentos
         }
 
         GerenciadorGrafico* Pokerun::Gerenciadores::GerenciadorGrafico::pGrafico(nullptr);
@@ -62,6 +62,13 @@ namespace Pokerun{
         {
             if(window){
                 window->draw(texto);
+            }
+        }
+
+        void GerenciadorGrafico::desenhaElementos(const sf::Drawable& desenho)
+        {
+            if(window){
+                window->draw(desenho);
             }
         }
 

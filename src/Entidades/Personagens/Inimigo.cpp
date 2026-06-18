@@ -8,7 +8,7 @@ namespace Pokerun{
             
             Inimigo::Inimigo(int nivMal, const sf::Vector2f tam , int n_vds, int v_pts):
             Personagem(tam, {VEL_INIM_X, 0.0f}, n_vds), pJogador1(nullptr), pJogador2(nullptr),
-            nivel_maldade(nivMal), direcao(-1), tempoMovimento(0.0f), valorPontos(v_pts)
+            nivel_maldade(nivMal), direcao(-1), tempoMovimento(0.0f), valorPontos(v_pts), tempo_dano(0.0f)
             {
 
             }
@@ -40,6 +40,24 @@ namespace Pokerun{
 
             void Inimigo::executar()
             {
+                if (num_vidas <= 0) 
+                {
+                    setAtivo(false);
+                    return;
+                }
+                //pisca em vermelho se tomou dano
+                if (tempo_dano > 0.0f) 
+                {
+                    tempo_dano -= dt; 
+                    if (pFigura) 
+                        pFigura->setFillColor(sf::Color::Red);
+                } 
+                else 
+                {
+                    if (pFigura) 
+                        pFigura->setFillColor(sf::Color::White);
+                }
+
                 aplicarGravidade();
                 mover();
                 noChao = false;
@@ -136,6 +154,7 @@ namespace Pokerun{
                 for (int i = 0; i < quantidade; i++){
                     operator--();
                 }
+                tempo_dano = 0.2f; 
             }
 
             void Inimigo::aplicarKnockback(Jogador* p, float forca)

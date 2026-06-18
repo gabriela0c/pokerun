@@ -9,7 +9,7 @@ namespace Pokerun{
     {
         setTextura("assets/sprites/fundos/fundo_menu.jpg", {{},{1024, 765}});
         
-        if(!fonte.openFromFile("assets/fonts/ARIAL.TTF"))
+        if(!fonte.openFromFile("assets/fonts/PokemonSolid.ttf"))
             std::cerr << "fonte nao carregada!" << std::endl;
 
         ranking.carregar();//le o arquivo do ranking ao abrir o menu
@@ -83,7 +83,7 @@ namespace Pokerun{
             }
 
             case TelaMenu::SELECIONAR_JOGADORES:{
-                std::vector<std::string> opcoes = {"1 jogador", "2 jogadores"};
+                std::vector<std::string> opcoes = {"1 Jogador", "2 Jogadores"};
                 desenharOpcoes(opcoes);
             break;
             }

@@ -18,6 +18,12 @@ namespace Pokerun{
             //jogador 2 so eh incluido na lista e em GC se forem selecionados 2 jogadores no menu, senao ele eh incluido 2 vezes na lista
             //e o sprite continua aparecendo apos ele morrer. Pro gerenciador de colisoes nao ocorre nenhum bug, so nao eh necessario
             GC.setChao(pChao);
+
+            if (!fonteHUD.openFromFile("assets/fonts/PokemonSolid.ttf"))
+                std::cerr << "Erro ao carregar fonte do HUD!" << std::endl;
+
+            if (!texturaCoracao.loadFromFile("assets/sprites/outros/vidas.png"))
+                std::cerr << "Erro ao carregar sprite do coracao!" << std::endl;
         }
 
         Fase::~Fase()
@@ -143,8 +149,123 @@ namespace Pokerun{
 
         void Fase::desenhar()
         {
-            Ente::desenhar();//desenha o fundo da fase
-            lista_ents.desenhaMembros();
+            Ente::desenhar(); //fundo da fase
+            lista_ents.desenhaMembros(); //sprites dos personagens e obstáculos
+
+            Gerenciadores::GerenciadorGrafico* pGrafico = Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico();
+            if (!pGrafico || !pGrafico->getWindow()) { return; }
+
+            //barras de vida dos inimigos médios e chefões
+            Listas::Elem* pAux = lista_ents.getPrimeiro();
+            while (pAux != nullptr) 
+            {
+                Entidades::Entidade* pE = pAux->getInfo();
+                if (pE && pE->getAtivo()) 
+                {
+                    //p descobrir qual inimigo é
+                    Entidades::Personagens::Wartortle* pWart = dynamic_cast<Entidades::Personagens::Wartortle*>(pE);
+                    Entidades::Personagens::Charizard* pChar = dynamic_cast<Entidades::Personagens::Charizard*>(pE);
+
+                    int vidasMax = 0;
+                    int vidasAtuais = 0;
+
+                    if (pWart) 
+                    {
+                        vidasMax = N_VDS_MEDIO;
+                        vidasAtuais = pWart->getNumvidas();
+                    } 
+                    else if (pChar) 
+                    {
+                        vidasMax = N_VDS_CHEFAO;
+                        vidasAtuais = pChar->getNumvidas();
+                    }
+
+                    if (vidasMax > 0 && vidasAtuais > 0) 
+                    {
+                        float larguraMax = 40.0f;
+                        float alturaBarra = 5.0f;
+                        float pctVida = static_cast<float>(vidasAtuais) / vidasMax;
+
+                        //questão de segurança
+                        Entidades::Personagens::Inimigo* pInim = dynamic_cast<Entidades::Personagens::Inimigo*>(pE);
+                        
+                        sf::Vector2f posInim = pInim->getFig().getPosition();
+                        sf::Vector2f tamInim = pInim->getSize();
+
+                        //centraliza a barra horizontalmente e joga ela 12 pixels acima do corpo
+                        sf::Vector2f posBarra(posInim.x + (tamInim.x - larguraMax) / 2.0f, posInim.y - 12.0f);
+
+                        //retângulo vermelho de fundo
+                        sf::RectangleShape fundo(sf::Vector2f(larguraMax, alturaBarra));
+                        fundo.setFillColor(sf::Color::Red);
+                        fundo.setPosition(posBarra);
+
+                        //retângulo verde de vida atual
+                        sf::RectangleShape barraVida(sf::Vector2f(larguraMax * pctVida, alturaBarra));
+                        barraVida.setFillColor(sf::Color::Green);
+                        barraVida.setPosition(posBarra);
+
+                        pGrafico->desenhaElementos(fundo);
+                        pGrafico->desenhaElementos(barraVida);
+                    }
+                }
+                pAux = pAux->getProx();
+            }
+
+            //hud dos jogadores
+            sf::Sprite spriteCoracao(texturaCoracao);
+            spriteCoracao.setScale(sf::Vector2f(0.05f, 0.05f)); 
+
+            //pikachu na esquerda
+            if (pJogador1 && pJogador1->getAtivo()) 
+            {
+                spriteCoracao.setPosition(sf::Vector2f(20.0f, 20.0f));
+                pGrafico->desenhaElementos(spriteCoracao);
+
+                std::ostringstream ssVidas, ssPontos;
+                ssVidas << "x " << pJogador1->getNumvidas();
+                ssPontos << "Pontos: " << pJogador1->getPontos();
+
+                sf::Text txtVidas(fonteHUD); 
+                txtVidas.setString(ssVidas.str());  
+                txtVidas.setCharacterSize(20); 
+                txtVidas.setFillColor(sf::Color::White); 
+                txtVidas.setPosition(sf::Vector2f(60.0f, 15.0f));
+                
+                sf::Text txtPts(fonteHUD);
+                txtPts.setString(ssPontos.str()); 
+                txtPts.setCharacterSize(16);   
+                txtPts.setFillColor(sf::Color::Yellow);
+                txtPts.setPosition(sf::Vector2f(20.0f, 60.0f));
+
+                pGrafico->desenhaElementos(txtVidas);
+                pGrafico->desenhaElementos(txtPts);
+            }
+
+            //raichu na direita
+            if (pJogador2 && pJogador2->getAtivo()) {
+                spriteCoracao.setPosition(sf::Vector2f(660.0f, 20.0f));
+                pGrafico->desenhaElementos(spriteCoracao);
+
+                std::ostringstream ssVidas, ssPontos;
+                ssVidas << "x " << pJogador2->getNumvidas();
+                ssPontos << "Pontos: " << pJogador2->getPontos();
+
+                sf::Text txtVidas(fonteHUD);
+                txtVidas.setString(ssVidas.str());  
+                txtVidas.setCharacterSize(20); 
+                txtVidas.setFillColor(sf::Color::White); 
+                txtVidas.setPosition(sf::Vector2f(700.0f, 15.0f));
+                
+                sf::Text txtPts(fonteHUD);
+                txtPts.setString(ssPontos.str()); 
+                txtPts.setCharacterSize(16);   
+                txtPts.setFillColor(sf::Color::Yellow);
+                txtPts.setPosition(sf::Vector2f(660.0f, 60.0f));
+
+                pGrafico->desenhaElementos(txtVidas);
+                pGrafico->desenhaElementos(txtPts);
+            }
         }
 
         void Fase::removerInativos()

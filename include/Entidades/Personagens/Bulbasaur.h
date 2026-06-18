@@ -19,6 +19,7 @@ namespace Pokerun{
             private:
                 int chance_veneno;
                 float pos_x_inicial;
+                float ultima_pos_x; //para evitar que ele fique travado em paredes
                 bool pos_inicial_salva;
 
             public:

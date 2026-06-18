@@ -3,7 +3,7 @@
 #include "Entidades/Personagens/Personagem.h"
 #include "Temporizador.h"
 
-#define VEL_JOG_X 0.10f
+#define VEL_JOG_X 3.0f
 
 #define LARGURA_PIKACHU 40
 #define ALTURA_PIKACHU 38

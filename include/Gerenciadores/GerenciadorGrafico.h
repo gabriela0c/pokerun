@@ -30,6 +30,7 @@ namespace Pokerun{
             void limpaJanela();
             void desenhaElementos(Ente* pE);
             void desenhaElementos(sf::Text& texto);
+            void desenhaElementos(const sf::Drawable& desenho);
             void mostraElementos();
             void fecharJanela();
             const bool verificaJanelaAberta();

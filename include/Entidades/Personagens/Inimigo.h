@@ -26,11 +26,11 @@ namespace Pokerun{
             protected:
                 Jogador* pJogador1;
                 Jogador* pJogador2;
-
                 int nivel_maldade;
                 int direcao;
                 float tempoMovimento;
                 int valorPontos;
+                float tempo_dano;
 
             public:
                 Inimigo(int nivMal = -1,const sf::Vector2f tam = {}, int n_vds = -1, int v_pts = -1);
