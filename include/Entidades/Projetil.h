@@ -26,12 +26,12 @@ namespace Pokerun {
         class Projetil : public Entidade {
         private:
             float vel_x;
-            const float dano;
+            int dano; //int pq vai ser alterado pelo charizard
             Personagens::Charizard* pCharizard;
             bool voando;
 
         public:
-            Projetil(float velX = 0);
+            Projetil(float velX = 0, int dano = DANO_PROJETIL);
             ~Projetil();
 
             void salvarDataBuffer();  
@@ -40,7 +40,9 @@ namespace Pokerun {
             void setVoando(const bool v);
             bool getVoando()const;
 
+            void setDano(int d);
             const int getDano()const;
+
             void setCharizard(Personagens::Charizard* pChar);
             void guardar();
             bool disparar();

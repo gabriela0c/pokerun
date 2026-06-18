@@ -110,7 +110,7 @@ namespace Pokerun{
                     while(it != Lobstaculos.end()){
                         if(*it){
                             bool colisao = verificarColisao(*it, Linimigos[i]);
-                            if(colisao){
+                            if(colisao && (*it)->isSolido()){
                                 colisaoPersonagemEntidade(Linimigos[i], (*it));
                             }
                         }

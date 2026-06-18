@@ -60,7 +60,8 @@ namespace Pokerun{
                 if(danoso)
                     pJog->receberDano(1);
 
-                if(pode_curar && !cura_consumida && pJog != nullptr && pJog->getNumvidas() < N_VDS_JOG){
+                if(pode_curar && !cura_consumida && pJog != nullptr && pJog->getNumvidas() < N_VDS_JOG)
+                {
                     cura_consumida = true;
                     
                     pJog->curarVida(); 

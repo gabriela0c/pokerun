@@ -13,11 +13,13 @@ namespace Pokerun{
 
     namespace Entidades{
 
-        namespace Personagens{ //inimigo fácil
+        namespace Personagens{ 
 
             class Bulbasaur : public Inimigo{
             private:
                 int chance_veneno;
+                float pos_x_inicial;
+                bool pos_inicial_salva;
 
             public:
                 Bulbasaur();
