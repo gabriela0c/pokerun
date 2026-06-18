@@ -20,7 +20,13 @@ namespace Pokerun {
         void Projetil::salvarDataBuffer()
         {
             Entidade::salvarDataBuffer();
-            buffer << " " << vel_x << " " << voando << " " << dano;
+            buffer << " " << vel_x << " " << voando << " " << (pCharizard ? pCharizard->getID() : -1);
+        }
+
+        void Projetil::carregarDataBuffer(std::istream& is)
+        {
+            Entidade::carregarDataBuffer(is);
+            is >> vel_x >> voando;
         }
  
         void Projetil::salvar()

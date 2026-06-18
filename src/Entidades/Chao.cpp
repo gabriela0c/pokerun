@@ -18,9 +18,7 @@ namespace Pokerun{
 
         void Chao::salvar()
         {
-            buffer << "CHAO "; 
-            salvarDataBuffer(); 
-            buffer << std::endl;
+            
         }
 
         void Chao::executar()

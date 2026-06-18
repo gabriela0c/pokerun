@@ -55,6 +55,12 @@ namespace Pokerun{
                 buffer << " " << vel_x << " " << noChao << " " << noTeto << " " << num_vidas;
             }
 
+            void Personagem::carregarDataBuffer(std::istream& is)
+            {
+                Entidade::carregarDataBuffer(is);
+                is >> vel_x >> noChao >> noTeto >> num_vidas;
+            }
+
             int Personagem::getNumvidas()const
             {
                 return num_vidas;

@@ -16,9 +16,21 @@ namespace Pokerun{
 
         }
 
+        void Entidade::conectarSaida(std::ostream& os)
+        {
+            buffer.rdbuf(os.rdbuf()); 
+        }
+
         void Entidade::salvarDataBuffer()
         {
             buffer << id << " " << x << " " << y << " " << vel_y << " " << (ativo ? 1 : 0) ;
+        }
+
+        void Entidade::carregarDataBuffer(std::istream& is)
+        {
+            float Nx = 0.0f, Ny = 0.0f;
+            is >> Nx >> Ny >> vel_y >> ativo;
+            setPosicao({Nx, Ny});
         }
 
         void Entidade::aplicarGravidade()
@@ -55,11 +67,6 @@ namespace Pokerun{
             pFigura->setPosition(pos);
             sincronizarPosicao();
             y_inicial = y;
-        }
-
-        void Entidade::conectarSaida(std::ostream& os)
-        {
-            buffer.rdbuf(os.rdbuf()); 
         }
 
         sf::Vector2f Entidade::calcularDirecao(sf::Vector2f posAlvo, sf::Vector2f posFonte)

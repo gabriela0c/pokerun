@@ -22,6 +22,11 @@ namespace Pokerun{
                 Entidade::salvarDataBuffer(); //todos atributos dessa classe são iguais para todos objetos de uma mesma classe, não preciso salvar
             }
 
+            void Obstaculo::carregarDataBuffer(std::istream& is)
+            {
+                Entidade::carregarDataBuffer(is);
+            }
+
             const bool Obstaculo::isSolido()const
             {
                 return solido;

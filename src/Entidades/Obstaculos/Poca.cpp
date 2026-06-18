@@ -23,6 +23,12 @@ namespace Pokerun{
                 buffer << " " << profundidade;
             }
 
+            void Poca::carregarDataBuffer(std::istream& is)
+            {
+                Obstaculo::carregarDataBuffer(is);
+                is >> profundidade;
+            }
+
             void Poca::salvar()
             {
                 buffer << "POCA "; 

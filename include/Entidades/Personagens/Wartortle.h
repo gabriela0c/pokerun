@@ -30,6 +30,7 @@ namespace Pokerun{
                 ~Wartortle();
  
                 void salvarDataBuffer();
+                void carregarDataBuffer(std::istream& is);
                 void salvar();
  
                 void danificar(Jogador* p);

@@ -25,6 +25,12 @@ namespace Pokerun{
                 buffer << " " << direcao;
             }
 
+            void Inimigo::carregarDataBuffer(std::istream& is)
+            {
+                Personagem::carregarDataBuffer(is);
+                is >> direcao;
+            }
+
             void Inimigo::setJogador(Jogador* pJog)
             {
                 if(pJog){
@@ -51,12 +57,12 @@ namespace Pokerun{
                 sf::Vector2f posJogador1 = pJogador1->getPosition() + pJogador1->getSize() / 2.0f;
 
                 // flags para saber quem está dentro do raio de visão do inimigo
-                bool j1NoRaio = (std::abs(posInimigo.x - posJogador1.x) <= RAIO_X && std::abs(posInimigo.y - posJogador1.y) <= RAIO_Y);
+                bool j1NoRaio = (pJogador1->getAtivo() && (std::abs(posInimigo.x - posJogador1.x) <= RAIO_X && std::abs(posInimigo.y - posJogador1.y) <= RAIO_Y));
                 bool j2NoRaio = false;
                 sf::Vector2f posJogador2;
 
                 // so calcula o Jogador 2 se ele realmente existir no jogo
-                if (pJogador2) {
+                if (pJogador2 && pJogador2->getAtivo()) {
                     posJogador2 = pJogador2->getPosition() + pJogador2->getSize() / 2.0f;
                     j2NoRaio = (std::abs(posInimigo.x - posJogador2.x) <= RAIO_X && std::abs(posInimigo.y - posJogador2.y) <= RAIO_Y);
                 }

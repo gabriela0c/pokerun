@@ -23,6 +23,7 @@ namespace Pokerun{
                     ~Poca();
 
                     void salvarDataBuffer();
+                    void carregarDataBuffer(std::istream& is);
                     void salvar();
                 
                     void executar();

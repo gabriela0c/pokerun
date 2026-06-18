@@ -62,6 +62,12 @@ namespace Pokerun{
                 buffer << " " << pontos;
             }
 
+            void Jogador::carregarDataBuffer(std::istream& is)
+            {
+                Personagem::carregarDataBuffer(is);
+                is >> pontos;
+            }
+
             void Jogador::salvar()
             {
                 buffer << (ehJogador1 ? "JOGADOR1" : "JOGADOR2") << " "; 

@@ -24,6 +24,12 @@ namespace Pokerun{
                 buffer << " " << intensidade;
             }
 
+            void Fogo::carregarDataBuffer(std::istream& is)
+            {
+                Obstaculo::carregarDataBuffer(is);
+                is >> intensidade;
+            }
+
             void Fogo::salvar()
             {
                 buffer << "FOGO "; 

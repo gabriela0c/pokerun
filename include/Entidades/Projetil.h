@@ -35,6 +35,7 @@ namespace Pokerun {
             ~Projetil();
 
             void salvarDataBuffer();  
+            void carregarDataBuffer(std::istream& is);
             void salvar();    
             
             void setVoando(const bool v);

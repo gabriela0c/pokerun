@@ -37,6 +37,7 @@ namespace Pokerun{
             }
             else{
                 pEvento->removeJogador2();
+                pJogador2->setAtivo(false); 
                 if(menu.getFaseEscolhida() == 1)
                     Fase1.desativaEntidade(pJogador2);
                 else   

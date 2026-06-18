@@ -2,6 +2,7 @@
 
 #include "Ente.h"
 #include <ostream>
+#include <istream>
 #include <cmath>
 
 #define GRAVIDADE 600.0f
@@ -37,6 +38,7 @@ namespace Pokerun{
             void setPosicao(const sf::Vector2f pos);
 
             void conectarSaida(std::ostream& os);
+            virtual void carregarDataBuffer(std::istream& is);
 
             bool getAtivo()const;
             void setAtivo(const bool a);

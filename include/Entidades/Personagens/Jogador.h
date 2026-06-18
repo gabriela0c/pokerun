@@ -38,6 +38,7 @@ namespace Pokerun{
                 void pular();
 
                 void salvarDataBuffer(); 
+                void carregarDataBuffer(std::istream& is);
                 void salvar();            
 
                 void operator+=(int num);

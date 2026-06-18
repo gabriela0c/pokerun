@@ -26,6 +26,7 @@ namespace Pokerun{
                 void obstaculizar(Personagens::Jogador* pJog);
 
                 void salvarDataBuffer(); 
+                void carregarDataBuffer(std::istream& is);
                 void salvar();           
             };
         }

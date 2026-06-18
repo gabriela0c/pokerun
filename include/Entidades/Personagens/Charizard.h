@@ -35,6 +35,7 @@ namespace Pokerun{
                 void danificar(Jogador* p);
 
                 void salvarDataBuffer();  
+                void carregarDataBuffer(std::istream& is);
                 void salvar();     
                 sf::Vector2f getDirProjetil();
                 
