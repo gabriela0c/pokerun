@@ -29,6 +29,8 @@ namespace Pokerun{
                 Temporizador cd_ataque;
                 bool atacando;
                 int pontos;
+                sf::Font fonteHUD;
+                sf::Texture texturaCoracao;
                     
             public:
                 Jogador(const bool ehJog1 = false);    
@@ -44,6 +46,9 @@ namespace Pokerun{
                 void operator+=(int num);
                 int getPontos()const;
                 void curarVida();
+
+                virtual void desenhar(); // Sobrescreve o método de Ente
+                void desenharHUD();
 
                 void diminui_vel(float taxa);
                 float getModVel()const;

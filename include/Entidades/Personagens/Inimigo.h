@@ -31,6 +31,7 @@ namespace Pokerun{
                 float tempoMovimento;
                 int valorPontos;
                 float tempo_dano;
+                int vidas_max;
 
             public:
                 Inimigo(int nivMal = -1,const sf::Vector2f tam = {}, int n_vds = -1, int v_pts = -1);
@@ -47,6 +48,9 @@ namespace Pokerun{
                 virtual void salvar() = 0;            
 
                 int getValorPontos()const;
+
+                virtual void desenhar();
+                void desenharBarraDeVida();
                 
                 void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                 void receberDano(int quantidade);

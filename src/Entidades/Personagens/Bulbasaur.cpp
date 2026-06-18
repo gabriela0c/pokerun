@@ -39,12 +39,6 @@ namespace Pokerun{
 
             void Bulbasaur::executar()
             {
-                if (num_vidas <= 0) 
-                {
-                    setAtivo(false);
-                    return;
-                }
-
                 aplicarGravidade();
                 float pos_atual_x = pFigura->getPosition().x;
 
