@@ -24,6 +24,12 @@ namespace Pokerun{
                 else{
                     pFigura->setPosition({500.0f, 310.0f});
                 }
+
+                if (!fonteHUD.openFromFile("assets/fonts/PokemonSolid.ttf"))
+                    std::cerr << "Erro ao carregar fonte do HUD no Jogador!" << std::endl;
+
+                if (!texturaCoracao.loadFromFile("assets/sprites/outros/vidas.png"))
+                    std::cerr << "Erro ao carregar sprite do coracao no Jogador!" << std::endl;
             }
 
             Jogador::~Jogador()
@@ -89,6 +95,51 @@ namespace Pokerun{
             {
                 if(num_vidas < N_VDS_JOG)
                     num_vidas++;
+            }
+
+            void Jogador::desenhar()
+            {
+                //desenha primeiro o personagem
+                Ente::desenhar();
+
+                //depois desenha o hud dele
+                if (getAtivo())
+                    desenharHUD();
+            }
+
+            void Jogador::desenharHUD()
+            {
+                if (!pGG || !pGG->getWindow()) return;
+
+                sf::Sprite spriteCoracao(texturaCoracao);
+                spriteCoracao.setScale(sf::Vector2f(0.05f, 0.05f)); 
+
+                //define as posições base dependendo se é o jogador 1 (esquerda) ou jogador 2 (direita)
+                float posX_Coracao = ehJogador1 ? 20.0f : 660.0f;
+                float posX_TextoVidas = ehJogador1 ? 60.0f : 700.0f;
+                float posX_TextoPontos = ehJogador1 ? 20.0f : 660.0f;
+
+                spriteCoracao.setPosition(sf::Vector2f(posX_Coracao, 20.0f));
+                pGG->desenhaElementos(spriteCoracao);
+
+                std::ostringstream ssVidas, ssPontos;
+                ssVidas << "x " << num_vidas;
+                ssPontos << "Pontos: " << pontos;
+
+                sf::Text txtVidas(fonteHUD); 
+                txtVidas.setString(ssVidas.str());  
+                txtVidas.setCharacterSize(20); 
+                txtVidas.setFillColor(sf::Color::White); 
+                txtVidas.setPosition(sf::Vector2f(posX_TextoVidas, 15.0f));
+                
+                sf::Text txtPts(fonteHUD);
+                txtPts.setString(ssPontos.str()); 
+                txtPts.setCharacterSize(16);   
+                txtPts.setFillColor(sf::Color::Yellow);
+                txtPts.setPosition(sf::Vector2f(posX_TextoPontos, 60.0f));
+
+                pGG->desenhaElementos(txtVidas);
+                pGG->desenhaElementos(txtPts);
             }
 
             void Jogador::diminui_vel(float taxa)

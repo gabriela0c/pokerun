@@ -8,7 +8,7 @@ namespace Pokerun{
             
             Inimigo::Inimigo(int nivMal, const sf::Vector2f tam , int n_vds, int v_pts):
             Personagem(tam, {VEL_INIM_X, 0.0f}, n_vds), pJogador1(nullptr), pJogador2(nullptr),
-            nivel_maldade(nivMal), direcao(-1), tempoMovimento(0.0f), valorPontos(v_pts), tempo_dano(0.0f)
+            nivel_maldade(nivMal), direcao(-1), tempoMovimento(0.0f), valorPontos(v_pts), tempo_dano(0.0f), vidas_max(n_vds)
             {
 
             }
@@ -126,6 +126,40 @@ namespace Pokerun{
             int Inimigo::getValorPontos()const
             {
                 return valorPontos;
+            }
+
+            void Inimigo::desenhar()
+            {
+                Ente::desenhar(); 
+                desenharBarraDeVida();
+            }
+
+            void Inimigo::desenharBarraDeVida()
+            {
+                if (num_vidas > 0)
+                {
+                    if (!pGG || !pGG->getWindow()) return;
+
+                    float larguraMax = 40.0f;
+                    float alturaBarra = 5.0f;
+                    float pctVida = static_cast<float>(num_vidas) / vidas_max;
+
+                    sf::Vector2f posInim = pFigura->getPosition();
+                    sf::Vector2f tamInim = getSize();
+
+                    sf::Vector2f posBarra(posInim.x + (tamInim.x - larguraMax) / 2.0f, posInim.y - 12.0f);
+
+                    sf::RectangleShape fundo(sf::Vector2f(larguraMax, alturaBarra));
+                    fundo.setFillColor(sf::Color::Red);
+                    fundo.setPosition(posBarra);
+
+                    sf::RectangleShape barraVida(sf::Vector2f(larguraMax * pctVida, alturaBarra));
+                    barraVida.setFillColor(sf::Color::Green);
+                    barraVida.setPosition(posBarra);
+
+                    pGG->desenhaElementos(fundo);
+                    pGG->desenhaElementos(barraVida);
+                }
             }
 
             void Inimigo::persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo)
