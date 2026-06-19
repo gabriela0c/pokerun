@@ -48,7 +48,7 @@ namespace Pokerun{
                 void curarVida();
 
                 virtual void desenhar(); // Sobrescreve o método de Ente
-                void desenharHUD();
+                void desenharHuds();
 
                 void diminui_vel(float taxa);
                 float getModVel()const;

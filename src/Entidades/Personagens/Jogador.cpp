@@ -104,10 +104,10 @@ namespace Pokerun{
 
                 //depois desenha o hud dele
                 if (getAtivo())
-                    desenharHUD();
+                    desenharHuds();
             }
 
-            void Jogador::desenharHUD()
+            void Jogador::desenharHuds()
             {
                 sf::Sprite spriteCoracao(texturaCoracao);
                 spriteCoracao.setScale(sf::Vector2f(0.05f, 0.05f)); 

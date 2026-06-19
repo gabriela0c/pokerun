@@ -131,10 +131,10 @@ namespace Pokerun{
             void Inimigo::desenhar()
             {
                 Ente::desenhar(); 
-                desenharBarraDeVida();
+                desenharHuds();
             }
 
-            void Inimigo::desenharBarraDeVida()
+            void Inimigo::desenharHuds()
             {
                 if (num_vidas > 0)
                 {
