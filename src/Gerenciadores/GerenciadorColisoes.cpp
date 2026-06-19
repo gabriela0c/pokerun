@@ -238,7 +238,7 @@ namespace Pokerun{
             for(int i = 0; i < (int)Linimigos.size();i++ ){
                 if(Linimigos[i]){
                     if(inRange(pJog, Linimigos[i])){
-                        Linimigos[i]->receberDano(1);
+                        Linimigos[i]->receberDano(10);
                     }
                     if(Linimigos[i]->getNumvidas() <= 0){
                         pJog->operator+=(Linimigos[i]->getValorPontos());
@@ -417,6 +417,11 @@ namespace Pokerun{
             if(pProj){ 
                 setProjeteis.insert(pProj); 
             }
+        }
+
+        const int GerenciadorColisoes::getNumInimigos()const
+        {
+            return (int)Linimigos.size();
         }
 
         void GerenciadorColisoes::executar()

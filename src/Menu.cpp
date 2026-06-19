@@ -82,6 +82,26 @@ namespace Pokerun{
         telaAtual = TelaMenu::PAUSA;
     }
 
+    void Menu::registrarRanking(int pts1, int pts2)
+    {
+        ranking.adicionar(nomes[0], pts1);
+        if(!nomes[1].empty()){//nome 2 n vazio -> jog2 existe
+            ranking.adicionar(nomes[1], pts2);
+        }
+        ranking.salvar();
+    }
+
+    void Menu::irParaFimJogo(const bool vitoria)
+    {
+        if(vitoria){
+            setTextura("assets/sprites/fundos/vitoria.png", {{},{2528, 1686}});
+        }
+        else{
+            setTextura("assets/sprites/fundos/derrota.png", {{},{2528, 1686}});
+        }
+        telaAtual = TelaMenu::RANKING;
+    }
+
     void Menu::desenhar()
     {
         switch(telaAtual)
@@ -164,7 +184,7 @@ namespace Pokerun{
             total = MAX_RANKING; 
         }
 
-        float posY = 140.0f;
+        float posY = 180.0f;
         for(int i = 0; i < total; i++){//uso de sobrecargas de std::string
             std::string txt = std::to_string(i + 1) + ": " + ranking.getNome(i) + " - " + std::to_string(ranking.getPontos(i));
             linha.setString(txt);
@@ -226,6 +246,7 @@ namespace Pokerun{
         switch(telaAtual)
         {
             case TelaMenu::INICIO:{
+                setTextura("assets/sprites/fundos/fundo_menu.jpg", {{},{1024, 765}});//voltar para o fundo normal do menu
                 if(pEvento->cimaPressionado() && opcaoSelecionada > 0){opcaoSelecionada--;}
                 if(pEvento->baixoPressionado() && opcaoSelecionada < 3){opcaoSelecionada++;}
 

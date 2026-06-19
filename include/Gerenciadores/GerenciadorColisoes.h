@@ -57,6 +57,8 @@ namespace Pokerun{
             void incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO);
             void incluirProjetil(Entidades::Projetil* pProj);
 
+            const int getNumInimigos()const;
+
             void executar();
         };
     }

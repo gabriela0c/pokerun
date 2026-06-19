@@ -46,6 +46,9 @@ namespace Pokerun{
 
         void irParaPausa();
 
+        void registrarRanking(int pts1, int pts2);
+        void irParaFimJogo(const bool vitoria);
+
         bool nomesPreenchidos()const;
         void capturarNome();
 

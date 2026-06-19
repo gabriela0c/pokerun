@@ -67,6 +67,20 @@ namespace Pokerun{
         setEstado(EstadoJogo::JOGANDO); 
     }
 
+    //constroi a tela final do ranking com base no resultado e prepara a proxima jogada
+    void Jogo::gameOver(const bool resultado)
+    {
+        menu.registrarRanking(pJogador1->getPontos(), pJogador2->getPontos());
+        menu.irParaFimJogo(resultado);           
+        setEstado(EstadoJogo::MENU);
+        Fase1.limpaFase();
+        Fase2.limpaFase();
+        pJogador1->resetar();
+        pJogador2->resetar();
+        Fase1.criarCenario();
+        Fase2.criarCenario();
+    }
+
     void Jogo::setEstado(EstadoJogo est)
     {
         if(est == EstadoJogo::JOGANDO){
@@ -100,35 +114,55 @@ namespace Pokerun{
     void Jogo::executar()
     {
         while(pGrafico->verificaJanelaAberta()){
-            if(!pJogador1->getAtivo() && !pJogador2->getAtivo()){//fecha a janela quando ambos morrem por enquanto
-                pGrafico->fecharJanela();
-            }
 
-            if(!pJogador1->getAtivo() && menu.getNumJogadores() == 1){//fecha janela quando jog1 morreu e so tem ele
-                pGrafico->fecharJanela();
-            }
-            
             pGrafico->limpaJanela();
 
             pEvento->executar();
 
             switch (estado) {
+
                 case EstadoJogo::MENU:{
                     menu.executar();  
                 break;
                 }
 
                 case EstadoJogo::JOGANDO:{
+
+                    if(!pJogador1->getAtivo() && !pJogador2->getAtivo()){//fecha a janela quando ambos morrem por enquanto
+                        gameOver(false);//perdeu
+                    }
+
+                    if(!pJogador1->getAtivo() && menu.getNumJogadores() == 1){//fecha janela quando jog1 morreu e so tem ele
+                        gameOver(false);
+                    }
                     if (pEvento->pausaPressionado()) {
                         setEstado(EstadoJogo::MENU);
                         menu.irParaPausa(); //seta o estado da tela do menu para pausa
                     }
                     else{  
-                        //Fase1.executar();
-                        if(menu.getFaseEscolhida() == 1)
-                            Fase1.executar();
-                        else    
-                            Fase2.executar();
+                        if(menu.getFaseEscolhida() == 1)//logica de pasar de fase
+                            if(Fase1.semInimigos()){
+                                menu.setFaseEscolhida(2);
+                                Fase2.passarJogador(pJogador1);
+                                if(menu.getNumJogadores() == 2){
+                                    Fase2.passarJogador(pJogador2);
+                                }
+                                pJogador1->reposicionar();
+                                if(pJogador2->getAtivo()){
+                                    pJogador2->reposicionar();
+                                }
+                            }
+                            else{
+                                Fase1.executar();
+                            }
+                        else{   
+                            if(Fase2.semInimigos()){
+                                gameOver(true);//venceu
+                            }
+                            else{
+                                Fase2.executar();
+                            }
+                        }
                     }
                 break;
                 }

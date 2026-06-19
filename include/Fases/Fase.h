@@ -56,12 +56,15 @@ namespace Pokerun{
             void criarCenario();
 
             void ativaJogador(Entidades::Personagens::Jogador* pJog);
+            void passarJogador(Entidades::Personagens::Jogador* pJog);
             void desativaEntidade(Entidades::Entidade* pE);
 
             Entidades::Chao* getChao()const;
 
             void removerInativos();
             void limpaFase();
+
+            const bool semInimigos()const;
 
             void gravaFase();
             int recuperaFase();

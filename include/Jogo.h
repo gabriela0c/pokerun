@@ -29,6 +29,8 @@ namespace Pokerun{
         void salvarJogo();
         void continuarJogo();
 
+        void gameOver(const bool resultado);
+
         void setEstado(EstadoJogo est);
         EstadoJogo getEstado()const;
         

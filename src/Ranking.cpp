@@ -16,8 +16,8 @@ namespace Pokerun{
     {
         entradas.clear();
 
-        std::ifstream arquivo(ARQ_RANKING);
-        if(!arquivo.is_open()){ return; }//sem arquivo ainda, ranking vazio
+        std::ifstream arquivo("ranking.dat");
+        if(!arquivo.is_open()){ return; }
 
         Entrada e;
         while(arquivo >> e.nome >> e.pontos){
@@ -53,7 +53,7 @@ namespace Pokerun{
 
     void Ranking::salvar()
     {
-        std::ofstream arquivo(ARQ_RANKING);  
+        std::ofstream arquivo("ranking.dat");  
         if(!arquivo.is_open()){return;}
 
         for(int i = 0; i < (int)entradas.size(); i++){

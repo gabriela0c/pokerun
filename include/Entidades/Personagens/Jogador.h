@@ -58,6 +58,7 @@ namespace Pokerun{
 
                 bool getEhJogador1() const;
                 void resetar();
+                void reposicionar();
 
                 void setAtacando(const bool a);
                 const bool getAtacando()const;

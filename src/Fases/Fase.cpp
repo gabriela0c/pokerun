@@ -54,7 +54,7 @@ namespace Pokerun{
         {
             Entidades::Obstaculos::Plataforma* pPlat = nullptr;
 
-            //5 posições pré-definidas
+            //5 posições pre definidas
             std::vector<sf::Vector2f> posicoesPossiveis;
             posicoesPossiveis.push_back(sf::Vector2f(100.f, 120.f));
             posicoesPossiveis.push_back(sf::Vector2f(500.f, 190.f));
@@ -109,6 +109,16 @@ namespace Pokerun{
             pJog->setAtivo(true);
         }
 
+        //essa funcao apesar de ser mto parecida com ativa jogador é necessaria para a logica se passar de fase
+        void Fase::passarJogador(Entidades::Personagens::Jogador* pJog)//porque um jogador morto em uma fase n pode reviver na proxima
+        {
+            if(pJog && pJog->getAtivo()){   
+                lista_ents.remover(pJog);   
+                lista_ents.incluir(pJog);
+                GC.setJogador(pJog);
+            }
+        }
+
         void Fase::adicionarInimigos(Entidades::Personagens::Inimigo* pInim)
         {
             if(pInim){
@@ -157,7 +167,12 @@ namespace Pokerun{
         {
             Ente::desenhar(); //desenha o fundo
             
-            lista_ents.desenhaMembros(); //desenha todas as entidades com seus respectivos huds
+            lista_ents.desenhaMembros(); //desenha todas as entidades e seus respectivos huds
+        }
+
+        const bool Fase::semInimigos()const
+        {
+            return (GC.getNumInimigos() == 0);
         }
 
         void Fase::removerInativos()
@@ -197,6 +212,12 @@ namespace Pokerun{
             lista_ents.incluir(pJogador1);
             lista_ents.incluir(pJogador2);
             lista_ents.incluir(pChao);
+
+            posicoesPlataformas.clear();//limpa as posicoes para nao ficarem posicoes fantasmas na proxima jogada
+            posicoesPlataformas.push_back(pChao->getFig().getGlobalBounds());//readiciona o chao pq ele era adicionado em construtora
+
+            GC.setJogador(pJogador1);  
+            GC.setJogador(pJogador2);
         }
 
         Entidades::Entidade* Fase::criarPorTipo(const std::string tipo)

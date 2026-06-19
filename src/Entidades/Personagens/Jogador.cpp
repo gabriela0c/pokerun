@@ -205,6 +205,14 @@ namespace Pokerun{
                 cd_ataque.iniciar();
             }
 
+            void Jogador::reposicionar()
+            {
+                if(ehJogador1)
+                    setPosicao({150.0f, 120.0f});
+                else
+                    setPosicao({500.0f, 310.0f});
+            }
+
             void Jogador::resetar()
             {
                 num_vidas = N_VDS_JOG;
@@ -215,10 +223,7 @@ namespace Pokerun{
                 modificador_velocidade = 1.0f;
                 setAtivo(true);
 
-                if(ehJogador1)
-                    pFigura->setPosition({150.0f, 120.0f});
-                else
-                    pFigura->setPosition({500.0f, 310.0f});
+                reposicionar();
             }
 
             void Jogador::imprimirStatus() const
