@@ -171,31 +171,40 @@ namespace Pokerun{
         titulo.setString("Ranking");
         titulo.setFillColor(sf::Color::Black);
         sf::FloatRect boundsT = titulo.getLocalBounds();
-        titulo.setPosition({(WIN_SIZE_X/2) - (boundsT.size.x/2), 240.0f}); //centraliza
+        titulo.setPosition({(WIN_SIZE_X/2) - (boundsT.size.x/2), 240.0f}); 
         pGG->desenhaElementos(titulo);
 
-        sf::Text linha(fonte);//linhas do ranking
+        sf::Text linha(fonte);
         linha.setCharacterSize(26);
         linha.setFillColor(sf::Color::Black);
 
         int total = ranking.getTam();
-        
         if(total > MAX_RANKING){ 
             total = MAX_RANKING; 
         }
 
-        float posY = 300.0f;
-        for(int i = 0; i < total; i++){//uso de sobrecargas de std::string
+        for(int i = 0; i < total; i++)
+        {
             std::string txt = std::to_string(i + 1) + ": " + ranking.getNome(i) + " - " + std::to_string(ranking.getPontos(i));
             linha.setString(txt);
 
             sf::FloatRect bounds = linha.getGlobalBounds();
-            linha.setPosition({(WIN_SIZE_X/2) - (bounds.size.x/2), posY});
+            float posX = 0.0f;
+            float posY = 0.0f;
+
+            if (i < 5) {
+                posX = (WIN_SIZE_X * 0.25f) - (bounds.size.x / 2);
+                posY = 300.0f + (i * 40.0f);
+            } else {
+                posX = (WIN_SIZE_X * 0.75f) - (bounds.size.x / 2);
+                posY = 300.0f + ((i - 5) * 40.0f);
+            }
+
+            linha.setPosition({posX, posY});
             pGG->desenhaElementos(linha);
-            posY += 40.0f;
         }
 
-        sf::Text voltar(fonte); //o escrito de como voltar no canto da tela
+        sf::Text voltar(fonte); 
         voltar.setCharacterSize(20);
         voltar.setString("Enter para voltar");
         voltar.setFillColor(sf::Color::Black);
