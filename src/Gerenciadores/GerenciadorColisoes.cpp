@@ -198,9 +198,11 @@ namespace Pokerun{
                     it++;
                 }
 
-                if(!pProj->getVoando()){continue;}
+                if(pProj->getVoando() && verificarColisao(pProj, pChao)){
+                    pProj->guardar();
+                }
 
-                if(pJogador1 && pJogador1->getAtivo() && verificarColisao(pProj, pJogador1))
+                if(pProj->getVoando() && pJogador1 && pJogador1->getAtivo() && verificarColisao(pProj, pJogador1))
                 {
                     if(!pJogador1->getInvencivel()){
                         for(int d = 0; d < pProj->getDano(); d++){
