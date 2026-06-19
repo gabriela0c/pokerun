@@ -4,6 +4,7 @@ Pokerun é um projeto desenvolvido por Gabriela Cardoso Machado e Geraldo Moreno
 O jogo no estilo plataforma é uma implementação em C++, que tem como inspiração a famosa série de jogos e animações Pokémon e utiliza a biblioteca SFML para a renderização de gráficos e eventos.
 
 # Versões e compilação
+Para fazer o projeto, ambos da dupla utilizaram o Windows 11.
 Foi utilizado o SFML na versão 3.1.0, e o compilador g++ na versão 14.2.0.
 O comando para a compilação e execução é "ming32-make ; ./bin/jogo.exe".
 

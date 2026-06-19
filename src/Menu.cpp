@@ -171,7 +171,7 @@ namespace Pokerun{
         titulo.setString("Ranking");
         titulo.setFillColor(sf::Color::Black);
         sf::FloatRect boundsT = titulo.getLocalBounds();
-        titulo.setPosition({(WIN_SIZE_X/2) - (boundsT.size.x/2), 125.0f}); //centraliza
+        titulo.setPosition({(WIN_SIZE_X/2) - (boundsT.size.x/2), 240.0f}); //centraliza
         pGG->desenhaElementos(titulo);
 
         sf::Text linha(fonte);//linhas do ranking
@@ -184,7 +184,7 @@ namespace Pokerun{
             total = MAX_RANKING; 
         }
 
-        float posY = 180.0f;
+        float posY = 300.0f;
         for(int i = 0; i < total; i++){//uso de sobrecargas de std::string
             std::string txt = std::to_string(i + 1) + ": " + ranking.getNome(i) + " - " + std::to_string(ranking.getPontos(i));
             linha.setString(txt);
