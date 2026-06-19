@@ -51,7 +51,7 @@ namespace Pokerun{
                 int getValorPontos()const;
 
                 virtual void desenhar();
-                void desenharBarraDeVida();
+                void desenharHuds();
                 
                 void persegueJogador(sf::Vector2f posJogador, sf::Vector2f posInimigo);
                 void receberDano(int quantidade);

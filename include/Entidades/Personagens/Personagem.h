@@ -41,6 +41,7 @@ namespace Pokerun{
                 virtual void receberDano(int quantidade) = 0;
                 virtual void mover() = 0;
                 virtual void executar() = 0;
+                virtual void desenharHuds() = 0;
             };
         }
     }
