@@ -71,7 +71,7 @@ namespace Pokerun{
                     nomes[opcaoSelecionada].erase(nomes[opcaoSelecionada].size() - 1); 
                 }
             }//intervalo dos caracteres ASCII que fazem sentido poder estar em um nome
-            else if(c >= 32 && c < 127 && (int)nomes[opcaoSelecionada].size() < 10){//tamanho maximo do nome = 10
+            else if(c > 32 && c < 127 && (int)nomes[opcaoSelecionada].size() < 10){//tamanho maximo do nome = 10
                 nomes[opcaoSelecionada] += c;
             }
         }

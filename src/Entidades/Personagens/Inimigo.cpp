@@ -8,9 +8,9 @@ namespace Pokerun{
             
             Inimigo::Inimigo(int nivMal, const sf::Vector2f tam , int n_vds, int v_pts):
             Personagem(tam, {VEL_INIM_X, 0.0f}, n_vds), pJogador1(nullptr), pJogador2(nullptr),
-            nivel_maldade(nivMal), direcao(-1), tempoMovimento(0.0f), valorPontos(v_pts), tempo_dano(0.0f), vidas_max(n_vds)
+            nivel_maldade(nivMal), direcao(-1), ultima_pos_x(0.0f), tempoMovimento(0.0f), valorPontos(v_pts), tempo_dano(0.0f), vidas_max(n_vds)
             {
-
+                ultima_pos_x = pFigura->getPosition().x;
             }
 
             Inimigo::~Inimigo()
@@ -40,11 +40,6 @@ namespace Pokerun{
 
             void Inimigo::executar()
             {
-                if (num_vidas <= 0) 
-                {
-                    setAtivo(false);
-                    return;
-                }
                 //pisca em vermelho se tomou dano
                 if (tempo_dano > 0.0f) 
                 {
@@ -105,7 +100,13 @@ namespace Pokerun{
 
             void Inimigo::movimentoAleatorio()
             {
-                sf::Vector2f tam = getSize(); 
+                sf::Vector2f tam = getSize();
+
+                //para evitar que eke fique grudado na parede
+                float pos_atual_x = pFigura->getPosition().x;
+                if (std::abs(pos_atual_x - ultima_pos_x) < vel_x * dt * 0.5f)
+                    direcao *= -1;
+                ultima_pos_x = pos_atual_x;
 
                 pFigura->move({-vel_x * direcao * dt, 0.0f});
                 

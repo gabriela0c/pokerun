@@ -116,8 +116,8 @@ namespace Pokerun{
                         }
                         it++;  
                     }
-                    it = Lobstaculos.begin();
                 }
+                it = Lobstaculos.begin();
             } 
         }
 
@@ -240,7 +240,7 @@ namespace Pokerun{
             for(int i = 0; i < (int)Linimigos.size();i++ ){
                 if(Linimigos[i]){
                     if(inRange(pJog, Linimigos[i])){
-                        Linimigos[i]->receberDano(10);
+                        Linimigos[i]->receberDano(1);
                     }
                     if(Linimigos[i]->getNumvidas() <= 0){
                         pJog->operator+=(Linimigos[i]->getValorPontos());

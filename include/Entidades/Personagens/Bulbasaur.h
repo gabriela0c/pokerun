@@ -9,6 +9,9 @@
 #define N_VDS_FACIL 1
 #define N_PTS_FACIL 100
 
+#define RAIO_CHICOTE 110.0f
+#define FORCA_CHICOTE 260.0f
+
 namespace Pokerun{
 
     namespace Entidades{
@@ -18,9 +21,7 @@ namespace Pokerun{
             class Bulbasaur : public Inimigo{
             private:
                 int chance_veneno;
-                float pos_x_inicial;
-                float ultima_pos_x; //para evitar que ele fique travado em paredes
-                bool pos_inicial_salva;
+                Temporizador cd_chicote;
 
             public:
                 Bulbasaur();
@@ -30,8 +31,10 @@ namespace Pokerun{
                 void carregarDataBuffer(std::istream& is);
                 void salvar();
 
-                void executar();
                 void danificar(Jogador* p);
+                void executar();
+
+                bool chicoteVinha(Jogador* pJog);
             };
         }
     }

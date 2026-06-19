@@ -7,7 +7,7 @@ namespace Pokerun{
  
         Fase::Fase(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
         Ente({WIN_SIZE_X, WIN_SIZE_Y}), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2), pChao(new Entidades::Chao()),
-        maxBulbasaurs(4)
+        maxBulbasaurs(4), maxPlataformas(5)
         {
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
             pFigura->setPosition({0.0f, 0.0f});
@@ -54,24 +54,16 @@ namespace Pokerun{
         {
             Entidades::Obstaculos::Plataforma* pPlat = nullptr;
 
-            //5 posições pre definidas
+            //5 posicoes pre definidas
             std::vector<sf::Vector2f> posicoesPossiveis;
-            posicoesPossiveis.push_back(sf::Vector2f(100.f, 120.f));
-            posicoesPossiveis.push_back(sf::Vector2f(500.f, 190.f));
-            posicoesPossiveis.push_back(sf::Vector2f(300.f, 280.f));
-            posicoesPossiveis.push_back(sf::Vector2f(150.f, 370.f));
-            posicoesPossiveis.push_back(sf::Vector2f(400.f, 440.f));
+            posicoesPossiveis.push_back(sf::Vector2f(530.0f, 420.0f));
+            posicoesPossiveis.push_back(sf::Vector2f(70.0f, 180.0f));
+            posicoesPossiveis.push_back(sf::Vector2f(530.0f, 180.0f));
+            posicoesPossiveis.push_back(sf::Vector2f(120.0f, 420.0f));
+            posicoesPossiveis.push_back(sf::Vector2f(330.0f, 300.0f));
 
-            for (int i = 4; i > 0; i--)
-            {
-                int j = rand() % (i + 1);
-                sf::Vector2f temp = posicoesPossiveis[i];
-                posicoesPossiveis[i] = posicoesPossiveis[j];
-                posicoesPossiveis[j] = temp;
-            }
-
-            int n = rand() % 3 + 3; // 3 a 5 plataformas
-            for (int i = 0; i < n; i++)
+            int n = rand() % 3; // 3 a 5 plataformas
+            for (int i = n; i < maxPlataformas; i++)
             {
                 pPlat = new Entidades::Obstaculos::Plataforma();
                 pPlat->setPosicao(posicoesPossiveis[i]); //cada i pega uma posição única
@@ -335,7 +327,7 @@ namespace Pokerun{
         {   
             lista_ents.percorrer();//executa todos da lista polimorficamente
             GC.executar();
-            removerInativos();//aqui porque o GC.executar() seta inativos apos a logica de ataque
+            removerInativos();
             desenhar();
         }
     }

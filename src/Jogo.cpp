@@ -130,10 +130,12 @@ namespace Pokerun{
 
                     if(!pJogador1->getAtivo() && !pJogador2->getAtivo()){//fecha a janela quando ambos morrem por enquanto
                         gameOver(false);//perdeu
+                        break;
                     }
 
                     if(!pJogador1->getAtivo() && menu.getNumJogadores() == 1){//fecha janela quando jog1 morreu e so tem ele
                         gameOver(false);
+                        break;
                     }
                     if (pEvento->pausaPressionado()) {
                         setEstado(EstadoJogo::MENU);
@@ -158,6 +160,7 @@ namespace Pokerun{
                         else{   
                             if(Fase2.semInimigos()){
                                 gameOver(true);//venceu
+                                break;
                             }
                             else{
                                 Fase2.executar();
