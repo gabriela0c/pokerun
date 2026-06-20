@@ -6,7 +6,7 @@ namespace Pokerun{
         namespace Personagens{
 
             Personagem::Personagem(const sf::Vector2f tam, const sf::Vector2f v, int n_vds):
-            Entidade(tam, v.y), vel_x(v.x), noChao(false), noTeto(false), num_vidas(n_vds)
+            Entidade(tam, v.y), vel_x(v.x), noTeto(false), num_vidas(n_vds)
             {
 
             }
