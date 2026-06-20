@@ -62,7 +62,6 @@ namespace Pokerun{
 
         void FaseSegunda::criarObstaculos()
         {
-            criarPlataformas();
             criarFogos();
         }
 

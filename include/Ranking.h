@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 
-#define ARQ_RANKING "ranking.dat"
 #define MAX_RANKING 10   
 
 namespace Pokerun{

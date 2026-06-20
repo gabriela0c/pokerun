@@ -54,7 +54,6 @@ namespace Pokerun{
 
         void FasePrimeira::criarObstaculos()
         {
-            criarPlataformas();
             criarPocas();
         }
         

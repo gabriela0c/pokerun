@@ -34,6 +34,7 @@ namespace Pokerun{
             std::vector<sf::FloatRect> posicoesPlataformas;
             Entidades::Chao* pChao;
             const int maxBulbasaurs;//ja que ele esta em ambas as fases
+            const int maxPlataformas;
             sf::Font fonteHUD;
             sf::Texture texturaCoracao;
 

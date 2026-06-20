@@ -108,6 +108,7 @@ namespace Pokerun{
                     float d = distancia(centroChar, pJogador2->getPosition() + pJogador2->getSize() / 2.0f);
                     if(d < menorDist)
                     {
+                        menorDist = d;
                         alvo = pJogador2;
                     }
                 }

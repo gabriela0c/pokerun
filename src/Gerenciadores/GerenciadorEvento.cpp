@@ -124,19 +124,19 @@ namespace Pokerun{
                 }
                 else{
                     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left)) {
-                        pJogador2->getFig().move({-vX * modificador, 0.0f});
-                        pJogador2->getFig().setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
+                        pJog->getFig().move({-vX * modificador, 0.0f});
+                        pJog->getFig().setTextureRect(sf::IntRect({(int)tam.x, 0}, {(int)-tam.x, (int)tam.y}));
                     }
                     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right)) {
-                        pJogador2->getFig().move({vX * modificador, 0.0f});
-                        pJogador2->getFig().setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
+                        pJog->getFig().move({vX * modificador, 0.0f});
+                        pJog->getFig().setTextureRect(sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
                     }
                     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
-                        pJogador2->pular();
+                        pJog->pular();
                     }
 
                     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key::L)){
-                        pJogador2->setAtacando(true);
+                        pJog->setAtacando(true);
                     }
                 }
             } 

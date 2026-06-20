@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "Listas/Lista.h"
 #include "Entidades/Entidade.h"
 

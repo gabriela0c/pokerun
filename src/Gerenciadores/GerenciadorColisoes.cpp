@@ -116,8 +116,8 @@ namespace Pokerun{
                         }
                         it++;  
                     }
-                    it = Lobstaculos.begin();
                 }
+                it = Lobstaculos.begin();
             } 
         }
 

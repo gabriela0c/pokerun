@@ -12,8 +12,8 @@
 #define TAM_INIM_X 60.0f
 #define TAM_INIM_Y 60.0f
 
-#define RAIO_X 100.0f
-#define RAIO_Y 100.0f
+#define RAIO_X 130.0f
+#define RAIO_Y 130.0f
 
 
 namespace Pokerun{
@@ -28,6 +28,7 @@ namespace Pokerun{
                 Jogador* pJogador2;
                 int nivel_maldade;
                 int direcao;
+                float ultima_pos_x; 
                 float tempoMovimento;
                 int valorPontos;
                 float tempo_dano;
