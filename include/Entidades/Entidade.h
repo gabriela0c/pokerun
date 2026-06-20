@@ -24,6 +24,7 @@ namespace Pokerun{
             float tempo_total;
             bool ativo;
             std::ostream buffer; 
+            bool noChao;
 
         protected:
             virtual void salvarDataBuffer();

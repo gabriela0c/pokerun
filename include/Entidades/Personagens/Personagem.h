@@ -16,7 +16,6 @@ namespace Pokerun{
             class Personagem : public Entidade{
             protected:
                 float vel_x;
-                bool noChao;
                 bool noTeto;
                 int num_vidas;
 

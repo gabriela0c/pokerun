@@ -6,7 +6,7 @@ namespace Pokerun{
         
         Entidade::Entidade(const sf::Vector2f tam, const float vY): Ente(tam),
         x((float)(rand() % (int)(801 - tam.x))), y((float)(rand() % (int)(601 - tam.y))), y_inicial(y),
-        vel_y(vY), gravidade(GRAVIDADE), relogio(), dt(0.0f), tempo_total(0.0f), ativo(true), buffer(nullptr)
+        vel_y(vY), gravidade(GRAVIDADE), relogio(), dt(0.0f), tempo_total(0.0f), ativo(true), buffer(nullptr), noChao(false)
         {
             setPosicao({x, y});
         }
@@ -80,6 +80,8 @@ namespace Pokerun{
         //a aplicação do MHS foi uma ideia sugerida por IA e implementada pela dupla
         void Entidade::antiGravidade()
         {
+            if(noChao) return;
+            
             //conceito de ensino superior: movimento harmônico simples (MHS)
             float amplitude = 5.0f;          //altura do balanço em pixels
             float frequencia_angular = 2.0f;  //rapidez do balanço (rad/s)

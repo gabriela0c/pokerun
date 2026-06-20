@@ -65,7 +65,7 @@ namespace Pokerun{
                     tempo_ciclo = 0.0f;
                 }
  
-                if(!em_pausa)
+                if(!em_pausa || !noChao)
                 {
                     Inimigo::executar(); //só move quando não esta em pausa
                 }
