@@ -4,11 +4,9 @@ namespace Pokerun{
 
     namespace Fases{
 
-        FasePrimeira::FasePrimeira(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
-        Fase(pJog1, pJog2), maxWartortles(4), maxPocas(4)
+        FasePrimeira::FasePrimeira(): Fase(), maxWartortles(4), maxPocas(4)
         {
             setTextura("assets/sprites/fundos/fase1.png", sf::IntRect({0, 0}, {(int)WIN_SIZE_X, (int)WIN_SIZE_Y}));
-            criarCenario();
         }
 
         FasePrimeira::~FasePrimeira()

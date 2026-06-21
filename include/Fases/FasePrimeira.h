@@ -16,7 +16,7 @@ namespace Pokerun{
             std::string getNomeArquivo()const;
 
         public:
-        FasePrimeira(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
+        FasePrimeira();
         ~FasePrimeira();
         
         void criarWartortles();

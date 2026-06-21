@@ -37,7 +37,7 @@ namespace Pokerun{
             const int maxPlataformas;
 
         public:
-            Fase(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
+            Fase();
             virtual ~Fase();
 
             virtual void criarInimigos() = 0;
@@ -54,6 +54,7 @@ namespace Pokerun{
             void criarPlataformas();
             void criarCenario();
 
+            void setJogadores(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2 = nullptr);
             void ativaJogador(Entidades::Personagens::Jogador* pJog);
             void passarJogador(Entidades::Personagens::Jogador* pJog);
             void desativaEntidade(Entidades::Entidade* pE);

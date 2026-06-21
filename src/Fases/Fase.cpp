@@ -5,16 +5,13 @@ namespace Pokerun{
 
     namespace Fases{
  
-        Fase::Fase(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2):
-        Ente({WIN_SIZE_X, WIN_SIZE_Y}), lista_ents(), GC(), pJogador1(pJog1), pJogador2(pJog2), pChao(new Entidades::Chao()),
-        maxBulbasaurs(4), maxPlataformas(5)
+        Fase::Fase(): Ente({WIN_SIZE_X, WIN_SIZE_Y}), lista_ents(), GC(), pJogador1(nullptr), pJogador2(nullptr), 
+        pChao(new Entidades::Chao()), maxBulbasaurs(4), maxPlataformas(5)
         {
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
             pFigura->setPosition({0.0f, 0.0f});
             posicoesPlataformas.push_back(pChao->getFig().getGlobalBounds());//garante que plataformas nao vao ficar em cima do chao
 
-            lista_ents.incluir(static_cast<Entidades::Entidade*>(pJogador1));
-            GC.setJogador(pJog1);
             GC.setChao(pChao);
         }
 
@@ -78,6 +75,22 @@ namespace Pokerun{
         {
             lista_ents.remover(pE);
             GC.remover(pE);
+        }
+
+        void Fase::setJogadores(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2)
+        {
+            pJogador1 = pJog1;
+            pJogador2 = pJog2;
+
+            if (pJogador1) {
+                lista_ents.incluir(static_cast<Entidades::Entidade*>(pJogador1));
+                GC.setJogador(pJogador1);
+            }
+            
+            if (pJogador2) {
+                lista_ents.incluir(static_cast<Entidades::Entidade*>(pJogador2));
+                GC.setJogador(pJogador2); 
+            }
         }
 
         void Fase::ativaJogador(Entidades::Personagens::Jogador* pJog)

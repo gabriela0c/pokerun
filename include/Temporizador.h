@@ -17,6 +17,7 @@ namespace Pokerun{
         void iniciar();
         void atualizar();
         void parar();
+        void setDuracao(const float d);
 
         bool getAtivo()const;
     };

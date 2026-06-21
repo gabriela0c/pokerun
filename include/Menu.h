@@ -3,6 +3,7 @@
 #include "Gerenciadores/GerenciadorEvento.h"
 #include "Ente.h"
 #include "Ranking.h"
+#include "Botao.h"
 
 namespace Pokerun{
     class Jogo;
@@ -40,7 +41,7 @@ namespace Pokerun{
         void setJogo(Jogo* pJog);
 
         void desenhar();
-        void desenharOpcoes(std::vector<std::string> opcoes);
+        void desenharOpcoes(const std::vector<std::string>& opcoes);
         void desenharRanking();
         void desenharTelaNomes();
 

@@ -17,7 +17,7 @@ namespace Pokerun{
             std::string getNomeArquivo()const;
 
         public:
-            FaseSegunda(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
+            FaseSegunda();
             ~FaseSegunda();
             
             void criarCharizards();

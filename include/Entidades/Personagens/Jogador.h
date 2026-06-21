@@ -11,7 +11,7 @@
 #define LARGURA_RAICHU 48
 #define ALTURA_RAICHU 46
 
-#define N_VDS_JOG 10
+#define N_VDS_JOG 20
 
 namespace Pokerun{
 

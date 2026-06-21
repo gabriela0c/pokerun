@@ -30,6 +30,11 @@ namespace Pokerun{
             ativo = false;
         }
 
+        void Temporizador::setDuracao(const float d)
+        {
+            duracao = d;
+        }
+
         bool Temporizador::getAtivo()const
         {
             return ativo;
