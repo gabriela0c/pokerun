@@ -15,15 +15,7 @@ namespace Pokerun{
 
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pJogador1));
             GC.setJogador(pJog1);
-            //jogador 2 so eh incluido na lista e em GC se forem selecionados 2 jogadores no menu, senao ele eh incluido 2 vezes na lista
-            //e o sprite continua aparecendo apos ele morrer. Pro gerenciador de colisoes nao ocorre nenhum bug, so nao eh necessario
             GC.setChao(pChao);
-
-            if (!fonteHUD.openFromFile("assets/fonts/PokemonSolid.ttf"))
-                std::cerr << "Erro ao carregar fonte do HUD!" << std::endl;
-
-            if (!texturaCoracao.loadFromFile("assets/sprites/outros/vidas.png"))
-                std::cerr << "Erro ao carregar sprite do coracao!" << std::endl;
         }
 
         Fase::~Fase()
@@ -80,11 +72,6 @@ namespace Pokerun{
             // parede invisível na direita
             Entidades::Obstaculos::Plataforma* pParedeDir = new Entidades::Obstaculos::Plataforma({WIN_SIZE_X, 0.0f}, {100.0f, WIN_SIZE_Y});
             adicionarObstaculos(pParedeDir);
-        }
-
-        Entidades::Chao* Fase::getChao()const
-        {
-            return pChao;
         }
 
         void Fase::desativaEntidade(Entidades::Entidade* pE)

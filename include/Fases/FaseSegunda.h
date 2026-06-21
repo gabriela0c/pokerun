@@ -25,9 +25,6 @@ namespace Pokerun{
             
             void criarInimigos();
             void criarObstaculos();
-
-            void executar();
-        
         };
     }
 }

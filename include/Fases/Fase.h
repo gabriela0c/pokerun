@@ -33,10 +33,8 @@ namespace Pokerun{
             Entidades::Personagens::Jogador* pJogador2;
             std::vector<sf::FloatRect> posicoesPlataformas;
             Entidades::Chao* pChao;
-            const int maxBulbasaurs;//ja que ele esta em ambas as fases
+            const int maxBulbasaurs;
             const int maxPlataformas;
-            sf::Font fonteHUD;
-            sf::Texture texturaCoracao;
 
         public:
             Fase(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
@@ -59,8 +57,6 @@ namespace Pokerun{
             void ativaJogador(Entidades::Personagens::Jogador* pJog);
             void passarJogador(Entidades::Personagens::Jogador* pJog);
             void desativaEntidade(Entidades::Entidade* pE);
-
-            Entidades::Chao* getChao()const;
 
             void removerInativos();
             void limpaFase();

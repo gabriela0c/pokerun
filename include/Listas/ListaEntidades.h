@@ -19,10 +19,10 @@ namespace Pokerun{
             ~ListaEntidades();
 
             void incluir(Entidades::Entidade* pE);
-            void desenhaMembros();
             void remover(Entidades::Entidade* pE);
-            void limpar();
+            void desenhaMembros();
             void deletaMembros();
+            void limpar();
             
             Elem* getPrimeiro()const;
             int getTam()const;

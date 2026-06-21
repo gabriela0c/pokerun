@@ -24,7 +24,7 @@ namespace Pokerun {
             bool flagCima;
             bool flagBaixo;
             bool flagEnter;
-            std::string texto_digitado;
+            std::string textoDigitado;
 
             GerenciadorEvento(); //construtor privado para evitar que outra classe crie um novo
         public:
@@ -41,14 +41,12 @@ namespace Pokerun {
             const std::string getTextoDigitado()const;
 
             void removeJogador2();
+            void setJogador(Entidades::Personagens::Jogador* pJog);
 
             void resetFlags();
             void pollEvent();
-
-            void evento_movimento(Entidades::Personagens::Jogador* pJog);
+            void eventoMovimento(Entidades::Personagens::Jogador* pJog);
             
-            void setJogador(Entidades::Personagens::Jogador* pJog);
-
             void executar();
         };
 

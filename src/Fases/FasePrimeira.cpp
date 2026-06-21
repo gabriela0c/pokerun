@@ -56,10 +56,5 @@ namespace Pokerun{
         {
             criarPocas();
         }
-        
-        void FasePrimeira::executar()
-        {
-            Fase::executar();
-        }
     }
 }

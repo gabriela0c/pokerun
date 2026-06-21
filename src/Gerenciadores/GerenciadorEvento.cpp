@@ -7,7 +7,7 @@ namespace Pokerun{
         GerenciadorEvento* GerenciadorEvento::pEvento = nullptr;
 
         GerenciadorEvento::GerenciadorEvento(): pGrafico(GerenciadorGrafico::getGerenciadorGrafico()), pJogador1(nullptr), pJogador2(nullptr),
-        flagPausa(false), flagCima(false), flagBaixo(false), flagEnter(false), texto_digitado("")
+        flagPausa(false), flagCima(false), flagBaixo(false), flagEnter(false), textoDigitado("")
         {
 
         }
@@ -59,7 +59,7 @@ namespace Pokerun{
 
         const std::string GerenciadorEvento::getTextoDigitado()const
         {
-            return texto_digitado;
+            return textoDigitado;
         }
 
         void GerenciadorEvento::setJogador(Entidades::Personagens::Jogador* pJog)
@@ -91,13 +91,13 @@ namespace Pokerun{
                 }
                 else if(const auto* text = event->getIf<sf::Event::TextEntered>()){
                     if(text->unicode < 128){ //só ASCII                 
-                    texto_digitado += (char)(text->unicode);
+                    textoDigitado += (char)(text->unicode);
                     }
                 }
             }
         }
 
-        void GerenciadorEvento::evento_movimento(Entidades::Personagens::Jogador* pJog)
+        void GerenciadorEvento::eventoMovimento(Entidades::Personagens::Jogador* pJog)
         {
             if (pJog) 
             {
@@ -149,11 +149,11 @@ namespace Pokerun{
         void GerenciadorEvento::executar() 
         {
             resetFlags();
-            texto_digitado.clear(); 
+            textoDigitado.clear(); 
             pollEvent();
 
-            evento_movimento(pJogador1);
-            evento_movimento(pJogador2);  
+            eventoMovimento(pJogador1);
+            eventoMovimento(pJogador2);  
         }
     }
 }

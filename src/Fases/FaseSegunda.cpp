@@ -64,11 +64,5 @@ namespace Pokerun{
         {
             criarFogos();
         }
-
-        void FaseSegunda::executar()
-        {
-            Fase::executar(); //desenha fundo + entidades
-        }
-
     }
 }
