@@ -12,18 +12,17 @@ namespace Pokerun{
             const int maxWartortles;
             const int maxPocas;
 
-        private:
-            std::string getNomeArquivo()const;
-
         public:
-        FasePrimeira(Entidades::Personagens::Jogador* pJog1 = nullptr, Entidades::Personagens::Jogador* pJog2 = nullptr);
-        ~FasePrimeira();
+            FasePrimeira();
+            ~FasePrimeira();
         
-        void criarWartortles();
-        void criarPocas();
+            void criarWartortles();
+            void criarPocas();
         
-        void criarInimigos();
-        void criarObstaculos();
+            void criarInimigos();
+            void criarObstaculos();
+
+            std::string getNomeArquivo()const;
         };
     }
 }

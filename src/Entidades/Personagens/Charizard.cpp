@@ -48,7 +48,7 @@ namespace Pokerun{
                 if(pProj){
                     pProjetil = pProj;
                     // aplica o nivel de maldade como dano do projétil
-                    pProjetil->setDano(NIVEL_MALD_CHEFAO);
+                    pProjetil->setDano(nivel_maldade);
                 }
             }
  

@@ -15,7 +15,7 @@ namespace Pokerun {
     {
         if(pFigura){
             delete pFigura;
-        pFigura = nullptr;
+            pFigura = nullptr;
         }
     }
 

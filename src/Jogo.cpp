@@ -2,10 +2,16 @@
 
 namespace Pokerun{
 
-    Jogo::Jogo():
-    estado(EstadoJogo::MENU), pGrafico(Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico()), pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()),
-    pJogador1(new Entidades::Personagens::Jogador(true)), pJogador2(new Entidades::Personagens::Jogador(false)), Fase1(pJogador1, pJogador2), Fase2(pJogador1, pJogador2)
+    Jogo::Jogo(): estado(EstadoJogo::MENU), pGrafico(Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico()), 
+    pEvento(Gerenciadores::GerenciadorEvento::getGerenciadorEvento()), pJogador1(new Entidades::Personagens::Jogador(true)), 
+    pJogador2(new Entidades::Personagens::Jogador(false)), Fase1(), Fase2()
     {   
+        Fase1.setJogadores(pJogador1, pJogador2);
+        Fase2.setJogadores(pJogador1, pJogador2);
+
+        Fase1.criarCenario();
+        Fase2.criarCenario();
+
         pEvento->setJogador(pJogador1);
         
         menu.setJogo(this);
@@ -14,11 +20,15 @@ namespace Pokerun{
 
     Jogo::~Jogo()
     {
-        delete pJogador1;
-        pJogador1 = nullptr;
+        if(pJogador1){
+            delete pJogador1;
+            pJogador1 = nullptr;
+        }
 
-        delete pJogador2;
-        pJogador2 = nullptr;
+        if(pJogador2){
+            delete pJogador2;
+            pJogador2 = nullptr;
+        }
 
         Gerenciadores::GerenciadorGrafico::destruir();
         Gerenciadores::GerenciadorEvento::destruir();

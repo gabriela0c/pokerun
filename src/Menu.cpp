@@ -142,25 +142,15 @@ namespace Pokerun{
         }
     }
 
-    void Menu::desenharOpcoes(std::vector<std::string> opcoes)
+    void Menu::desenharOpcoes(const std::vector<std::string> opcoes)
     {
-        sf::Text texto(fonte);
-        texto.setCharacterSize(30);
-
         float posY = 200.0f;
 
         for(int i = 0; i < (int)opcoes.size(); i++){
-            texto.setString(opcoes[i]);//atribui a string na posicao i do vetor ao texto
-
-            texto.setFillColor((i == opcaoSelecionada) ? sf::Color::Yellow : sf::Color::Black);
-
-            sf::FloatRect bounds = texto.getLocalBounds();//pega as posicoes e tamanho do texto
-
-            texto.setPosition({(WIN_SIZE_X/2) - (bounds.size.x/2), posY});//centraliza a posicao
-            
-            pGG->desenhaElementos(texto);
-
-            posY += 60.0f;//incrementa a posicao em y para os textos ficarem espacados
+            Botao btn(opcoes[i], fonte, {WIN_SIZE_X / 2.0f, posY});
+            btn.setSelecionado(i == opcaoSelecionada);
+            btn.desenhar(pGG->getWindow());
+            posY += 60.0f;
         }
     }
 
