@@ -51,7 +51,6 @@ namespace Pokerun{
                 }
  
                 p->ativarInvencibilidade();
-                std::cout << "Bulbasaur danificou " << (p->getEhJogador1() ? "Pikachu" : "Raichu") << "! Vidas: " << p->getNumvidas() << std::endl;
             }
 
             void Bulbasaur::executar()
@@ -61,7 +60,7 @@ namespace Pokerun{
                 cd_chicote.atualizar();
 
                 if (!cd_chicote.getAtivo()) {
-                    if (chicoteVinha(pJogador1) || chicoteVinha(pJogador2))// tenta puxar o jogador mais próximo
+                    if (chicoteVinha(pJogador1) || chicoteVinha(pJogador2))// tenta puxar jog1, se não der tenta puxar jog2
                         cd_chicote.iniciar();
                 }
 

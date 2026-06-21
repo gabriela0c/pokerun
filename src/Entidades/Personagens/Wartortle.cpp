@@ -65,9 +65,9 @@ namespace Pokerun{
                     tempo_ciclo = 0.0f;
                 }
  
-                if(!em_pausa || !noChao)
+                if(!em_pausa || !noChao)//garante que ele nao trave no ar
                 {
-                    Inimigo::executar(); //só move quando não esta em pausa
+                    Inimigo::executar(); 
                 }
             }
         }
