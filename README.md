@@ -12,8 +12,13 @@ O comando para a compilação e execução é "ming32-make ; ./bin/jogo.exe".
 - Gabriela Cardoso Machado - gabriela.2007@alunos.utfpr.edu.br
 - Geraldo Moreno Dutra de Andrade - geraldomoreno@alunos.utfpr.edu.br
 
+# Referências
+- No início do projeto, tivemos como base os vídeos do monitor Giovane Limas Salvi.
+- O padrão de projeto 'Singleton' também foi implementado a partir dos vídeos do monitor Giovane Limas Salvi.
+- Os sprites dos personagens foram retirados do site oficial da franquia (https://pokemondb.net/sprites), enquanto os sprites de fundos, obstáculos e etc foram gerados por IA.
+
 # Documentação
 
 - Artigo Relatório: https://docs.google.com/document/d/1_7be7D_qphDaFJeDHjow-HYOVlJ0D7w_Pq7_7ocmZLo/edit?tab=t.0
 
-- Slides: *
+- Slides: https://canva.link/15pcb2q6qt4a83z
