@@ -7,6 +7,8 @@
 
 #define GRAVIDADE 600.0f
 #define VEL_TERM 240.0f
+//para garantir que o spawn aleatorio dos inimigos não seja dentro do chao e ele caia para fora do mapa
+#define TAM_CHAO_Y 50.0f 
 
 namespace Pokerun{
 

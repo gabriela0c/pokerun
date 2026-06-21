@@ -5,7 +5,7 @@ namespace Pokerun{
     namespace Entidades{
         
         Entidade::Entidade(const sf::Vector2f tam, const float vY): Ente(tam),
-        x((float)(rand() % (int)(801 - tam.x))), y((float)(rand() % (int)(601 - tam.y))), y_inicial(y),
+        x((float)(rand() % (int)(801 - tam.x))), y((float)(rand() % (int)(601 - tam.y - TAM_CHAO_Y))), y_inicial(y),
         vel_y(vY), gravidade(GRAVIDADE), relogio(), dt(0.0f), tempo_total(0.0f), ativo(true), buffer(nullptr), noChao(false)
         {
             setPosicao({x, y});
