@@ -29,11 +29,6 @@ namespace Pokerun {
         return *pFigura;
     }
 
-    const sf::RectangleShape& Ente::getFig()const
-    {
-        return *pFigura;
-    }
-
     void Ente::setTextura(const std::string caminho, const sf::IntRect bounds)
     {
         if(!textura.loadFromFile(caminho)){ 

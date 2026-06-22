@@ -66,7 +66,6 @@ namespace Pokerun{
 
                 bool getInvencivel()const;
                 void ativarInvencibilidade();
-                void imprimirStatus() const;
                 void executar();
             };
         }
