@@ -17,20 +17,6 @@ namespace Pokerun{
                     setTextura("assets/sprites/obstaculos/plataforma-cura.png", sf::IntRect({0, 0}, dimensoes));
             }
 
-            Plataforma::Plataforma(sf::Vector2f pos,sf::Vector2f dim):
-            Obstaculo(dim, false, true), dimensoes(dim), pode_curar((rand() % 100) < 30), cura_consumida(false)
-            {
-                pFigura->setFillColor(sf::Color::Blue);
-                if(pode_curar == false)
-                    setTextura("assets/sprites/obstaculos/plataforma.png", sf::IntRect({0, 0}, dimensoes));
-                else
-                    setTextura("assets/sprites/obstaculos/plataforma-cura.png", sf::IntRect({0, 0}, dimensoes));
-
-                pFigura->setPosition(pos);
-                sincronizarPosicao();
-                y_inicial = y;
-            }
-
             Plataforma::~Plataforma()
             {
 
