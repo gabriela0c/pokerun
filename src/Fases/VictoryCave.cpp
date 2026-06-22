@@ -1,25 +1,25 @@
-#include "Fases/FaseSegunda.h"
+#include "Fases/VictoryCave.h"
 
 namespace Pokerun{
 
     namespace Fases{
 
-        FaseSegunda::FaseSegunda(): Fase(), maxCharizards(4), maxFogos(4)
+        VictoryCave::VictoryCave(): Fase(), maxCharizards(4), maxFogos(4)
         {
             setTextura("assets/sprites/fundos/fase2.png", sf::IntRect({0, 0}, {TAM_CAVERNA_X, TAM_CAVERNA_Y}));
         }
 
-        FaseSegunda::~FaseSegunda()
+        VictoryCave::~VictoryCave()
         {
 
         }
 
-        std::string FaseSegunda::getNomeArquivo()const
+        std::string VictoryCave::getNomeArquivo()const
         {
             return "Fase2.dat";
         }
 
-        void FaseSegunda::criarCharizards()
+        void VictoryCave::criarCharizards()
         {
             Entidades::Personagens::Charizard* pChar = nullptr;
             int n = rand() % 2;
@@ -38,7 +38,7 @@ namespace Pokerun{
             }
         }
         
-        void FaseSegunda::criarFogos()
+        void VictoryCave::criarFogos()
         {
             int n = rand() % 2;
 
@@ -52,13 +52,13 @@ namespace Pokerun{
             }
         }
 
-        void FaseSegunda::criarInimigos()
+        void VictoryCave::criarInimigos()
         {
             criarBulbasaurs();
             criarCharizards();
         }
 
-        void FaseSegunda::criarObstaculos()
+        void VictoryCave::criarObstaculos()
         {
             criarFogos();
         }

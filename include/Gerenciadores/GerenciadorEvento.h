@@ -26,7 +26,7 @@ namespace Pokerun {
             bool flagEnter;
             std::string textoDigitado;
 
-            GerenciadorEvento(); //construtor privado para evitar que outra classe crie um novo
+            GerenciadorEvento(); //construtor privado para evitar que outra classe crie um novo - Singleton
         public:
             ~GerenciadorEvento();
 

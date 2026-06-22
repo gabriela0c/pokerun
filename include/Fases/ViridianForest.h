@@ -7,14 +7,14 @@ namespace Pokerun{
 
     namespace Fases{
 
-        class FasePrimeira : public Fase{
+        class ViridianForest : public Fase{
         private:
             const int maxWartortles;
             const int maxPocas;
 
         public:
-            FasePrimeira();
-            ~FasePrimeira();
+            ViridianForest();
+            ~ViridianForest();
         
             void criarWartortles();
             void criarPocas();

@@ -7,7 +7,8 @@ namespace Pokerun{
     namespace Gerenciadores{
 
         GerenciadorColisoes::GerenciadorColisoes():
-        pJogador1(nullptr), pJogador2(nullptr), Linimigos(), Lobstaculos(), setProjeteis(), pChao(nullptr)
+        pJogador1(nullptr), pJogador2(nullptr), Linimigos(), Lobstaculos(), setProjeteis(), pChao(nullptr),
+        limiteEsquerdo(0.0f), limiteDireito(WIN_SIZE_X)
         {
             Linimigos.clear();
             Lobstaculos.clear();
@@ -176,6 +177,21 @@ namespace Pokerun{
                     colisaoPersonagemEntidade(pJogador2, pChao);
                 }
             }
+
+            std::list<Entidades::Obstaculos::Obstaculo*>::iterator it = Lobstaculos.begin();
+            while (it != Lobstaculos.end())
+            {
+                if (*it && verificarColisao(pChao, *it))
+                {
+                    (*it)->pousar();
+                    //reposiciona o obstaculo em cima do chao
+                    sf::FloatRect b = (*it)->getFig().getGlobalBounds();
+                    sf::FloatRect chao = pChao->getFig().getGlobalBounds();
+                    (*it)->getFig().setPosition({b.position.x, chao.position.y - b.size.y});
+                    (*it)->sincronizarPosicao();
+                }
+                it++;
+            }
         }
 
         void GerenciadorColisoes::tratarColisoesProjeteis()
@@ -226,6 +242,25 @@ namespace Pokerun{
                     pProj->guardar();
                 }
             }
+        }
+
+        void GerenciadorColisoes::tratarColisoesParedes()
+        {
+            tratarParedePersonagem(pJogador1);
+            tratarParedePersonagem(pJogador2);
+
+            for (int i = 0; i < (int)Linimigos.size(); i++)
+                tratarParedePersonagem(Linimigos[i]);
+        }
+
+        void GerenciadorColisoes::tratarParedePersonagem(Entidades::Personagens::Personagem* pP)
+        {
+            if (!pP) { return; }
+            sf::FloatRect b = pP->getFig().getGlobalBounds();
+            if (b.position.x < limiteEsquerdo)
+                pP->getFig().setPosition(sf::Vector2f(limiteEsquerdo, b.position.y));
+            else if (b.position.x + b.size.x > limiteDireito)
+                pP->getFig().setPosition(sf::Vector2f(limiteDireito - b.size.x, b.position.y));
         }
 
         void GerenciadorColisoes::aplicarAtaqueJog(Entidades::Personagens::Jogador* pJog)
@@ -435,6 +470,7 @@ namespace Pokerun{
             tratarColisoesJogsJogs();
             tratarColisoesPersChao();
             tratarColisoesProjeteis();
+            tratarColisoesParedes();
             aplicarAtaqueJog(pJogador1);
             aplicarAtaqueJog(pJogador2);
         }

@@ -9,14 +9,14 @@ namespace Pokerun{
 
     namespace Fases{
 
-        class FaseSegunda : public Fase{
+        class VictoryCave : public Fase{
         private:
             const int maxCharizards;
             const int maxFogos;
 
         public:
-            FaseSegunda();
-            ~FaseSegunda();
+            VictoryCave();
+            ~VictoryCave();
             
             void criarCharizards();
             void criarFogos();

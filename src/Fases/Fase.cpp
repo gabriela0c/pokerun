@@ -61,14 +61,6 @@ namespace Pokerun{
                 adicionarObstaculos(pPlat);
                 pPlat = nullptr;
             }
-
-            // parede invisível na esquerda
-            Entidades::Obstaculos::Plataforma* pParedeEsq = new Entidades::Obstaculos::Plataforma({-100.0f, 0.0f}, {100.0f, WIN_SIZE_Y});
-            adicionarObstaculos(pParedeEsq);
-
-            // parede invisível na direita
-            Entidades::Obstaculos::Plataforma* pParedeDir = new Entidades::Obstaculos::Plataforma({WIN_SIZE_X, 0.0f}, {100.0f, WIN_SIZE_Y});
-            adicionarObstaculos(pParedeDir);
         }
 
         void Fase::desativaEntidade(Entidades::Entidade* pE)

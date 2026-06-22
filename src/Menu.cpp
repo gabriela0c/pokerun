@@ -119,7 +119,7 @@ namespace Pokerun{
             }
 
             case TelaMenu::SELECIONAR_FASE:{
-                std::vector<std::string> opcoes = {"Fase 1", "Fase 2"};
+                std::vector<std::string> opcoes = {"Fase 1 - Viridian Forest", "Fase 2 - Victory Cave"};
                 desenharOpcoes(opcoes);
             break;
             }

@@ -31,6 +31,12 @@ namespace Pokerun{
             {
                 return solido;
             }
+
+            void Obstaculo::pousar()
+            {
+                noChao = true;
+                vel_y = 0.0f;
+            }
         }
     }
 }

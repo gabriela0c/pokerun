@@ -4,8 +4,8 @@
 #include <cstdio>
 
 #include "EstadoJogo.h"
-#include "Fases/FasePrimeira.h"
-#include "Fases/FaseSegunda.h"
+#include "Fases/ViridianForest.h"
+#include "Fases/VictoryCave.h"
 #include "Gerenciadores/GerenciadorEvento.h"
 #include "Menu.h"
 
@@ -18,8 +18,8 @@ namespace Pokerun{
         Gerenciadores::GerenciadorEvento* pEvento;
         Entidades::Personagens::Jogador* pJogador1;
         Entidades::Personagens::Jogador* pJogador2;
-        Fases::FasePrimeira Fase1;
-        Fases::FaseSegunda Fase2;
+        Fases::ViridianForest Fase1;
+        Fases::VictoryCave Fase2;
         Menu menu;
 
     public:

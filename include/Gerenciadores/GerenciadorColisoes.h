@@ -28,6 +28,8 @@ namespace Pokerun{
             std::list<Entidades::Obstaculos::Obstaculo*> Lobstaculos;
             std::set<Entidades::Projetil*> setProjeteis;
             Entidades::Chao* pChao;
+            float limiteEsquerdo;
+            float limiteDireito;
 
         public:
             GerenciadorColisoes();
@@ -41,6 +43,8 @@ namespace Pokerun{
             void tratarColisoesJogsJogs();
             void tratarColisoesPersChao();
             void tratarColisoesProjeteis();
+            void tratarColisoesParedes();
+            void tratarParedePersonagem(Entidades::Personagens::Personagem* pP);
 
             void aplicarAtaqueJog(Entidades::Personagens::Jogador* pJog);
             const bool inRange(Entidades::Personagens::Jogador* pJog, Entidades::Personagens::Inimigo* pInim)const;

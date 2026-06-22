@@ -19,6 +19,8 @@ namespace Pokerun{
                 virtual ~Obstaculo();
 
                 const bool isSolido()const;
+                virtual void pousar();
+                
                 virtual void salvarDataBuffer();
                 virtual void carregarDataBuffer(std::istream& is);
                 virtual void salvar() = 0;
