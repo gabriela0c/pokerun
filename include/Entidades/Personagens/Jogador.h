@@ -47,7 +47,6 @@ namespace Pokerun{
                 int getPontos()const;
                 void curarVida();
 
-                virtual void desenhar(); // Sobrescreve o método de Ente
                 void desenharHuds();
 
                 void diminui_vel(float taxa);

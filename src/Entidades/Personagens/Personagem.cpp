@@ -44,6 +44,12 @@ namespace Pokerun{
                 noChao = nC;
             }
 
+            void Personagem::desenhar()
+            {
+                Ente::desenhar(); 
+                desenharHuds();
+            }
+
             void Personagem::operator--()
             {
                 if(num_vidas > 0){num_vidas--;}

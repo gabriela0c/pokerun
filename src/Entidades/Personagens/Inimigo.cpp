@@ -129,12 +129,6 @@ namespace Pokerun{
                 return valorPontos;
             }
 
-            void Inimigo::desenhar()
-            {
-                Ente::desenhar(); 
-                desenharHuds();
-            }
-
             void Inimigo::desenharHuds()
             {
                 if (num_vidas > 0)

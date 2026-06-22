@@ -101,16 +101,6 @@ namespace Pokerun{
                     num_vidas++;
             }
 
-            void Jogador::desenhar()
-            {
-                //desenha primeiro o personagem
-                Ente::desenhar();
-
-                //depois desenha o hud dele
-                if (getAtivo())
-                    desenharHuds();
-            }
-
             void Jogador::desenharHuds()
             {
                 sf::Sprite spriteCoracao(texturaCoracao);

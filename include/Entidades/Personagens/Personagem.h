@@ -33,6 +33,8 @@ namespace Pokerun{
                 void operator--();
                 int getNumvidas()const;
 
+                void desenhar();
+
                 virtual void salvarDataBuffer();
                 virtual void carregarDataBuffer(std::istream& is);
                 virtual void salvar() = 0;
