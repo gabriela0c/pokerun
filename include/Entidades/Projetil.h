@@ -31,7 +31,7 @@ namespace Pokerun {
             bool voando;
 
         public:
-            Projetil(float velX = 0, int dano = DANO_PROJETIL);
+            Projetil(float velX = 0, int d = DANO_PROJETIL);
             ~Projetil();
 
             void salvarDataBuffer();  

@@ -4,8 +4,8 @@
 namespace Pokerun {
     namespace Entidades {
  
-        Projetil::Projetil(float velX, int danoProjt)
-        : Entidade({LARGURA_PROJ, ALTURA_PROJ}, 0.0f), vel_x(velX), dano(danoProjt), pCharizard(nullptr), voando(false)
+        Projetil::Projetil(float velX, int d)
+        : Entidade({LARGURA_PROJ, ALTURA_PROJ}, 0.0f), vel_x(velX), dano(d), pCharizard(nullptr), voando(false)
         {
             setTextura("assets/sprites/outros/fogo-charizard.png",
             sf::IntRect({0, 0}, {TAMANHO_PROJ_X, TAMANHO_PROJ_Y}));
