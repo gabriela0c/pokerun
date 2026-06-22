@@ -40,7 +40,7 @@ namespace Pokerun{
 
                 void setJogador(Jogador* pJog);
 
-                void executar();
+                virtual void executar();
                 void mover();
                 void movimentoAleatorio();
 

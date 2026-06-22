@@ -70,7 +70,7 @@ namespace Pokerun{
                 }
             }
  
-            sf::Vector2f Charizard::getDirProjetil()
+            sf::Vector2f Charizard::getDirProjetil()const
             {
                 sf::Vector2f posChar = getPosition();
                 Jogador* jog = jogadorMaisProximo();
@@ -86,7 +86,7 @@ namespace Pokerun{
                 return std::sqrt(dx * dx + dy * dy);
             }
  
-            Jogador* Charizard::jogadorMaisProximo()
+            Jogador* Charizard::jogadorMaisProximo()const
             {
                 Jogador* alvo = nullptr;
                 float menorDist = (float)raio_ataque;

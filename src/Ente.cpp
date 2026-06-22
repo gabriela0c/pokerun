@@ -19,11 +19,6 @@ namespace Pokerun {
         }
     }
 
-    void Ente::setGG(Gerenciadores::GerenciadorGrafico* pG)
-    {
-        pGG = pG;
-    }
-
     const int Ente::getID()const
     {
         return id;
@@ -39,7 +34,7 @@ namespace Pokerun {
         return *pFigura;
     }
 
-    void Ente::setTextura(std::string caminho, sf::IntRect bounds)
+    void Ente::setTextura(const std::string caminho, const sf::IntRect bounds)
     {
         if(!textura.loadFromFile(caminho)){ 
             std::cout << "Nao foi possivel carregar a textura do jogador" << std::endl;

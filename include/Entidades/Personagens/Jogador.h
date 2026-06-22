@@ -62,7 +62,7 @@ namespace Pokerun{
 
                 void setAtacando(const bool a);
                 const bool getAtacando()const;
-                const bool podeAtacar();
+                const bool podeAtacar()const;
                 void iniciarCooldown();
 
                 bool getInvencivel()const;

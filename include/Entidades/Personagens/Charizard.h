@@ -37,9 +37,9 @@ namespace Pokerun{
                 void salvarDataBuffer();  
                 void carregarDataBuffer(std::istream& is);
                 void salvar();     
-                sf::Vector2f getDirProjetil();
+                sf::Vector2f getDirProjetil()const;
                 
-                Jogador* jogadorMaisProximo();
+                Jogador* jogadorMaisProximo()const;
                 float distancia(sf::Vector2f a, sf::Vector2f b) const;
 
                 void executar();

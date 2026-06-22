@@ -20,9 +20,7 @@ namespace Pokerun {
 
         const int getID()const;
 
-        static void setGG(Gerenciadores::GerenciadorGrafico* pG);
-
-        void setTextura(std::string caminho, sf::IntRect bounds);
+        void setTextura(const std::string caminho, const sf::IntRect bounds);
 
         sf::RectangleShape& getFig();
         const sf::RectangleShape& getFig()const; //sobrecarga de metodo necessaria pois getFig necessita referencia const 

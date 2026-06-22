@@ -69,7 +69,7 @@ namespace Pokerun{
             y_inicial = y;
         }
 
-        sf::Vector2f Entidade::calcularDirecao(sf::Vector2f posAlvo, sf::Vector2f posFonte)
+        sf::Vector2f Entidade::calcularDirecao(sf::Vector2f posAlvo, sf::Vector2f posFonte)const
         {
             sf::Vector2f res = posAlvo - posFonte;
             return {((res.x >= 0.0f) ? 1.0f : -1.0f), ((res.y >= 0.0f) ? 1.0f : -1.0f)};

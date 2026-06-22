@@ -37,22 +37,22 @@ namespace Pokerun{
             }
         }
 
-        const bool GerenciadorEvento::pausaPressionado()
+        const bool GerenciadorEvento::pausaPressionado()const
         {
             return flagPausa;
         }
 
-        const bool GerenciadorEvento::cimaPressionado()
+        const bool GerenciadorEvento::cimaPressionado()const
         {
             return flagCima;
         }
 
-        const bool GerenciadorEvento::baixoPressionado()
+        const bool GerenciadorEvento::baixoPressionado()const
         {
             return flagBaixo;
         }
 
-        const bool GerenciadorEvento::enterPressionado()
+        const bool GerenciadorEvento::enterPressionado()const
         {
             return flagEnter;
         }

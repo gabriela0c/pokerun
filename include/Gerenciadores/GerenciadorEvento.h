@@ -33,10 +33,10 @@ namespace Pokerun {
             static GerenciadorEvento* getGerenciadorEvento();
             static void destruir();
 
-            const bool cimaPressionado();
-            const bool baixoPressionado();
-            const bool enterPressionado();
-            const bool pausaPressionado();
+            const bool cimaPressionado()const;
+            const bool baixoPressionado()const;
+            const bool enterPressionado()const;
+            const bool pausaPressionado()const;
 
             const std::string getTextoDigitado()const;
 

@@ -199,7 +199,7 @@ namespace Pokerun{
                 return atacando;
             }
 
-            const bool Jogador::podeAtacar()
+            const bool Jogador::podeAtacar()const
             {
                 return (!cd_ataque.getAtivo());
             }
