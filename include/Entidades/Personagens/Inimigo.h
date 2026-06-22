@@ -44,7 +44,7 @@ namespace Pokerun{
                 void mover();
                 void movimentoAleatorio();
 
-                void salvarDataBuffer();        
+                virtual void salvarDataBuffer();        
                 virtual void carregarDataBuffer(std::istream& is);
                 virtual void salvar() = 0;            
 

@@ -219,14 +219,7 @@ namespace Pokerun{
 
                 reposicionar();
             }
-
-            void Jogador::imprimirStatus() const
-            {
-                std::cout << "Status do Jogador:" << std::endl;
-                std::cout << "Vidas: " << num_vidas << std::endl;
-                std::cout << "Pontos: " << pontos << std::endl;
-            }
-
+            
             void Jogador::executar()
             {
                 modificador_velocidade = 1.0f;
