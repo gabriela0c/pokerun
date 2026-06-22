@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "Gerenciadores/GerenciadorGrafico.h"
 
 namespace Pokerun {

@@ -42,7 +42,7 @@ namespace Pokerun{
 
                 virtual void executar();
                 void mover();
-                void movimentoAleatorio();
+                void movimentoAleatorio();//a ideia de usar esse método veio do ex monitor Giovane Limas Salvi, mas a implementação difere bastante
 
                 virtual void salvarDataBuffer();        
                 virtual void carregarDataBuffer(std::istream& is);

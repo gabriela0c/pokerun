@@ -161,7 +161,6 @@ namespace Pokerun{
             void Jogador::envenenar()
             {
                 veneno.iniciar();
-                std::cout << (ehJogador1 ? "Jogador 1 (Pikachu)" : "Jogador 2 (Raichu)") << " foi envenenado!" << std::endl;
             }
 
             bool Jogador::getEhJogador1() const
@@ -224,13 +223,9 @@ namespace Pokerun{
             {
                 modificador_velocidade = 1.0f;
 
-                bool estavaEnvenenado = veneno.getAtivo();
                 veneno.atualizar();
-                
-                if(!veneno.getAtivo() && estavaEnvenenado){
-                    std::cout << (ehJogador1 ? "Jogador 1 (Pikachu)" : "Jogador 2 (Raichu)") << " se curou do veneno!" << std::endl;
-                }
-                else if(veneno.getAtivo()){
+
+                if(veneno.getAtivo()){
                     diminui_vel(0.4f);
                 }
 
@@ -244,7 +239,6 @@ namespace Pokerun{
                 if (num_vidas <= 0)
                 {
                     setAtivo(false);
-                    std::cout << (ehJogador1 ? "Jogador 1 (Pikachu) morto!" : "Jogador 2 (Raichu) morto!") << std::endl;
                 }
             }
         }

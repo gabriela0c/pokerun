@@ -45,10 +45,10 @@ namespace Pokerun{
 
             //5 posicoes pre definidas
             std::vector<sf::Vector2f> posicoesPossiveis;
-            posicoesPossiveis.push_back(sf::Vector2f(530.0f, 420.0f));
+            posicoesPossiveis.push_back(sf::Vector2f(530.0f, 430.0f));
             posicoesPossiveis.push_back(sf::Vector2f(70.0f, 180.0f));
             posicoesPossiveis.push_back(sf::Vector2f(530.0f, 180.0f));
-            posicoesPossiveis.push_back(sf::Vector2f(120.0f, 420.0f));
+            posicoesPossiveis.push_back(sf::Vector2f(120.0f, 430.0f));
             posicoesPossiveis.push_back(sf::Vector2f(330.0f, 300.0f));
 
             int n = rand() % 3; // 3 a 5 plataformas

@@ -59,8 +59,6 @@ namespace Pokerun{
                     queimar(pJog);
                     //intensidade 1: 1 de dano + knockback
                     //intensidade 2: 2 de dano + knockback
-                    
-                std::cout << "Fogo queimou " << (pJog->getEhJogador1() ? "Pikachu" : "Raichu") << "! (intensidade =" << intensidade << ") Vidas: " << pJog->getNumvidas() << std::endl;
                 }
             }
         }

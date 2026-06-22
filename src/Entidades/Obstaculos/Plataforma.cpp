@@ -1,5 +1,4 @@
 #include "Entidades/Obstaculos/Plataforma.h"
-#include <iostream>
 
 namespace Pokerun{
 
@@ -57,10 +56,8 @@ namespace Pokerun{
                 {
                     cura_consumida = true;
                     
-                    pJog->curarVida(); 
-                    
-                    std::cout << "Plataforma magica curou o " << (pJog->getEhJogador1() ? "Pikachu" : "Raichu") << "! Vidas: " << pJog->getNumvidas() << std::endl;
-                    
+                    pJog->curarVida();
+
                     sf::Vector2f tam = pFigura->getSize();
                     setTextura("assets/sprites/obstaculos/plataforma.png", sf::IntRect({0, 0}, {(int)tam.x, (int)tam.y}));
                 }

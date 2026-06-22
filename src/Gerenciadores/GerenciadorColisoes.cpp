@@ -1,5 +1,4 @@
 #include "Gerenciadores/GerenciadorColisoes.h"
-#include <iostream>
 #include <cmath>
 #include <algorithm>
 
@@ -225,7 +224,6 @@ namespace Pokerun{
                             pJogador1->operator--();
                         }
                         pJogador1->ativarInvencibilidade();
-                        std::cout << "Projetil acertou Pikachu! Vidas: " << pJogador1->getNumvidas() << std::endl;
                     }
                     pProj->guardar();
                 }
@@ -237,7 +235,6 @@ namespace Pokerun{
                             pJogador2->operator--();
                         }
                         pJogador2->ativarInvencibilidade();
-                        std::cout << "Projetil acertou Raichu! Vidas: " << pJogador2->getNumvidas() << std::endl;
                     }
                     pProj->guardar();
                 }

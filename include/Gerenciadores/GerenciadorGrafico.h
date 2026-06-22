@@ -1,4 +1,6 @@
 #pragma once 
+//esse modelo de gerenciador de eventos foi inicialmente baseado no desenvolvido pelo ex monitor da disciplina
+//Giovane Limas Salvi, mas só bem a base, o resto foi implementado pelos integrantes da equipe
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
