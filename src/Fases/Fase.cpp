@@ -96,8 +96,8 @@ namespace Pokerun{
         //essa funcao apesar de ser mto parecida com ativa jogador é necessaria para a logica se passar de fase
         void Fase::passarJogador(Entidades::Personagens::Jogador* pJog)//porque um jogador morto em uma fase n pode reviver na proxima
         {
-            if(pJog && pJog->getAtivo()){   
-                lista_ents.remover(pJog);   
+            if(pJog && pJog->getAtivo()){
+                lista_ents.remover(pJog);
                 lista_ents.incluir(pJog);
                 GC.setJogador(pJog);
             }
