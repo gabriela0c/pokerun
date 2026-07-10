@@ -276,6 +276,8 @@ namespace Pokerun{
                 if(pEvento->enterPressionado()){
                     numJogadores = opcaoSelecionada + 1;//guarda o numero de jogadores escolhido
                     telaAtual = TelaMenu::DIGITAR_NOME;//vai para a area de digitar nomes
+                    nomes[0].clear();
+                    nomes[1].clear();
                     opcaoSelecionada = 0;
                 }
             break;
@@ -320,11 +322,13 @@ namespace Pokerun{
                         telaAtual = TelaMenu::INICIO;
                         opcaoSelecionada = 0;
                         pJogo->setEstado(EstadoJogo::MENU);
+                        pJogo->resetJogo();
                     }
                     else if(opcaoSelecionada == 2){//Inicio (sem salvar)
                         telaAtual = TelaMenu::INICIO;
                         opcaoSelecionada = 0;
                         pJogo->setEstado(EstadoJogo::MENU);
+                        pJogo->resetJogo();
                     }
                 }
             break;

@@ -78,7 +78,7 @@ namespace Pokerun{
         {
             Elem* pAux = LEs.getPrimeiro();
             while(pAux!=nullptr){
-                if(pAux->getInfo()){
+                if(pAux->getInfo() && pAux->getInfo()->getAtivo()){
                     pAux->getInfo()->desenhar();
                 }    
             pAux = pAux->getProx();
@@ -104,7 +104,7 @@ namespace Pokerun{
 
             while(pAux != nullptr){
                 
-                if(pAux->getInfo()){
+                if(pAux->getInfo() && pAux->getInfo()->getAtivo()){
                     (pAux->getInfo())->executar();
                     (pAux->getInfo())->sincronizarPosicao();
                 }

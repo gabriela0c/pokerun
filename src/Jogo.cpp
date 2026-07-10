@@ -83,6 +83,11 @@ namespace Pokerun{
         menu.registrarRanking(pJogador1->getPontos(), pJogador2->getPontos());
         menu.irParaFimJogo(resultado);           
         setEstado(EstadoJogo::MENU);
+        resetJogo();
+    }
+
+    void Jogo::resetJogo()
+    {
         Fase1.limpaFase();
         Fase2.limpaFase();
         pJogador1->resetar();
@@ -138,7 +143,7 @@ namespace Pokerun{
 
                 case EstadoJogo::JOGANDO:{
 
-                    if(!pJogador1->getAtivo() && !pJogador2->getAtivo()){//fecha a janela quando ambos morrem por enquanto
+                    if(!pJogador1->getAtivo() && !pJogador2->getAtivo()){
                         gameOver(false);//perdeu
                         break;
                     }

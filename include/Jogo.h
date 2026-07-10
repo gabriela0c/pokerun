@@ -30,6 +30,7 @@ namespace Pokerun{
         void continuarJogo();
 
         void gameOver(const bool resultado);
+        void resetJogo();
 
         void setEstado(EstadoJogo est);
         EstadoJogo getEstado()const;

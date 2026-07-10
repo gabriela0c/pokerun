@@ -27,6 +27,7 @@ namespace Pokerun{
         const bool GerenciadorColisoes::verificarColisao(Entidades::Entidade* pe1, Entidades::Entidade* pe2) const
         {
             if(!pe1 || !pe2){ return false; }
+            if(!pe1->getAtivo() || !pe2->getAtivo()) {return false;} //se um deles não esta ativo não quero que colidam
 
             sf::FloatRect b1 = pe1->getFig().getGlobalBounds();
             sf::FloatRect b2 = pe2->getFig().getGlobalBounds();
@@ -284,6 +285,8 @@ namespace Pokerun{
 
         const bool GerenciadorColisoes::inRange(Entidades::Personagens::Jogador* pJog, Entidades::Personagens::Inimigo* pInim)const
         {
+            if(!pJog->getAtivo() || !pInim->getAtivo()) {return false;}
+           
             sf::FloatRect a = pJog->getFig().getGlobalBounds();
             sf::FloatRect b = pInim->getFig().getGlobalBounds();
 

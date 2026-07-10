@@ -319,7 +319,7 @@ namespace Pokerun{
         {   
             lista_ents.percorrer();//executa todos da lista polimorficamente
             GC.executar();
-            removerInativos();
+            //removerInativos();
             desenhar();
         }
     }
