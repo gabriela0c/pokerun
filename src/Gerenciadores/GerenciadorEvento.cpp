@@ -7,7 +7,7 @@ namespace Pokerun{
         GerenciadorEvento* GerenciadorEvento::pEvento = nullptr;
 
         GerenciadorEvento::GerenciadorEvento(): pGrafico(GerenciadorGrafico::getGerenciadorGrafico()), pJogador1(nullptr), pJogador2(nullptr),
-        flagPausa(false), flagCima(false), flagBaixo(false), flagEnter(false), textoDigitado("")
+        flagEsc(false), flagCima(false), flagBaixo(false), flagEnter(false), textoDigitado("")
         {
 
         }
@@ -37,9 +37,9 @@ namespace Pokerun{
             }
         }
 
-        const bool GerenciadorEvento::pausaPressionado()const
+        const bool GerenciadorEvento::escPressionado()const
         {
-            return flagPausa;
+            return flagEsc;
         }
 
         const bool GerenciadorEvento::cimaPressionado()const
@@ -75,7 +75,7 @@ namespace Pokerun{
             flagCima  = false;
             flagBaixo = false;
             flagEnter = false;
-            flagPausa = false;
+            flagEsc = false;
         }
 
         void GerenciadorEvento::pollEvent()
@@ -87,7 +87,7 @@ namespace Pokerun{
                     if(key->code == sf::Keyboard::Key::Up){flagCima = true;}
                     if(key->code == sf::Keyboard::Key::Down){flagBaixo = true;}
                     if(key->code == sf::Keyboard::Key::Enter){flagEnter = true;}
-                    if(key->code == sf::Keyboard::Key::Escape){flagPausa = true;}
+                    if(key->code == sf::Keyboard::Key::Escape){flagEsc = true;}
                 }
                 else if(const auto* text = event->getIf<sf::Event::TextEntered>()){
                     if(text->unicode < 128){ //só ASCII                 

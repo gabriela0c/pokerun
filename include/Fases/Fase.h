@@ -54,12 +54,8 @@ namespace Pokerun{
             void criarPlataformas();
             void criarCenario();
 
-            void setJogadores(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2 = nullptr);
-            void ativaJogador(Entidades::Personagens::Jogador* pJog);
-            void passarJogador(Entidades::Personagens::Jogador* pJog);
-            void desativaEntidade(Entidades::Entidade* pE);
+            void setJogadores(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2);
 
-            void removerInativos();
             void limpaFase();
 
             const bool semInimigos()const;

@@ -379,46 +379,6 @@ namespace Pokerun{
             }
         }
 
-        void GerenciadorColisoes::remover(Entidades::Entidade* pE)
-        {
-            if (!pE) { return; }
-
-            if (pJogador1 == pE){ 
-                pJogador1 = nullptr; 
-                return;
-            }
-            
-            if (pJogador2 == pE){ 
-                pJogador2 = nullptr; 
-                return;
-            }
-
-            for (int i = 0; i < (int)Linimigos.size(); i++){
-                if (Linimigos[i] == pE) {
-                    Linimigos.erase(Linimigos.begin() + i); 
-                    return;                      
-                }
-            }
-
-            std::list<Entidades::Obstaculos::Obstaculo*>::iterator it = Lobstaculos.begin();
-            while (it != Lobstaculos.end()) {
-                if (*it == pE) {
-                    Lobstaculos.erase(it);
-                    return;
-                }
-                it++;
-            }
-
-            std::set<Entidades::Projetil*>::iterator itProj = setProjeteis.begin();
-            while (itProj != setProjeteis.end()) {
-                if (*itProj == pE) {
-                    setProjeteis.erase(itProj);
-                    return;
-                }
-                itProj++;
-            }
-        }
-
         void GerenciadorColisoes::limparListas()
         {
             Linimigos.clear();
@@ -426,6 +386,15 @@ namespace Pokerun{
             setProjeteis.clear();
             pJogador1 = nullptr;
             pJogador2 = nullptr;
+        }
+
+        bool GerenciadorColisoes::todosInimsInativos()const
+        {        
+            for(int i = 0; i < (int)Linimigos.size(); i++){
+                if(Linimigos[i]->getAtivo()){return false;}
+            }
+           
+            return true;
         }
 
         void GerenciadorColisoes::setChao(Entidades::Chao* pCh)
@@ -454,11 +423,6 @@ namespace Pokerun{
             if(pProj){ 
                 setProjeteis.insert(pProj); 
             }
-        }
-
-        const int GerenciadorColisoes::getNumInimigos()const
-        {
-            return (int)Linimigos.size();
         }
 
         void GerenciadorColisoes::executar()

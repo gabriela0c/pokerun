@@ -25,13 +25,10 @@ namespace Pokerun{
             void limpar();
             
             Elem* getPrimeiro()const;
-            int getTam()const;
 
             void conectaBuffer(std::ostream& arquivo);
 
-            std::vector<Entidades::Entidade*> getInativos()const;
-
-            void percorrer();
+            void executarMembros();
         };
     }
 }

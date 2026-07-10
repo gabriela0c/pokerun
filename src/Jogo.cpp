@@ -13,6 +13,7 @@ namespace Pokerun{
         Fase2.criarCenario();
 
         pEvento->setJogador(pJogador1);
+        pEvento->setJogador(pJogador2);
         
         menu.setJogo(this);
         executar();
@@ -99,24 +100,8 @@ namespace Pokerun{
     void Jogo::setEstado(EstadoJogo est)
     {
         if(est == EstadoJogo::JOGANDO){
-            if(menu.getNumJogadores() == 2){
-                pEvento->setJogador(pJogador2);// só ativa se escolheu 2 jogadores
-                  
-                if(menu.getFaseEscolhida() == 1)
-                    Fase1.ativaJogador(pJogador2);
-                else
-                    Fase2.ativaJogador(pJogador2);
-            }
-            else{
-                pEvento->removeJogador2();
-                pJogador2->setAtivo(false); 
-                if(menu.getFaseEscolhida() == 1)
-                    Fase1.desativaEntidade(pJogador2);
-                else   
-                    Fase2.desativaEntidade(pJogador2);
-            }
+            menu.getNumJogadores() == 2 ? pJogador2->setAtivo(true) : pJogador2->setAtivo(false);
         }   
-
         estado = est;
     }
 
@@ -148,11 +133,11 @@ namespace Pokerun{
                         break;
                     }
 
-                    if(!pJogador1->getAtivo() && menu.getNumJogadores() == 1){//fecha janela quando jog1 morreu e so tem ele
+                    if(!pJogador1->getAtivo() && menu.getNumJogadores() == 1){//gameOver quando jog1 morreu e so tem ele
                         gameOver(false);
                         break;
                     }
-                    if (pEvento->pausaPressionado()) {
+                    if (pEvento->escPressionado()) {
                         setEstado(EstadoJogo::MENU);
                         menu.irParaPausa(); //seta o estado da tela do menu para pausa
                     }
@@ -160,14 +145,8 @@ namespace Pokerun{
                         if(menu.getFaseEscolhida() == 1)//logica de pasar de fase
                             if(Fase1.semInimigos()){
                                 menu.setFaseEscolhida(2);
-                                Fase2.passarJogador(pJogador1);
-                                if(menu.getNumJogadores() == 2){
-                                    Fase2.passarJogador(pJogador2);
-                                }
                                 pJogador1->reposicionar();
-                                if(pJogador2->getAtivo()){
-                                    pJogador2->reposicionar();
-                                }
+                                pJogador2->reposicionar();
                             }
                             else{
                                 Fase1.executar();

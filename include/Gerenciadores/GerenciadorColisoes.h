@@ -53,15 +53,13 @@ namespace Pokerun{
             void colisaoPersonagemEntidade(Entidades::Personagens::Personagem* pP, Entidades::Entidade* pE);
 
             void setJogador(Entidades::Personagens::Jogador* pJog);
-            void remover(Entidades::Entidade* pE);
-            void limparListas();
             void setChao(Entidades::Chao* pCh);
+            void limparListas();
+            bool todosInimsInativos()const;
 
             void incluirInimigo(Entidades::Personagens::Inimigo* pI);
             void incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO);
             void incluirProjetil(Entidades::Projetil* pProj);
-
-            const int getNumInimigos()const;
 
             void executar();
         };

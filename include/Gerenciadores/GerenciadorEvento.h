@@ -22,7 +22,7 @@ namespace Pokerun {
             GerenciadorGrafico* pGrafico;
             Entidades::Personagens::Jogador* pJogador1;
             Entidades::Personagens::Jogador* pJogador2;
-            bool flagPausa;
+            bool flagEsc;
             bool flagCima;
             bool flagBaixo;
             bool flagEnter;
@@ -38,7 +38,7 @@ namespace Pokerun {
             const bool cimaPressionado()const;
             const bool baixoPressionado()const;
             const bool enterPressionado()const;
-            const bool pausaPressionado()const;
+            const bool escPressionado()const;
 
             const std::string getTextoDigitado()const;
 

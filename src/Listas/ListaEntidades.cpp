@@ -39,27 +39,6 @@ namespace Pokerun{
             return LEs.getPrimeiro();
         }
 
-        int ListaEntidades::getTam()const
-        {
-            return LEs.getTam();
-        }
-
-        std::vector<Entidades::Entidade*> ListaEntidades::getInativos()const
-        {
-            std::vector<Entidades::Entidade*> inativos;
-            
-            Elem* pAux = LEs.getPrimeiro();
-
-            while(pAux != nullptr){
-                if(pAux->getInfo() && !pAux->getInfo()->getAtivo()){//nem verifica a segunda condicao se a primeira for falsa, nao da seg fault
-                    inativos.push_back(pAux->getInfo());
-                }
-                pAux = pAux->getProx();
-            }
-
-            return inativos;
-        }
-
         void ListaEntidades::conectaBuffer(std::ostream& arquivo)
         {
             Elem* pAux = LEs.getPrimeiro();
@@ -98,7 +77,7 @@ namespace Pokerun{
             }
         }
 
-        void ListaEntidades::percorrer()
+        void ListaEntidades::executarMembros()
         {
             Elem* pAux = LEs.getPrimeiro();
 

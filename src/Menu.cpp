@@ -273,6 +273,11 @@ namespace Pokerun{
                 if(pEvento->cimaPressionado() &&  opcaoSelecionada > 0) {opcaoSelecionada--;}
                 if(pEvento->baixoPressionado() &&  opcaoSelecionada < 1) {opcaoSelecionada++;}
 
+                if(pEvento->escPressionado()){
+                    telaAtual = TelaMenu::INICIO;
+                    opcaoSelecionada = 0;
+                }
+
                 if(pEvento->enterPressionado()){
                     numJogadores = opcaoSelecionada + 1;//guarda o numero de jogadores escolhido
                     telaAtual = TelaMenu::DIGITAR_NOME;//vai para a area de digitar nomes
@@ -292,6 +297,11 @@ namespace Pokerun{
                 capturarNome();
                 bool pronto = nomesPreenchidos();
 
+                if(pEvento->escPressionado()){
+                    telaAtual = TelaMenu::SELECIONAR_JOGADORES;
+                    opcaoSelecionada = 0;
+                }
+
                 if(pEvento->enterPressionado() && pronto){
                     telaAtual = TelaMenu::SELECIONAR_FASE;//vai para a tela de selecao de fase
                     opcaoSelecionada = 0;
@@ -302,6 +312,11 @@ namespace Pokerun{
             case TelaMenu::SELECIONAR_FASE:{
                 if(pEvento->cimaPressionado() &&  opcaoSelecionada > 0) {opcaoSelecionada--;}
                 if(pEvento->baixoPressionado() &&  opcaoSelecionada < 1) {opcaoSelecionada++;}
+
+                if(pEvento->escPressionado()){
+                    telaAtual = TelaMenu::DIGITAR_NOME;
+                    opcaoSelecionada = 0;
+                }
 
                 if(pEvento->enterPressionado()){
                     faseEscolhida = opcaoSelecionada + 1;//guarda a fase escolhida

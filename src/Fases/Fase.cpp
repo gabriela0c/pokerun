@@ -9,9 +9,7 @@ namespace Pokerun{
         pChao(new Entidades::Chao()), maxBulbasaurs(4), maxPlataformas(5)
         {
             lista_ents.incluir(static_cast<Entidades::Entidade*>(pChao));
-            pFigura->setPosition({0.0f, 0.0f});
             posicoesPlataformas.push_back(pChao->getFig().getGlobalBounds());//garante que plataformas nao vao ficar em cima do chao
-
             GC.setChao(pChao);
         }
 
@@ -63,44 +61,17 @@ namespace Pokerun{
             }
         }
 
-        void Fase::desativaEntidade(Entidades::Entidade* pE)
-        {
-            lista_ents.remover(pE);
-            GC.remover(pE);
-        }
-
         void Fase::setJogadores(Entidades::Personagens::Jogador* pJog1, Entidades::Personagens::Jogador* pJog2)
         {
             pJogador1 = pJog1;
             pJogador2 = pJog2;
 
-            if (pJogador1) {
-                lista_ents.incluir(pJogador1);
-                GC.setJogador(pJogador1);
-            }
+            lista_ents.incluir(pJogador1);
+            GC.setJogador(pJogador1);
             
-            if (pJogador2) {
-                lista_ents.incluir(pJogador2);
-                GC.setJogador(pJogador2); 
-            }
-        }
+            lista_ents.incluir(pJogador2);
+            GC.setJogador(pJogador2); 
 
-        void Fase::ativaJogador(Entidades::Personagens::Jogador* pJog)
-        {
-            lista_ents.remover(pJog); //garante que nao seja incluido 2x
-            lista_ents.incluir(pJog);
-            GC.setJogador(pJog);
-            pJog->setAtivo(true);
-        }
-
-        //essa funcao apesar de ser mto parecida com ativa jogador é necessaria para a logica se passar de fase
-        void Fase::passarJogador(Entidades::Personagens::Jogador* pJog)//porque um jogador morto em uma fase n pode reviver na proxima
-        {
-            if(pJog && pJog->getAtivo()){
-                lista_ents.remover(pJog);
-                lista_ents.incluir(pJog);
-                GC.setJogador(pJog);
-            }
         }
 
         void Fase::adicionarInimigos(Entidades::Personagens::Inimigo* pInim)
@@ -156,20 +127,7 @@ namespace Pokerun{
 
         const bool Fase::semInimigos()const
         {
-            return (GC.getNumInimigos() == 0);
-        }
-
-        void Fase::removerInativos()
-        {
-            std::vector<Entidades::Entidade*> lInativos = lista_ents.getInativos();
-
-            for(int i = 0; i < (int)lInativos.size(); i++){
-                desativaEntidade(lInativos[i]);
-                //se for inimigo deleta (eles nao revivem), se jogador pode so inativar (porque tem como mudar de 2 pra 1 e 1 pra 2)
-                if(lInativos[i] != pJogador1 && lInativos[i] != pJogador2){ 
-                    delete lInativos[i]; //o remover da lista nao deleta info, so tira da lista e deleta o ELEMENTO
-                }
-            }
+           return (GC.todosInimsInativos());
         }
 
         void Fase::gravaFase()
@@ -255,11 +213,9 @@ namespace Pokerun{
 
                 if(tipo == "JOGADOR1"){ 
                     pE = pJogador1; 
-                    ativaJogador(pJogador1); 
                 }
                 else if(tipo == "JOGADOR2"){
                     pE = pJogador2; 
-                    ativaJogador(pJogador2); 
                 }
                 else{
                     pE = criarPorTipo(tipo);
@@ -317,9 +273,8 @@ namespace Pokerun{
 
         void Fase::executar()
         {   
-            lista_ents.percorrer();//executa todos da lista polimorficamente
+            lista_ents.executarMembros();//executa todos da lista polimorficamente
             GC.executar();
-            //removerInativos();
             desenhar();
         }
     }
