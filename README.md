@@ -25,6 +25,7 @@ Setas para cima para pular
 - Menu:
 Setas para percorrer botões
 "Enter" para selecionar opções
+"Esc" para voltar para a tela anterior
 
 ## Autores
 - Gabriela Cardoso Machado - gabriela.2007@alunos.utfpr.edu.br
