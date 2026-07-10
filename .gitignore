@@ -7,7 +7,11 @@
 *.o
 *.obj
 
+#coisas proprias da maquina de Geraldo
 .vscode/
+*.ps1
+*.ico
+assets/imagens/Icone.png
 
 # Precompiled Headers
 *.gch

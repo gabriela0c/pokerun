@@ -1,7 +1,7 @@
 CXX = g++
 # -MMD -MP: gera dependencias de header (.d) para recompilar certo quando um .h muda
 CXXFLAGS = -std=c++17 -Wall -I./include -I./sfml/include -MMD -MP
-LDFLAGS = -L./sfml/lib -lsfml-graphics -lsfml-window -lsfml-system -mconsole
+LDFLAGS = -L./sfml/lib -lsfml-graphics -lsfml-window -lsfml-system -mwindows
 
 SRC_DIR = src
 OBJ_DIR = obj
