@@ -275,7 +275,7 @@ namespace Pokerun{
                     if(inRange(pJog, Linimigos[i])){
                         Linimigos[i]->receberDano(1);
                     }
-                    if(Linimigos[i]->getNumvidas() <= 0){
+                    if(Linimigos[i]->getAtivo() && Linimigos[i]->getNumvidas() <= 0){
                         pJog->operator+=(Linimigos[i]->getValorPontos());
                         Linimigos[i]->setAtivo(false);
                     }
@@ -391,7 +391,9 @@ namespace Pokerun{
         bool GerenciadorColisoes::todosInimsInativos()const
         {        
             for(int i = 0; i < (int)Linimigos.size(); i++){
-                if(Linimigos[i]->getAtivo()){return false;}
+                if(Linimigos[i]){
+                    if(Linimigos[i]->getAtivo()){return false;}
+                }
             }
            
             return true;
