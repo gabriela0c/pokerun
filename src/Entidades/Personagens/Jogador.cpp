@@ -161,6 +161,7 @@ namespace Pokerun{
             void Jogador::envenenar()
             {
                 veneno.iniciar();
+                pFigura->setFillColor(sf::Color::Green);
             }
 
             bool Jogador::getEhJogador1() const
@@ -222,11 +223,15 @@ namespace Pokerun{
             void Jogador::executar()
             {
                 modificador_velocidade = 1.0f;
+                bool estavaEnvenenado = veneno.getAtivo();
 
                 veneno.atualizar();
 
                 if(veneno.getAtivo()){
                     diminui_vel(0.4f);
+                }
+                else if(estavaEnvenenado){
+                    pFigura->setFillColor(sf::Color::White);
                 }
 
                 invencibilidade.atualizar();
